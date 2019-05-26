@@ -1,0 +1,19 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is Button Held(Event Player, Primary Fire));
+		Set Global Variable(A, Is Button Held(Event Player, Secondary Fire));
+		Set Global Variable(A, Is Button Held(Event Player, Ability 1));
+		Set Global Variable(A, Is Button Held(Event Player, Ability 2));
+		Set Global Variable(A, Is Button Held(Event Player, Ultimate));
+		Set Global Variable(A, Is Button Held(Event Player, Interact));
+		Set Global Variable(A, Is Button Held(Event Player, Jump));
+		Set Global Variable(A, Is Button Held(Event Player, Crouch));
+	}
+}

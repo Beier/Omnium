@@ -1,0 +1,25 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is Communicating(Event Player, Voice Line Up));
+		Set Global Variable(A, Is Communicating(Event Player, Voice Line Left));
+		Set Global Variable(A, Is Communicating(Event Player, Voice Line Right));
+		Set Global Variable(A, Is Communicating(Event Player, Voice Line Down));
+		Set Global Variable(A, Is Communicating(Event Player, Emote Up));
+		Set Global Variable(A, Is Communicating(Event Player, Emote Left));
+		Set Global Variable(A, Is Communicating(Event Player, Emote Right));
+		Set Global Variable(A, Is Communicating(Event Player, Emote Down));
+		Set Global Variable(A, Is Communicating(Event Player, Ultimate Status));
+		Set Global Variable(A, Is Communicating(Event Player, Hello));
+		Set Global Variable(A, Is Communicating(Event Player, Need Healing));
+		Set Global Variable(A, Is Communicating(Event Player, Group Up));
+		Set Global Variable(A, Is Communicating(Event Player, Thanks));
+		Set Global Variable(A, Is Communicating(Event Player, Acknowledge));
+	}
+}

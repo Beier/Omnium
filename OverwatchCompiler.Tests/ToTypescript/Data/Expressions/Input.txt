@@ -1,0 +1,241 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Absolute Value(0));
+		Set Global Variable(A, Add(0, 0));
+		Set Global Variable(A, All Dead Players(All Teams));
+		Set Global Variable(A, All Heroes);
+		Set Global Variable(A, All Living Players(All Teams));
+		Set Global Variable(A, All Players(All Teams));
+		Set Global Variable(A, All Players Not On Objective(All Teams));
+		Set Global Variable(A, All Players On Objective(All Teams));
+		Set Global Variable(A, Allowed Heroes(Event Player));
+		Set Global Variable(A, Altitude Of(Event Player));
+	}
+}
+
+rule("Rule 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, And(True, True));
+		Set Global Variable(A, Angle Difference(0, 0));
+		Set Global Variable(A, Append To Array(All Players(All Teams), 0));
+		Set Global Variable(A, Array Contains(All Players(All Teams), 0));
+		Set Global Variable(A, Array Slice(Global Variable(A), 0, 0));
+		Set Global Variable(A, Attacker);
+		Set Global Variable(A, Backward);
+		Set Global Variable(A, Closest Player To(Vector(0, 0, 0), All Teams));
+		Set Global Variable(A, Compare(0, ==, 0));
+		Set Global Variable(A, Control Mode Scoring Percentage(All Teams));
+	}
+}
+
+rule("Rule 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Control Mode Scoring Team);
+		Set Global Variable(A, Cosine From Degrees(0));
+		Set Global Variable(A, Cosine From Radians(0));
+		Set Global Variable(A, Count Of(Global Variable(A)));
+		Set Global Variable(A, Cross Product(Vector(0, 0, 0), Vector(0, 0, 0)));
+		Set Global Variable(A, Current Array Element);
+		Set Global Variable(A, Direction From Angles(0, 0));
+		Set Global Variable(A, Direction Towards(Vector(0, 0, 0), Vector(0, 0, 0)));
+		Set Global Variable(A, Distance Between(Vector(0, 0, 0), Vector(0, 0, 0)));
+		Set Global Variable(A, Divide(0, 0));
+	}
+}
+
+rule("Rule 4")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Dot Product(Vector(0, 0, 0), Vector(0, 0, 0)));
+		Set Global Variable(A, Down);
+		Set Global Variable(A, Empty Array);
+		Set Global Variable(A, Entity Exists(Event Player));
+		Set Global Variable(A, Event Damage);
+		Set Global Variable(A, Event Was Critical Hit);
+		Set Global Variable(A, Eye Position(Event Player));
+		Set Global Variable(A, Facing Direction Of(Event Player));
+		Set Global Variable(A, Farthest Player From(Vector(0, 0, 0), All Teams));
+		Set Global Variable(A, Filtered Array(All Players(All Teams), Compare(0, ==, 0)));
+	}
+}
+
+rule("Rule 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, First Of(Global Variable(A)));
+		Set Global Variable(A, Flag Position(All Teams));
+		Set Global Variable(A, Forward);
+		Set Global Variable(A, Has Spawned(Event Player));
+		Set Global Variable(A, Has Status(Event Player, Hacked));
+		Set Global Variable(A, Health(Event Player));
+		Set Global Variable(A, Health Percent(Event Player));
+		Set Global Variable(A, Hero(Ana));
+		Set Global Variable(A, Hero Icon String(Hero(Ana)));
+		Set Global Variable(A, Hero Of(Event Player));
+	}
+}
+
+rule("Rule 6")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Horizontal Angle From Direction(Vector(0, 0, 0)));
+		Set Global Variable(A, Horizontal Angle Towards(Event Player, Vector(0, 0, 0)));
+		Set Global Variable(A, Horizontal Facing Angle Of(Event Player));
+		Set Global Variable(A, Horizontal Speed Of(Event Player));
+		Set Global Variable(A, Index Of Array Value(All Players(All Teams), 0));
+		Set Global Variable(A, Is Alive(Event Player));
+		Set Global Variable(A, Is Assembling Heroes);
+		Set Global Variable(A, Is Between Rounds);
+		Set Global Variable(A, Is Button Held(Event Player, Primary Fire));
+		Set Global Variable(A, Is Communicating(Event Player, Voice Line Up));
+	}
+}
+
+rule("Rule 7")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is Communicating Any(Event Player));
+		Set Global Variable(A, Is Communicating Any Emote(Event Player));
+		Set Global Variable(A, Is Communicating Any Voice line(Event Player));
+		Set Global Variable(A, Is Control Mode Point Locked);
+		Set Global Variable(A, Is Crouching(Event Player));
+		Set Global Variable(A, Is CTF Mode In Sudden Death);
+		Set Global Variable(A, Is Dead(Event Player));
+		Set Global Variable(A, Is Firing Primary(Event Player));
+		Set Global Variable(A, Is Firing Secondary(Event Player));
+		Set Global Variable(A, Is Flag At Base(All Teams));
+	}
+}
+
+rule("Rule 8")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is Flag Being Carried(All Teams));
+		Set Global Variable(A, Is Game In Progress);
+		Set Global Variable(A, Is Hero Being Played(Hero(Ana), All Teams));
+		Set Global Variable(A, Is In Air(Event Player));
+		Set Global Variable(A, Is In Line of Sight(Vector(0, 0, 0), Vector(0, 0, 0), Barriers Do Not Block LOS));
+		Set Global Variable(A, Is In Setup);
+		Set Global Variable(A, Is In Spawn Room(Event Player));
+		Set Global Variable(A, Is In View Angle(Event Player, Vector(0, 0, 0), 45));
+		Set Global Variable(A, Is Match Complete);
+		Set Global Variable(A, Is Moving(Event Player));
+	}
+}
+
+rule("Rule 9")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is Objective Complete(0));
+		Set Global Variable(A, Is On Ground(Event Player));
+		Set Global Variable(A, Is On Objective(Event Player));
+		Set Global Variable(A, Is On Wall(Event Player));
+		Set Global Variable(A, Is Portrait On Fire(Event Player));
+		Set Global Variable(A, Is Standing(Event Player));
+		Set Global Variable(A, Is Team On Defense(All Teams));
+		Set Global Variable(A, Is Team On Offense(All Teams));
+		Set Global Variable(A, Is True For All(Global Variable(A), Compare(0, ==, 0)));
+		Set Global Variable(A, Is True For Any(Global Variable(A), Compare(0, ==, 0)));
+	}
+}
+
+rule("Rule 10")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is Using Ability 1(Event Player));
+		Set Global Variable(A, Is Using Ability 2(Event Player));
+		Set Global Variable(A, Is Using Ultimate(Event Player));
+		Set Global Variable(A, Is Waiting For Players);
+		Set Global Variable(A, Last Created Entity);
+		Set Global Variable(A, Last Damage Modification ID);
+		Set Global Variable(A, Last Damage Over Time ID);
+		Set Global Variable(A, Last Heal Over Time ID);
+		Set Global Variable(A, Last Of(Global Variable(A)));
+		Set Global Variable(A, Last Text ID);
+	}
+}
+
+rule("Rule 11")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Left);
+		Set Global Variable(A, Local Vector Of(Vector(0, 0, 0), Event Player, Rotation));
+		Set Global Variable(A, Match Round);
+		Set Global Variable(A, Match Time);
+		Set Global Variable(A, Max(0, 0));
+		Set Global Variable(A, Max Health(Event Player));
+		Set Global Variable(A, Min(0, 0));
+		Set Global Variable(A, Modulo(0, 0));
+		Set Global Variable(A, Multiply(0, 0));
+		Set Global Variable(A, Nearest Walkable Position(Vector(0, 0, 0)));
+	}
+}

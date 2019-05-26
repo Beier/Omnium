@@ -1,0 +1,14 @@
+﻿rule("LineOfSightBlockType")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Is In Line of Sight(Vector(0, 0, 0), Vector(0, 0, 0), Barriers Do Not Block LOS));
+		Set Global Variable(A, Is In Line of Sight(Vector(0, 0, 0), Vector(0, 0, 0), Enemy Barriers Block LOS));
+		Set Global Variable(A, Is In Line of Sight(Vector(0, 0, 0), Vector(0, 0, 0), All Barriers Block LOS));
+	}
+}

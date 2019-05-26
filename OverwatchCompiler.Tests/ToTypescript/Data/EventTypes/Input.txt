@@ -1,0 +1,67 @@
+﻿rule("Rule 0")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+}
+
+rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		D.Va;
+	}
+}
+
+rule("Rule 2")
+{
+	event
+	{
+		Player earned elimination;
+		Team 2;
+		Slot 7;
+	}
+}
+
+rule("Rule 3")
+{
+	event
+	{
+		Player dealt final blow;
+		All;
+		All;
+	}
+}
+
+rule("Rule 4")
+{
+	event
+	{
+		Player dealt damage;
+		Team 1;
+		Torbjörn;
+	}
+}
+
+rule("Rule 5")
+{
+	event
+	{
+		Player took damage;
+		Team 2;
+		Mercy;
+	}
+}
+
+rule("Rule 6")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		Slot 0;
+	}
+}

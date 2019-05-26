@@ -1,0 +1,10 @@
+﻿var a;
+
+rule("Rule 7",
+	Events.Ongoing.global,
+	() => {
+		a = Vector(0, 0, 0).toLocalCoordinatesFor(Event.player, VectorTransformationType.Rotation);
+		a = Vector(0, 0, 0).toLocalCoordinatesFor(Event.player, VectorTransformationType.RotationAndTranslation);
+	}
+);
+

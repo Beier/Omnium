@@ -1,0 +1,1 @@
+java -jar "..\libraries\antlr\antlr-4.7.2-complete.jar" -visitor -Dlanguage=CSharp -o "antlr\generated"  "antlr\OverwatchCode.g4"

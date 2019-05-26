@@ -1,0 +1,13 @@
+﻿rule("Rule 7")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Local Vector Of(Vector(0, 0, 0), Event Player, Rotation));
+		Set Global Variable(A, Local Vector Of(Vector(0, 0, 0), Event Player, Rotation And Translation));
+	}
+}

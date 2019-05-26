@@ -1,0 +1,21 @@
+﻿rule("test status")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Has Status(Event Player, Hacked));
+		Set Global Variable(A, Has Status(Event Player, Burning));
+		Set Global Variable(A, Has Status(Event Player, Knocked Down));
+		Set Global Variable(A, Has Status(Event Player, Asleep));
+		Set Global Variable(A, Has Status(Event Player, Frozen));
+		Set Global Variable(A, Has Status(Event Player, Unkillable));
+		Set Global Variable(A, Has Status(Event Player, Invincible));
+		Set Global Variable(A, Has Status(Event Player, Phased Out));
+		Set Global Variable(A, Has Status(Event Player, Rooted));
+		Set Global Variable(A, Has Status(Event Player, Stunned));
+	}
+}
