@@ -82,6 +82,16 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
             return createEnumMember("VectorTransformationType", context);
         }
 
+        public override StringBuilder VisitLineOfSightCheckType(OverwatchCodeParser.LineOfSightCheckTypeContext context)
+        {
+            return createEnumMember("LineOfSightCheck", context);
+        }
+
+        public override StringBuilder VisitRoundingDirection(OverwatchCodeParser.RoundingDirectionContext context)
+        {
+            return createEnumMember("RoundingDirection", context);
+        }
+
         public override StringBuilder VisitLiteral(OverwatchCodeParser.LiteralContext context)
         {
             if (context.STRING() != null)
@@ -90,6 +100,11 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
         }
 
         public override StringBuilder VisitGlobalVariable(OverwatchCodeParser.GlobalVariableContext context)
+        {
+            return new StringBuilder(context.GetText().ToLower());
+        }
+
+        public override StringBuilder VisitPlayerVariable(OverwatchCodeParser.PlayerVariableContext context)
         {
             return new StringBuilder(context.GetText().ToLower());
         }

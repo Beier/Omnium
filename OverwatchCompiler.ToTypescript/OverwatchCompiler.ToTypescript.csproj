@@ -102,11 +102,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="TextFile1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>java -jar "$(SolutionDir)libraries\antlr\antlr-4.7.2-complete.jar" -visitor -Dlanguage=CSharp -o "$(ProjectDir)antlr\generated" "$(ProjectDir)antlr\OverwatchCode.g4"</PreBuildEvent>

@@ -239,3 +239,148 @@ rule("Rule 11")
 		Set Global Variable(A, Nearest Walkable Position(Vector(0, 0, 0)));
 	}
 }
+
+rule("Rule 12")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Normalize(Vector(0, 0, 0)));
+		Set Global Variable(A, Not(True));
+		Set Global Variable(A, Number of Dead Players(All Teams));
+		Set Global Variable(A, Number of Deaths(Event Player));
+		Set Global Variable(A, Number of Eliminations(Event Player));
+		Set Global Variable(A, Number of Final Blows(Event Player));
+		Set Global Variable(A, Number of Heroes(Hero(Ana), All Teams));
+		Set Global Variable(A, Number of Living Players(All Teams));
+		Set Global Variable(A, Number of Players(All Teams));
+		Set Global Variable(A, Number of Players On Objective(All Teams));
+	}
+}
+
+rule("Rule 13")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Objective Index);
+		Set Global Variable(A, Objective Position(0));
+		Set Global Variable(A, Opposite Team Of(All Teams));
+		Set Global Variable(A, Or(True, True));
+		Set Global Variable(A, Payload Position);
+		Set Global Variable(A, Payload Progress Percentage);
+		Set Global Variable(A, Player Carrying Flag(All Teams));
+		Set Global Variable(A, Player Closest To Reticle(Event Player, All Teams));
+		Set Global Variable(A, Player Variable(Event Player, A));
+		Set Global Variable(A, Players In Slot(0, All Teams));
+	}
+}
+
+rule("Rule 14")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Players in View Angle(Event Player, All Teams, 45));
+		Set Global Variable(A, Players On Hero(Hero(Ana), All Teams));
+		Set Global Variable(A, Players Within Radius(Vector(0, 0, 0), 5, All Teams, Off));
+		Set Global Variable(A, Point Capture Percentage);
+		Set Global Variable(A, Position Of(Event Player));
+		Set Global Variable(A, Raise To Power(0, 0));
+		Set Global Variable(A, Random Integer(0, 0));
+		Set Global Variable(A, Random Real(0, 0));
+		Set Global Variable(A, Random Value In Array(Global Variable(A)));
+		Set Global Variable(A, Randomized Array(Global Variable(A)));
+	}
+}
+
+rule("Rule 15")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Ray Cast Hit Normal(Vector(0, 0, 0), Vector(0, 0, 0), All Players(All Teams), Event Player, True));
+		Set Global Variable(A, Ray Cast Hit Player(Vector(0, 0, 0), Vector(0, 0, 0), All Players(All Teams), Event Player, True));
+		Set Global Variable(A, Ray Cast Hit Position(Vector(0, 0, 0), Vector(0, 0, 0), All Players(All Teams), Event Player, True));
+		Set Global Variable(A, Remove From Array(All Players(All Teams), 0));
+		Set Global Variable(A, Right);
+		Set Global Variable(A, Round To Integer(0, Up));
+		Set Global Variable(A, Score Of(Event Player));
+		Set Global Variable(A, Sine From Degrees(0));
+		Set Global Variable(A, Sine From Radians(0));
+		Set Global Variable(A, Slot Of(Event Player));
+	}
+}
+
+rule("Rule 16")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Sorted Array(Global Variable(A), Current Array Element));
+		Set Global Variable(A, Speed Of(Event Player));
+		Set Global Variable(A, Speed Of In Direction(Event Player, Vector(0, 0, 0)));
+		Set Global Variable(A, Square Root(0));
+		Set Global Variable(A, String("Hello", Null, Null, Null));
+		Set Global Variable(A, Subtract(0, 0));
+		Set Global Variable(A, Team Of(Event Player));
+		Set Global Variable(A, Team Score(All Teams));
+		Set Global Variable(A, Throttle Of(Event Player));
+		Set Global Variable(A, Total Time Elapsed);
+	}
+}
+
+rule("Rule 17")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Ultimate Charge Percent(Event Player));
+		Set Global Variable(A, Up);
+		Set Global Variable(A, Value In Array(Global Variable(A), 0));
+		Set Global Variable(A, Vector Towards(Vector(0, 0, 0), Vector(0, 0, 0)));
+		Set Global Variable(A, Vertical Facing Angle Of(Event Player));
+		Set Global Variable(A, Vertical Speed Of(Event Player));
+		Set Global Variable(A, Victim);
+		Set Global Variable(A, World Vector Of(Vector(0, 0, 0), Event Player, Rotation));
+		Set Global Variable(A, X Component Of(Vector(0, 0, 0)));
+		Set Global Variable(A, Y Component Of(Vector(0, 0, 0)));
+	}
+}
+
+rule("Rule 18")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Z Component Of(Vector(0, 0, 0)));
+	}
+}

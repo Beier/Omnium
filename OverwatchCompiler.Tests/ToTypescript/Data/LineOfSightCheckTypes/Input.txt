@@ -1,0 +1,15 @@
+﻿rule("Rule 11")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Players Within Radius(Vector(0, 0, 0), 5, All Teams, Off));
+		Set Global Variable(A, Players Within Radius(Vector(0, 0, 0), 5, All Teams, Surfaces));
+		Set Global Variable(A, Players Within Radius(Vector(0, 0, 0), 5, All Teams, Surfaces And Enemy Barriers));
+		Set Global Variable(A, Players Within Radius(Vector(0, 0, 0), 5, All Teams, Surfaces And All Barriers));
+	}
+}

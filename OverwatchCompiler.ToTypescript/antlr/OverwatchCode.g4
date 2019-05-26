@@ -152,6 +152,67 @@ expression
 	| moduloExpression
 	| multiplyExpression
 	| nearestWalkablePositionExpression
+	| normalizeExpression
+	| notExpression
+	| numberOfDeadPlayersExpression
+	| numberOfDeathsExpression
+	| numberOfEliminationsExpression
+	| numberOfFinalBlowsExpression
+	| numberOfHeroesExpression
+	| numberOfLivingPlayersExpression
+	| numberOfPlayersExpression
+	| numberOfPlayersOnObjectiveExpression
+	| objectiveIndexExpression
+	| objectivePositionExpression
+	| oppositeTeamOfExpression
+	| orExpression
+	| payloadPositionExpression
+	| payloadProgressPercentageExpression
+	| playerCarryingFlagExpression
+	| playerClosestToReticleExpression
+	| playerVariableExpression
+	| playersInSlotExpression
+	| playersInViewAngleExpression
+	| playersOnHeroExpression
+	| playersWithinRadiusExpression
+	| pointCapturePercentageExpression
+	| positionOfExpression
+	| raiseToPowerExpression
+	| randomIntegerExpression
+	| randomRealExpression
+	| randomValueInArrayExpression
+	| randomizedArrayExpression
+	| rayCastHitNormalExpression
+	| rayCastHitPlayerExpression
+	| rayCastHitPositionExpression
+	| removeFromArrayExpression
+	| rightExpression
+	| roundToIntegerExpression
+	| scoreOfExpression
+	| sineFromDegreesExpression
+	| sineFromRadiansExpression
+	| slotOfExpression
+	| sortedArrayExpression
+	| speedOfExpression
+	| speedOfInDirectionExpression
+	| squareRootExpression
+	| stringExpression
+	| subtractExpression
+	| teamOfExpression
+	| teamScoreExpression
+	| throttleOfExpression
+	| totalTimeElapsedExpression
+	| ultimateChargePercentExpression
+	| upExpression
+	| valueInArrayExpression
+	| vectorTowardsExpression
+	| verticalFacingAngleOfExpression
+	| verticalSpeedOfExpression
+	| victimExpression
+	| worldVectorOfExpression
+	| xComponentOfExpression
+	| yComponentOfExpression
+	| zComponentOfExpression
 	;
 
 vectorExpression: 'Vector' '(' expression ',' expression ',' expression ')';
@@ -267,6 +328,67 @@ minExpression: 'Min' '(' expression ',' expression ')';
 moduloExpression: 'Modulo' '(' expression ',' expression ')';
 multiplyExpression: 'Multiply' '(' expression ',' expression ')';
 nearestWalkablePositionExpression: 'Nearest Walkable Position' '(' expression ')';
+normalizeExpression: 'Normalize' '(' expression ')';
+notExpression: 'Not' '(' expression ')';
+numberOfDeadPlayersExpression: 'Number of Dead Players' '(' expression ')';
+numberOfDeathsExpression: 'Number of Deaths' '(' expression ')';
+numberOfEliminationsExpression: 'Number of Eliminations' '(' expression ')';
+numberOfFinalBlowsExpression: 'Number of Final Blows' '(' expression ')';
+numberOfHeroesExpression: 'Number of Heroes' '(' expression ',' expression ')';
+numberOfLivingPlayersExpression: 'Number of Living Players' '(' expression ')';
+numberOfPlayersExpression: 'Number of Players' '(' expression ')';
+numberOfPlayersOnObjectiveExpression: 'Number of Players On Objective' '(' expression ')';
+objectiveIndexExpression: 'Objective Index';
+objectivePositionExpression: 'Objective Position' '(' expression ')';
+oppositeTeamOfExpression: 'Opposite Team Of' '(' expression ')';
+orExpression: 'Or' '(' expression ',' expression ')';
+payloadPositionExpression: 'Payload Position';
+payloadProgressPercentageExpression: 'Payload Progress Percentage';
+playerCarryingFlagExpression: 'Player Carrying Flag' '(' expression ')';
+playerClosestToReticleExpression: 'Player Closest To Reticle' '(' expression ',' expression ')';
+playerVariableExpression: 'Player Variable' '(' expression ',' playerVariable ')';
+playersInSlotExpression: 'Players In Slot' '(' expression ',' expression ')';
+playersInViewAngleExpression: 'Players in View Angle' '(' expression ',' expression ',' expression ')';
+playersOnHeroExpression: 'Players On Hero' '(' expression ',' expression ')';
+playersWithinRadiusExpression: 'Players Within Radius' '(' expression ',' expression ',' expression ',' lineOfSightCheckType ')';
+pointCapturePercentageExpression: 'Point Capture Percentage';
+positionOfExpression: 'Position Of' '(' expression ')';
+raiseToPowerExpression: 'Raise To Power' '(' expression ',' expression ')';
+randomIntegerExpression: 'Random Integer' '(' expression ',' expression ')';
+randomRealExpression: 'Random Real' '(' expression ',' expression ')';
+randomValueInArrayExpression: 'Random Value In Array' '(' expression ')';
+randomizedArrayExpression: 'Randomized Array' '(' expression ')';
+rayCastHitNormalExpression: 'Ray Cast Hit Normal' '(' expression ',' expression ',' expression ',' expression ',' expression ')';
+rayCastHitPlayerExpression: 'Ray Cast Hit Player' '(' expression ',' expression ',' expression ',' expression ',' expression ')';
+rayCastHitPositionExpression: 'Ray Cast Hit Position' '(' expression ',' expression ',' expression ',' expression ',' expression ')';
+removeFromArrayExpression: 'Remove From Array' '(' expression ',' expression ')';
+rightExpression: 'Right';
+roundToIntegerExpression: 'Round To Integer' '(' expression ',' roundingDirection ')';
+scoreOfExpression: 'Score Of' '(' expression ')';
+sineFromDegreesExpression: 'Sine From Degrees' '(' expression ')';
+sineFromRadiansExpression: 'Sine From Radians' '(' expression ')';
+slotOfExpression: 'Slot Of' '(' expression ')';
+sortedArrayExpression: 'Sorted Array' '(' expression ',' expression ')';
+speedOfExpression: 'Speed Of' '(' expression ')';
+speedOfInDirectionExpression: 'Speed Of In Direction' '(' expression ',' expression ')';
+squareRootExpression: 'Square Root' '(' expression ')';
+stringExpression: 'String' '(' expression ',' expression ',' expression ',' expression ')';
+subtractExpression: 'Subtract' '(' expression ',' expression ')';
+teamOfExpression: 'Team Of' '(' expression ')';
+teamScoreExpression: 'Team Score' '(' expression ')';
+throttleOfExpression: 'Throttle Of' '(' expression ')';
+totalTimeElapsedExpression: 'Total Time Elapsed';
+ultimateChargePercentExpression: 'Ultimate Charge Percent' '(' expression ')';
+upExpression: 'Up';
+valueInArrayExpression: 'Value In Array' '(' expression ',' expression ')';
+vectorTowardsExpression: 'Vector Towards' '(' expression ',' expression ')';
+verticalFacingAngleOfExpression: 'Vertical Facing Angle Of' '(' expression ')';
+verticalSpeedOfExpression: 'Vertical Speed Of' '(' expression ')';
+victimExpression: 'Victim';
+worldVectorOfExpression: 'World Vector Of' '(' expression ',' expression ',' vectorTransformationType ')';
+xComponentOfExpression: 'X Component Of' '(' expression ')';
+yComponentOfExpression: 'Y Component Of' '(' expression ')';
+zComponentOfExpression: 'Z Component Of' '(' expression ')';
 /*
 Expression: '';
 Expression: '';
@@ -276,7 +398,8 @@ Expression: '' '(' expression ',' expression ')';
 Expression: '' '(' expression ',' expression ')';
 Expression: '' '(' expression ',' expression ',' expression ')';
 Expression: '' '(' expression ',' expression ',' expression ')';
-
+Expression: '' '(' expression ',' expression ',' expression ',' expression ')';
+Expression: '' '(' expression ',' expression ',' expression ',' expression ')';
 */
 
 
@@ -287,6 +410,7 @@ playerConstant: (ALL | SLOT INTEGER | heroType);
 
 literal: (INTEGER | FLOAT | STRING | NULL | BOOLEAN);
 globalVariable: LETTER;
+playerVariable: LETTER;
 
 
 //Heroes
@@ -383,6 +507,17 @@ allBarriersBlockLOS: 'All Barriers Block LOS';
 vectorTransformationType: rotation | rotationAndTranslation;
 rotation: 'Rotation';
 rotationAndTranslation: 'Rotation And Translation';
+
+lineOfSightCheckType: off | surfaces | surfacesAndEnemyBarriers | surfacesAndAllBarriers;
+off: 'Off';
+surfaces: 'Surfaces';
+surfacesAndEnemyBarriers: 'Surfaces And Enemy Barriers';
+surfacesAndAllBarriers: 'Surfaces And All Barriers';
+
+roundingDirection: up | down | toNearest;
+up: 'Up';
+down: 'Down';
+toNearest: 'To Nearest';
 
 binaryCompartorOperator: '==' | '!=' | '<' | '<=' | '>' | '>=';
 

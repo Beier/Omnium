@@ -17,6 +17,8 @@ namespace OverwatchCompiler.Tests.ToTypescript
         [TestCase("CommunicationTypes")]
         [TestCase("BarrierBlockTypes")]
         [TestCase("VectorTransformationTypes")]
+        [TestCase("LineOfSightCheckTypes")]
+        [TestCase("RoundingDirection")]
         public void ShouldCompileTest(string testName)
         {
             var exeLocation = AppDomain.CurrentDomain.BaseDirectory;

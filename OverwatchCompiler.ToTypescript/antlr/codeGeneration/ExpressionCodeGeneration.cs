@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Text;
 
 namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
@@ -286,7 +287,7 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitFlagPositionExpression(OverwatchCodeParser.FlagPositionExpressionContext context)
         {
-            return MemberMethodCallExpression("flagPosition", context.expression());
+            return BasicExpression("Game.Ctf.flagPositionFor", context.expression());
         }
 
         public override StringBuilder VisitForwardExpression(OverwatchCodeParser.ForwardExpressionContext context)
@@ -666,6 +667,351 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
         public override StringBuilder VisitNearestWalkablePositionExpression(OverwatchCodeParser.NearestWalkablePositionExpressionContext context)
         {
             return BasicExpression("Vector.getNearestWalkablePosition", context.expression());
+        }
+
+        public override StringBuilder VisitNormalizeExpression(OverwatchCodeParser.NormalizeExpressionContext context)
+        {
+            return MemberMethodCallExpression("normalize()", context.expression());
+        }
+
+        public override StringBuilder VisitNotExpression(OverwatchCodeParser.NotExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append("!");
+            builder.Append(VisitExpression(context.expression()));
+            return builder;
+        }
+
+        public override StringBuilder VisitNumberOfDeadPlayersExpression(OverwatchCodeParser.NumberOfDeadPlayersExpressionContext context)
+        {
+            return BasicExpression("Game.numberOfDeadPlayersOnTeam", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfDeathsExpression(OverwatchCodeParser.NumberOfDeathsExpressionContext context)
+        {
+            return MemberMethodCallExpression("numberOfDeaths", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfEliminationsExpression(OverwatchCodeParser.NumberOfEliminationsExpressionContext context)
+        {
+            return MemberMethodCallExpression("numberOfEliminations", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfFinalBlowsExpression(OverwatchCodeParser.NumberOfFinalBlowsExpressionContext context)
+        {
+            return MemberMethodCallExpression("numberOfFinalBlows", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfHeroesExpression(OverwatchCodeParser.NumberOfHeroesExpressionContext context)
+        {
+            return BasicExpression("Game.numberOfHeroesOfTypeOnTeam", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfLivingPlayersExpression(OverwatchCodeParser.NumberOfLivingPlayersExpressionContext context)
+        {
+            return BasicExpression("Game.numberOfLivingPlayersOnTeam", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfPlayersExpression(OverwatchCodeParser.NumberOfPlayersExpressionContext context)
+        {
+            return BasicExpression("Game.numberOfPlayersOnTeam", context.expression());
+        }
+
+        public override StringBuilder VisitNumberOfPlayersOnObjectiveExpression(OverwatchCodeParser.NumberOfPlayersOnObjectiveExpressionContext context)
+        {
+            return BasicExpression("Game.numberOfPlayersFromTeamOnObjective", context.expression());
+        }
+
+        public override StringBuilder VisitObjectiveIndexExpression(OverwatchCodeParser.ObjectiveIndexExpressionContext context)
+        {
+            return BasicExpression("Game.indexOfCurrentObjective");
+        }
+
+        public override StringBuilder VisitObjectivePositionExpression(OverwatchCodeParser.ObjectivePositionExpressionContext context)
+        {
+            return BasicExpression("Game.positionOfObjective", context.expression());
+        }
+
+        public override StringBuilder VisitOppositeTeamOfExpression(OverwatchCodeParser.OppositeTeamOfExpressionContext context)
+        {
+            return BasicExpression("Team.oppositeOf", context.expression());
+        }
+
+        public override StringBuilder VisitOrExpression(OverwatchCodeParser.OrExpressionContext context)
+        {
+            return BinaryExpression("||", context.expression());
+        }
+
+        public override StringBuilder VisitPayloadPositionExpression(OverwatchCodeParser.PayloadPositionExpressionContext context)
+        {
+            return BasicExpression("Game.Payload.position");
+        }
+
+        public override StringBuilder VisitPayloadProgressPercentageExpression(OverwatchCodeParser.PayloadProgressPercentageExpressionContext context)
+        {
+            return BasicExpression("Game.Payload.progressPercentage");
+        }
+
+        public override StringBuilder VisitPlayerCarryingFlagExpression(OverwatchCodeParser.PlayerCarryingFlagExpressionContext context)
+        {
+            return BasicExpression("Game.Ctf.playerCarryingFlagFor", context.expression());
+        }
+
+        public override StringBuilder VisitPlayerClosestToReticleExpression(OverwatchCodeParser.PlayerClosestToReticleExpressionContext context)
+        {
+            return BasicExpression("Player.getPlayerClosestToReticleOf", context.expression());
+        }
+
+        public override StringBuilder VisitPlayerVariableExpression(OverwatchCodeParser.PlayerVariableExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append(VisitExpression(context.expression()));
+            builder.Append(".variables.");
+            builder.Append(VisitPlayerVariable(context.playerVariable()));
+            return builder;
+        }
+
+        public override StringBuilder VisitPlayersInSlotExpression(OverwatchCodeParser.PlayersInSlotExpressionContext context)
+        {
+            return BasicExpression("Player.inSlot", context.expression());
+        }
+
+        public override StringBuilder VisitPlayersInViewAngleExpression(OverwatchCodeParser.PlayersInViewAngleExpressionContext context)
+        {
+            return BasicExpression("Players.inLineOfSightOf", context.expression());
+        }
+
+        public override StringBuilder VisitPlayersOnHeroExpression(OverwatchCodeParser.PlayersOnHeroExpressionContext context)
+        {
+            return BasicExpression("Players.onHero", context.expression());
+        }
+
+        public override StringBuilder VisitPlayersWithinRadiusExpression(OverwatchCodeParser.PlayersWithinRadiusExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append("Players.withinRadiusOf(");
+            builder.Append(VisitExpression(context.expression(0)));
+            builder.Append(", ");
+            builder.Append(VisitExpression(context.expression(1)));
+            builder.Append(", ");
+            builder.Append(VisitExpression(context.expression(2)));
+            builder.Append(", ");
+            builder.Append(VisitLineOfSightCheckType(context.lineOfSightCheckType()));
+            builder.Append(")");
+            return builder;
+        }
+
+        public override StringBuilder VisitPointCapturePercentageExpression(OverwatchCodeParser.PointCapturePercentageExpressionContext context)
+        {
+            return BasicExpression("Game.ControlPoint.capturePercentage");
+        }
+
+        public override StringBuilder VisitPositionOfExpression(OverwatchCodeParser.PositionOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("position", context.expression());
+        }
+
+        public override StringBuilder VisitRaiseToPowerExpression(OverwatchCodeParser.RaiseToPowerExpressionContext context)
+        {
+            return BasicExpression("Math.pow", context.expression());
+        }
+
+        public override StringBuilder VisitRandomIntegerExpression(OverwatchCodeParser.RandomIntegerExpressionContext context)
+        {
+            return BasicExpression("Math.randomInt", context.expression());
+        }
+
+        public override StringBuilder VisitRandomRealExpression(OverwatchCodeParser.RandomRealExpressionContext context)
+        {
+            return BasicExpression("Math.randomReal", context.expression());
+        }
+
+        public override StringBuilder VisitRandomValueInArrayExpression(OverwatchCodeParser.RandomValueInArrayExpressionContext context)
+        {
+            return MemberMethodCallExpression("getRandomElement()", context.expression());
+        }
+
+        public override StringBuilder VisitRandomizedArrayExpression(OverwatchCodeParser.RandomizedArrayExpressionContext context)
+        {
+            return MemberMethodCallExpression("shuffle()", context.expression());
+        }
+
+        public override StringBuilder VisitRayCastHitNormalExpression(OverwatchCodeParser.RayCastHitNormalExpressionContext context)
+        {
+            return BasicExpression("Vector.normalFromRayCastHit", context.expression());
+        }
+
+        public override StringBuilder VisitRayCastHitPlayerExpression(OverwatchCodeParser.RayCastHitPlayerExpressionContext context)
+        {
+            return BasicExpression("Player.fromRayCastHit", context.expression());
+        }
+
+        public override StringBuilder VisitRayCastHitPositionExpression(OverwatchCodeParser.RayCastHitPositionExpressionContext context)
+        {
+            return BasicExpression("Vector.positionFromRayCastHit", context.expression());
+        }
+
+        public override StringBuilder VisitRemoveFromArrayExpression(OverwatchCodeParser.RemoveFromArrayExpressionContext context)
+        {
+            return MemberMethodCallExpression("remove", context.expression());
+        }
+
+        public override StringBuilder VisitRightExpression(OverwatchCodeParser.RightExpressionContext context)
+        {
+            return BasicExpression("Vector.right");
+        }
+
+        public override StringBuilder VisitRoundToIntegerExpression(OverwatchCodeParser.RoundToIntegerExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append("Math.round(");
+            builder.Append(VisitExpression(context.expression()));
+            builder.Append(", ");
+            builder.Append(VisitRoundingDirection(context.roundingDirection()));
+            builder.Append(")");
+            return builder;
+        }
+
+        public override StringBuilder VisitScoreOfExpression(OverwatchCodeParser.ScoreOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("score", context.expression());
+        }
+
+        public override StringBuilder VisitSineFromDegreesExpression(OverwatchCodeParser.SineFromDegreesExpressionContext context)
+        {
+            return BasicExpression("Math.sinDeg", context.expression());
+        }
+
+        public override StringBuilder VisitSineFromRadiansExpression(OverwatchCodeParser.SineFromRadiansExpressionContext context)
+        {
+            return BasicExpression("Math.sin", context.expression());
+        }
+
+        public override StringBuilder VisitSlotOfExpression(OverwatchCodeParser.SlotOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("slot", context.expression());
+        }
+
+        public override StringBuilder VisitSortedArrayExpression(OverwatchCodeParser.SortedArrayExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append(VisitExpression(context.expression(0)));
+            builder.Append(".sortBy(currentArrayElement => ");
+            builder.Append(VisitExpression(context.expression(1)));
+            builder.Append(")");
+            return builder;
+        }
+
+        public override StringBuilder VisitSpeedOfExpression(OverwatchCodeParser.SpeedOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("speed", context.expression());
+        }
+
+        public override StringBuilder VisitSpeedOfInDirectionExpression(OverwatchCodeParser.SpeedOfInDirectionExpressionContext context)
+        {
+            return MemberMethodCallExpression("getSpeedInDirection", context.expression());
+        }
+
+        public override StringBuilder VisitSquareRootExpression(OverwatchCodeParser.SquareRootExpressionContext context)
+        {
+            return BasicExpression("Math.sqrt", context.expression());
+        }
+
+        public override StringBuilder VisitStringExpression(OverwatchCodeParser.StringExpressionContext context)
+        {
+            return MemberMethodCallExpression("format", context.expression());
+        }
+
+        public override StringBuilder VisitSubtractExpression(OverwatchCodeParser.SubtractExpressionContext context)
+        {
+            return BinaryExpression("-", context.expression());
+        }
+
+        public override StringBuilder VisitTeamOfExpression(OverwatchCodeParser.TeamOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("team", context.expression());
+        }
+
+        public override StringBuilder VisitTeamScoreExpression(OverwatchCodeParser.TeamScoreExpressionContext context)
+        {
+            return MemberMethodCallExpression("score", context.expression());
+        }
+
+        public override StringBuilder VisitThrottleOfExpression(OverwatchCodeParser.ThrottleOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("throttle", context.expression());
+        }
+
+        public override StringBuilder VisitTotalTimeElapsedExpression(OverwatchCodeParser.TotalTimeElapsedExpressionContext context)
+        {
+            return BasicExpression("Game.totalTimeElapsed");
+        }
+
+        public override StringBuilder VisitUltimateChargePercentExpression(OverwatchCodeParser.UltimateChargePercentExpressionContext context)
+        {
+            return MemberMethodCallExpression("ultimateChargePercent", context.expression());
+        }
+
+        public override StringBuilder VisitUp(OverwatchCodeParser.UpContext context)
+        {
+            return BasicExpression("Vector.up");
+        }
+
+        public override StringBuilder VisitValueInArrayExpression(OverwatchCodeParser.ValueInArrayExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append(VisitExpression(context.expression(0)));
+            builder.Append("[");
+            builder.Append(VisitExpression(context.expression(1)));
+            builder.Append("]");
+            return builder;
+        }
+
+        public override StringBuilder VisitVectorTowardsExpression(OverwatchCodeParser.VectorTowardsExpressionContext context)
+        {
+            return BasicExpression("Vector.towards", context.expression());
+        }
+
+        public override StringBuilder VisitVerticalFacingAngleOfExpression(OverwatchCodeParser.VerticalFacingAngleOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("verticalFacingAngle", context.expression());
+        }
+
+        public override StringBuilder VisitVerticalSpeedOfExpression(OverwatchCodeParser.VerticalSpeedOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("verticalSpeed", context.expression());
+        }
+
+        public override StringBuilder VisitVictimExpression(OverwatchCodeParser.VictimExpressionContext context)
+        {
+            return BasicExpression("Event.victim");
+        }
+
+        public override StringBuilder VisitWorldVectorOfExpression(OverwatchCodeParser.WorldVectorOfExpressionContext context)
+        {
+            var builder = new StringBuilder();
+            builder.Append(VisitExpression(context.expression(0)));
+            builder.Append(".toWorldCoordinatesFor(");
+            builder.Append(VisitExpression(context.expression(1)));
+            builder.Append(", ");
+            builder.Append(VisitVectorTransformationType(context.vectorTransformationType()));
+            builder.Append(")");
+            return builder;
+        }
+
+        public override StringBuilder VisitXComponentOfExpression(OverwatchCodeParser.XComponentOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("x", context.expression());
+        }
+
+        public override StringBuilder VisitYComponentOfExpression(OverwatchCodeParser.YComponentOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("y", context.expression());
+        }
+
+        public override StringBuilder VisitZComponentOfExpression(OverwatchCodeParser.ZComponentOfExpressionContext context)
+        {
+            return MemberMethodCallExpression("z", context.expression());
         }
     }
 }

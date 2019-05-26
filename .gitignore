@@ -328,3 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+OverwatchCompiler.ToTypescript/antlr/generated/antlr/

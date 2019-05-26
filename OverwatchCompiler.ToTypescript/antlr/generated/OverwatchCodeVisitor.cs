@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:\Users\Beier\Documents\Visual Studio 2017\Projects\OverwatchCompiler\OverwatchCompiler.ToTypescript\antlr\OverwatchCode.g4 by ANTLR 4.7.2
+// Generated from C:\Git\overwatch-typescript-compiler\OverwatchCompiler.ToTypescript\antlr\OverwatchCode.g4 by ANTLR 4.7.2
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -812,6 +812,372 @@ public interface IOverwatchCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNearestWalkablePositionExpression([NotNull] OverwatchCodeParser.NearestWalkablePositionExpressionContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.normalizeExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNormalizeExpression([NotNull] OverwatchCodeParser.NormalizeExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.notExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNotExpression([NotNull] OverwatchCodeParser.NotExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfDeadPlayersExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfDeadPlayersExpression([NotNull] OverwatchCodeParser.NumberOfDeadPlayersExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfDeathsExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfDeathsExpression([NotNull] OverwatchCodeParser.NumberOfDeathsExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfEliminationsExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfEliminationsExpression([NotNull] OverwatchCodeParser.NumberOfEliminationsExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfFinalBlowsExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfFinalBlowsExpression([NotNull] OverwatchCodeParser.NumberOfFinalBlowsExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfHeroesExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfHeroesExpression([NotNull] OverwatchCodeParser.NumberOfHeroesExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfLivingPlayersExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfLivingPlayersExpression([NotNull] OverwatchCodeParser.NumberOfLivingPlayersExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfPlayersExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfPlayersExpression([NotNull] OverwatchCodeParser.NumberOfPlayersExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.numberOfPlayersOnObjectiveExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNumberOfPlayersOnObjectiveExpression([NotNull] OverwatchCodeParser.NumberOfPlayersOnObjectiveExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.objectiveIndexExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitObjectiveIndexExpression([NotNull] OverwatchCodeParser.ObjectiveIndexExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.objectivePositionExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitObjectivePositionExpression([NotNull] OverwatchCodeParser.ObjectivePositionExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.oppositeTeamOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOppositeTeamOfExpression([NotNull] OverwatchCodeParser.OppositeTeamOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.orExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOrExpression([NotNull] OverwatchCodeParser.OrExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.payloadPositionExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPayloadPositionExpression([NotNull] OverwatchCodeParser.PayloadPositionExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.payloadProgressPercentageExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPayloadProgressPercentageExpression([NotNull] OverwatchCodeParser.PayloadProgressPercentageExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playerCarryingFlagExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayerCarryingFlagExpression([NotNull] OverwatchCodeParser.PlayerCarryingFlagExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playerClosestToReticleExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayerClosestToReticleExpression([NotNull] OverwatchCodeParser.PlayerClosestToReticleExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playerVariableExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayerVariableExpression([NotNull] OverwatchCodeParser.PlayerVariableExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playersInSlotExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayersInSlotExpression([NotNull] OverwatchCodeParser.PlayersInSlotExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playersInViewAngleExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayersInViewAngleExpression([NotNull] OverwatchCodeParser.PlayersInViewAngleExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playersOnHeroExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayersOnHeroExpression([NotNull] OverwatchCodeParser.PlayersOnHeroExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playersWithinRadiusExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayersWithinRadiusExpression([NotNull] OverwatchCodeParser.PlayersWithinRadiusExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.pointCapturePercentageExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPointCapturePercentageExpression([NotNull] OverwatchCodeParser.PointCapturePercentageExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.positionOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPositionOfExpression([NotNull] OverwatchCodeParser.PositionOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.raiseToPowerExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRaiseToPowerExpression([NotNull] OverwatchCodeParser.RaiseToPowerExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.randomIntegerExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRandomIntegerExpression([NotNull] OverwatchCodeParser.RandomIntegerExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.randomRealExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRandomRealExpression([NotNull] OverwatchCodeParser.RandomRealExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.randomValueInArrayExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRandomValueInArrayExpression([NotNull] OverwatchCodeParser.RandomValueInArrayExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.randomizedArrayExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRandomizedArrayExpression([NotNull] OverwatchCodeParser.RandomizedArrayExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.rayCastHitNormalExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRayCastHitNormalExpression([NotNull] OverwatchCodeParser.RayCastHitNormalExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.rayCastHitPlayerExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRayCastHitPlayerExpression([NotNull] OverwatchCodeParser.RayCastHitPlayerExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.rayCastHitPositionExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRayCastHitPositionExpression([NotNull] OverwatchCodeParser.RayCastHitPositionExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRemoveFromArrayExpression([NotNull] OverwatchCodeParser.RemoveFromArrayExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.rightExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRightExpression([NotNull] OverwatchCodeParser.RightExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.roundToIntegerExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRoundToIntegerExpression([NotNull] OverwatchCodeParser.RoundToIntegerExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.scoreOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitScoreOfExpression([NotNull] OverwatchCodeParser.ScoreOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.sineFromDegreesExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSineFromDegreesExpression([NotNull] OverwatchCodeParser.SineFromDegreesExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.sineFromRadiansExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSineFromRadiansExpression([NotNull] OverwatchCodeParser.SineFromRadiansExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.slotOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSlotOfExpression([NotNull] OverwatchCodeParser.SlotOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.sortedArrayExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSortedArrayExpression([NotNull] OverwatchCodeParser.SortedArrayExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.speedOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSpeedOfExpression([NotNull] OverwatchCodeParser.SpeedOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.speedOfInDirectionExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSpeedOfInDirectionExpression([NotNull] OverwatchCodeParser.SpeedOfInDirectionExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.squareRootExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSquareRootExpression([NotNull] OverwatchCodeParser.SquareRootExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.stringExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStringExpression([NotNull] OverwatchCodeParser.StringExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.subtractExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSubtractExpression([NotNull] OverwatchCodeParser.SubtractExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.teamOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTeamOfExpression([NotNull] OverwatchCodeParser.TeamOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.teamScoreExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTeamScoreExpression([NotNull] OverwatchCodeParser.TeamScoreExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.throttleOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitThrottleOfExpression([NotNull] OverwatchCodeParser.ThrottleOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.totalTimeElapsedExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTotalTimeElapsedExpression([NotNull] OverwatchCodeParser.TotalTimeElapsedExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.ultimateChargePercentExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUltimateChargePercentExpression([NotNull] OverwatchCodeParser.UltimateChargePercentExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.upExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUpExpression([NotNull] OverwatchCodeParser.UpExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.valueInArrayExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitValueInArrayExpression([NotNull] OverwatchCodeParser.ValueInArrayExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.vectorTowardsExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVectorTowardsExpression([NotNull] OverwatchCodeParser.VectorTowardsExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.verticalFacingAngleOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVerticalFacingAngleOfExpression([NotNull] OverwatchCodeParser.VerticalFacingAngleOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.verticalSpeedOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVerticalSpeedOfExpression([NotNull] OverwatchCodeParser.VerticalSpeedOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.victimExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVictimExpression([NotNull] OverwatchCodeParser.VictimExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.worldVectorOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitWorldVectorOfExpression([NotNull] OverwatchCodeParser.WorldVectorOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.xComponentOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitXComponentOfExpression([NotNull] OverwatchCodeParser.XComponentOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.yComponentOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitYComponentOfExpression([NotNull] OverwatchCodeParser.YComponentOfExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.zComponentOfExpression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitZComponentOfExpression([NotNull] OverwatchCodeParser.ZComponentOfExpressionContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.team"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -835,6 +1201,12 @@ public interface IOverwatchCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitGlobalVariable([NotNull] OverwatchCodeParser.GlobalVariableContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.playerVariable"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPlayerVariable([NotNull] OverwatchCodeParser.PlayerVariableContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.heroType"/>.
 	/// </summary>
@@ -1273,6 +1645,60 @@ public interface IOverwatchCodeVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitRotationAndTranslation([NotNull] OverwatchCodeParser.RotationAndTranslationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.lineOfSightCheckType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLineOfSightCheckType([NotNull] OverwatchCodeParser.LineOfSightCheckTypeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.off"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOff([NotNull] OverwatchCodeParser.OffContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.surfaces"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSurfaces([NotNull] OverwatchCodeParser.SurfacesContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.surfacesAndEnemyBarriers"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSurfacesAndEnemyBarriers([NotNull] OverwatchCodeParser.SurfacesAndEnemyBarriersContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.surfacesAndAllBarriers"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSurfacesAndAllBarriers([NotNull] OverwatchCodeParser.SurfacesAndAllBarriersContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.roundingDirection"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRoundingDirection([NotNull] OverwatchCodeParser.RoundingDirectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.up"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUp([NotNull] OverwatchCodeParser.UpContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.down"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDown([NotNull] OverwatchCodeParser.DownContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.toNearest"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitToNearest([NotNull] OverwatchCodeParser.ToNearestContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="OverwatchCodeParser.binaryCompartorOperator"/>.
 	/// </summary>

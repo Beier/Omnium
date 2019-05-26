@@ -1,0 +1,14 @@
+﻿rule("Rule 13")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Global Variable(A, Round To Integer(0, Up));
+		Set Global Variable(A, Round To Integer(0, Down));
+		Set Global Variable(A, Round To Integer(0, To Nearest));
+	}
+}
