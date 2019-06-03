@@ -29,10 +29,208 @@ conditionBlock: 'conditions' '{' condition* '}';
 condition: expression binaryCompartorOperator expression ';';
 
 //Actions
-actionBlock: 'actions' '{' action* '}';
-action: (setGlobalVariableAction) ';';
+actionBlock: 'actions' '{' (action ';')* '}';
+action
+	: setGlobalVariableAction
+	| abortAction
+	| abortIfAction
+	| abortIfConditionIsFalseAction
+	| abortIfConditionIsTrueAction
+	| allowButtonAction
+	| applyImpulseAction
+	| bigMessageAction
+	| chaseGlobalVariableAtRateAction
+	| chaseGlobalVariableOverTimeAction
+	| chasePlayerVariableAtRateAction
+	| chasePlayerVariableOverTimeAction
+	| clearStatusAction
+	| communicateAction
+	| createEffectAction
+	| createHudTextAction
+	| createIconAction
+	| createInWorldTextAction
+	| damageAction
+	| declareMatchDrawAction
+	| declarePlayerVictoryAction
+	| declareRoundVictoryAction
+	| declareTeamVictoryAction
+	| destroyAllEffectsAction
+	| destroyAllHudTextAction
+	| destroyAllIconsAction
+	| destroyAllInWorldTextAction
+	| destroyEffectAction
+	| destroyHudTextAction
+	| destroyIconAction
+	| destroyInWorldTextAction
+	| disableBuiltInGameModeAnnouncerAction
+	| disableBuiltInGameModeCompletionAction
+	| disableBuiltInGameModeMusicAction
+	| disableBuiltInGameModeRespawningAction
+	| disableBuiltInGameModeScoringAction
+	| disableDeathSpectateAllPlayersAction
+	| disableDeathSpectateTargetHudAction
+	| disallowButtonAction
+	| enableBuiltInGameModeAnnouncerAction
+	| enableBuiltInGameModeCompletionAction
+	| enableBuiltInGameModeMusicAction
+	| enableBuiltInGameModeRespawningAction
+	| enableBuiltInGameModeScoringAction
+	| enableDeathSpectateAllPlayersAction
+	| enableDeathSpectateTargetHudAction
+	| goToAssembleHeroesAction
+	| healAction
+	| killAction
+	| loopAction
+	| loopIfAction
+	| loopIfConditionIsFalseAction
+	| loopIfConditionIsTrueAction
+	| modifyGlobalVariableAction
+	| modifyGlobalVariableAtIndexAction
+	| modifyPlayerVariableAction
+	| modifyPlayerVariableAtIndexAction
+	| modifyTeamScoreAction
+	| pauseMatchTimeAction
+	| playEffectAction
+	| preloadHeroAction
+	| pressButtonAction
+	| resetPlayerHeroAvailabilityAction
+	| respawnAction
+	| resurrectAction
+	| setAbility1EnabledAction
+	| setAbility2EnabledAction
+	| setDamageDealtAction
+	| setDamageReceivedAction
+	| setFacingAction
+	| setGlobalVariableAtIndexAction
+	| setGravityAction
+	| setHealingDealtAction
+	| setHealingReceivedAction
+	| setMatchTimeAction
+	| setMaxHealthAction
+	| setMoveSpeedAction
+	| setObjectiveDescriptionAction
+	| setPlayerAllowedHeroesAction
+	| setPlayerScoreAction
+	| setPlayerVariableAction
+	| setPlayerVariableAtIndexAction
+	| setPrimaryFireEnabledAction
+	| setProjectileGravityAction
+	| setRespawnMaxTimeAction
+	| setSecondaryFireEnabledAction
+	| setSlowMotionAction
+	| setStatusAction
+	| setTeamScoreAction
+	| setUltimateAbilityEnabledAction
+	| setUltimateChargeAction
+	;
 setGlobalVariableAction: 'Set Global Variable' '(' globalVariable ',' expression ')';
+abortAction: 'Abort';
+abortIfAction: 'Abort If' '(' expression ')';
+abortIfConditionIsFalseAction: 'Abort If Condition Is False';
+abortIfConditionIsTrueAction: 'Abort If Condition Is True';
+allowButtonAction: 'Allow Button' '(' expression ',' button ')';
+applyImpulseAction: 'Apply Impulse' '(' expression ',' expression ',' expression ',' relativeTo ',' motionType ')';
+bigMessageAction: 'Big Message' '(' expression ',' expression ')';
+chaseGlobalVariableAtRateAction: 'Chase Global Variable At Rate' '(' globalVariable ',' expression ',' expression ',' rateReevaluation ')';
+chaseGlobalVariableOverTimeAction: 'Chase Global Variable Over Time' '(' globalVariable ',' expression ',' expression ',' timeReevaluation ')';
+chasePlayerVariableAtRateAction: 'Chase Player Variable At Rate' '(' expression ',' playerVariable ',' expression ',' expression ',' rateReevaluation ')';
+chasePlayerVariableOverTimeAction: 'Chase Player Variable Over Time' '(' expression ',' playerVariable ',' expression ',' expression ',' timeReevaluation ')';
+clearStatusAction: 'Clear Status' '(' expression ',' status ')';
+communicateAction: 'Communicate' '(' expression ',' communicationType ')';
+createEffectAction: 'Create Effect' '(' expression ',' effectShape ',' color ',' expression ',' expression ',' createEffectReevaluation ')';
+createHudTextAction: 'Create HUD Text' '(' expression ',' expression ',' expression ',' expression ',' hudTextLocation ',' expression ',' color ',' color ',' color ',' hudTextReevaluation ')';
+createIconAction: 'Create Icon' '(' expression ',' expression ',' icon ',' iconReevaluation ',' color ',' expression ')';
+createInWorldTextAction: 'Create In-World Text' '(' expression ',' expression ',' expression ',' expression ',' inWorldTextClipping ',' inWorldTextReevaluation ')';
+damageAction: 'Damage' '(' expression ',' expression ',' expression ')';
+declareMatchDrawAction: 'Declare Match Draw';
+declarePlayerVictoryAction: 'Declare Player Victory' '(' expression ')';
+declareRoundVictoryAction: 'Declare Round Victory' '(' expression ')';
+declareTeamVictoryAction: 'Declare Team Victory' '(' expression ')';
+destroyAllEffectsAction: 'Destroy All Effects';
+destroyAllHudTextAction: 'Destroy All HUD Text';
+destroyAllIconsAction: 'Destroy All Icons';
+destroyAllInWorldTextAction: 'Destroy All In-World Text';
+destroyEffectAction: 'Destroy Effect' '(' expression ')';
+destroyHudTextAction: 'Destroy HUD Text' '(' expression ')';
+destroyIconAction: 'Destroy Icon' '(' expression ')';
+destroyInWorldTextAction: 'Destroy In-World Text' '(' expression ')';
+disableBuiltInGameModeAnnouncerAction: 'Disable Built-In Game Mode Announcer';
+disableBuiltInGameModeCompletionAction: 'Disable Built-In Game Mode Completion';
+disableBuiltInGameModeMusicAction: 'Disable Built-In Game Mode Music';
+disableBuiltInGameModeRespawningAction: 'Disable Built-In Game Mode Respawning' '(' expression ')';
+disableBuiltInGameModeScoringAction: 'Disable Built-In Game Mode Scoring';
+disableDeathSpectateAllPlayersAction: 'Disable Death Spectate All Players' '(' expression ')';
+disableDeathSpectateTargetHudAction: 'Disable Death Spectate Target HUD' '(' expression ')';
+disallowButtonAction: 'Disallow Button' '(' expression ',' button ')';
+enableBuiltInGameModeAnnouncerAction: 'Enable Built-In Game Mode Announcer';
+enableBuiltInGameModeCompletionAction: 'Enable Built-In Game Mode Completion';
+enableBuiltInGameModeMusicAction: 'Enable Built-In Game Mode Music';
+enableBuiltInGameModeRespawningAction: 'Enable Built-In Game Mode Respawning' '(' expression ')';
+enableBuiltInGameModeScoringAction: 'Enable Built-In Game Mode Scoring';
+enableDeathSpectateAllPlayersAction: 'Enable Death Spectate All Players' '(' expression ')';
+enableDeathSpectateTargetHudAction: 'Enable Death Spectate Target HUD' '(' expression ')';
+goToAssembleHeroesAction: 'Go To Assemble Heroes';
+healAction: 'Heal' '(' expression ',' expression ',' expression ')';
+killAction: 'Kill' '(' expression ',' expression ')';
+loopAction: 'Loop';
+loopIfAction: 'Loop If' '(' expression ')';
+loopIfConditionIsFalseAction: 'Loop If Condition Is False';
+loopIfConditionIsTrueAction: 'Loop If Condition Is True';
+modifyGlobalVariableAction: 'Modify Global Variable' '(' globalVariable ',' modification ',' expression ')';
+modifyGlobalVariableAtIndexAction: 'Modify Global Variable At Index' '(' globalVariable ',' expression ',' modification ',' expression ')';
+modifyPlayerVariableAction: 'Modify Player Variable' '(' expression ',' playerVariable ',' modification ',' expression ')';
+modifyPlayerVariableAtIndexAction: 'Modify Player Variable At Index' '(' expression ',' playerVariable ',' expression ',' modification ',' expression ')';
+modifyTeamScoreAction: 'Modify Team Score' '(' expression ',' expression ')';
+pauseMatchTimeAction: 'Pause Match Time';
+playEffectAction: 'Play Effect' '(' expression ',' animatedEffect ',' color ',' expression ',' expression ')';
+preloadHeroAction: 'Preload Hero' '(' expression ',' expression ')';
+pressButtonAction: 'Press Button' '(' expression ',' button ')';
+resetPlayerHeroAvailabilityAction: 'Reset Player Hero Availability' '(' expression ')';
+respawnAction: 'Respawn' '(' expression ')';
+resurrectAction: 'Resurrect' '(' expression ')';
+setAbility1EnabledAction: 'Set Ability 1 Enabled' '(' expression ',' expression ')';
+setAbility2EnabledAction: 'Set Ability 2 Enabled' '(' expression ',' expression ')';
+setDamageDealtAction: 'Set Damage Dealt' '(' expression ',' expression ')';
+setDamageReceivedAction: 'Set Damage Received' '(' expression ',' expression ')';
+setFacingAction: 'Set Facing' '(' expression ',' expression ',' relativeTo ')';
+setGlobalVariableAtIndexAction: 'Set Global Variable At Index' '(' globalVariable ',' expression ',' expression ')';
+setGravityAction: 'Set Gravity' '(' expression ',' expression ')';
+setHealingDealtAction: 'Set Healing Dealt' '(' expression ',' expression ')';
+setHealingReceivedAction: 'Set Healing Received' '(' expression ',' expression ')';
+setMatchTimeAction: 'Set Match Time' '(' expression ')';
+setMaxHealthAction: 'Set Max Health' '(' expression ',' expression ')';
+setMoveSpeedAction: 'Set Move Speed' '(' expression ',' expression ')';
+setObjectiveDescriptionAction: 'Set Objective Description' '(' expression ',' expression ',' hudTextReevaluation ')';
+setPlayerAllowedHeroesAction: 'Set Player Allowed Heroes' '(' expression ',' expression ')';
+setPlayerScoreAction: 'Set Player Score' '(' expression ',' expression ')';
+setPlayerVariableAction: 'Set Player Variable' '(' expression ',' playerVariable ',' expression ')';
+setPlayerVariableAtIndexAction: 'Set Player Variable At Index' '(' expression ',' playerVariable ',' expression ',' expression ')';
+setPrimaryFireEnabledAction: 'Set Primary Fire Enabled' '(' expression ',' expression ')';
+setProjectileGravityAction: 'Set Projectile Gravity' '(' expression ',' expression ')';
+setRespawnMaxTimeAction: 'Set Respawn Max Time' '(' expression ',' expression ')';
+setSecondaryFireEnabledAction: 'Set Secondary Fire Enabled' '(' expression ',' expression ')';
+setSlowMotionAction: 'Set Slow Motion' '(' expression ')';
+setStatusAction: 'Set Status' '(' expression ',' expression ',' status ',' expression ')';
+setTeamScoreAction: 'Set Team Score' '(' expression ',' expression ')';
+setUltimateAbilityEnabledAction: 'Set Ultimate Ability Enabled' '(' expression ',' expression ')';
+setUltimateChargeAction: 'Set Ultimate Charge' '(' expression ',' expression ')';
 
+/*
+Action: '';
+Action: '';
+Action: '' '(' expression ')';
+Action: '' '(' expression ')';
+Action: '' '(' expression ',' expression ')';
+Action: '' '(' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ',' expression ',' expression ',' expression ')';
+Action: '' '(' expression ',' expression ',' expression ',' expression ',' expression ',' expression ')';
+*/
 
 
 //Expressions
@@ -403,8 +601,10 @@ Expression: '' '(' expression ',' expression ',' expression ',' expression ')';
 */
 
 
-team: (ALL | ALL_TEAMS | TEAM INTEGER);
+team: (ALL | ALL_TEAMS | Team1 | Team2);
 ALL_TEAMS: 'All Teams';
+Team1: 'Team 1';
+Team2: 'Team 2';
 playerConstant: (ALL | SLOT INTEGER | heroType);
 
 
@@ -419,7 +619,7 @@ reaper: 'Reaper';
 tracer: 'Tracer';
 mercy: 'Mercy';
 hanzo: 'Hanzo';
-torbjorn: 'Torbjörn';
+torbjorn: 'Torbj\u00F6rn';
 reinhardt: 'Reinhardt';
 pharah: 'Pharah';
 winston: 'Winston';
@@ -433,7 +633,7 @@ mcCree: 'McCree';
 junkrat: 'Junkrat';
 zarya: 'Zarya';
 soldier76: 'Soldier: 76';
-lucio: 'Lúcio';
+lucio: 'L\u00FAcio';
 dva: 'D.Va';
 mei: 'Mei';
 sombra: 'Sombra';
@@ -519,12 +719,221 @@ up: 'Up';
 down: 'Down';
 toNearest: 'To Nearest';
 
+motionType: cancelContraryMotion | incorporateContraryMotion;
+cancelContraryMotion: 'Cancel Contrary Motion';
+incorporateContraryMotion: 'Incorporate Contrary Motion';
+
+relativeTo: toWorld | toPlayer;
+toWorld: 'To World';
+toPlayer: 'To Player';
+
+rateReevaluation: destinationAndRate | none;
+destinationAndRate: 'Destination and Rate';
+
+timeReevaluation: destinationAndDuration | none;
+destinationAndDuration: 'Destination and Duration';
+none: 'None';
+
+effectShape
+	: sphere
+	| lightShaft
+	| orb
+	| ring
+	| cloud
+	| sparkles
+	| goodAura
+	| badAura
+	| energySound
+	| pickUpSound
+	| goodAuraSound
+	| badAuraSound
+	| sparklesSound
+	| smokeSound
+	| decalSound
+	| beaconSound
+	;
+sphere: 'Sphere';
+lightShaft: 'Light Shaft';
+orb: 'Orb';
+ring: 'Ring';
+cloud: 'Cloud';
+sparkles: 'Sparkles';
+goodAura: 'Good Aura';
+badAura: 'Bad Aura';
+energySound: 'Energy Sound';
+pickUpSound: 'Pick-up Sound';
+goodAuraSound: 'Good Aura Sound';
+badAuraSound: 'Bad Aura Sound';
+sparklesSound: 'Sparkles Sound';
+smokeSound: 'Smoke Sound';
+decalSound: 'Decal Sound';
+beaconSound: 'Beacon Sound';
+
+color: white | yellow | green | purple | red | blue | team1 | team2;
+white: 'White';
+yellow: 'Yellow';
+green: 'Green';
+purple: 'Purple';
+red: 'Red';
+blue: 'Blue';
+team1: 'Team 1';
+team2: 'Team 2';
+
+createEffectReevaluation: visibleToPositionAndRadius | positionAandRadius | visibleTo | none;
+visibleToPositionAndRadius: 'Visible To Position and Radius';
+positionAandRadius: 'Position and Radius';
+visibleTo: 'Visible To';
+
+hudTextLocation: left | top | right;
+left: 'Left';
+top: 'Top';
+right: 'Right';
+
+hudTextReevaluation: visibleToAndString | string;
+visibleToAndString: 'Visible To and String';
+string: 'String';
+
+icon
+	: arrowDown
+	| arrowLeft
+	| arrowRight
+	| arrowUp
+	| asterisk
+	| bolt
+	| checkmark
+	| circle
+	| club
+	| diamond
+	| dizzy
+	| exclamationMark
+	| eye
+	| fire
+	| flag
+	| halo
+	| happy
+	| heart
+	| moon
+	| no
+	| plus
+	| poison
+	| poison2
+	| questionMark
+	| radioactive
+	| recycle
+	| ringThick
+	| ringThin
+	| sad
+	| skull
+	| spade
+	| spiral
+	| stop
+	| trashcan
+	| warning
+	| x
+	;
+arrowDown: 'Arrow: Down';
+arrowLeft: 'Arrow: Left';
+arrowRight: 'Arrow: Right';
+arrowUp: 'Arrow: Up';
+asterisk: 'Asterisk';
+bolt: 'Bolt';
+checkmark: 'Checkmark';
+circle: 'Circle';
+club: 'Club';
+diamond: 'Diamond';
+dizzy: 'Dizzy';
+exclamationMark: 'Exclamation Mark';
+eye: 'Eye';
+fire: 'Fire';
+flag: 'Flag';
+halo: 'Halo';
+happy: 'Happy';
+heart: 'Heart';
+moon: 'Moon';
+no: 'No';
+plus: 'Plus';
+poison: 'Poison';
+poison2: 'Poison 2';
+questionMark: 'Question Mark';
+radioactive: 'Radioactive';
+recycle: 'Recycle';
+ringThick: 'Ring Thick';
+ringThin: 'Ring Thin';
+sad: 'Sad';
+skull: 'Skull';
+spade: 'Spade';
+spiral: 'Spiral';
+stop: 'Stop';
+trashcan: 'Trashcan';
+warning: 'Warning';
+x: 'X';
+
+modification
+	: add
+	| subtract
+	| multiply
+	| divide
+	| modulo
+	| raiseToPower
+	| min
+	| max
+	| appendToArray
+	| removeFromArrayByValue
+	| removeFromArrayByIndex
+	;
+add: 'Add';
+subtract: 'Subtract';
+multiply: 'Multiply';
+divide: 'Divide';
+modulo: 'Modulo';
+raiseToPower: 'Raise To Power';
+min: 'Min';
+max: 'Max';
+appendToArray: 'Append To Array';
+removeFromArrayByValue: 'Remove From Array By Value';
+removeFromArrayByIndex: 'Remove From Array By Index';
+
+animatedEffect
+	: goodExplosion
+	| badExplosion
+	| ringExplosion
+	| goodPickupEffect
+	| badPickupEffect
+	| debuffImpactSound
+	| buffImpactSound
+	| ringExplosionSound
+	| buffExplosionSound
+	| explosionSound
+	;
+goodExplosion: 'Good Explosion';
+badExplosion: 'Bad Explosion';
+ringExplosion: 'Ring Explosion';
+goodPickupEffect: 'Good Pickup Effect';
+badPickupEffect: 'Bad Pickup Effect';
+debuffImpactSound: 'Debuff Impact Sound';
+buffImpactSound: 'Buff Impact Sound';
+ringExplosionSound: 'Ring Explosion Sound';
+buffExplosionSound: 'Buff Explosion Sound';
+explosionSound: 'Explosion Sound';
+
+
+
+iconReevaluation: visibleToAndPosition | position | visibleTo | none ;
+visibleToAndPosition: 'Visible To and Position';
+position: 'Position';
+
+inWorldTextClipping: clipAgainstSurfaces | doNotClip;
+clipAgainstSurfaces: 'Clip Against Surfaces';
+doNotClip: 'Do Not Clip';
+
+inWorldTextReevaluation: visibleToPositionAndString | visibleToAndString | string;
+visibleToPositionAndString: 'Visible To Position and String';
+
 binaryCompartorOperator: '==' | '!=' | '<' | '<=' | '>' | '>=';
 
 LETTER: [A-Z];
 INTEGER: [0-9]+;//Todo: Negative numbers
 SLOT: 'Slot';
-TEAM: 'Team';
 ALL: 'All';
 STRING : '"' ( '\\"' | . )*? '"';
 FLOAT: '-'? [0-9]+ ('.' [0-9]+)?;

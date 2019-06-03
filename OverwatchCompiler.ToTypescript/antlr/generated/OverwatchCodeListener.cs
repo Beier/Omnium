@@ -191,6 +191,906 @@ public interface IOverwatchCodeListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitSetGlobalVariableAction([NotNull] OverwatchCodeParser.SetGlobalVariableActionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAbortAction([NotNull] OverwatchCodeParser.AbortActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAbortAction([NotNull] OverwatchCodeParser.AbortActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortIfAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAbortIfAction([NotNull] OverwatchCodeParser.AbortIfActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortIfAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAbortIfAction([NotNull] OverwatchCodeParser.AbortIfActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsFalseAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAbortIfConditionIsFalseAction([NotNull] OverwatchCodeParser.AbortIfConditionIsFalseActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsFalseAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAbortIfConditionIsFalseAction([NotNull] OverwatchCodeParser.AbortIfConditionIsFalseActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsTrueAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAbortIfConditionIsTrueAction([NotNull] OverwatchCodeParser.AbortIfConditionIsTrueActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsTrueAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAbortIfConditionIsTrueAction([NotNull] OverwatchCodeParser.AbortIfConditionIsTrueActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.allowButtonAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAllowButtonAction([NotNull] OverwatchCodeParser.AllowButtonActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.allowButtonAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAllowButtonAction([NotNull] OverwatchCodeParser.AllowButtonActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.applyImpulseAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterApplyImpulseAction([NotNull] OverwatchCodeParser.ApplyImpulseActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.applyImpulseAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitApplyImpulseAction([NotNull] OverwatchCodeParser.ApplyImpulseActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.bigMessageAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBigMessageAction([NotNull] OverwatchCodeParser.BigMessageActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.bigMessageAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBigMessageAction([NotNull] OverwatchCodeParser.BigMessageActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableAtRateAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterChaseGlobalVariableAtRateAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableAtRateActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableAtRateAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitChaseGlobalVariableAtRateAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableAtRateActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableOverTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterChaseGlobalVariableOverTimeAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableOverTimeActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableOverTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitChaseGlobalVariableOverTimeAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableOverTimeActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableAtRateAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterChasePlayerVariableAtRateAction([NotNull] OverwatchCodeParser.ChasePlayerVariableAtRateActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableAtRateAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitChasePlayerVariableAtRateAction([NotNull] OverwatchCodeParser.ChasePlayerVariableAtRateActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableOverTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterChasePlayerVariableOverTimeAction([NotNull] OverwatchCodeParser.ChasePlayerVariableOverTimeActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableOverTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitChasePlayerVariableOverTimeAction([NotNull] OverwatchCodeParser.ChasePlayerVariableOverTimeActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.clearStatusAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterClearStatusAction([NotNull] OverwatchCodeParser.ClearStatusActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.clearStatusAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitClearStatusAction([NotNull] OverwatchCodeParser.ClearStatusActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.communicateAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCommunicateAction([NotNull] OverwatchCodeParser.CommunicateActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.communicateAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCommunicateAction([NotNull] OverwatchCodeParser.CommunicateActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createEffectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreateEffectAction([NotNull] OverwatchCodeParser.CreateEffectActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createEffectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreateEffectAction([NotNull] OverwatchCodeParser.CreateEffectActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createHudTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreateHudTextAction([NotNull] OverwatchCodeParser.CreateHudTextActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createHudTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreateHudTextAction([NotNull] OverwatchCodeParser.CreateHudTextActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createIconAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreateIconAction([NotNull] OverwatchCodeParser.CreateIconActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createIconAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreateIconAction([NotNull] OverwatchCodeParser.CreateIconActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createInWorldTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreateInWorldTextAction([NotNull] OverwatchCodeParser.CreateInWorldTextActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createInWorldTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreateInWorldTextAction([NotNull] OverwatchCodeParser.CreateInWorldTextActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.damageAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDamageAction([NotNull] OverwatchCodeParser.DamageActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.damageAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDamageAction([NotNull] OverwatchCodeParser.DamageActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declareMatchDrawAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDeclareMatchDrawAction([NotNull] OverwatchCodeParser.DeclareMatchDrawActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declareMatchDrawAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDeclareMatchDrawAction([NotNull] OverwatchCodeParser.DeclareMatchDrawActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declarePlayerVictoryAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDeclarePlayerVictoryAction([NotNull] OverwatchCodeParser.DeclarePlayerVictoryActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declarePlayerVictoryAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDeclarePlayerVictoryAction([NotNull] OverwatchCodeParser.DeclarePlayerVictoryActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declareRoundVictoryAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDeclareRoundVictoryAction([NotNull] OverwatchCodeParser.DeclareRoundVictoryActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declareRoundVictoryAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDeclareRoundVictoryAction([NotNull] OverwatchCodeParser.DeclareRoundVictoryActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declareTeamVictoryAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDeclareTeamVictoryAction([NotNull] OverwatchCodeParser.DeclareTeamVictoryActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declareTeamVictoryAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDeclareTeamVictoryAction([NotNull] OverwatchCodeParser.DeclareTeamVictoryActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllEffectsAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyAllEffectsAction([NotNull] OverwatchCodeParser.DestroyAllEffectsActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllEffectsAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyAllEffectsAction([NotNull] OverwatchCodeParser.DestroyAllEffectsActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllHudTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyAllHudTextAction([NotNull] OverwatchCodeParser.DestroyAllHudTextActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllHudTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyAllHudTextAction([NotNull] OverwatchCodeParser.DestroyAllHudTextActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllIconsAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyAllIconsAction([NotNull] OverwatchCodeParser.DestroyAllIconsActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllIconsAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyAllIconsAction([NotNull] OverwatchCodeParser.DestroyAllIconsActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllInWorldTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyAllInWorldTextAction([NotNull] OverwatchCodeParser.DestroyAllInWorldTextActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllInWorldTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyAllInWorldTextAction([NotNull] OverwatchCodeParser.DestroyAllInWorldTextActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyEffectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyEffectAction([NotNull] OverwatchCodeParser.DestroyEffectActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyEffectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyEffectAction([NotNull] OverwatchCodeParser.DestroyEffectActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyHudTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyHudTextAction([NotNull] OverwatchCodeParser.DestroyHudTextActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyHudTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyHudTextAction([NotNull] OverwatchCodeParser.DestroyHudTextActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyIconAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyIconAction([NotNull] OverwatchCodeParser.DestroyIconActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyIconAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyIconAction([NotNull] OverwatchCodeParser.DestroyIconActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyInWorldTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestroyInWorldTextAction([NotNull] OverwatchCodeParser.DestroyInWorldTextActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyInWorldTextAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestroyInWorldTextAction([NotNull] OverwatchCodeParser.DestroyInWorldTextActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeAnnouncerAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeAnnouncerActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeAnnouncerAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeAnnouncerActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeCompletionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeCompletionActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeCompletionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeCompletionActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeMusicAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeMusicActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeMusicAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeMusicActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeRespawningAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeRespawningActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeRespawningAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeRespawningActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeScoringAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeScoringActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeScoringAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeScoringActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateAllPlayersAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.DisableDeathSpectateAllPlayersActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateAllPlayersAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.DisableDeathSpectateAllPlayersActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateTargetHudAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.DisableDeathSpectateTargetHudActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateTargetHudAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.DisableDeathSpectateTargetHudActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disallowButtonAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDisallowButtonAction([NotNull] OverwatchCodeParser.DisallowButtonActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disallowButtonAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDisallowButtonAction([NotNull] OverwatchCodeParser.DisallowButtonActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeAnnouncerAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeAnnouncerActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeAnnouncerAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeAnnouncerActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeCompletionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeCompletionActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeCompletionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeCompletionActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeMusicAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeMusicActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeMusicAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeMusicActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeRespawningAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeRespawningActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeRespawningAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeRespawningActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeScoringAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeScoringActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeScoringAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeScoringActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateAllPlayersAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.EnableDeathSpectateAllPlayersActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateAllPlayersAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.EnableDeathSpectateAllPlayersActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateTargetHudAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.EnableDeathSpectateTargetHudActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateTargetHudAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.EnableDeathSpectateTargetHudActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goToAssembleHeroesAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGoToAssembleHeroesAction([NotNull] OverwatchCodeParser.GoToAssembleHeroesActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goToAssembleHeroesAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGoToAssembleHeroesAction([NotNull] OverwatchCodeParser.GoToAssembleHeroesActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.healAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHealAction([NotNull] OverwatchCodeParser.HealActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.healAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHealAction([NotNull] OverwatchCodeParser.HealActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.killAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterKillAction([NotNull] OverwatchCodeParser.KillActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.killAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitKillAction([NotNull] OverwatchCodeParser.KillActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLoopAction([NotNull] OverwatchCodeParser.LoopActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLoopAction([NotNull] OverwatchCodeParser.LoopActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopIfAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLoopIfAction([NotNull] OverwatchCodeParser.LoopIfActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopIfAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLoopIfAction([NotNull] OverwatchCodeParser.LoopIfActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsFalseAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLoopIfConditionIsFalseAction([NotNull] OverwatchCodeParser.LoopIfConditionIsFalseActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsFalseAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLoopIfConditionIsFalseAction([NotNull] OverwatchCodeParser.LoopIfConditionIsFalseActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsTrueAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLoopIfConditionIsTrueAction([NotNull] OverwatchCodeParser.LoopIfConditionIsTrueActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsTrueAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLoopIfConditionIsTrueAction([NotNull] OverwatchCodeParser.LoopIfConditionIsTrueActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModifyGlobalVariableAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModifyGlobalVariableAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModifyGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableAtIndexActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModifyGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableAtIndexActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModifyPlayerVariableAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModifyPlayerVariableAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModifyPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableAtIndexActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModifyPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableAtIndexActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyTeamScoreAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModifyTeamScoreAction([NotNull] OverwatchCodeParser.ModifyTeamScoreActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyTeamScoreAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModifyTeamScoreAction([NotNull] OverwatchCodeParser.ModifyTeamScoreActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.pauseMatchTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPauseMatchTimeAction([NotNull] OverwatchCodeParser.PauseMatchTimeActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.pauseMatchTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPauseMatchTimeAction([NotNull] OverwatchCodeParser.PauseMatchTimeActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.playEffectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPlayEffectAction([NotNull] OverwatchCodeParser.PlayEffectActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.playEffectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPlayEffectAction([NotNull] OverwatchCodeParser.PlayEffectActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.preloadHeroAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPreloadHeroAction([NotNull] OverwatchCodeParser.PreloadHeroActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.preloadHeroAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPreloadHeroAction([NotNull] OverwatchCodeParser.PreloadHeroActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.pressButtonAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPressButtonAction([NotNull] OverwatchCodeParser.PressButtonActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.pressButtonAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPressButtonAction([NotNull] OverwatchCodeParser.PressButtonActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.resetPlayerHeroAvailabilityAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterResetPlayerHeroAvailabilityAction([NotNull] OverwatchCodeParser.ResetPlayerHeroAvailabilityActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.resetPlayerHeroAvailabilityAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitResetPlayerHeroAvailabilityAction([NotNull] OverwatchCodeParser.ResetPlayerHeroAvailabilityActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.respawnAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRespawnAction([NotNull] OverwatchCodeParser.RespawnActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.respawnAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRespawnAction([NotNull] OverwatchCodeParser.RespawnActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.resurrectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterResurrectAction([NotNull] OverwatchCodeParser.ResurrectActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.resurrectAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitResurrectAction([NotNull] OverwatchCodeParser.ResurrectActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setAbility1EnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetAbility1EnabledAction([NotNull] OverwatchCodeParser.SetAbility1EnabledActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setAbility1EnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetAbility1EnabledAction([NotNull] OverwatchCodeParser.SetAbility1EnabledActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setAbility2EnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetAbility2EnabledAction([NotNull] OverwatchCodeParser.SetAbility2EnabledActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setAbility2EnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetAbility2EnabledAction([NotNull] OverwatchCodeParser.SetAbility2EnabledActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setDamageDealtAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetDamageDealtAction([NotNull] OverwatchCodeParser.SetDamageDealtActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setDamageDealtAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetDamageDealtAction([NotNull] OverwatchCodeParser.SetDamageDealtActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setDamageReceivedAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetDamageReceivedAction([NotNull] OverwatchCodeParser.SetDamageReceivedActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setDamageReceivedAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetDamageReceivedAction([NotNull] OverwatchCodeParser.SetDamageReceivedActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setFacingAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetFacingAction([NotNull] OverwatchCodeParser.SetFacingActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setFacingAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetFacingAction([NotNull] OverwatchCodeParser.SetFacingActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setGlobalVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.SetGlobalVariableAtIndexActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setGlobalVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.SetGlobalVariableAtIndexActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setGravityAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetGravityAction([NotNull] OverwatchCodeParser.SetGravityActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setGravityAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetGravityAction([NotNull] OverwatchCodeParser.SetGravityActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setHealingDealtAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetHealingDealtAction([NotNull] OverwatchCodeParser.SetHealingDealtActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setHealingDealtAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetHealingDealtAction([NotNull] OverwatchCodeParser.SetHealingDealtActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setHealingReceivedAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetHealingReceivedAction([NotNull] OverwatchCodeParser.SetHealingReceivedActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setHealingReceivedAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetHealingReceivedAction([NotNull] OverwatchCodeParser.SetHealingReceivedActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setMatchTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetMatchTimeAction([NotNull] OverwatchCodeParser.SetMatchTimeActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setMatchTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetMatchTimeAction([NotNull] OverwatchCodeParser.SetMatchTimeActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setMaxHealthAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetMaxHealthAction([NotNull] OverwatchCodeParser.SetMaxHealthActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setMaxHealthAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetMaxHealthAction([NotNull] OverwatchCodeParser.SetMaxHealthActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setMoveSpeedAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetMoveSpeedAction([NotNull] OverwatchCodeParser.SetMoveSpeedActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setMoveSpeedAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetMoveSpeedAction([NotNull] OverwatchCodeParser.SetMoveSpeedActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setObjectiveDescriptionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetObjectiveDescriptionAction([NotNull] OverwatchCodeParser.SetObjectiveDescriptionActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setObjectiveDescriptionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetObjectiveDescriptionAction([NotNull] OverwatchCodeParser.SetObjectiveDescriptionActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerAllowedHeroesAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetPlayerAllowedHeroesAction([NotNull] OverwatchCodeParser.SetPlayerAllowedHeroesActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerAllowedHeroesAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetPlayerAllowedHeroesAction([NotNull] OverwatchCodeParser.SetPlayerAllowedHeroesActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerScoreAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetPlayerScoreAction([NotNull] OverwatchCodeParser.SetPlayerScoreActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerScoreAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetPlayerScoreAction([NotNull] OverwatchCodeParser.SetPlayerScoreActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetPlayerVariableAction([NotNull] OverwatchCodeParser.SetPlayerVariableActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetPlayerVariableAction([NotNull] OverwatchCodeParser.SetPlayerVariableActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.SetPlayerVariableAtIndexActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAtIndexAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.SetPlayerVariableAtIndexActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPrimaryFireEnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetPrimaryFireEnabledAction([NotNull] OverwatchCodeParser.SetPrimaryFireEnabledActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPrimaryFireEnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetPrimaryFireEnabledAction([NotNull] OverwatchCodeParser.SetPrimaryFireEnabledActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setProjectileGravityAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetProjectileGravityAction([NotNull] OverwatchCodeParser.SetProjectileGravityActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setProjectileGravityAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetProjectileGravityAction([NotNull] OverwatchCodeParser.SetProjectileGravityActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setRespawnMaxTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetRespawnMaxTimeAction([NotNull] OverwatchCodeParser.SetRespawnMaxTimeActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setRespawnMaxTimeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetRespawnMaxTimeAction([NotNull] OverwatchCodeParser.SetRespawnMaxTimeActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setSecondaryFireEnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetSecondaryFireEnabledAction([NotNull] OverwatchCodeParser.SetSecondaryFireEnabledActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setSecondaryFireEnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetSecondaryFireEnabledAction([NotNull] OverwatchCodeParser.SetSecondaryFireEnabledActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setSlowMotionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetSlowMotionAction([NotNull] OverwatchCodeParser.SetSlowMotionActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setSlowMotionAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetSlowMotionAction([NotNull] OverwatchCodeParser.SetSlowMotionActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setStatusAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetStatusAction([NotNull] OverwatchCodeParser.SetStatusActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setStatusAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetStatusAction([NotNull] OverwatchCodeParser.SetStatusActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setTeamScoreAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetTeamScoreAction([NotNull] OverwatchCodeParser.SetTeamScoreActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setTeamScoreAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetTeamScoreAction([NotNull] OverwatchCodeParser.SetTeamScoreActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setUltimateAbilityEnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetUltimateAbilityEnabledAction([NotNull] OverwatchCodeParser.SetUltimateAbilityEnabledActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setUltimateAbilityEnabledAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetUltimateAbilityEnabledAction([NotNull] OverwatchCodeParser.SetUltimateAbilityEnabledActionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setUltimateChargeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetUltimateChargeAction([NotNull] OverwatchCodeParser.SetUltimateChargeActionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setUltimateChargeAction"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetUltimateChargeAction([NotNull] OverwatchCodeParser.SetUltimateChargeActionContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -2810,6 +3710,1166 @@ public interface IOverwatchCodeListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitToNearest([NotNull] OverwatchCodeParser.ToNearestContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.motionType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMotionType([NotNull] OverwatchCodeParser.MotionTypeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.motionType"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMotionType([NotNull] OverwatchCodeParser.MotionTypeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.cancelContraryMotion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCancelContraryMotion([NotNull] OverwatchCodeParser.CancelContraryMotionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.cancelContraryMotion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCancelContraryMotion([NotNull] OverwatchCodeParser.CancelContraryMotionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.incorporateContraryMotion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIncorporateContraryMotion([NotNull] OverwatchCodeParser.IncorporateContraryMotionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.incorporateContraryMotion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIncorporateContraryMotion([NotNull] OverwatchCodeParser.IncorporateContraryMotionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.relativeTo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRelativeTo([NotNull] OverwatchCodeParser.RelativeToContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.relativeTo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRelativeTo([NotNull] OverwatchCodeParser.RelativeToContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.toWorld"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterToWorld([NotNull] OverwatchCodeParser.ToWorldContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.toWorld"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitToWorld([NotNull] OverwatchCodeParser.ToWorldContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.toPlayer"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterToPlayer([NotNull] OverwatchCodeParser.ToPlayerContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.toPlayer"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitToPlayer([NotNull] OverwatchCodeParser.ToPlayerContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.rateReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRateReevaluation([NotNull] OverwatchCodeParser.RateReevaluationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.rateReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRateReevaluation([NotNull] OverwatchCodeParser.RateReevaluationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destinationAndRate"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestinationAndRate([NotNull] OverwatchCodeParser.DestinationAndRateContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destinationAndRate"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestinationAndRate([NotNull] OverwatchCodeParser.DestinationAndRateContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.timeReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTimeReevaluation([NotNull] OverwatchCodeParser.TimeReevaluationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.timeReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTimeReevaluation([NotNull] OverwatchCodeParser.TimeReevaluationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destinationAndDuration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDestinationAndDuration([NotNull] OverwatchCodeParser.DestinationAndDurationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destinationAndDuration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDestinationAndDuration([NotNull] OverwatchCodeParser.DestinationAndDurationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.none"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNone([NotNull] OverwatchCodeParser.NoneContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.none"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNone([NotNull] OverwatchCodeParser.NoneContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.effectShape"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEffectShape([NotNull] OverwatchCodeParser.EffectShapeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.effectShape"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEffectShape([NotNull] OverwatchCodeParser.EffectShapeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sphere"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSphere([NotNull] OverwatchCodeParser.SphereContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sphere"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSphere([NotNull] OverwatchCodeParser.SphereContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.lightShaft"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLightShaft([NotNull] OverwatchCodeParser.LightShaftContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.lightShaft"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLightShaft([NotNull] OverwatchCodeParser.LightShaftContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.orb"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterOrb([NotNull] OverwatchCodeParser.OrbContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.orb"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitOrb([NotNull] OverwatchCodeParser.OrbContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ring"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRing([NotNull] OverwatchCodeParser.RingContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ring"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRing([NotNull] OverwatchCodeParser.RingContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.cloud"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCloud([NotNull] OverwatchCodeParser.CloudContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.cloud"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCloud([NotNull] OverwatchCodeParser.CloudContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sparkles"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSparkles([NotNull] OverwatchCodeParser.SparklesContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sparkles"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSparkles([NotNull] OverwatchCodeParser.SparklesContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodAura"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGoodAura([NotNull] OverwatchCodeParser.GoodAuraContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodAura"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGoodAura([NotNull] OverwatchCodeParser.GoodAuraContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badAura"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBadAura([NotNull] OverwatchCodeParser.BadAuraContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badAura"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBadAura([NotNull] OverwatchCodeParser.BadAuraContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.energySound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnergySound([NotNull] OverwatchCodeParser.EnergySoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.energySound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnergySound([NotNull] OverwatchCodeParser.EnergySoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.pickUpSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPickUpSound([NotNull] OverwatchCodeParser.PickUpSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.pickUpSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPickUpSound([NotNull] OverwatchCodeParser.PickUpSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodAuraSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGoodAuraSound([NotNull] OverwatchCodeParser.GoodAuraSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodAuraSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGoodAuraSound([NotNull] OverwatchCodeParser.GoodAuraSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badAuraSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBadAuraSound([NotNull] OverwatchCodeParser.BadAuraSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badAuraSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBadAuraSound([NotNull] OverwatchCodeParser.BadAuraSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sparklesSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSparklesSound([NotNull] OverwatchCodeParser.SparklesSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sparklesSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSparklesSound([NotNull] OverwatchCodeParser.SparklesSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.smokeSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSmokeSound([NotNull] OverwatchCodeParser.SmokeSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.smokeSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSmokeSound([NotNull] OverwatchCodeParser.SmokeSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.decalSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDecalSound([NotNull] OverwatchCodeParser.DecalSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.decalSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDecalSound([NotNull] OverwatchCodeParser.DecalSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.beaconSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBeaconSound([NotNull] OverwatchCodeParser.BeaconSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.beaconSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBeaconSound([NotNull] OverwatchCodeParser.BeaconSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.color"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterColor([NotNull] OverwatchCodeParser.ColorContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.color"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitColor([NotNull] OverwatchCodeParser.ColorContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.white"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterWhite([NotNull] OverwatchCodeParser.WhiteContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.white"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitWhite([NotNull] OverwatchCodeParser.WhiteContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.yellow"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterYellow([NotNull] OverwatchCodeParser.YellowContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.yellow"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitYellow([NotNull] OverwatchCodeParser.YellowContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.green"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGreen([NotNull] OverwatchCodeParser.GreenContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.green"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGreen([NotNull] OverwatchCodeParser.GreenContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.purple"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPurple([NotNull] OverwatchCodeParser.PurpleContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.purple"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPurple([NotNull] OverwatchCodeParser.PurpleContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.red"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRed([NotNull] OverwatchCodeParser.RedContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.red"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRed([NotNull] OverwatchCodeParser.RedContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.blue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBlue([NotNull] OverwatchCodeParser.BlueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.blue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBlue([NotNull] OverwatchCodeParser.BlueContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.team1"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTeam1([NotNull] OverwatchCodeParser.Team1Context context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.team1"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTeam1([NotNull] OverwatchCodeParser.Team1Context context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.team2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTeam2([NotNull] OverwatchCodeParser.Team2Context context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.team2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTeam2([NotNull] OverwatchCodeParser.Team2Context context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createEffectReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCreateEffectReevaluation([NotNull] OverwatchCodeParser.CreateEffectReevaluationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createEffectReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCreateEffectReevaluation([NotNull] OverwatchCodeParser.CreateEffectReevaluationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndRadius"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVisibleToPositionAndRadius([NotNull] OverwatchCodeParser.VisibleToPositionAndRadiusContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndRadius"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVisibleToPositionAndRadius([NotNull] OverwatchCodeParser.VisibleToPositionAndRadiusContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.positionAandRadius"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPositionAandRadius([NotNull] OverwatchCodeParser.PositionAandRadiusContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.positionAandRadius"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPositionAandRadius([NotNull] OverwatchCodeParser.PositionAandRadiusContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleTo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVisibleTo([NotNull] OverwatchCodeParser.VisibleToContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleTo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVisibleTo([NotNull] OverwatchCodeParser.VisibleToContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.hudTextLocation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHudTextLocation([NotNull] OverwatchCodeParser.HudTextLocationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.hudTextLocation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHudTextLocation([NotNull] OverwatchCodeParser.HudTextLocationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.left"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLeft([NotNull] OverwatchCodeParser.LeftContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.left"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLeft([NotNull] OverwatchCodeParser.LeftContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.top"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTop([NotNull] OverwatchCodeParser.TopContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.top"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTop([NotNull] OverwatchCodeParser.TopContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.right"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRight([NotNull] OverwatchCodeParser.RightContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.right"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRight([NotNull] OverwatchCodeParser.RightContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.hudTextReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHudTextReevaluation([NotNull] OverwatchCodeParser.HudTextReevaluationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.hudTextReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHudTextReevaluation([NotNull] OverwatchCodeParser.HudTextReevaluationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndString"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVisibleToAndString([NotNull] OverwatchCodeParser.VisibleToAndStringContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndString"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVisibleToAndString([NotNull] OverwatchCodeParser.VisibleToAndStringContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.string"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterString([NotNull] OverwatchCodeParser.StringContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.string"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitString([NotNull] OverwatchCodeParser.StringContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.icon"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIcon([NotNull] OverwatchCodeParser.IconContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.icon"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIcon([NotNull] OverwatchCodeParser.IconContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowDown"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrowDown([NotNull] OverwatchCodeParser.ArrowDownContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowDown"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrowDown([NotNull] OverwatchCodeParser.ArrowDownContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowLeft"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrowLeft([NotNull] OverwatchCodeParser.ArrowLeftContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowLeft"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrowLeft([NotNull] OverwatchCodeParser.ArrowLeftContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowRight"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrowRight([NotNull] OverwatchCodeParser.ArrowRightContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowRight"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrowRight([NotNull] OverwatchCodeParser.ArrowRightContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowUp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArrowUp([NotNull] OverwatchCodeParser.ArrowUpContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowUp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArrowUp([NotNull] OverwatchCodeParser.ArrowUpContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.asterisk"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAsterisk([NotNull] OverwatchCodeParser.AsteriskContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.asterisk"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAsterisk([NotNull] OverwatchCodeParser.AsteriskContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.bolt"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBolt([NotNull] OverwatchCodeParser.BoltContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.bolt"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBolt([NotNull] OverwatchCodeParser.BoltContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.checkmark"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCheckmark([NotNull] OverwatchCodeParser.CheckmarkContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.checkmark"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCheckmark([NotNull] OverwatchCodeParser.CheckmarkContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.circle"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCircle([NotNull] OverwatchCodeParser.CircleContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.circle"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCircle([NotNull] OverwatchCodeParser.CircleContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.club"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterClub([NotNull] OverwatchCodeParser.ClubContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.club"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitClub([NotNull] OverwatchCodeParser.ClubContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.diamond"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDiamond([NotNull] OverwatchCodeParser.DiamondContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.diamond"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDiamond([NotNull] OverwatchCodeParser.DiamondContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.dizzy"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDizzy([NotNull] OverwatchCodeParser.DizzyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.dizzy"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDizzy([NotNull] OverwatchCodeParser.DizzyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.exclamationMark"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExclamationMark([NotNull] OverwatchCodeParser.ExclamationMarkContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.exclamationMark"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExclamationMark([NotNull] OverwatchCodeParser.ExclamationMarkContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.eye"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEye([NotNull] OverwatchCodeParser.EyeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.eye"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEye([NotNull] OverwatchCodeParser.EyeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.fire"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFire([NotNull] OverwatchCodeParser.FireContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.fire"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFire([NotNull] OverwatchCodeParser.FireContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.flag"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFlag([NotNull] OverwatchCodeParser.FlagContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.flag"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFlag([NotNull] OverwatchCodeParser.FlagContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.halo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHalo([NotNull] OverwatchCodeParser.HaloContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.halo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHalo([NotNull] OverwatchCodeParser.HaloContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.happy"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHappy([NotNull] OverwatchCodeParser.HappyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.happy"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHappy([NotNull] OverwatchCodeParser.HappyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.heart"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterHeart([NotNull] OverwatchCodeParser.HeartContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.heart"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitHeart([NotNull] OverwatchCodeParser.HeartContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.moon"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMoon([NotNull] OverwatchCodeParser.MoonContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.moon"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMoon([NotNull] OverwatchCodeParser.MoonContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.no"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNo([NotNull] OverwatchCodeParser.NoContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.no"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNo([NotNull] OverwatchCodeParser.NoContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.plus"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPlus([NotNull] OverwatchCodeParser.PlusContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.plus"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPlus([NotNull] OverwatchCodeParser.PlusContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.poison"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPoison([NotNull] OverwatchCodeParser.PoisonContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.poison"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPoison([NotNull] OverwatchCodeParser.PoisonContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.poison2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPoison2([NotNull] OverwatchCodeParser.Poison2Context context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.poison2"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPoison2([NotNull] OverwatchCodeParser.Poison2Context context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.questionMark"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterQuestionMark([NotNull] OverwatchCodeParser.QuestionMarkContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.questionMark"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitQuestionMark([NotNull] OverwatchCodeParser.QuestionMarkContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.radioactive"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRadioactive([NotNull] OverwatchCodeParser.RadioactiveContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.radioactive"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRadioactive([NotNull] OverwatchCodeParser.RadioactiveContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.recycle"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRecycle([NotNull] OverwatchCodeParser.RecycleContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.recycle"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRecycle([NotNull] OverwatchCodeParser.RecycleContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringThick"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRingThick([NotNull] OverwatchCodeParser.RingThickContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringThick"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRingThick([NotNull] OverwatchCodeParser.RingThickContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringThin"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRingThin([NotNull] OverwatchCodeParser.RingThinContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringThin"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRingThin([NotNull] OverwatchCodeParser.RingThinContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sad"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSad([NotNull] OverwatchCodeParser.SadContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sad"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSad([NotNull] OverwatchCodeParser.SadContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.skull"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSkull([NotNull] OverwatchCodeParser.SkullContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.skull"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSkull([NotNull] OverwatchCodeParser.SkullContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.spade"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSpade([NotNull] OverwatchCodeParser.SpadeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.spade"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSpade([NotNull] OverwatchCodeParser.SpadeContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.spiral"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSpiral([NotNull] OverwatchCodeParser.SpiralContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.spiral"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSpiral([NotNull] OverwatchCodeParser.SpiralContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.stop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStop([NotNull] OverwatchCodeParser.StopContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.stop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStop([NotNull] OverwatchCodeParser.StopContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.trashcan"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTrashcan([NotNull] OverwatchCodeParser.TrashcanContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.trashcan"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTrashcan([NotNull] OverwatchCodeParser.TrashcanContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.warning"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterWarning([NotNull] OverwatchCodeParser.WarningContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.warning"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitWarning([NotNull] OverwatchCodeParser.WarningContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.x"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterX([NotNull] OverwatchCodeParser.XContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.x"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitX([NotNull] OverwatchCodeParser.XContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modification"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModification([NotNull] OverwatchCodeParser.ModificationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modification"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModification([NotNull] OverwatchCodeParser.ModificationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.add"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAdd([NotNull] OverwatchCodeParser.AddContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.add"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAdd([NotNull] OverwatchCodeParser.AddContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.subtract"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSubtract([NotNull] OverwatchCodeParser.SubtractContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.subtract"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSubtract([NotNull] OverwatchCodeParser.SubtractContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.multiply"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMultiply([NotNull] OverwatchCodeParser.MultiplyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.multiply"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMultiply([NotNull] OverwatchCodeParser.MultiplyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.divide"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDivide([NotNull] OverwatchCodeParser.DivideContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.divide"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDivide([NotNull] OverwatchCodeParser.DivideContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modulo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterModulo([NotNull] OverwatchCodeParser.ModuloContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modulo"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitModulo([NotNull] OverwatchCodeParser.ModuloContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.raiseToPower"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRaiseToPower([NotNull] OverwatchCodeParser.RaiseToPowerContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.raiseToPower"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRaiseToPower([NotNull] OverwatchCodeParser.RaiseToPowerContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.min"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMin([NotNull] OverwatchCodeParser.MinContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.min"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMin([NotNull] OverwatchCodeParser.MinContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.max"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMax([NotNull] OverwatchCodeParser.MaxContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.max"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMax([NotNull] OverwatchCodeParser.MaxContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.appendToArray"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAppendToArray([NotNull] OverwatchCodeParser.AppendToArrayContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.appendToArray"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAppendToArray([NotNull] OverwatchCodeParser.AppendToArrayContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByValue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRemoveFromArrayByValue([NotNull] OverwatchCodeParser.RemoveFromArrayByValueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByValue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRemoveFromArrayByValue([NotNull] OverwatchCodeParser.RemoveFromArrayByValueContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByIndex"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRemoveFromArrayByIndex([NotNull] OverwatchCodeParser.RemoveFromArrayByIndexContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByIndex"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRemoveFromArrayByIndex([NotNull] OverwatchCodeParser.RemoveFromArrayByIndexContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.animatedEffect"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterAnimatedEffect([NotNull] OverwatchCodeParser.AnimatedEffectContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.animatedEffect"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitAnimatedEffect([NotNull] OverwatchCodeParser.AnimatedEffectContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodExplosion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGoodExplosion([NotNull] OverwatchCodeParser.GoodExplosionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodExplosion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGoodExplosion([NotNull] OverwatchCodeParser.GoodExplosionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badExplosion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBadExplosion([NotNull] OverwatchCodeParser.BadExplosionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badExplosion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBadExplosion([NotNull] OverwatchCodeParser.BadExplosionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringExplosion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRingExplosion([NotNull] OverwatchCodeParser.RingExplosionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringExplosion"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRingExplosion([NotNull] OverwatchCodeParser.RingExplosionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodPickupEffect"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterGoodPickupEffect([NotNull] OverwatchCodeParser.GoodPickupEffectContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodPickupEffect"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitGoodPickupEffect([NotNull] OverwatchCodeParser.GoodPickupEffectContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badPickupEffect"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBadPickupEffect([NotNull] OverwatchCodeParser.BadPickupEffectContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badPickupEffect"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBadPickupEffect([NotNull] OverwatchCodeParser.BadPickupEffectContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.debuffImpactSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDebuffImpactSound([NotNull] OverwatchCodeParser.DebuffImpactSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.debuffImpactSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDebuffImpactSound([NotNull] OverwatchCodeParser.DebuffImpactSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.buffImpactSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBuffImpactSound([NotNull] OverwatchCodeParser.BuffImpactSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.buffImpactSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBuffImpactSound([NotNull] OverwatchCodeParser.BuffImpactSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringExplosionSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRingExplosionSound([NotNull] OverwatchCodeParser.RingExplosionSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringExplosionSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRingExplosionSound([NotNull] OverwatchCodeParser.RingExplosionSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.buffExplosionSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBuffExplosionSound([NotNull] OverwatchCodeParser.BuffExplosionSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.buffExplosionSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBuffExplosionSound([NotNull] OverwatchCodeParser.BuffExplosionSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.explosionSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExplosionSound([NotNull] OverwatchCodeParser.ExplosionSoundContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.explosionSound"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExplosionSound([NotNull] OverwatchCodeParser.ExplosionSoundContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.iconReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIconReevaluation([NotNull] OverwatchCodeParser.IconReevaluationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.iconReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIconReevaluation([NotNull] OverwatchCodeParser.IconReevaluationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndPosition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVisibleToAndPosition([NotNull] OverwatchCodeParser.VisibleToAndPositionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndPosition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVisibleToAndPosition([NotNull] OverwatchCodeParser.VisibleToAndPositionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.position"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterPosition([NotNull] OverwatchCodeParser.PositionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.position"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitPosition([NotNull] OverwatchCodeParser.PositionContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextClipping"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInWorldTextClipping([NotNull] OverwatchCodeParser.InWorldTextClippingContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextClipping"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInWorldTextClipping([NotNull] OverwatchCodeParser.InWorldTextClippingContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.clipAgainstSurfaces"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterClipAgainstSurfaces([NotNull] OverwatchCodeParser.ClipAgainstSurfacesContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.clipAgainstSurfaces"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitClipAgainstSurfaces([NotNull] OverwatchCodeParser.ClipAgainstSurfacesContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.doNotClip"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDoNotClip([NotNull] OverwatchCodeParser.DoNotClipContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.doNotClip"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDoNotClip([NotNull] OverwatchCodeParser.DoNotClipContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInWorldTextReevaluation([NotNull] OverwatchCodeParser.InWorldTextReevaluationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextReevaluation"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInWorldTextReevaluation([NotNull] OverwatchCodeParser.InWorldTextReevaluationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndString"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVisibleToPositionAndString([NotNull] OverwatchCodeParser.VisibleToPositionAndStringContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndString"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVisibleToPositionAndString([NotNull] OverwatchCodeParser.VisibleToPositionAndStringContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.binaryCompartorOperator"/>.
 	/// </summary>

@@ -1,0 +1,13 @@
+﻿rule("Rule 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Vector(0, 0, 0), 0, To World, Cancel Contrary Motion);
+		Apply Impulse(Event Player, Vector(0, 0, 0), 0, To Player, Incorporate Contrary Motion);
+	}
+}

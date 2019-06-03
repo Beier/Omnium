@@ -26,3 +26,7 @@ rule("Rule 6",
 	Events.Player.died(Team.team1, Player.inSlot(0))
 );
 
+rule("Rule 1",
+	Events.Ongoing.eachPlayer(Teams.all, Players.playingHero(Hero.Lucio))
+);
+

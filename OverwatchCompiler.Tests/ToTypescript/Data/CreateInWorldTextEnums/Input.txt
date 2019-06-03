@@ -1,0 +1,16 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create In-World Text(All Players(All Teams), String("Hello", Null, Null, Null), Event Player, 1, Clip Against Surfaces,
+			Visible To Position and String);
+		Create In-World Text(All Players(All Teams), String("Hello", Null, Null, Null), Event Player, 1, Do Not Clip,
+			Visible To and String);
+		Create In-World Text(All Players(All Teams), String("Hello", Null, Null, Null), Event Player, 1, Do Not Clip, String);
+	}
+}

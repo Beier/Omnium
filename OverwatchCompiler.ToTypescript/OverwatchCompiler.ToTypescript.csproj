@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="antlr\codeGeneration\CodeGenerationUtilities.cs" />
     <Compile Include="antlr\codeGeneration\LiteralCodeGeneration.cs" />
     <Compile Include="antlr\codeGeneration\ExpressionCodeGeneration.cs" />
     <Compile Include="antlr\codeGeneration\ActionCodeGeneration.cs" />

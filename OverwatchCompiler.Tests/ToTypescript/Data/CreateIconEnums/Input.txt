@@ -1,0 +1,47 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create Icon(All Players(All Teams), Event Player, Arrow: Down, Visible To and Position, White, True);
+		Create Icon(All Players(All Teams), Event Player, Arrow: Left, Position, White, True);
+		Create Icon(All Players(All Teams), Event Player, Arrow: Right, Visible To, White, True);
+		Create Icon(All Players(All Teams), Event Player, Arrow: Up, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Asterisk, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Bolt, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Checkmark, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Circle, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Club, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Diamond, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Dizzy, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Exclamation Mark, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Eye, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Fire, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Flag, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Halo, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Happy, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Heart, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Moon, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, No, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Plus, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Poison, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Poison 2, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Question Mark, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Radioactive, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Recycle, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Ring Thick, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Ring Thin, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Sad, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Skull, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Spade, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Spiral, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Stop, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Trashcan, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, Warning, None, White, True);
+		Create Icon(All Players(All Teams), Event Player, X, None, White, True);
+	}
+}

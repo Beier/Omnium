@@ -227,6 +227,1086 @@ public partial class OverwatchCodeBaseListener : IOverwatchCodeListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitSetGlobalVariableAction([NotNull] OverwatchCodeParser.SetGlobalVariableActionContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAbortAction([NotNull] OverwatchCodeParser.AbortActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAbortAction([NotNull] OverwatchCodeParser.AbortActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortIfAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAbortIfAction([NotNull] OverwatchCodeParser.AbortIfActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortIfAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAbortIfAction([NotNull] OverwatchCodeParser.AbortIfActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsFalseAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAbortIfConditionIsFalseAction([NotNull] OverwatchCodeParser.AbortIfConditionIsFalseActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsFalseAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAbortIfConditionIsFalseAction([NotNull] OverwatchCodeParser.AbortIfConditionIsFalseActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsTrueAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAbortIfConditionIsTrueAction([NotNull] OverwatchCodeParser.AbortIfConditionIsTrueActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.abortIfConditionIsTrueAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAbortIfConditionIsTrueAction([NotNull] OverwatchCodeParser.AbortIfConditionIsTrueActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.allowButtonAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAllowButtonAction([NotNull] OverwatchCodeParser.AllowButtonActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.allowButtonAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAllowButtonAction([NotNull] OverwatchCodeParser.AllowButtonActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.applyImpulseAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterApplyImpulseAction([NotNull] OverwatchCodeParser.ApplyImpulseActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.applyImpulseAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitApplyImpulseAction([NotNull] OverwatchCodeParser.ApplyImpulseActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.bigMessageAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBigMessageAction([NotNull] OverwatchCodeParser.BigMessageActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.bigMessageAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBigMessageAction([NotNull] OverwatchCodeParser.BigMessageActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableAtRateAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterChaseGlobalVariableAtRateAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableAtRateActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableAtRateAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitChaseGlobalVariableAtRateAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableAtRateActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableOverTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterChaseGlobalVariableOverTimeAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableOverTimeActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chaseGlobalVariableOverTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitChaseGlobalVariableOverTimeAction([NotNull] OverwatchCodeParser.ChaseGlobalVariableOverTimeActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableAtRateAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterChasePlayerVariableAtRateAction([NotNull] OverwatchCodeParser.ChasePlayerVariableAtRateActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableAtRateAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitChasePlayerVariableAtRateAction([NotNull] OverwatchCodeParser.ChasePlayerVariableAtRateActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableOverTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterChasePlayerVariableOverTimeAction([NotNull] OverwatchCodeParser.ChasePlayerVariableOverTimeActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.chasePlayerVariableOverTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitChasePlayerVariableOverTimeAction([NotNull] OverwatchCodeParser.ChasePlayerVariableOverTimeActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.clearStatusAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterClearStatusAction([NotNull] OverwatchCodeParser.ClearStatusActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.clearStatusAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitClearStatusAction([NotNull] OverwatchCodeParser.ClearStatusActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.communicateAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCommunicateAction([NotNull] OverwatchCodeParser.CommunicateActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.communicateAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCommunicateAction([NotNull] OverwatchCodeParser.CommunicateActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createEffectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreateEffectAction([NotNull] OverwatchCodeParser.CreateEffectActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createEffectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreateEffectAction([NotNull] OverwatchCodeParser.CreateEffectActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createHudTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreateHudTextAction([NotNull] OverwatchCodeParser.CreateHudTextActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createHudTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreateHudTextAction([NotNull] OverwatchCodeParser.CreateHudTextActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createIconAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreateIconAction([NotNull] OverwatchCodeParser.CreateIconActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createIconAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreateIconAction([NotNull] OverwatchCodeParser.CreateIconActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createInWorldTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreateInWorldTextAction([NotNull] OverwatchCodeParser.CreateInWorldTextActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createInWorldTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreateInWorldTextAction([NotNull] OverwatchCodeParser.CreateInWorldTextActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.damageAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDamageAction([NotNull] OverwatchCodeParser.DamageActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.damageAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDamageAction([NotNull] OverwatchCodeParser.DamageActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declareMatchDrawAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDeclareMatchDrawAction([NotNull] OverwatchCodeParser.DeclareMatchDrawActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declareMatchDrawAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDeclareMatchDrawAction([NotNull] OverwatchCodeParser.DeclareMatchDrawActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declarePlayerVictoryAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDeclarePlayerVictoryAction([NotNull] OverwatchCodeParser.DeclarePlayerVictoryActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declarePlayerVictoryAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDeclarePlayerVictoryAction([NotNull] OverwatchCodeParser.DeclarePlayerVictoryActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declareRoundVictoryAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDeclareRoundVictoryAction([NotNull] OverwatchCodeParser.DeclareRoundVictoryActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declareRoundVictoryAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDeclareRoundVictoryAction([NotNull] OverwatchCodeParser.DeclareRoundVictoryActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.declareTeamVictoryAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDeclareTeamVictoryAction([NotNull] OverwatchCodeParser.DeclareTeamVictoryActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.declareTeamVictoryAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDeclareTeamVictoryAction([NotNull] OverwatchCodeParser.DeclareTeamVictoryActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllEffectsAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyAllEffectsAction([NotNull] OverwatchCodeParser.DestroyAllEffectsActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllEffectsAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyAllEffectsAction([NotNull] OverwatchCodeParser.DestroyAllEffectsActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllHudTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyAllHudTextAction([NotNull] OverwatchCodeParser.DestroyAllHudTextActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllHudTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyAllHudTextAction([NotNull] OverwatchCodeParser.DestroyAllHudTextActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllIconsAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyAllIconsAction([NotNull] OverwatchCodeParser.DestroyAllIconsActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllIconsAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyAllIconsAction([NotNull] OverwatchCodeParser.DestroyAllIconsActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyAllInWorldTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyAllInWorldTextAction([NotNull] OverwatchCodeParser.DestroyAllInWorldTextActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyAllInWorldTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyAllInWorldTextAction([NotNull] OverwatchCodeParser.DestroyAllInWorldTextActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyEffectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyEffectAction([NotNull] OverwatchCodeParser.DestroyEffectActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyEffectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyEffectAction([NotNull] OverwatchCodeParser.DestroyEffectActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyHudTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyHudTextAction([NotNull] OverwatchCodeParser.DestroyHudTextActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyHudTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyHudTextAction([NotNull] OverwatchCodeParser.DestroyHudTextActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyIconAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyIconAction([NotNull] OverwatchCodeParser.DestroyIconActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyIconAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyIconAction([NotNull] OverwatchCodeParser.DestroyIconActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destroyInWorldTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestroyInWorldTextAction([NotNull] OverwatchCodeParser.DestroyInWorldTextActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destroyInWorldTextAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestroyInWorldTextAction([NotNull] OverwatchCodeParser.DestroyInWorldTextActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeAnnouncerAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeAnnouncerActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeAnnouncerAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeAnnouncerActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeCompletionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeCompletionActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeCompletionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeCompletionActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeMusicAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeMusicActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeMusicAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeMusicActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeRespawningAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeRespawningActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeRespawningAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeRespawningActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeScoringAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeScoringActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableBuiltInGameModeScoringAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.DisableBuiltInGameModeScoringActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateAllPlayersAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.DisableDeathSpectateAllPlayersActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateAllPlayersAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.DisableDeathSpectateAllPlayersActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateTargetHudAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.DisableDeathSpectateTargetHudActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disableDeathSpectateTargetHudAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.DisableDeathSpectateTargetHudActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.disallowButtonAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDisallowButtonAction([NotNull] OverwatchCodeParser.DisallowButtonActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.disallowButtonAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDisallowButtonAction([NotNull] OverwatchCodeParser.DisallowButtonActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeAnnouncerAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeAnnouncerActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeAnnouncerAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableBuiltInGameModeAnnouncerAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeAnnouncerActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeCompletionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeCompletionActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeCompletionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableBuiltInGameModeCompletionAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeCompletionActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeMusicAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeMusicActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeMusicAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableBuiltInGameModeMusicAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeMusicActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeRespawningAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeRespawningActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeRespawningAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableBuiltInGameModeRespawningAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeRespawningActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeScoringAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeScoringActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableBuiltInGameModeScoringAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableBuiltInGameModeScoringAction([NotNull] OverwatchCodeParser.EnableBuiltInGameModeScoringActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateAllPlayersAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.EnableDeathSpectateAllPlayersActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateAllPlayersAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableDeathSpectateAllPlayersAction([NotNull] OverwatchCodeParser.EnableDeathSpectateAllPlayersActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateTargetHudAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.EnableDeathSpectateTargetHudActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.enableDeathSpectateTargetHudAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnableDeathSpectateTargetHudAction([NotNull] OverwatchCodeParser.EnableDeathSpectateTargetHudActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goToAssembleHeroesAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGoToAssembleHeroesAction([NotNull] OverwatchCodeParser.GoToAssembleHeroesActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goToAssembleHeroesAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGoToAssembleHeroesAction([NotNull] OverwatchCodeParser.GoToAssembleHeroesActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.healAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHealAction([NotNull] OverwatchCodeParser.HealActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.healAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHealAction([NotNull] OverwatchCodeParser.HealActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.killAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterKillAction([NotNull] OverwatchCodeParser.KillActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.killAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitKillAction([NotNull] OverwatchCodeParser.KillActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLoopAction([NotNull] OverwatchCodeParser.LoopActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLoopAction([NotNull] OverwatchCodeParser.LoopActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopIfAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLoopIfAction([NotNull] OverwatchCodeParser.LoopIfActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopIfAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLoopIfAction([NotNull] OverwatchCodeParser.LoopIfActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsFalseAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLoopIfConditionIsFalseAction([NotNull] OverwatchCodeParser.LoopIfConditionIsFalseActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsFalseAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLoopIfConditionIsFalseAction([NotNull] OverwatchCodeParser.LoopIfConditionIsFalseActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsTrueAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLoopIfConditionIsTrueAction([NotNull] OverwatchCodeParser.LoopIfConditionIsTrueActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.loopIfConditionIsTrueAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLoopIfConditionIsTrueAction([NotNull] OverwatchCodeParser.LoopIfConditionIsTrueActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModifyGlobalVariableAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModifyGlobalVariableAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModifyGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyGlobalVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModifyGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyGlobalVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModifyPlayerVariableAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModifyPlayerVariableAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModifyPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyPlayerVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModifyPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.ModifyPlayerVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modifyTeamScoreAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModifyTeamScoreAction([NotNull] OverwatchCodeParser.ModifyTeamScoreActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modifyTeamScoreAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModifyTeamScoreAction([NotNull] OverwatchCodeParser.ModifyTeamScoreActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.pauseMatchTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPauseMatchTimeAction([NotNull] OverwatchCodeParser.PauseMatchTimeActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.pauseMatchTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPauseMatchTimeAction([NotNull] OverwatchCodeParser.PauseMatchTimeActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.playEffectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPlayEffectAction([NotNull] OverwatchCodeParser.PlayEffectActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.playEffectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPlayEffectAction([NotNull] OverwatchCodeParser.PlayEffectActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.preloadHeroAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPreloadHeroAction([NotNull] OverwatchCodeParser.PreloadHeroActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.preloadHeroAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPreloadHeroAction([NotNull] OverwatchCodeParser.PreloadHeroActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.pressButtonAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPressButtonAction([NotNull] OverwatchCodeParser.PressButtonActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.pressButtonAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPressButtonAction([NotNull] OverwatchCodeParser.PressButtonActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.resetPlayerHeroAvailabilityAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterResetPlayerHeroAvailabilityAction([NotNull] OverwatchCodeParser.ResetPlayerHeroAvailabilityActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.resetPlayerHeroAvailabilityAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitResetPlayerHeroAvailabilityAction([NotNull] OverwatchCodeParser.ResetPlayerHeroAvailabilityActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.respawnAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRespawnAction([NotNull] OverwatchCodeParser.RespawnActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.respawnAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRespawnAction([NotNull] OverwatchCodeParser.RespawnActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.resurrectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterResurrectAction([NotNull] OverwatchCodeParser.ResurrectActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.resurrectAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitResurrectAction([NotNull] OverwatchCodeParser.ResurrectActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setAbility1EnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetAbility1EnabledAction([NotNull] OverwatchCodeParser.SetAbility1EnabledActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setAbility1EnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetAbility1EnabledAction([NotNull] OverwatchCodeParser.SetAbility1EnabledActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setAbility2EnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetAbility2EnabledAction([NotNull] OverwatchCodeParser.SetAbility2EnabledActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setAbility2EnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetAbility2EnabledAction([NotNull] OverwatchCodeParser.SetAbility2EnabledActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setDamageDealtAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetDamageDealtAction([NotNull] OverwatchCodeParser.SetDamageDealtActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setDamageDealtAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetDamageDealtAction([NotNull] OverwatchCodeParser.SetDamageDealtActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setDamageReceivedAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetDamageReceivedAction([NotNull] OverwatchCodeParser.SetDamageReceivedActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setDamageReceivedAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetDamageReceivedAction([NotNull] OverwatchCodeParser.SetDamageReceivedActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setFacingAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetFacingAction([NotNull] OverwatchCodeParser.SetFacingActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setFacingAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetFacingAction([NotNull] OverwatchCodeParser.SetFacingActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setGlobalVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.SetGlobalVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setGlobalVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetGlobalVariableAtIndexAction([NotNull] OverwatchCodeParser.SetGlobalVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setGravityAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetGravityAction([NotNull] OverwatchCodeParser.SetGravityActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setGravityAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetGravityAction([NotNull] OverwatchCodeParser.SetGravityActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setHealingDealtAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetHealingDealtAction([NotNull] OverwatchCodeParser.SetHealingDealtActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setHealingDealtAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetHealingDealtAction([NotNull] OverwatchCodeParser.SetHealingDealtActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setHealingReceivedAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetHealingReceivedAction([NotNull] OverwatchCodeParser.SetHealingReceivedActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setHealingReceivedAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetHealingReceivedAction([NotNull] OverwatchCodeParser.SetHealingReceivedActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setMatchTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetMatchTimeAction([NotNull] OverwatchCodeParser.SetMatchTimeActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setMatchTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetMatchTimeAction([NotNull] OverwatchCodeParser.SetMatchTimeActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setMaxHealthAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetMaxHealthAction([NotNull] OverwatchCodeParser.SetMaxHealthActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setMaxHealthAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetMaxHealthAction([NotNull] OverwatchCodeParser.SetMaxHealthActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setMoveSpeedAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetMoveSpeedAction([NotNull] OverwatchCodeParser.SetMoveSpeedActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setMoveSpeedAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetMoveSpeedAction([NotNull] OverwatchCodeParser.SetMoveSpeedActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setObjectiveDescriptionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetObjectiveDescriptionAction([NotNull] OverwatchCodeParser.SetObjectiveDescriptionActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setObjectiveDescriptionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetObjectiveDescriptionAction([NotNull] OverwatchCodeParser.SetObjectiveDescriptionActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerAllowedHeroesAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetPlayerAllowedHeroesAction([NotNull] OverwatchCodeParser.SetPlayerAllowedHeroesActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerAllowedHeroesAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetPlayerAllowedHeroesAction([NotNull] OverwatchCodeParser.SetPlayerAllowedHeroesActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerScoreAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetPlayerScoreAction([NotNull] OverwatchCodeParser.SetPlayerScoreActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerScoreAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetPlayerScoreAction([NotNull] OverwatchCodeParser.SetPlayerScoreActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetPlayerVariableAction([NotNull] OverwatchCodeParser.SetPlayerVariableActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetPlayerVariableAction([NotNull] OverwatchCodeParser.SetPlayerVariableActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.SetPlayerVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPlayerVariableAtIndexAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetPlayerVariableAtIndexAction([NotNull] OverwatchCodeParser.SetPlayerVariableAtIndexActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setPrimaryFireEnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetPrimaryFireEnabledAction([NotNull] OverwatchCodeParser.SetPrimaryFireEnabledActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setPrimaryFireEnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetPrimaryFireEnabledAction([NotNull] OverwatchCodeParser.SetPrimaryFireEnabledActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setProjectileGravityAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetProjectileGravityAction([NotNull] OverwatchCodeParser.SetProjectileGravityActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setProjectileGravityAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetProjectileGravityAction([NotNull] OverwatchCodeParser.SetProjectileGravityActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setRespawnMaxTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetRespawnMaxTimeAction([NotNull] OverwatchCodeParser.SetRespawnMaxTimeActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setRespawnMaxTimeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetRespawnMaxTimeAction([NotNull] OverwatchCodeParser.SetRespawnMaxTimeActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setSecondaryFireEnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetSecondaryFireEnabledAction([NotNull] OverwatchCodeParser.SetSecondaryFireEnabledActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setSecondaryFireEnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetSecondaryFireEnabledAction([NotNull] OverwatchCodeParser.SetSecondaryFireEnabledActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setSlowMotionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetSlowMotionAction([NotNull] OverwatchCodeParser.SetSlowMotionActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setSlowMotionAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetSlowMotionAction([NotNull] OverwatchCodeParser.SetSlowMotionActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setStatusAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetStatusAction([NotNull] OverwatchCodeParser.SetStatusActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setStatusAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetStatusAction([NotNull] OverwatchCodeParser.SetStatusActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setTeamScoreAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetTeamScoreAction([NotNull] OverwatchCodeParser.SetTeamScoreActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setTeamScoreAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetTeamScoreAction([NotNull] OverwatchCodeParser.SetTeamScoreActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setUltimateAbilityEnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetUltimateAbilityEnabledAction([NotNull] OverwatchCodeParser.SetUltimateAbilityEnabledActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setUltimateAbilityEnabledAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetUltimateAbilityEnabledAction([NotNull] OverwatchCodeParser.SetUltimateAbilityEnabledActionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.setUltimateChargeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSetUltimateChargeAction([NotNull] OverwatchCodeParser.SetUltimateChargeActionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.setUltimateChargeAction"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSetUltimateChargeAction([NotNull] OverwatchCodeParser.SetUltimateChargeActionContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -3370,6 +4450,1398 @@ public partial class OverwatchCodeBaseListener : IOverwatchCodeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitToNearest([NotNull] OverwatchCodeParser.ToNearestContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.motionType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMotionType([NotNull] OverwatchCodeParser.MotionTypeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.motionType"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMotionType([NotNull] OverwatchCodeParser.MotionTypeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.cancelContraryMotion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCancelContraryMotion([NotNull] OverwatchCodeParser.CancelContraryMotionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.cancelContraryMotion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCancelContraryMotion([NotNull] OverwatchCodeParser.CancelContraryMotionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.incorporateContraryMotion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIncorporateContraryMotion([NotNull] OverwatchCodeParser.IncorporateContraryMotionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.incorporateContraryMotion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIncorporateContraryMotion([NotNull] OverwatchCodeParser.IncorporateContraryMotionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.relativeTo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRelativeTo([NotNull] OverwatchCodeParser.RelativeToContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.relativeTo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRelativeTo([NotNull] OverwatchCodeParser.RelativeToContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.toWorld"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterToWorld([NotNull] OverwatchCodeParser.ToWorldContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.toWorld"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitToWorld([NotNull] OverwatchCodeParser.ToWorldContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.toPlayer"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterToPlayer([NotNull] OverwatchCodeParser.ToPlayerContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.toPlayer"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitToPlayer([NotNull] OverwatchCodeParser.ToPlayerContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.rateReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRateReevaluation([NotNull] OverwatchCodeParser.RateReevaluationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.rateReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRateReevaluation([NotNull] OverwatchCodeParser.RateReevaluationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destinationAndRate"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestinationAndRate([NotNull] OverwatchCodeParser.DestinationAndRateContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destinationAndRate"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestinationAndRate([NotNull] OverwatchCodeParser.DestinationAndRateContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.timeReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTimeReevaluation([NotNull] OverwatchCodeParser.TimeReevaluationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.timeReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTimeReevaluation([NotNull] OverwatchCodeParser.TimeReevaluationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.destinationAndDuration"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDestinationAndDuration([NotNull] OverwatchCodeParser.DestinationAndDurationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.destinationAndDuration"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDestinationAndDuration([NotNull] OverwatchCodeParser.DestinationAndDurationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.none"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNone([NotNull] OverwatchCodeParser.NoneContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.none"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNone([NotNull] OverwatchCodeParser.NoneContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.effectShape"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEffectShape([NotNull] OverwatchCodeParser.EffectShapeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.effectShape"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEffectShape([NotNull] OverwatchCodeParser.EffectShapeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sphere"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSphere([NotNull] OverwatchCodeParser.SphereContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sphere"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSphere([NotNull] OverwatchCodeParser.SphereContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.lightShaft"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLightShaft([NotNull] OverwatchCodeParser.LightShaftContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.lightShaft"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLightShaft([NotNull] OverwatchCodeParser.LightShaftContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.orb"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOrb([NotNull] OverwatchCodeParser.OrbContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.orb"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOrb([NotNull] OverwatchCodeParser.OrbContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ring"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRing([NotNull] OverwatchCodeParser.RingContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ring"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRing([NotNull] OverwatchCodeParser.RingContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.cloud"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCloud([NotNull] OverwatchCodeParser.CloudContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.cloud"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCloud([NotNull] OverwatchCodeParser.CloudContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sparkles"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSparkles([NotNull] OverwatchCodeParser.SparklesContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sparkles"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSparkles([NotNull] OverwatchCodeParser.SparklesContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodAura"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGoodAura([NotNull] OverwatchCodeParser.GoodAuraContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodAura"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGoodAura([NotNull] OverwatchCodeParser.GoodAuraContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badAura"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBadAura([NotNull] OverwatchCodeParser.BadAuraContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badAura"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBadAura([NotNull] OverwatchCodeParser.BadAuraContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.energySound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEnergySound([NotNull] OverwatchCodeParser.EnergySoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.energySound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEnergySound([NotNull] OverwatchCodeParser.EnergySoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.pickUpSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPickUpSound([NotNull] OverwatchCodeParser.PickUpSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.pickUpSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPickUpSound([NotNull] OverwatchCodeParser.PickUpSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodAuraSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGoodAuraSound([NotNull] OverwatchCodeParser.GoodAuraSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodAuraSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGoodAuraSound([NotNull] OverwatchCodeParser.GoodAuraSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badAuraSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBadAuraSound([NotNull] OverwatchCodeParser.BadAuraSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badAuraSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBadAuraSound([NotNull] OverwatchCodeParser.BadAuraSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sparklesSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSparklesSound([NotNull] OverwatchCodeParser.SparklesSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sparklesSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSparklesSound([NotNull] OverwatchCodeParser.SparklesSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.smokeSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSmokeSound([NotNull] OverwatchCodeParser.SmokeSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.smokeSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSmokeSound([NotNull] OverwatchCodeParser.SmokeSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.decalSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDecalSound([NotNull] OverwatchCodeParser.DecalSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.decalSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDecalSound([NotNull] OverwatchCodeParser.DecalSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.beaconSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBeaconSound([NotNull] OverwatchCodeParser.BeaconSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.beaconSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBeaconSound([NotNull] OverwatchCodeParser.BeaconSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.color"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterColor([NotNull] OverwatchCodeParser.ColorContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.color"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitColor([NotNull] OverwatchCodeParser.ColorContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.white"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterWhite([NotNull] OverwatchCodeParser.WhiteContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.white"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitWhite([NotNull] OverwatchCodeParser.WhiteContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.yellow"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterYellow([NotNull] OverwatchCodeParser.YellowContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.yellow"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitYellow([NotNull] OverwatchCodeParser.YellowContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.green"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGreen([NotNull] OverwatchCodeParser.GreenContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.green"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGreen([NotNull] OverwatchCodeParser.GreenContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.purple"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPurple([NotNull] OverwatchCodeParser.PurpleContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.purple"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPurple([NotNull] OverwatchCodeParser.PurpleContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.red"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRed([NotNull] OverwatchCodeParser.RedContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.red"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRed([NotNull] OverwatchCodeParser.RedContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.blue"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBlue([NotNull] OverwatchCodeParser.BlueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.blue"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBlue([NotNull] OverwatchCodeParser.BlueContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.team1"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTeam1([NotNull] OverwatchCodeParser.Team1Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.team1"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTeam1([NotNull] OverwatchCodeParser.Team1Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.team2"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTeam2([NotNull] OverwatchCodeParser.Team2Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.team2"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTeam2([NotNull] OverwatchCodeParser.Team2Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.createEffectReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCreateEffectReevaluation([NotNull] OverwatchCodeParser.CreateEffectReevaluationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.createEffectReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCreateEffectReevaluation([NotNull] OverwatchCodeParser.CreateEffectReevaluationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndRadius"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVisibleToPositionAndRadius([NotNull] OverwatchCodeParser.VisibleToPositionAndRadiusContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndRadius"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVisibleToPositionAndRadius([NotNull] OverwatchCodeParser.VisibleToPositionAndRadiusContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.positionAandRadius"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPositionAandRadius([NotNull] OverwatchCodeParser.PositionAandRadiusContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.positionAandRadius"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPositionAandRadius([NotNull] OverwatchCodeParser.PositionAandRadiusContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleTo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVisibleTo([NotNull] OverwatchCodeParser.VisibleToContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleTo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVisibleTo([NotNull] OverwatchCodeParser.VisibleToContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.hudTextLocation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHudTextLocation([NotNull] OverwatchCodeParser.HudTextLocationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.hudTextLocation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHudTextLocation([NotNull] OverwatchCodeParser.HudTextLocationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.left"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLeft([NotNull] OverwatchCodeParser.LeftContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.left"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLeft([NotNull] OverwatchCodeParser.LeftContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.top"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTop([NotNull] OverwatchCodeParser.TopContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.top"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTop([NotNull] OverwatchCodeParser.TopContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.right"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRight([NotNull] OverwatchCodeParser.RightContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.right"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRight([NotNull] OverwatchCodeParser.RightContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.hudTextReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHudTextReevaluation([NotNull] OverwatchCodeParser.HudTextReevaluationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.hudTextReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHudTextReevaluation([NotNull] OverwatchCodeParser.HudTextReevaluationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndString"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVisibleToAndString([NotNull] OverwatchCodeParser.VisibleToAndStringContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndString"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVisibleToAndString([NotNull] OverwatchCodeParser.VisibleToAndStringContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.string"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterString([NotNull] OverwatchCodeParser.StringContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.string"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitString([NotNull] OverwatchCodeParser.StringContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.icon"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIcon([NotNull] OverwatchCodeParser.IconContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.icon"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIcon([NotNull] OverwatchCodeParser.IconContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowDown"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArrowDown([NotNull] OverwatchCodeParser.ArrowDownContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowDown"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArrowDown([NotNull] OverwatchCodeParser.ArrowDownContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowLeft"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArrowLeft([NotNull] OverwatchCodeParser.ArrowLeftContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowLeft"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArrowLeft([NotNull] OverwatchCodeParser.ArrowLeftContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowRight"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArrowRight([NotNull] OverwatchCodeParser.ArrowRightContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowRight"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArrowRight([NotNull] OverwatchCodeParser.ArrowRightContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.arrowUp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArrowUp([NotNull] OverwatchCodeParser.ArrowUpContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.arrowUp"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArrowUp([NotNull] OverwatchCodeParser.ArrowUpContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.asterisk"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAsterisk([NotNull] OverwatchCodeParser.AsteriskContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.asterisk"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAsterisk([NotNull] OverwatchCodeParser.AsteriskContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.bolt"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBolt([NotNull] OverwatchCodeParser.BoltContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.bolt"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBolt([NotNull] OverwatchCodeParser.BoltContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.checkmark"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCheckmark([NotNull] OverwatchCodeParser.CheckmarkContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.checkmark"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCheckmark([NotNull] OverwatchCodeParser.CheckmarkContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.circle"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCircle([NotNull] OverwatchCodeParser.CircleContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.circle"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCircle([NotNull] OverwatchCodeParser.CircleContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.club"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterClub([NotNull] OverwatchCodeParser.ClubContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.club"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitClub([NotNull] OverwatchCodeParser.ClubContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.diamond"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDiamond([NotNull] OverwatchCodeParser.DiamondContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.diamond"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDiamond([NotNull] OverwatchCodeParser.DiamondContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.dizzy"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDizzy([NotNull] OverwatchCodeParser.DizzyContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.dizzy"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDizzy([NotNull] OverwatchCodeParser.DizzyContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.exclamationMark"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExclamationMark([NotNull] OverwatchCodeParser.ExclamationMarkContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.exclamationMark"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExclamationMark([NotNull] OverwatchCodeParser.ExclamationMarkContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.eye"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEye([NotNull] OverwatchCodeParser.EyeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.eye"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEye([NotNull] OverwatchCodeParser.EyeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.fire"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFire([NotNull] OverwatchCodeParser.FireContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.fire"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFire([NotNull] OverwatchCodeParser.FireContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.flag"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFlag([NotNull] OverwatchCodeParser.FlagContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.flag"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFlag([NotNull] OverwatchCodeParser.FlagContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.halo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHalo([NotNull] OverwatchCodeParser.HaloContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.halo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHalo([NotNull] OverwatchCodeParser.HaloContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.happy"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHappy([NotNull] OverwatchCodeParser.HappyContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.happy"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHappy([NotNull] OverwatchCodeParser.HappyContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.heart"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterHeart([NotNull] OverwatchCodeParser.HeartContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.heart"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitHeart([NotNull] OverwatchCodeParser.HeartContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.moon"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMoon([NotNull] OverwatchCodeParser.MoonContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.moon"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMoon([NotNull] OverwatchCodeParser.MoonContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.no"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNo([NotNull] OverwatchCodeParser.NoContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.no"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNo([NotNull] OverwatchCodeParser.NoContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.plus"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPlus([NotNull] OverwatchCodeParser.PlusContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.plus"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPlus([NotNull] OverwatchCodeParser.PlusContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.poison"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPoison([NotNull] OverwatchCodeParser.PoisonContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.poison"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPoison([NotNull] OverwatchCodeParser.PoisonContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.poison2"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPoison2([NotNull] OverwatchCodeParser.Poison2Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.poison2"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPoison2([NotNull] OverwatchCodeParser.Poison2Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.questionMark"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterQuestionMark([NotNull] OverwatchCodeParser.QuestionMarkContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.questionMark"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitQuestionMark([NotNull] OverwatchCodeParser.QuestionMarkContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.radioactive"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRadioactive([NotNull] OverwatchCodeParser.RadioactiveContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.radioactive"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRadioactive([NotNull] OverwatchCodeParser.RadioactiveContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.recycle"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRecycle([NotNull] OverwatchCodeParser.RecycleContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.recycle"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRecycle([NotNull] OverwatchCodeParser.RecycleContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringThick"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRingThick([NotNull] OverwatchCodeParser.RingThickContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringThick"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRingThick([NotNull] OverwatchCodeParser.RingThickContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringThin"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRingThin([NotNull] OverwatchCodeParser.RingThinContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringThin"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRingThin([NotNull] OverwatchCodeParser.RingThinContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.sad"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSad([NotNull] OverwatchCodeParser.SadContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.sad"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSad([NotNull] OverwatchCodeParser.SadContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.skull"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSkull([NotNull] OverwatchCodeParser.SkullContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.skull"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSkull([NotNull] OverwatchCodeParser.SkullContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.spade"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSpade([NotNull] OverwatchCodeParser.SpadeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.spade"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSpade([NotNull] OverwatchCodeParser.SpadeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.spiral"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSpiral([NotNull] OverwatchCodeParser.SpiralContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.spiral"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSpiral([NotNull] OverwatchCodeParser.SpiralContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.stop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStop([NotNull] OverwatchCodeParser.StopContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.stop"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStop([NotNull] OverwatchCodeParser.StopContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.trashcan"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTrashcan([NotNull] OverwatchCodeParser.TrashcanContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.trashcan"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTrashcan([NotNull] OverwatchCodeParser.TrashcanContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.warning"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterWarning([NotNull] OverwatchCodeParser.WarningContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.warning"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitWarning([NotNull] OverwatchCodeParser.WarningContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.x"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterX([NotNull] OverwatchCodeParser.XContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.x"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitX([NotNull] OverwatchCodeParser.XContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModification([NotNull] OverwatchCodeParser.ModificationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modification"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModification([NotNull] OverwatchCodeParser.ModificationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.add"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAdd([NotNull] OverwatchCodeParser.AddContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.add"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAdd([NotNull] OverwatchCodeParser.AddContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.subtract"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSubtract([NotNull] OverwatchCodeParser.SubtractContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.subtract"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSubtract([NotNull] OverwatchCodeParser.SubtractContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.multiply"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMultiply([NotNull] OverwatchCodeParser.MultiplyContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.multiply"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMultiply([NotNull] OverwatchCodeParser.MultiplyContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.divide"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDivide([NotNull] OverwatchCodeParser.DivideContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.divide"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDivide([NotNull] OverwatchCodeParser.DivideContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.modulo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModulo([NotNull] OverwatchCodeParser.ModuloContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.modulo"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModulo([NotNull] OverwatchCodeParser.ModuloContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.raiseToPower"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRaiseToPower([NotNull] OverwatchCodeParser.RaiseToPowerContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.raiseToPower"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRaiseToPower([NotNull] OverwatchCodeParser.RaiseToPowerContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.min"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMin([NotNull] OverwatchCodeParser.MinContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.min"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMin([NotNull] OverwatchCodeParser.MinContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.max"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMax([NotNull] OverwatchCodeParser.MaxContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.max"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMax([NotNull] OverwatchCodeParser.MaxContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.appendToArray"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAppendToArray([NotNull] OverwatchCodeParser.AppendToArrayContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.appendToArray"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAppendToArray([NotNull] OverwatchCodeParser.AppendToArrayContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByValue"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRemoveFromArrayByValue([NotNull] OverwatchCodeParser.RemoveFromArrayByValueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByValue"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRemoveFromArrayByValue([NotNull] OverwatchCodeParser.RemoveFromArrayByValueContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByIndex"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRemoveFromArrayByIndex([NotNull] OverwatchCodeParser.RemoveFromArrayByIndexContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.removeFromArrayByIndex"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRemoveFromArrayByIndex([NotNull] OverwatchCodeParser.RemoveFromArrayByIndexContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.animatedEffect"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAnimatedEffect([NotNull] OverwatchCodeParser.AnimatedEffectContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.animatedEffect"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAnimatedEffect([NotNull] OverwatchCodeParser.AnimatedEffectContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodExplosion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGoodExplosion([NotNull] OverwatchCodeParser.GoodExplosionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodExplosion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGoodExplosion([NotNull] OverwatchCodeParser.GoodExplosionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badExplosion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBadExplosion([NotNull] OverwatchCodeParser.BadExplosionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badExplosion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBadExplosion([NotNull] OverwatchCodeParser.BadExplosionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringExplosion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRingExplosion([NotNull] OverwatchCodeParser.RingExplosionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringExplosion"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRingExplosion([NotNull] OverwatchCodeParser.RingExplosionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.goodPickupEffect"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterGoodPickupEffect([NotNull] OverwatchCodeParser.GoodPickupEffectContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.goodPickupEffect"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitGoodPickupEffect([NotNull] OverwatchCodeParser.GoodPickupEffectContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.badPickupEffect"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBadPickupEffect([NotNull] OverwatchCodeParser.BadPickupEffectContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.badPickupEffect"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBadPickupEffect([NotNull] OverwatchCodeParser.BadPickupEffectContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.debuffImpactSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDebuffImpactSound([NotNull] OverwatchCodeParser.DebuffImpactSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.debuffImpactSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDebuffImpactSound([NotNull] OverwatchCodeParser.DebuffImpactSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.buffImpactSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBuffImpactSound([NotNull] OverwatchCodeParser.BuffImpactSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.buffImpactSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBuffImpactSound([NotNull] OverwatchCodeParser.BuffImpactSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.ringExplosionSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRingExplosionSound([NotNull] OverwatchCodeParser.RingExplosionSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.ringExplosionSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRingExplosionSound([NotNull] OverwatchCodeParser.RingExplosionSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.buffExplosionSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBuffExplosionSound([NotNull] OverwatchCodeParser.BuffExplosionSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.buffExplosionSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBuffExplosionSound([NotNull] OverwatchCodeParser.BuffExplosionSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.explosionSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExplosionSound([NotNull] OverwatchCodeParser.ExplosionSoundContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.explosionSound"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExplosionSound([NotNull] OverwatchCodeParser.ExplosionSoundContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.iconReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIconReevaluation([NotNull] OverwatchCodeParser.IconReevaluationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.iconReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIconReevaluation([NotNull] OverwatchCodeParser.IconReevaluationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndPosition"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVisibleToAndPosition([NotNull] OverwatchCodeParser.VisibleToAndPositionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToAndPosition"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVisibleToAndPosition([NotNull] OverwatchCodeParser.VisibleToAndPositionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.position"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterPosition([NotNull] OverwatchCodeParser.PositionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.position"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitPosition([NotNull] OverwatchCodeParser.PositionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextClipping"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInWorldTextClipping([NotNull] OverwatchCodeParser.InWorldTextClippingContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextClipping"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInWorldTextClipping([NotNull] OverwatchCodeParser.InWorldTextClippingContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.clipAgainstSurfaces"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterClipAgainstSurfaces([NotNull] OverwatchCodeParser.ClipAgainstSurfacesContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.clipAgainstSurfaces"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitClipAgainstSurfaces([NotNull] OverwatchCodeParser.ClipAgainstSurfacesContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.doNotClip"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDoNotClip([NotNull] OverwatchCodeParser.DoNotClipContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.doNotClip"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDoNotClip([NotNull] OverwatchCodeParser.DoNotClipContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInWorldTextReevaluation([NotNull] OverwatchCodeParser.InWorldTextReevaluationContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.inWorldTextReevaluation"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInWorldTextReevaluation([NotNull] OverwatchCodeParser.InWorldTextReevaluationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndString"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVisibleToPositionAndString([NotNull] OverwatchCodeParser.VisibleToPositionAndStringContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="OverwatchCodeParser.visibleToPositionAndString"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVisibleToPositionAndString([NotNull] OverwatchCodeParser.VisibleToPositionAndStringContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="OverwatchCodeParser.binaryCompartorOperator"/>.
 	/// <para>The default implementation does nothing.</para>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverwatchCompiler.ToTypescr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverwatchCompiler.Tests", "OverwatchCompiler.Tests\OverwatchCompiler.Tests.csproj", "{EAF01D68-77BC-4833-A7C6-4C2FCFC20E83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverwatchCompiler.ToWorkshop", "OverwatchCompiler.ToWorkshop\OverwatchCompiler.ToWorkshop.csproj", "{DF3382BB-B9F4-4758-BFBF-D3E94076CC8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EAF01D68-77BC-4833-A7C6-4C2FCFC20E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAF01D68-77BC-4833-A7C6-4C2FCFC20E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAF01D68-77BC-4833-A7C6-4C2FCFC20E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF3382BB-B9F4-4758-BFBF-D3E94076CC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF3382BB-B9F4-4758-BFBF-D3E94076CC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF3382BB-B9F4-4758-BFBF-D3E94076CC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF3382BB-B9F4-4758-BFBF-D3E94076CC8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

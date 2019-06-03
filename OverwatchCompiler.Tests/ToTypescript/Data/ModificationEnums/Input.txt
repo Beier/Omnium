@@ -1,0 +1,22 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Modify Global Variable(A, Add, 0);
+		Modify Global Variable(A, Subtract, 0);
+		Modify Global Variable(A, Multiply, 0);
+		Modify Global Variable(A, Divide, 0);
+		Modify Global Variable(A, Modulo, 0);
+		Modify Global Variable(A, Raise To Power, 0);
+		Modify Global Variable(A, Min, 0);
+		Modify Global Variable(A, Max, 0);
+		Modify Global Variable(A, Append To Array, 0);
+		Modify Global Variable(A, Remove From Array By Value, 0);
+		Modify Global Variable(A, Remove From Array By Index, 0);
+	}
+}

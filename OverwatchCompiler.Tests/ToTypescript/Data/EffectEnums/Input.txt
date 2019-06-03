@@ -1,0 +1,27 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Sphere, White, Event Player, 1, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Light Shaft, Yellow, Event Player, 1, Position and Radius);
+		Create Effect(All Players(All Teams), Orb, Green, Event Player, 1, Visible To);
+		Create Effect(All Players(All Teams), Ring, Purple, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Cloud, Red, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Sparkles, Blue, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Good Aura, Team 1, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Bad Aura, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Energy Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Pick-up Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Good Aura Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Bad Aura Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Sparkles Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Smoke Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Decal Sound, Team 2, Event Player, 1, None);
+		Create Effect(All Players(All Teams), Beacon Sound, Team 2, Event Player, 1, None);
+	}
+}

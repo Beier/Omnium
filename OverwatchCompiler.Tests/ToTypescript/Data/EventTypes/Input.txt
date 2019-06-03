@@ -65,3 +65,13 @@ rule("Rule 6")
 		Slot 0;
 	}
 }
+
+rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		Lúcio;
+	}
+}

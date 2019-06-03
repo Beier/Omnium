@@ -1,0 +1,152 @@
+﻿var a;
+
+rule("Rule 1",
+	Events.Ongoing.global,
+	() => {
+		return;
+		if ((0 == 0))
+			return;
+		if (this.reevaluateCondition() == false)
+			return;
+		if (this.reevaluateCondition())
+			return;
+		Event.player.allowButton(Button.PrimaryFire);
+		Event.player.applyImpulse(Vector(0, 0, 0), 0, Relative.ToWorld, MotionType.CancelContraryMotion);
+		showBigMessage(Players.onTeam(Teams.all), "Hello".format(null, null, null));
+		chaseVariableAtRate(a, 0, 1, ChaseRateReevaluation.DestinationAndRate);
+		chaseVariableOverTime(a, 0, 1, ChaseTimeReevaluation.DestinationAndDuration);
+		chaseVariableAtRate(Event.player.a, 0, 1, ChaseRateReevaluation.DestinationAndRate);
+	}
+);
+
+rule("Rule 2",
+	Events.Ongoing.global,
+	() => {
+		chaseVariableAtRate(Event.player.a, 0, 1, ChaseTimeReevaluation.DestinationAndDuration);
+		Event.player.clearStatus(StatusEffect.Hacked);
+		Event.player.communicate(CommunicationType.VoiceLineUp);
+		createEffect(Players.onTeam(Teams.all), Shape.Sphere, Color.White, Event.player, 1, CreateEffectReevaluation.VisibleToPositionAndRadius);
+		createHudEffect(Players.onTeam(Teams.all), "Hello".format(null, null, null), null, null, HudTextLocation.Left, 0, Color.White, Color.White, Color.White, HudTextReevaluation.VisibleToAndString);
+		createIcon(Players.onTeam(Teams.all), Event.player, Icon.ArrowDown, IconReevaluation.VisibleToAndPosition, Color.White, true);
+		createInWorldText(Players.onTeam(Teams.all), "Hello".format(null, null, null), Event.player, 1, TextClipping.ClipAgainstSurfaces, InWorldTextReevaluation.VisibleToPositionAndString);
+		Event.player.damage(null, 0);
+		Game.declareMatchDraw();
+		Event.player.declareVictory();
+	}
+);
+
+rule("Rule 3",
+	Events.Ongoing.global,
+	() => {
+		Game.declareRoundVictory(Teams.all);
+		Teams.all.declareVictory();
+		destroyAllEffects();
+		destroyAllHudTexts();
+		destroyAllIcons();
+		destroyAllInWorldTexts();
+		Game.getLastCreatedEntity().destroy();
+		Game.getIdOfLastText().destroy();
+		Game.getLastCreatedEntity().destroy();
+		Game.getIdOfLastText().destroy();
+	}
+);
+
+rule("Rule 4",
+	Events.Ongoing.global,
+	() => {
+		Game.disableBuiltInGameModeAnnouncer();
+		Game.disableBuiltInGameModeCompletion();
+		Game.disableBuiltInGameModeMusic();
+		Event.player.disableRespawning();
+		Game.disableBuiltInGameModeScoring();
+		Event.player.disableDeathSpectate();
+		Event.player.disableDeathSpectateTargetHud();
+		Event.player.disallowButton(Button.PrimaryFire);
+		Game.enableBuiltInGameModeAnnouncer();
+		Game.enableBuiltInGameModeCompletion();
+	}
+);
+
+rule("Rule 5",
+	Events.Ongoing.global,
+	() => {
+		Game.enableBuiltInGameModeMusic();
+		Event.player.enableRespawning();
+		Game.enableBuiltInGameModeScoring();
+		Event.player.enableDeathSpectate();
+		Event.player.enableDeathSpectateTargetHud();
+		Game.goToAssembleHeroes();
+		Event.player.heal(null, 0);
+		Event.player.kill(null);
+		loop();
+		if ((0 == 0))
+			loop();
+	}
+);
+
+rule("Rule 6",
+	Events.Ongoing.global,
+	() => {
+		if (this.reevaluateCondition() == false)
+			loop();
+		if (this.reevaluateCondition())
+			loop();
+		a += 0;
+		a[0] += 0;
+		Event.player.a += 0;
+		Event.player.a[0] += 0;
+		Teams.all.score += 0;
+		Game.pauseMatchTime();
+		Game.playEffect(Players.onTeam(Teams.all), AnimatedEffect.GoodExplosion, Color.White, Event.player, 1);
+		Event.player.preload(Hero.Ana);
+	}
+);
+
+rule("Rule 7",
+	Events.Ongoing.global,
+	() => {
+		Event.player.pressButton(Button.PrimaryFire);
+		Event.player.resetHeroAvalibility();
+		Event.player.respawn();
+		Event.player.resurrect();
+		Event.player.setAbility1Enabled(true);
+		Event.player.setAbility2Enabled(true);
+		Event.player.setDamageMultiplierPercent(100);
+		Event.player.setDamageReceivedPercent(100);
+		Event.player.setFacing(Vector(0, 0, 0), Relative.ToWorld);
+		a[0] = 0;
+	}
+);
+
+rule("Rule 8",
+	Events.Ongoing.global,
+	() => {
+		Event.player.setGravity(100);
+		Event.player.setHealingDealtPercent(100);
+		Event.player.setHealingReceivedPercent(100);
+		Game.matchTime = 60;
+		Event.player.setMaxHealthPercent(100);
+		Event.player.setMovementSpeedPercent(100);
+		Game.setObjectiveDescription(Players.onTeam(Teams.all), "Hello".format(null, null, null), HudTextReevaluation.VisibleToAndString);
+		Event.player.setAllowedHeroes(Hero.Ana);
+		Event.player.score = 0;
+		Event.player.a = 0;
+	}
+);
+
+rule("Rule 9",
+	Events.Ongoing.global,
+	() => {
+		Event.player.a[0] = 0;
+		Event.player.setPrimaryFireEnabled(true);
+		Event.player.setProjectileGravityPercentage(100);
+		Event.player.setRespawnMaxTime(10);
+		Event.player.setSecondaryFireEnabled(true);
+		Game.setGameSpeedPercent(100);
+		Event.player.setStatus(null, 9999);
+		Teams.all.score = 0;
+		Event.player.setUltimateAbilityEnabled(true);
+		Event.player.setUltimateChargeEnabled(100);
+	}
+);
+

@@ -1,0 +1,21 @@
+﻿rule("Rule 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Good Explosion, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Bad Explosion, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Ring Explosion, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Good Pickup Effect, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Bad Pickup Effect, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Debuff Impact Sound, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Buff Impact Sound, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Ring Explosion Sound, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, White, Event Player, 1);
+		Play Effect(All Players(All Teams), Explosion Sound, White, Event Player, 1);
+	}
+}

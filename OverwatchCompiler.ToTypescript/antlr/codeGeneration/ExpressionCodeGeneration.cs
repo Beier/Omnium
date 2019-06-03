@@ -6,42 +6,6 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 {
     public partial class CodeGeneration
     {
-        private StringBuilder BasicExpression(string name, params OverwatchCodeParser.ExpressionContext[] subExpressions)
-        {
-            var builder = new StringBuilder();
-            builder.Append(name);
-            if (subExpressions.Length == 0)
-                return builder;
-            builder.Append("(");
-            for (int i = 0; i < subExpressions.Length; i++)
-            {
-                if (i != 0)
-                    builder.Append(", ");
-                builder.Append(VisitExpression(subExpressions[i]));
-            }
-            builder.Append(")");
-            return builder;
-        }
-
-        private StringBuilder MemberMethodCallExpression(string name, params OverwatchCodeParser.ExpressionContext[] subExpressions)
-        {
-            var builder = new StringBuilder();
-            builder.Append(VisitExpression(subExpressions[0]));
-            builder.Append(".");
-            builder.Append(name);
-            if (subExpressions.Length == 1)
-                return builder;
-            builder.Append("(");
-            for (int i = 1; i < subExpressions.Length; i++)
-            {
-                if (i != 1)
-                    builder.Append(", ");
-                builder.Append(VisitExpression(subExpressions[i]));
-            }
-            builder.Append(")");
-            return builder;
-        }
-
         private StringBuilder BinaryExpression(string op, OverwatchCodeParser.ExpressionContext[] subExpressions)
         {
             var builder = new StringBuilder();
@@ -62,7 +26,7 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitVectorExpression(OverwatchCodeParser.VectorExpressionContext context)
         {
-            return BasicExpression("Vector", context.expression());
+            return BasicMethodOrProperty("Vector", context.expression());
         }
 
         public override StringBuilder VisitAddExpression(OverwatchCodeParser.AddExpressionContext context)
@@ -72,52 +36,52 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitAbsoluteValueExpression(OverwatchCodeParser.AbsoluteValueExpressionContext context)
         {
-            return BasicExpression("Math.abs", context.expression());
+            return BasicMethodOrProperty("Math.abs", context.expression());
         }
 
         public override StringBuilder VisitAllDeadPlayersExpression(OverwatchCodeParser.AllDeadPlayersExpressionContext context)
         {
-            return BasicExpression("Players.deadOnTeam", context.expression());
+            return BasicMethodOrProperty("Players.deadOnTeam", context.expression());
         }
 
         public override StringBuilder VisitAllHeroesExpression(OverwatchCodeParser.AllHeroesExpressionContext context)
         {
-            return BasicExpression("Heroes.all");
+            return BasicMethodOrProperty("Heroes.all");
         }
 
         public override StringBuilder VisitAllLivingPlayersExpression(OverwatchCodeParser.AllLivingPlayersExpressionContext context)
         {
-            return BasicExpression("Players.aliveOnTeam", context.expression());
+            return BasicMethodOrProperty("Players.aliveOnTeam", context.expression());
         }
 
         public override StringBuilder VisitAllPlayersExpression(OverwatchCodeParser.AllPlayersExpressionContext context)
         {
-            return BasicExpression("Players.onTeam", context.expression());
+            return BasicMethodOrProperty("Players.onTeam", context.expression());
         }
 
         public override StringBuilder VisitAllPlayersNotOnObjectiveExpression(OverwatchCodeParser.AllPlayersNotOnObjectiveExpressionContext context)
         {
-            return BasicExpression("Players.notOnObjectiveFromTeam", context.expression());
+            return BasicMethodOrProperty("Players.notOnObjectiveFromTeam", context.expression());
         }
 
         public override StringBuilder VisitAllPlayersOnObjectiveExpression(OverwatchCodeParser.AllPlayersOnObjectiveExpressionContext context)
         {
-            return BasicExpression("Players.onObjectiveFromTeam", context.expression());
+            return BasicMethodOrProperty("Players.onObjectiveFromTeam", context.expression());
         }
 
         public override StringBuilder VisitAllowedHeroesExpression(OverwatchCodeParser.AllowedHeroesExpressionContext context)
         {
-            return BasicExpression("Heroes.allowedForPlayer", context.expression());
+            return BasicMethodOrProperty("Heroes.allowedForPlayer", context.expression());
         }
 
         public override StringBuilder VisitAltitudeOfExpression(OverwatchCodeParser.AltitudeOfExpressionContext context)
         {
-            return BasicExpression("altitudeOf", context.expression());
+            return BasicMethodOrProperty("altitudeOf", context.expression());
         }
 
         public override StringBuilder VisitEventPlayerExpression(OverwatchCodeParser.EventPlayerExpressionContext context)
         {
-            return BasicExpression("Event.player");
+            return BasicMethodOrProperty("Event.player");
         }
 
         public override StringBuilder VisitAndExpression(OverwatchCodeParser.AndExpressionContext context)
@@ -127,37 +91,37 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitAngleDifferenceExpression(OverwatchCodeParser.AngleDifferenceExpressionContext context)
         {
-            return BasicExpression("angleDifference", context.expression());
+            return BasicMethodOrProperty("angleDifference", context.expression());
         }
 
         public override StringBuilder VisitAppendToArrayExpression(OverwatchCodeParser.AppendToArrayExpressionContext context)
         {
-            return MemberMethodCallExpression("push", context.expression());
+            return MemberMethodOrProperty("push", context.expression());
         }
 
         public override StringBuilder VisitArrayContainsExpression(OverwatchCodeParser.ArrayContainsExpressionContext context)
         {
-            return MemberMethodCallExpression("includes", context.expression());
+            return MemberMethodOrProperty("includes", context.expression());
         }
 
         public override StringBuilder VisitArraySliceExpression(OverwatchCodeParser.ArraySliceExpressionContext context)
         {
-            return MemberMethodCallExpression("slice", context.expression());
+            return MemberMethodOrProperty("slice", context.expression());
         }
 
         public override StringBuilder VisitAttackerExpression(OverwatchCodeParser.AttackerExpressionContext context)
         {
-            return BasicExpression("Player.attacker");
+            return BasicMethodOrProperty("Player.attacker");
         }
 
         public override StringBuilder VisitBackwardExpression(OverwatchCodeParser.BackwardExpressionContext context)
         {
-            return BasicExpression("Vector.backward");
+            return BasicMethodOrProperty("Vector.backward");
         }
 
         public override StringBuilder VisitClosestPlayerToExpression(OverwatchCodeParser.ClosestPlayerToExpressionContext context)
         {
-            return BasicExpression("Player.closestTo", context.expression());
+            return BasicMethodOrProperty("Player.closestTo", context.expression());
         }
 
         public override StringBuilder VisitCompareExpression(OverwatchCodeParser.CompareExpressionContext context)
@@ -167,7 +131,7 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitControlModeScoringPercentageExpression(OverwatchCodeParser.ControlModeScoringPercentageExpressionContext context)
         {
-            return BasicExpression("controlModeScoringPercentage", context.expression());
+            return BasicMethodOrProperty("controlModeScoringPercentage", context.expression());
         }
 
         public override StringBuilder VisitGlobalVariableExpression(OverwatchCodeParser.GlobalVariableExpressionContext context)
@@ -177,47 +141,47 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitControlModeScoringTeamExpression(OverwatchCodeParser.ControlModeScoringTeamExpressionContext context)
         {
-            return BasicExpression("Team.scoringControlMode");
+            return BasicMethodOrProperty("Team.scoringControlMode");
         }
 
         public override StringBuilder VisitCosineFromRadiansExpression(OverwatchCodeParser.CosineFromRadiansExpressionContext context)
         {
-            return BasicExpression("Math.cos", context.expression());
+            return BasicMethodOrProperty("Math.cos", context.expression());
         }
 
         public override StringBuilder VisitCosineFromDegreesExpression(OverwatchCodeParser.CosineFromDegreesExpressionContext context)
         {
-            return BasicExpression("Math.cosDeg", context.expression());
+            return BasicMethodOrProperty("Math.cosDeg", context.expression());
         }
 
         public override StringBuilder VisitCountOfExpression(OverwatchCodeParser.CountOfExpressionContext context)
         {
-            return MemberMethodCallExpression("length", context.expression());
+            return MemberMethodOrProperty("length", context.expression());
         }
 
         public override StringBuilder VisitCrossProductExpression(OverwatchCodeParser.CrossProductExpressionContext context)
         {
-            return MemberMethodCallExpression("cross", context.expression());
+            return MemberMethodOrProperty("cross", context.expression());
         }
 
         public override StringBuilder VisitCurrentArrayElementExpression(OverwatchCodeParser.CurrentArrayElementExpressionContext context)
         {
-            return BasicExpression("currentArrayElement");
+            return BasicMethodOrProperty("currentArrayElement");
         }
 
         public override StringBuilder VisitDirectionFromAnglesExpression(OverwatchCodeParser.DirectionFromAnglesExpressionContext context)
         {
-            return BasicExpression("Vector.fromAngles", context.expression());
+            return BasicMethodOrProperty("Vector.fromAngles", context.expression());
         }
 
         public override StringBuilder VisitDirectionTowardsExpression(OverwatchCodeParser.DirectionTowardsExpressionContext context)
         {
-            return MemberMethodCallExpression("directionTowards", context.expression());
+            return MemberMethodOrProperty("directionTowards", context.expression());
         }
 
         public override StringBuilder VisitDistanceBetweenExpression(OverwatchCodeParser.DistanceBetweenExpressionContext context)
         {
-            return MemberMethodCallExpression("distanceTo", context.expression());
+            return MemberMethodOrProperty("distanceTo", context.expression());
         }
 
         public override StringBuilder VisitDivideExpression(OverwatchCodeParser.DivideExpressionContext context)
@@ -227,12 +191,12 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitDotProductExpression(OverwatchCodeParser.DotProductExpressionContext context)
         {
-            return MemberMethodCallExpression("dot", context.expression());
+            return MemberMethodOrProperty("dot", context.expression());
         }
 
         public override StringBuilder VisitDownExpression(OverwatchCodeParser.DownExpressionContext context)
         {
-            return BasicExpression("Vector.down");
+            return BasicMethodOrProperty("Vector.down");
         }
 
         public override StringBuilder VisitEmptyArrayExpression(OverwatchCodeParser.EmptyArrayExpressionContext context)
@@ -242,32 +206,32 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitEntityExistsExpression(OverwatchCodeParser.EntityExistsExpressionContext context)
         {
-            return BasicExpression("exists", context.expression());
+            return BasicMethodOrProperty("exists", context.expression());
         }
 
         public override StringBuilder VisitEventDamageExpression(OverwatchCodeParser.EventDamageExpressionContext context)
         {
-            return BasicExpression("Event.damage");
+            return BasicMethodOrProperty("Event.damage");
         }
 
         public override StringBuilder VisitEventWasCriticalHitExpression(OverwatchCodeParser.EventWasCriticalHitExpressionContext context)
         {
-            return BasicExpression("Event.wasCriticalHit");
+            return BasicMethodOrProperty("Event.wasCriticalHit");
         }
 
         public override StringBuilder VisitEyePositionExpression(OverwatchCodeParser.EyePositionExpressionContext context)
         {
-            return MemberMethodCallExpression("eyePosition", context.expression());
+            return MemberMethodOrProperty("eyePosition", context.expression());
         }
 
         public override StringBuilder VisitFacingDirectionOfExpression(OverwatchCodeParser.FacingDirectionOfExpressionContext context)
         {
-            return MemberMethodCallExpression("facingDirection", context.expression());
+            return MemberMethodOrProperty("facingDirection", context.expression());
         }
 
         public override StringBuilder VisitFarthestPlayerFromExpression(OverwatchCodeParser.FarthestPlayerFromExpressionContext context)
         {
-            return BasicExpression("Player.farthestFrom", context.expression());
+            return BasicMethodOrProperty("Player.farthestFrom", context.expression());
         }
 
         public override StringBuilder VisitFilteredArrayExpression(OverwatchCodeParser.FilteredArrayExpressionContext context)
@@ -282,22 +246,22 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitFirstOfExpression(OverwatchCodeParser.FirstOfExpressionContext context)
         {
-            return MemberMethodCallExpression("head", context.expression());
+            return MemberMethodOrProperty("head", context.expression());
         }
 
         public override StringBuilder VisitFlagPositionExpression(OverwatchCodeParser.FlagPositionExpressionContext context)
         {
-            return BasicExpression("Game.Ctf.flagPositionFor", context.expression());
+            return BasicMethodOrProperty("Game.Ctf.flagPositionFor", context.expression());
         }
 
         public override StringBuilder VisitForwardExpression(OverwatchCodeParser.ForwardExpressionContext context)
         {
-            return BasicExpression("Vector.forward");
+            return BasicMethodOrProperty("Vector.forward");
         }
 
         public override StringBuilder VisitHasSpawnedExpression(OverwatchCodeParser.HasSpawnedExpressionContext context)
         {
-            return MemberMethodCallExpression("hasSpawned", context.expression());
+            return MemberMethodOrProperty("hasSpawned", context.expression());
         }
 
         public override StringBuilder VisitHasStatusExpression(OverwatchCodeParser.HasStatusExpressionContext context)
@@ -312,12 +276,12 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitHealthExpression(OverwatchCodeParser.HealthExpressionContext context)
         {
-            return MemberMethodCallExpression("health", context.expression());
+            return MemberMethodOrProperty("health", context.expression());
         }
 
         public override StringBuilder VisitHealthPercentExpression(OverwatchCodeParser.HealthPercentExpressionContext context)
         {
-            return MemberMethodCallExpression("healthPercent", context.expression());
+            return MemberMethodOrProperty("healthPercent", context.expression());
         }
 
         public override StringBuilder VisitHeroExpression(OverwatchCodeParser.HeroExpressionContext context)
@@ -327,52 +291,52 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitHeroIconStringExpression(OverwatchCodeParser.HeroIconStringExpressionContext context)
         {
-            return MemberMethodCallExpression("iconString", context.expression());
+            return MemberMethodOrProperty("iconString", context.expression());
         }
 
         public override StringBuilder VisitHeroOfExpression(OverwatchCodeParser.HeroOfExpressionContext context)
         {
-            return MemberMethodCallExpression("hero", context.expression());
+            return MemberMethodOrProperty("hero", context.expression());
         }
 
         public override StringBuilder VisitHorizontalAngleFromDirectionExpression(OverwatchCodeParser.HorizontalAngleFromDirectionExpressionContext context)
         {
-            return MemberMethodCallExpression("horizontalAngle", context.expression());
+            return MemberMethodOrProperty("horizontalAngle", context.expression());
         }
 
         public override StringBuilder VisitHorizontalAngleTowardsExpression(OverwatchCodeParser.HorizontalAngleTowardsExpressionContext context)
         {
-            return MemberMethodCallExpression("horizontalAngleTowards", context.expression());
+            return MemberMethodOrProperty("horizontalAngleTowards", context.expression());
         }
 
         public override StringBuilder VisitHorizontalFacingAngleOfExpression(OverwatchCodeParser.HorizontalFacingAngleOfExpressionContext context)
         {
-            return MemberMethodCallExpression("horizontalFacingAngle", context.expression());
+            return MemberMethodOrProperty("horizontalFacingAngle", context.expression());
         }
 
         public override StringBuilder VisitHorizontalSpeedOfExpression(OverwatchCodeParser.HorizontalSpeedOfExpressionContext context)
         {
-            return MemberMethodCallExpression("horizontalSpeed", context.expression());
+            return MemberMethodOrProperty("horizontalSpeed", context.expression());
         }
 
         public override StringBuilder VisitIndexOfArrayValueExpression(OverwatchCodeParser.IndexOfArrayValueExpressionContext context)
         {
-            return MemberMethodCallExpression("indexOf", context.expression());
+            return MemberMethodOrProperty("indexOf", context.expression());
         }
 
         public override StringBuilder VisitIsAliveExpression(OverwatchCodeParser.IsAliveExpressionContext context)
         {
-            return MemberMethodCallExpression("isAlive", context.expression());
+            return MemberMethodOrProperty("isAlive", context.expression());
         }
 
         public override StringBuilder VisitIsAssemblingHeroesExpression(OverwatchCodeParser.IsAssemblingHeroesExpressionContext context)
         {
-            return BasicExpression("Game.isAssemblingHeroes");
+            return BasicMethodOrProperty("Game.isAssemblingHeroes");
         }
 
         public override StringBuilder VisitIsBetweenRoundsExpression(OverwatchCodeParser.IsBetweenRoundsExpressionContext context)
         {
-            return BasicExpression("Game.isBetweenRounds");
+            return BasicMethodOrProperty("Game.isBetweenRounds");
         }
 
         public override StringBuilder VisitIsButtonHeldExpression(OverwatchCodeParser.IsButtonHeldExpressionContext context)
@@ -397,72 +361,72 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitIsCommunicatingAnyExpression(OverwatchCodeParser.IsCommunicatingAnyExpressionContext context)
         {
-            return MemberMethodCallExpression("isCommunicating", context.expression());
+            return MemberMethodOrProperty("isCommunicating", context.expression());
         }
 
         public override StringBuilder VisitIsCommunicatingAnyEmoteExpression(OverwatchCodeParser.IsCommunicatingAnyEmoteExpressionContext context)
         {
-            return MemberMethodCallExpression("isCommunicatingWithEmote", context.expression());
+            return MemberMethodOrProperty("isCommunicatingWithEmote", context.expression());
         }
 
         public override StringBuilder VisitIsCommunicatingAnyVoicelineExpression(OverwatchCodeParser.IsCommunicatingAnyVoicelineExpressionContext context)
         {
-            return MemberMethodCallExpression("isCommunicatingWithVoiceLine", context.expression());
+            return MemberMethodOrProperty("isCommunicatingWithVoiceLine", context.expression());
         }
 
         public override StringBuilder VisitIsControlModePointLockedExpression(OverwatchCodeParser.IsControlModePointLockedExpressionContext context)
         {
-            return BasicExpression("Game.ControlPoint.isPointLocked");
+            return BasicMethodOrProperty("Game.ControlPoint.isPointLocked");
         }
 
         public override StringBuilder VisitIsCrouchingExpression(OverwatchCodeParser.IsCrouchingExpressionContext context)
         {
-            return MemberMethodCallExpression("isCrouching", context.expression());
+            return MemberMethodOrProperty("isCrouching", context.expression());
         }
 
         public override StringBuilder VisitIsCTFModeInSuddenDeathExpression(OverwatchCodeParser.IsCTFModeInSuddenDeathExpressionContext context)
         {
-            return BasicExpression("Game.Ctf.isInSuddenDeath");
+            return BasicMethodOrProperty("Game.Ctf.isInSuddenDeath");
         }
 
         public override StringBuilder VisitIsDeadExpression(OverwatchCodeParser.IsDeadExpressionContext context)
         {
-            return MemberMethodCallExpression("isDead", context.expression());
+            return MemberMethodOrProperty("isDead", context.expression());
         }
 
         public override StringBuilder VisitIsFiringPrimaryExpression(OverwatchCodeParser.IsFiringPrimaryExpressionContext context)
         {
-            return MemberMethodCallExpression("isFiringPrimary", context.expression());
+            return MemberMethodOrProperty("isFiringPrimary", context.expression());
         }
 
         public override StringBuilder VisitIsFiringSecondaryExpression(OverwatchCodeParser.IsFiringSecondaryExpressionContext context)
         {
-            return MemberMethodCallExpression("isFiringSecondary", context.expression());
+            return MemberMethodOrProperty("isFiringSecondary", context.expression());
         }
 
         public override StringBuilder VisitIsFlagAtBaseExpression(OverwatchCodeParser.IsFlagAtBaseExpressionContext context)
         {
-            return BasicExpression("Game.Ctf.isFlagAtBaseFor", context.expression());
+            return BasicMethodOrProperty("Game.Ctf.isFlagAtBaseFor", context.expression());
         }
 
         public override StringBuilder VisitIsFlagBeingCarriedExpression(OverwatchCodeParser.IsFlagBeingCarriedExpressionContext context)
         {
-            return BasicExpression("Game.Ctf.isFlagBeingCarriedFor", context.expression());
+            return BasicMethodOrProperty("Game.Ctf.isFlagBeingCarriedFor", context.expression());
         }
 
         public override StringBuilder VisitIsGameInProgressExpression(OverwatchCodeParser.IsGameInProgressExpressionContext context)
         {
-            return BasicExpression("Game.isInProgress");
+            return BasicMethodOrProperty("Game.isInProgress");
         }
 
         public override StringBuilder VisitIsHeroBeingPlayedExpression(OverwatchCodeParser.IsHeroBeingPlayedExpressionContext context)
         {
-            return BasicExpression("Game.isHeroBeingPlayed", context.expression());
+            return BasicMethodOrProperty("Game.isHeroBeingPlayed", context.expression());
         }
 
         public override StringBuilder VisitIsInAirExpression(OverwatchCodeParser.IsInAirExpressionContext context)
         {
-            return MemberMethodCallExpression("isInAir", context.expression());
+            return MemberMethodOrProperty("isInAir", context.expression());
         }
 
         public override StringBuilder VisitIsInLineofSightExpression(OverwatchCodeParser.IsInLineofSightExpressionContext context)
@@ -479,67 +443,67 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitIsInSetupExpression(OverwatchCodeParser.IsInSetupExpressionContext context)
         {
-            return BasicExpression("Game.isInSetup");
+            return BasicMethodOrProperty("Game.isInSetup");
         }
 
         public override StringBuilder VisitIsInSpawnRoomExpression(OverwatchCodeParser.IsInSpawnRoomExpressionContext context)
         {
-            return MemberMethodCallExpression("isInSpawnRoom", context.expression());
+            return MemberMethodOrProperty("isInSpawnRoom", context.expression());
         }
 
         public override StringBuilder VisitIsInViewAngleExpression(OverwatchCodeParser.IsInViewAngleExpressionContext context)
         {
-            return MemberMethodCallExpression("isLookingAt", context.expression());
+            return MemberMethodOrProperty("isLookingAt", context.expression());
         }
 
         public override StringBuilder VisitIsMatchCompleteExpression(OverwatchCodeParser.IsMatchCompleteExpressionContext context)
         {
-            return BasicExpression("Game.isMatchComplete");
+            return BasicMethodOrProperty("Game.isMatchComplete");
         }
 
         public override StringBuilder VisitIsMovingExpression(OverwatchCodeParser.IsMovingExpressionContext context)
         {
-            return MemberMethodCallExpression("isMoving", context.expression());
+            return MemberMethodOrProperty("isMoving", context.expression());
         }
 
         public override StringBuilder VisitIsObjectiveCompleteExpression(OverwatchCodeParser.IsObjectiveCompleteExpressionContext context)
         {
-            return BasicExpression("Game.isObjectiveComplete", context.expression());
+            return BasicMethodOrProperty("Game.isObjectiveComplete", context.expression());
         }
 
         public override StringBuilder VisitIsOnGroundExpression(OverwatchCodeParser.IsOnGroundExpressionContext context)
         {
-            return MemberMethodCallExpression("isOnGround", context.expression());
+            return MemberMethodOrProperty("isOnGround", context.expression());
         }
 
         public override StringBuilder VisitIsOnObjectiveExpression(OverwatchCodeParser.IsOnObjectiveExpressionContext context)
         {
-            return MemberMethodCallExpression("isOnObjective", context.expression());
+            return MemberMethodOrProperty("isOnObjective", context.expression());
         }
 
         public override StringBuilder VisitIsOnWallExpression(OverwatchCodeParser.IsOnWallExpressionContext context)
         {
-            return MemberMethodCallExpression("isOnWall", context.expression());
+            return MemberMethodOrProperty("isOnWall", context.expression());
         }
 
         public override StringBuilder VisitIsPortraitOnFireExpression(OverwatchCodeParser.IsPortraitOnFireExpressionContext context)
         {
-            return MemberMethodCallExpression("isPortraitOnFire", context.expression());
+            return MemberMethodOrProperty("isPortraitOnFire", context.expression());
         }
 
         public override StringBuilder VisitIsStandingExpression(OverwatchCodeParser.IsStandingExpressionContext context)
         {
-            return MemberMethodCallExpression("isStanding", context.expression());
+            return MemberMethodOrProperty("isStanding", context.expression());
         }
 
         public override StringBuilder VisitIsTeamOnDefenseExpression(OverwatchCodeParser.IsTeamOnDefenseExpressionContext context)
         {
-            return BasicExpression("Game.isOnDefense", context.expression());
+            return BasicMethodOrProperty("Game.isOnDefense", context.expression());
         }
 
         public override StringBuilder VisitIsTeamOnOffenseExpression(OverwatchCodeParser.IsTeamOnOffenseExpressionContext context)
         {
-            return BasicExpression("Game.isOnOffense", context.expression());
+            return BasicMethodOrProperty("Game.isOnOffense", context.expression());
         }
 
         public override StringBuilder VisitIsTrueForAllExpression(OverwatchCodeParser.IsTrueForAllExpressionContext context)
@@ -564,57 +528,57 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitIsUsingAbility1Expression(OverwatchCodeParser.IsUsingAbility1ExpressionContext context)
         {
-            return MemberMethodCallExpression("isUsingAbility1", context.expression());
+            return MemberMethodOrProperty("isUsingAbility1", context.expression());
         }
 
         public override StringBuilder VisitIsUsingAbility2Expression(OverwatchCodeParser.IsUsingAbility2ExpressionContext context)
         {
-            return MemberMethodCallExpression("isUsingAbility2", context.expression());
+            return MemberMethodOrProperty("isUsingAbility2", context.expression());
         }
 
         public override StringBuilder VisitIsUsingUltimateExpression(OverwatchCodeParser.IsUsingUltimateExpressionContext context)
         {
-            return MemberMethodCallExpression("isUsingUltimate", context.expression());
+            return MemberMethodOrProperty("isUsingUltimate", context.expression());
         }
 
         public override StringBuilder VisitIsWaitingForPlayersExpression(OverwatchCodeParser.IsWaitingForPlayersExpressionContext context)
         {
-            return BasicExpression("Game.isWaitingForPlayers");
+            return BasicMethodOrProperty("Game.isWaitingForPlayers");
         }
 
         public override StringBuilder VisitLastCreatedEntityExpression(OverwatchCodeParser.LastCreatedEntityExpressionContext context)
         {
-            return BasicExpression("Game.getLastCreatedEntity()");
+            return BasicMethodOrProperty("Game.getLastCreatedEntity()");
         }
 
         public override StringBuilder VisitLastDamageModificationIDExpression(OverwatchCodeParser.LastDamageModificationIDExpressionContext context)
         {
-            return BasicExpression("Game.getIdOfLastDamageModification()");
+            return BasicMethodOrProperty("Game.getIdOfLastDamageModification()");
         }
 
         public override StringBuilder VisitLastDamageOverTimeIDExpression(OverwatchCodeParser.LastDamageOverTimeIDExpressionContext context)
         {
-            return BasicExpression("Game.getIdOfLastDamageOverTime()");
+            return BasicMethodOrProperty("Game.getIdOfLastDamageOverTime()");
         }
 
         public override StringBuilder VisitLastHealOverTimeIDExpression(OverwatchCodeParser.LastHealOverTimeIDExpressionContext context)
         {
-            return BasicExpression("Game.getIdOfLastHealOverTime()");
+            return BasicMethodOrProperty("Game.getIdOfLastHealOverTime()");
         }
 
         public override StringBuilder VisitLastOfExpression(OverwatchCodeParser.LastOfExpressionContext context)
         {
-            return MemberMethodCallExpression("last", context.expression());
+            return MemberMethodOrProperty("last", context.expression());
         }
 
         public override StringBuilder VisitLastTextIDExpression(OverwatchCodeParser.LastTextIDExpressionContext context)
         {
-            return BasicExpression("Game.getIdOfLastText()");
+            return BasicMethodOrProperty("Game.getIdOfLastText()");
         }
 
         public override StringBuilder VisitLeftExpression(OverwatchCodeParser.LeftExpressionContext context)
         {
-            return BasicExpression("Vector.left");
+            return BasicMethodOrProperty("Vector.left");
         }
 
         public override StringBuilder VisitLocalVectorOfExpression(OverwatchCodeParser.LocalVectorOfExpressionContext context)
@@ -631,27 +595,27 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitMatchRoundExpression(OverwatchCodeParser.MatchRoundExpressionContext context)
         {
-            return BasicExpression("Game.matchRound");
+            return BasicMethodOrProperty("Game.matchRound");
         }
 
         public override StringBuilder VisitMatchTimeExpression(OverwatchCodeParser.MatchTimeExpressionContext context)
         {
-            return BasicExpression("Game.matchTime");
+            return BasicMethodOrProperty("Game.matchTime");
         }
 
         public override StringBuilder VisitMaxExpression(OverwatchCodeParser.MaxExpressionContext context)
         {
-            return BasicExpression("Math.max", context.expression());
+            return BasicMethodOrProperty("Math.max", context.expression());
         }
 
         public override StringBuilder VisitMaxHealthExpression(OverwatchCodeParser.MaxHealthExpressionContext context)
         {
-            return MemberMethodCallExpression("maxHealth", context.expression());
+            return MemberMethodOrProperty("maxHealth", context.expression());
         }
 
         public override StringBuilder VisitMinExpression(OverwatchCodeParser.MinExpressionContext context)
         {
-            return BasicExpression("Math.min", context.expression());
+            return BasicMethodOrProperty("Math.min", context.expression());
         }
 
         public override StringBuilder VisitModuloExpression(OverwatchCodeParser.ModuloExpressionContext context)
@@ -666,12 +630,12 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitNearestWalkablePositionExpression(OverwatchCodeParser.NearestWalkablePositionExpressionContext context)
         {
-            return BasicExpression("Vector.getNearestWalkablePosition", context.expression());
+            return BasicMethodOrProperty("Vector.getNearestWalkablePosition", context.expression());
         }
 
         public override StringBuilder VisitNormalizeExpression(OverwatchCodeParser.NormalizeExpressionContext context)
         {
-            return MemberMethodCallExpression("normalize()", context.expression());
+            return MemberMethodOrProperty("normalize()", context.expression());
         }
 
         public override StringBuilder VisitNotExpression(OverwatchCodeParser.NotExpressionContext context)
@@ -684,57 +648,57 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitNumberOfDeadPlayersExpression(OverwatchCodeParser.NumberOfDeadPlayersExpressionContext context)
         {
-            return BasicExpression("Game.numberOfDeadPlayersOnTeam", context.expression());
+            return BasicMethodOrProperty("Game.numberOfDeadPlayersOnTeam", context.expression());
         }
 
         public override StringBuilder VisitNumberOfDeathsExpression(OverwatchCodeParser.NumberOfDeathsExpressionContext context)
         {
-            return MemberMethodCallExpression("numberOfDeaths", context.expression());
+            return MemberMethodOrProperty("numberOfDeaths", context.expression());
         }
 
         public override StringBuilder VisitNumberOfEliminationsExpression(OverwatchCodeParser.NumberOfEliminationsExpressionContext context)
         {
-            return MemberMethodCallExpression("numberOfEliminations", context.expression());
+            return MemberMethodOrProperty("numberOfEliminations", context.expression());
         }
 
         public override StringBuilder VisitNumberOfFinalBlowsExpression(OverwatchCodeParser.NumberOfFinalBlowsExpressionContext context)
         {
-            return MemberMethodCallExpression("numberOfFinalBlows", context.expression());
+            return MemberMethodOrProperty("numberOfFinalBlows", context.expression());
         }
 
         public override StringBuilder VisitNumberOfHeroesExpression(OverwatchCodeParser.NumberOfHeroesExpressionContext context)
         {
-            return BasicExpression("Game.numberOfHeroesOfTypeOnTeam", context.expression());
+            return BasicMethodOrProperty("Game.numberOfHeroesOfTypeOnTeam", context.expression());
         }
 
         public override StringBuilder VisitNumberOfLivingPlayersExpression(OverwatchCodeParser.NumberOfLivingPlayersExpressionContext context)
         {
-            return BasicExpression("Game.numberOfLivingPlayersOnTeam", context.expression());
+            return BasicMethodOrProperty("Game.numberOfLivingPlayersOnTeam", context.expression());
         }
 
         public override StringBuilder VisitNumberOfPlayersExpression(OverwatchCodeParser.NumberOfPlayersExpressionContext context)
         {
-            return BasicExpression("Game.numberOfPlayersOnTeam", context.expression());
+            return BasicMethodOrProperty("Game.numberOfPlayersOnTeam", context.expression());
         }
 
         public override StringBuilder VisitNumberOfPlayersOnObjectiveExpression(OverwatchCodeParser.NumberOfPlayersOnObjectiveExpressionContext context)
         {
-            return BasicExpression("Game.numberOfPlayersFromTeamOnObjective", context.expression());
+            return BasicMethodOrProperty("Game.numberOfPlayersFromTeamOnObjective", context.expression());
         }
 
         public override StringBuilder VisitObjectiveIndexExpression(OverwatchCodeParser.ObjectiveIndexExpressionContext context)
         {
-            return BasicExpression("Game.indexOfCurrentObjective");
+            return BasicMethodOrProperty("Game.indexOfCurrentObjective");
         }
 
         public override StringBuilder VisitObjectivePositionExpression(OverwatchCodeParser.ObjectivePositionExpressionContext context)
         {
-            return BasicExpression("Game.positionOfObjective", context.expression());
+            return BasicMethodOrProperty("Game.positionOfObjective", context.expression());
         }
 
         public override StringBuilder VisitOppositeTeamOfExpression(OverwatchCodeParser.OppositeTeamOfExpressionContext context)
         {
-            return BasicExpression("Team.oppositeOf", context.expression());
+            return BasicMethodOrProperty("Team.oppositeOf", context.expression());
         }
 
         public override StringBuilder VisitOrExpression(OverwatchCodeParser.OrExpressionContext context)
@@ -744,22 +708,22 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitPayloadPositionExpression(OverwatchCodeParser.PayloadPositionExpressionContext context)
         {
-            return BasicExpression("Game.Payload.position");
+            return BasicMethodOrProperty("Game.Payload.position");
         }
 
         public override StringBuilder VisitPayloadProgressPercentageExpression(OverwatchCodeParser.PayloadProgressPercentageExpressionContext context)
         {
-            return BasicExpression("Game.Payload.progressPercentage");
+            return BasicMethodOrProperty("Game.Payload.progressPercentage");
         }
 
         public override StringBuilder VisitPlayerCarryingFlagExpression(OverwatchCodeParser.PlayerCarryingFlagExpressionContext context)
         {
-            return BasicExpression("Game.Ctf.playerCarryingFlagFor", context.expression());
+            return BasicMethodOrProperty("Game.Ctf.playerCarryingFlagFor", context.expression());
         }
 
         public override StringBuilder VisitPlayerClosestToReticleExpression(OverwatchCodeParser.PlayerClosestToReticleExpressionContext context)
         {
-            return BasicExpression("Player.getPlayerClosestToReticleOf", context.expression());
+            return BasicMethodOrProperty("Player.getPlayerClosestToReticleOf", context.expression());
         }
 
         public override StringBuilder VisitPlayerVariableExpression(OverwatchCodeParser.PlayerVariableExpressionContext context)
@@ -773,17 +737,17 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitPlayersInSlotExpression(OverwatchCodeParser.PlayersInSlotExpressionContext context)
         {
-            return BasicExpression("Player.inSlot", context.expression());
+            return BasicMethodOrProperty("Player.inSlot", context.expression());
         }
 
         public override StringBuilder VisitPlayersInViewAngleExpression(OverwatchCodeParser.PlayersInViewAngleExpressionContext context)
         {
-            return BasicExpression("Players.inLineOfSightOf", context.expression());
+            return BasicMethodOrProperty("Players.inLineOfSightOf", context.expression());
         }
 
         public override StringBuilder VisitPlayersOnHeroExpression(OverwatchCodeParser.PlayersOnHeroExpressionContext context)
         {
-            return BasicExpression("Players.onHero", context.expression());
+            return BasicMethodOrProperty("Players.onHero", context.expression());
         }
 
         public override StringBuilder VisitPlayersWithinRadiusExpression(OverwatchCodeParser.PlayersWithinRadiusExpressionContext context)
@@ -803,62 +767,62 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitPointCapturePercentageExpression(OverwatchCodeParser.PointCapturePercentageExpressionContext context)
         {
-            return BasicExpression("Game.ControlPoint.capturePercentage");
+            return BasicMethodOrProperty("Game.ControlPoint.capturePercentage");
         }
 
         public override StringBuilder VisitPositionOfExpression(OverwatchCodeParser.PositionOfExpressionContext context)
         {
-            return MemberMethodCallExpression("position", context.expression());
+            return MemberMethodOrProperty("position", context.expression());
         }
 
         public override StringBuilder VisitRaiseToPowerExpression(OverwatchCodeParser.RaiseToPowerExpressionContext context)
         {
-            return BasicExpression("Math.pow", context.expression());
+            return BasicMethodOrProperty("Math.pow", context.expression());
         }
 
         public override StringBuilder VisitRandomIntegerExpression(OverwatchCodeParser.RandomIntegerExpressionContext context)
         {
-            return BasicExpression("Math.randomInt", context.expression());
+            return BasicMethodOrProperty("Math.randomInt", context.expression());
         }
 
         public override StringBuilder VisitRandomRealExpression(OverwatchCodeParser.RandomRealExpressionContext context)
         {
-            return BasicExpression("Math.randomReal", context.expression());
+            return BasicMethodOrProperty("Math.randomReal", context.expression());
         }
 
         public override StringBuilder VisitRandomValueInArrayExpression(OverwatchCodeParser.RandomValueInArrayExpressionContext context)
         {
-            return MemberMethodCallExpression("getRandomElement()", context.expression());
+            return MemberMethodOrProperty("getRandomElement()", context.expression());
         }
 
         public override StringBuilder VisitRandomizedArrayExpression(OverwatchCodeParser.RandomizedArrayExpressionContext context)
         {
-            return MemberMethodCallExpression("shuffle()", context.expression());
+            return MemberMethodOrProperty("shuffle()", context.expression());
         }
 
         public override StringBuilder VisitRayCastHitNormalExpression(OverwatchCodeParser.RayCastHitNormalExpressionContext context)
         {
-            return BasicExpression("Vector.normalFromRayCastHit", context.expression());
+            return BasicMethodOrProperty("Vector.normalFromRayCastHit", context.expression());
         }
 
         public override StringBuilder VisitRayCastHitPlayerExpression(OverwatchCodeParser.RayCastHitPlayerExpressionContext context)
         {
-            return BasicExpression("Player.fromRayCastHit", context.expression());
+            return BasicMethodOrProperty("Player.fromRayCastHit", context.expression());
         }
 
         public override StringBuilder VisitRayCastHitPositionExpression(OverwatchCodeParser.RayCastHitPositionExpressionContext context)
         {
-            return BasicExpression("Vector.positionFromRayCastHit", context.expression());
+            return BasicMethodOrProperty("Vector.positionFromRayCastHit", context.expression());
         }
 
         public override StringBuilder VisitRemoveFromArrayExpression(OverwatchCodeParser.RemoveFromArrayExpressionContext context)
         {
-            return MemberMethodCallExpression("remove", context.expression());
+            return MemberMethodOrProperty("remove", context.expression());
         }
 
         public override StringBuilder VisitRightExpression(OverwatchCodeParser.RightExpressionContext context)
         {
-            return BasicExpression("Vector.right");
+            return BasicMethodOrProperty("Vector.right");
         }
 
         public override StringBuilder VisitRoundToIntegerExpression(OverwatchCodeParser.RoundToIntegerExpressionContext context)
@@ -874,22 +838,22 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitScoreOfExpression(OverwatchCodeParser.ScoreOfExpressionContext context)
         {
-            return MemberMethodCallExpression("score", context.expression());
+            return MemberMethodOrProperty("score", context.expression());
         }
 
         public override StringBuilder VisitSineFromDegreesExpression(OverwatchCodeParser.SineFromDegreesExpressionContext context)
         {
-            return BasicExpression("Math.sinDeg", context.expression());
+            return BasicMethodOrProperty("Math.sinDeg", context.expression());
         }
 
         public override StringBuilder VisitSineFromRadiansExpression(OverwatchCodeParser.SineFromRadiansExpressionContext context)
         {
-            return BasicExpression("Math.sin", context.expression());
+            return BasicMethodOrProperty("Math.sin", context.expression());
         }
 
         public override StringBuilder VisitSlotOfExpression(OverwatchCodeParser.SlotOfExpressionContext context)
         {
-            return MemberMethodCallExpression("slot", context.expression());
+            return MemberMethodOrProperty("slot", context.expression());
         }
 
         public override StringBuilder VisitSortedArrayExpression(OverwatchCodeParser.SortedArrayExpressionContext context)
@@ -904,22 +868,22 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitSpeedOfExpression(OverwatchCodeParser.SpeedOfExpressionContext context)
         {
-            return MemberMethodCallExpression("speed", context.expression());
+            return MemberMethodOrProperty("speed", context.expression());
         }
 
         public override StringBuilder VisitSpeedOfInDirectionExpression(OverwatchCodeParser.SpeedOfInDirectionExpressionContext context)
         {
-            return MemberMethodCallExpression("getSpeedInDirection", context.expression());
+            return MemberMethodOrProperty("getSpeedInDirection", context.expression());
         }
 
         public override StringBuilder VisitSquareRootExpression(OverwatchCodeParser.SquareRootExpressionContext context)
         {
-            return BasicExpression("Math.sqrt", context.expression());
+            return BasicMethodOrProperty("Math.sqrt", context.expression());
         }
 
         public override StringBuilder VisitStringExpression(OverwatchCodeParser.StringExpressionContext context)
         {
-            return MemberMethodCallExpression("format", context.expression());
+            return MemberMethodOrProperty("format", context.expression());
         }
 
         public override StringBuilder VisitSubtractExpression(OverwatchCodeParser.SubtractExpressionContext context)
@@ -929,32 +893,32 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitTeamOfExpression(OverwatchCodeParser.TeamOfExpressionContext context)
         {
-            return MemberMethodCallExpression("team", context.expression());
+            return MemberMethodOrProperty("team", context.expression());
         }
 
         public override StringBuilder VisitTeamScoreExpression(OverwatchCodeParser.TeamScoreExpressionContext context)
         {
-            return MemberMethodCallExpression("score", context.expression());
+            return MemberMethodOrProperty("score", context.expression());
         }
 
         public override StringBuilder VisitThrottleOfExpression(OverwatchCodeParser.ThrottleOfExpressionContext context)
         {
-            return MemberMethodCallExpression("throttle", context.expression());
+            return MemberMethodOrProperty("throttle", context.expression());
         }
 
         public override StringBuilder VisitTotalTimeElapsedExpression(OverwatchCodeParser.TotalTimeElapsedExpressionContext context)
         {
-            return BasicExpression("Game.totalTimeElapsed");
+            return BasicMethodOrProperty("Game.totalTimeElapsed");
         }
 
         public override StringBuilder VisitUltimateChargePercentExpression(OverwatchCodeParser.UltimateChargePercentExpressionContext context)
         {
-            return MemberMethodCallExpression("ultimateChargePercent", context.expression());
+            return MemberMethodOrProperty("ultimateChargePercent", context.expression());
         }
 
         public override StringBuilder VisitUp(OverwatchCodeParser.UpContext context)
         {
-            return BasicExpression("Vector.up");
+            return BasicMethodOrProperty("Vector.up");
         }
 
         public override StringBuilder VisitValueInArrayExpression(OverwatchCodeParser.ValueInArrayExpressionContext context)
@@ -969,22 +933,22 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitVectorTowardsExpression(OverwatchCodeParser.VectorTowardsExpressionContext context)
         {
-            return BasicExpression("Vector.towards", context.expression());
+            return BasicMethodOrProperty("Vector.towards", context.expression());
         }
 
         public override StringBuilder VisitVerticalFacingAngleOfExpression(OverwatchCodeParser.VerticalFacingAngleOfExpressionContext context)
         {
-            return MemberMethodCallExpression("verticalFacingAngle", context.expression());
+            return MemberMethodOrProperty("verticalFacingAngle", context.expression());
         }
 
         public override StringBuilder VisitVerticalSpeedOfExpression(OverwatchCodeParser.VerticalSpeedOfExpressionContext context)
         {
-            return MemberMethodCallExpression("verticalSpeed", context.expression());
+            return MemberMethodOrProperty("verticalSpeed", context.expression());
         }
 
         public override StringBuilder VisitVictimExpression(OverwatchCodeParser.VictimExpressionContext context)
         {
-            return BasicExpression("Event.victim");
+            return BasicMethodOrProperty("Event.victim");
         }
 
         public override StringBuilder VisitWorldVectorOfExpression(OverwatchCodeParser.WorldVectorOfExpressionContext context)
@@ -1001,17 +965,17 @@ namespace OverwatchCompiler.ToTypescript.antlr.codeGeneration
 
         public override StringBuilder VisitXComponentOfExpression(OverwatchCodeParser.XComponentOfExpressionContext context)
         {
-            return MemberMethodCallExpression("x", context.expression());
+            return MemberMethodOrProperty("x", context.expression());
         }
 
         public override StringBuilder VisitYComponentOfExpression(OverwatchCodeParser.YComponentOfExpressionContext context)
         {
-            return MemberMethodCallExpression("y", context.expression());
+            return MemberMethodOrProperty("y", context.expression());
         }
 
         public override StringBuilder VisitZComponentOfExpression(OverwatchCodeParser.ZComponentOfExpressionContext context)
         {
-            return MemberMethodCallExpression("z", context.expression());
+            return MemberMethodOrProperty("z", context.expression());
         }
     }
 }

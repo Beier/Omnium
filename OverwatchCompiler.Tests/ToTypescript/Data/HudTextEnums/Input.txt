@@ -1,0 +1,15 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create HUD Text(All Players(All Teams), String("Hello", Null, Null, Null), Null, Null, Left, 0, White, White, White,
+			Visible To and String);
+		Create HUD Text(All Players(All Teams), String("Hello", Null, Null, Null), Null, Null, Top, 0, White, White, White, String);
+		Create HUD Text(All Players(All Teams), String("Hello", Null, Null, Null), Null, Null, Right, 0, White, White, White, String);
+	}
+}

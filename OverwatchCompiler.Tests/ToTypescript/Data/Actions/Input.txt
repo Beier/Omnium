@@ -1,0 +1,278 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Abort;
+		Abort If(Compare(0, ==, 0));
+		Abort If Condition Is False;
+		Abort If Condition Is True;
+		Allow Button(Event Player, Primary Fire);
+		Apply Impulse(Event Player, Vector(0, 0, 0), 0, To World, Cancel Contrary Motion);
+		Big Message(All Players(All Teams), String("Hello", Null, Null, Null));
+		Chase Global Variable At Rate(A, 0, 1, Destination and Rate);
+		Chase Global Variable Over Time(A, 0, 1, Destination and Duration);
+		Chase Player Variable At Rate(Event Player, A, 0, 1, Destination and Rate);
+	}
+}
+
+rule("Rule 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Chase Player Variable Over Time(Event Player, A, 0, 1, Destination and Duration);
+		Clear Status(Event Player, Hacked);
+		Communicate(Event Player, Voice Line Up);
+		Create Effect(All Players(All Teams), Sphere, White, Event Player, 1, Visible To Position and Radius);
+		Create HUD Text(All Players(All Teams), String("Hello", Null, Null, Null), Null, Null, Left, 0, White, White, White,
+			Visible To and String);
+		Create Icon(All Players(All Teams), Event Player, Arrow: Down, Visible To and Position, White, True);
+		Create In-World Text(All Players(All Teams), String("Hello", Null, Null, Null), Event Player, 1, Clip Against Surfaces,
+			Visible To Position and String);
+		Damage(Event Player, Null, 0);
+		Declare Match Draw;
+		Declare Player Victory(Event Player);
+	}
+}
+
+rule("Rule 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Declare Round Victory(All Teams);
+		Declare Team Victory(All Teams);
+		Destroy All Effects;
+		Destroy All HUD Text;
+		Destroy All Icons;
+		Destroy All In-World Text;
+		Destroy Effect(Last Created Entity);
+		Destroy HUD Text(Last Text ID);
+		Destroy Icon(Last Created Entity);
+		Destroy In-World Text(Last Text ID);
+	}
+}
+
+rule("Rule 4")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Disable Built-In Game Mode Announcer;
+		Disable Built-In Game Mode Completion;
+		Disable Built-In Game Mode Music;
+		Disable Built-In Game Mode Respawning(Event Player);
+		Disable Built-In Game Mode Scoring;
+		Disable Death Spectate All Players(Event Player);
+		Disable Death Spectate Target HUD(Event Player);
+		Disallow Button(Event Player, Primary Fire);
+		Enable Built-In Game Mode Announcer;
+		Enable Built-In Game Mode Completion;
+	}
+}
+
+rule("Rule 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Enable Built-In Game Mode Music;
+		Enable Built-In Game Mode Respawning(Event Player);
+		Enable Built-In Game Mode Scoring;
+		Enable Death Spectate All Players(Event Player);
+		Enable Death Spectate Target HUD(Event Player);
+		Go To Assemble Heroes;
+		Heal(Event Player, Null, 0);
+		Kill(Event Player, Null);
+		Loop;
+		Loop If(Compare(0, ==, 0));
+	}
+}
+
+rule("Rule 6")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Loop If Condition Is False;
+		Loop If Condition Is True;
+		Modify Global Variable(A, Add, 0);
+		Modify Global Variable At Index(A, 0, Add, 0);
+		Modify Player Variable(Event Player, A, Add, 0);
+		Modify Player Variable At Index(Event Player, A, 0, Add, 0);
+		Modify Team Score(All Teams, 0);
+		Pause Match Time;
+		Play Effect(All Players(All Teams), Good Explosion, White, Event Player, 1);
+		Preload Hero(Event Player, Hero(Ana));
+	}
+}
+
+rule("Rule 7")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Primary Fire);
+		Reset Player Hero Availability(Event Player);
+		Respawn(Event Player);
+		Resurrect(Event Player);
+		Set Ability 1 Enabled(Event Player, True);
+		Set Ability 2 Enabled(Event Player, True);
+		Set Damage Dealt(Event Player, 100);
+		Set Damage Received(Event Player, 100);
+		Set Facing(Event Player, Vector(0, 0, 0), To World);
+		Set Global Variable At Index(A, 0, 0);
+	}
+}
+
+rule("Rule 8")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Gravity(Event Player, 100);
+		Set Healing Dealt(Event Player, 100);
+		Set Healing Received(Event Player, 100);
+		Set Match Time(60);
+		Set Max Health(Event Player, 100);
+		Set Move Speed(Event Player, 100);
+		Set Objective Description(All Players(All Teams), String("Hello", Null, Null, Null), Visible To and String);
+		Set Player Allowed Heroes(Event Player, Hero(Ana));
+		Set Player Score(Event Player, 0);
+		Set Player Variable(Event Player, A, 0);
+	}
+}
+
+rule("Rule 9")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Set Player Variable At Index(Event Player, A, 0, 0);
+		Set Primary Fire Enabled(Event Player, True);
+		Set Projectile Gravity(Event Player, 100);
+		Set Respawn Max Time(Event Player, 10);
+		Set Secondary Fire Enabled(Event Player, True);
+		Set Slow Motion(100);
+		Set Status(Event Player, Null, Hacked, 9999);
+		Set Team Score(All Teams, 0);
+		Set Ultimate Ability Enabled(Event Player, True);
+		Set Ultimate Charge(Event Player, 100);
+	}
+}
+
+rule("Rule 10")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Skip(1);
+		Skip If(Compare(0, ==, 0), 1);
+		Small Message(All Players(All Teams), String("Hello", Null, Null, Null));
+		Start Accelerating(Event Player, Vector(0, 0, 0), 100, 20, To World, Direction Rate and Max Speed);
+		Start Camera(Event Player, Vector(0, 0, 0), Vector(0, 0, 0), 0);
+		Start Damage Modification(Event Player, All Players(All Teams), 100, Receivers Damagers and Damage Percent);
+		Start Damage Over Time(Event Player, Null, 9999, 20);
+		Start Facing(Event Player, Vector(0, 0, 0), 100, To World, Direction and Turn Rate);
+		Start Forcing Player To Be Hero(Event Player, Hero(Ana));
+		Start Forcing Spawn Room(All Teams, 0);
+	}
+}
+
+rule("Rule 11")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Start Forcing Throttle(Event Player, 0, 1, 0, 1, 0, 1);
+		Start Heal Over Time(Event Player, Event Player, 9999, 20);
+		Start Holding Button(Event Player, Primary Fire);
+		Stop Accelerating(Event Player);
+		Stop All Damage Modifications;
+		Stop All Damage Over Time(Event Player);
+		Stop All Heal Over Time(Event Player);
+		Stop Camera(Event Player);
+		Stop Chasing Global Variable(A);
+		Stop Chasing Player Variable(Event Player, A);
+	}
+}
+
+rule("Rule 12")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Stop Damage Modification(Last Damage Modification ID);
+		Stop Damage Over Time(Last Damage Over Time ID);
+		Stop Facing(Event Player);
+		Stop Forcing Player To Be Hero(Event Player);
+		Stop Forcing Spawn Room(All Teams);
+		Stop Forcing Throttle(Event Player);
+		Stop Heal Over Time(Player Variable(Event Player, A));
+		Stop Holding Button(Event Player, Primary Fire);
+		Teleport(Event Player, Vector(0, 0, 0));
+		Unpause Match Time;
+	}
+}
+
+rule("Rule 13")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Wait(0.250, Ignore Condition);
+	}
+}

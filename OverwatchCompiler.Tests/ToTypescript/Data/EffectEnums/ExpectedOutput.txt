@@ -1,0 +1,22 @@
+﻿rule("Rule 1",
+	Events.Ongoing.global,
+	() => {
+		createEffect(Players.onTeam(Teams.all), Shape.Sphere, Color.White, Event.player, 1, CreateEffectReevaluation.VisibleToPositionAndRadius);
+		createEffect(Players.onTeam(Teams.all), Shape.LightShaft, Color.Yellow, Event.player, 1, CreateEffectReevaluation.PositionAandRadius);
+		createEffect(Players.onTeam(Teams.all), Shape.Orb, Color.Green, Event.player, 1, CreateEffectReevaluation.VisibleTo);
+		createEffect(Players.onTeam(Teams.all), Shape.Ring, Color.Purple, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.Cloud, Color.Red, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.Sparkles, Color.Blue, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.GoodAura, Color.Team1, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.BadAura, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.EnergySound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.PickUpSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.GoodAuraSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.BadAuraSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.SparklesSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.SmokeSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.DecalSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+		createEffect(Players.onTeam(Teams.all), Shape.BeaconSound, Color.Team2, Event.player, 1, CreateEffectReevaluation.None);
+	}
+);
+

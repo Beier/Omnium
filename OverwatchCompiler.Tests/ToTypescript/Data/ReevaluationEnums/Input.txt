@@ -1,0 +1,15 @@
+﻿rule("Rule 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Chase Global Variable At Rate(A, 0, 1, Destination and Rate);
+		Chase Global Variable At Rate(A, 0, 1, None);
+		Chase Global Variable Over Time(A, 0, 1, Destination and Duration);
+		Chase Global Variable Over Time(A, 0, 1, None);
+	}
+}

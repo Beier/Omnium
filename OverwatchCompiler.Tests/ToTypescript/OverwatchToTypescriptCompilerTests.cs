@@ -19,6 +19,15 @@ namespace OverwatchCompiler.Tests.ToTypescript
         [TestCase("VectorTransformationTypes")]
         [TestCase("LineOfSightCheckTypes")]
         [TestCase("RoundingDirection")]
+        [TestCase("Actions")]
+        [TestCase("ImpulseEnums")]
+        [TestCase("ReevaluationEnums")]
+        [TestCase("CreateIconEnums")]
+        [TestCase("CreateInWorldTextEnums")]
+        [TestCase("EffectEnums")]
+        [TestCase("HudTextEnums")]
+        [TestCase("ModificationEnums")]
+        [TestCase("AnimatedEffectEnum")]
         public void ShouldCompileTest(string testName)
         {
             var exeLocation = AppDomain.CurrentDomain.BaseDirectory;
