@@ -55,11 +55,37 @@
     <Compile Include="antlr\generated\TypescriptParserBaseVisitor.cs" />
     <Compile Include="antlr\generated\TypescriptParserListener.cs" />
     <Compile Include="antlr\generated\TypescriptParserVisitor.cs" />
-    <Compile Include="ast\ImportDeclaration.cs" />
-    <Compile Include="ast\StringLiteral.cs" />
-    <Compile Include="ast\SourceFile.cs" />
+    <Compile Include="ast2\ChildList.cs" />
+    <Compile Include="ast2\ChildProperty.cs" />
+    <Compile Include="ast2\declarations\ConstructorDeclaration.cs" />
+    <Compile Include="ast2\declarations\EnumDeclaration.cs" />
+    <Compile Include="ast2\declarations\GenericTypeDeclaration.cs" />
+    <Compile Include="ast2\declarations\MethodDeclaration.cs" />
+    <Compile Include="ast2\declarations\ModuleDeclaration.cs" />
+    <Compile Include="ast2\declarations\Root.cs" />
+    <Compile Include="ast2\declarations\SourceFile.cs" />
+    <Compile Include="ast2\expressions\IExpression.cs" />
+    <Compile Include="ast2\expressions\MemberExpression.cs" />
+    <Compile Include="ast2\expressions\MethodInvocationExpression.cs" />
+    <Compile Include="ast2\declarations\ClassDeclaration.cs" />
+    <Compile Include="ast2\expressions\SimpleNameExpression.cs" />
+    <Compile Include="ast2\Node.cs" />
+    <Compile Include="ast2\declarations\AbstractTopLevelNode.cs" />
+    <Compile Include="ast2\declarations\VariableDeclaration.cs" />
+    <Compile Include="ast2\statements\BlockStatement.cs" />
+    <Compile Include="ast2\statements\ExpressionStatement.cs" />
+    <Compile Include="ast2\statements\ForStatement.cs" />
+    <Compile Include="ast2\statements\IfStatement.cs" />
+    <Compile Include="ast2\statements\IStatement.cs" />
+    <Compile Include="ast2\statements\SwitchStatement.cs" />
+    <Compile Include="ast2\statements\VariableDeclarationStatement.cs" />
+    <Compile Include="ast2\statements\WhileStatement.cs" />
+    <Compile Include="ast2\types\IType.cs" />
+    <Compile Include="compiler\AstSimplifier.cs" />
+    <Compile Include="compiler\CompilationError.cs" />
     <Compile Include="compiler\ErrorListener.cs" />
     <Compile Include="compiler\Parser.cs" />
+    <Compile Include="extensions\RuleContextExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="compiler\TypescriptToOverwatchCompiler.cs" />
@@ -75,7 +101,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="library\core.ts">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -68,7 +68,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var parser = new TypescriptParser(tokens);
             var errorListener = new ErrorListener(filename);
             parser.RemoveErrorListeners();
-            parser.RemoveParseListeners();
             parser.AddErrorListener(errorListener);
             var sourceFile = parser.sourceFile();
             errors.AddRange(errorListener.Errors);

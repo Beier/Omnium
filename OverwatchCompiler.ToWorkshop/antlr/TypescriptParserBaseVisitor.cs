@@ -34,7 +34,7 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ITypescriptParserVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.sourceFiles"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.compilation_unit"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -42,9 +42,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSourceFiles([NotNull] TypescriptParser.SourceFilesContext context) { return VisitChildren(context); }
+	public virtual Result VisitCompilation_unit([NotNull] TypescriptParser.Compilation_unitContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.sourceFile"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.namespace_or_type_name"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -52,37 +52,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSourceFile([NotNull] TypescriptParser.SourceFileContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.importDeclaration"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitImportDeclaration([NotNull] TypescriptParser.ImportDeclarationContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.moduleOrTypeName"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitModuleOrTypeName([NotNull] TypescriptParser.ModuleOrTypeNameContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.typeList"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitTypeList([NotNull] TypescriptParser.TypeListContext context) { return VisitChildren(context); }
+	public virtual Result VisitNamespace_or_type_name([NotNull] TypescriptParser.Namespace_or_type_nameContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.type"/>.
 	/// <para>
@@ -94,7 +64,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitType([NotNull] TypescriptParser.TypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.baseType"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.base_type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -102,9 +72,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitBaseType([NotNull] TypescriptParser.BaseTypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitBase_type([NotNull] TypescriptParser.Base_typeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.primitiveType"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.simple_type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -112,9 +82,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitPrimitiveType([NotNull] TypescriptParser.PrimitiveTypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitSimple_type([NotNull] TypescriptParser.Simple_typeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.classType"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.numeric_type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -122,9 +92,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitClassType([NotNull] TypescriptParser.ClassTypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitNumeric_type([NotNull] TypescriptParser.Numeric_typeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.typeArgumentList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.class_type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -132,9 +102,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypeArgumentList([NotNull] TypescriptParser.TypeArgumentListContext context) { return VisitChildren(context); }
+	public virtual Result VisitClass_type([NotNull] TypescriptParser.Class_typeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.functionType"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.type_argument_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -142,9 +112,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFunctionType([NotNull] TypescriptParser.FunctionTypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitType_argument_list([NotNull] TypescriptParser.Type_argument_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.argumentList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.argument_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -152,7 +122,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArgumentList([NotNull] TypescriptParser.ArgumentListContext context) { return VisitChildren(context); }
+	public virtual Result VisitArgument_list([NotNull] TypescriptParser.Argument_listContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.argument"/>.
 	/// <para>
@@ -174,7 +144,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitExpression([NotNull] TypescriptParser.ExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.nonAssignmentExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.non_assignment_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -182,7 +152,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNonAssignmentExpression([NotNull] TypescriptParser.NonAssignmentExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitNon_assignment_expression([NotNull] TypescriptParser.Non_assignment_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.assignment"/>.
 	/// <para>
@@ -194,7 +164,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitAssignment([NotNull] TypescriptParser.AssignmentContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.assignmentOperator"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.assignment_operator"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -202,9 +172,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAssignmentOperator([NotNull] TypescriptParser.AssignmentOperatorContext context) { return VisitChildren(context); }
+	public virtual Result VisitAssignment_operator([NotNull] TypescriptParser.Assignment_operatorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.conditionalExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.conditional_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -212,9 +182,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitConditionalExpression([NotNull] TypescriptParser.ConditionalExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitConditional_expression([NotNull] TypescriptParser.Conditional_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.conditionalOrExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.conditional_or_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -222,9 +192,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitConditionalOrExpression([NotNull] TypescriptParser.ConditionalOrExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitConditional_or_expression([NotNull] TypescriptParser.Conditional_or_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.conditionalAndExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.conditional_and_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -232,9 +202,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitConditionalAndExpression([NotNull] TypescriptParser.ConditionalAndExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitConditional_and_expression([NotNull] TypescriptParser.Conditional_and_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.inclusive_or_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -242,9 +212,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitInclusive_or_expression([NotNull] TypescriptParser.Inclusive_or_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.exclusive_or_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -252,9 +222,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitExclusive_or_expression([NotNull] TypescriptParser.Exclusive_or_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.and_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -262,9 +232,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAndExpression([NotNull] TypescriptParser.AndExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitAnd_expression([NotNull] TypescriptParser.And_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.equalityExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.equality_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -272,9 +242,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEqualityExpression([NotNull] TypescriptParser.EqualityExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitEquality_expression([NotNull] TypescriptParser.Equality_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.castExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.relational_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -282,9 +252,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCastExpression([NotNull] TypescriptParser.CastExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitRelational_expression([NotNull] TypescriptParser.Relational_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.relationalExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.shift_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -292,9 +262,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRelationalExpression([NotNull] TypescriptParser.RelationalExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitShift_expression([NotNull] TypescriptParser.Shift_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.additive_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -302,9 +272,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitAdditive_expression([NotNull] TypescriptParser.Additive_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.additiveExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.multiplicative_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -312,9 +282,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAdditiveExpression([NotNull] TypescriptParser.AdditiveExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitMultiplicative_expression([NotNull] TypescriptParser.Multiplicative_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.multiplicativeExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.unary_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -322,9 +292,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMultiplicativeExpression([NotNull] TypescriptParser.MultiplicativeExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitUnary_expression([NotNull] TypescriptParser.Unary_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.unaryExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.primary_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -332,30 +302,10 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitUnaryExpression([NotNull] TypescriptParser.UnaryExpressionContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.primaryExpression"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitPrimaryExpression([NotNull] TypescriptParser.PrimaryExpressionContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.nativeMethodInvocationStatement"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitNativeMethodInvocationStatement([NotNull] TypescriptParser.NativeMethodInvocationStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitPrimary_expression([NotNull] TypescriptParser.Primary_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>literalExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -366,7 +316,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitLiteralExpression([NotNull] TypescriptParser.LiteralExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>simpleNameExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -377,7 +327,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitSimpleNameExpression([NotNull] TypescriptParser.SimpleNameExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>parenthesisExpressions</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -388,7 +338,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitParenthesisExpressions([NotNull] TypescriptParser.ParenthesisExpressionsContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>literalAccessExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -399,7 +349,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitLiteralAccessExpression([NotNull] TypescriptParser.LiteralAccessExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>thisReferenceExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -409,8 +359,8 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitThisReferenceExpression([NotNull] TypescriptParser.ThisReferenceExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>objectCreation</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// Visit a parse tree produced by the <c>objectCreationExpression</c>
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -418,10 +368,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitObjectCreation([NotNull] TypescriptParser.ObjectCreationContext context) { return VisitChildren(context); }
+	public virtual Result VisitObjectCreationExpression([NotNull] TypescriptParser.ObjectCreationExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>arrayCreationExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.member_access"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -429,9 +378,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayCreationExpression([NotNull] TypescriptParser.ArrayCreationExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitMember_access([NotNull] TypescriptParser.Member_accessContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.expressionList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.bracket_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -439,9 +388,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExpressionList([NotNull] TypescriptParser.ExpressionListContext context) { return VisitChildren(context); }
+	public virtual Result VisitBracket_expression([NotNull] TypescriptParser.Bracket_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.memberAccess"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.lambda_expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -449,9 +398,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMemberAccess([NotNull] TypescriptParser.MemberAccessContext context) { return VisitChildren(context); }
+	public virtual Result VisitLambda_expression([NotNull] TypescriptParser.Lambda_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.bracketExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.anonymous_function_signature"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -459,9 +408,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitBracketExpression([NotNull] TypescriptParser.BracketExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitAnonymous_function_signature([NotNull] TypescriptParser.Anonymous_function_signatureContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.lambdaExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.explicit_anonymous_function_parameter_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -469,9 +418,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitLambdaExpression([NotNull] TypescriptParser.LambdaExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitExplicit_anonymous_function_parameter_list([NotNull] TypescriptParser.Explicit_anonymous_function_parameter_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.anonymousFunctionSignature"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.explicit_anonymous_function_parameter"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -479,9 +428,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAnonymousFunctionSignature([NotNull] TypescriptParser.AnonymousFunctionSignatureContext context) { return VisitChildren(context); }
+	public virtual Result VisitExplicit_anonymous_function_parameter([NotNull] TypescriptParser.Explicit_anonymous_function_parameterContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.explicitAnonymousFunctionParameterList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.implicit_anonymous_function_parameter_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -489,9 +438,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExplicitAnonymousFunctionParameterList([NotNull] TypescriptParser.ExplicitAnonymousFunctionParameterListContext context) { return VisitChildren(context); }
+	public virtual Result VisitImplicit_anonymous_function_parameter_list([NotNull] TypescriptParser.Implicit_anonymous_function_parameter_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.explicitAnonymousFunctionParameter"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.anonymous_function_body"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -499,27 +448,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExplicitAnonymousFunctionParameter([NotNull] TypescriptParser.ExplicitAnonymousFunctionParameterContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.implicitAnonymousFunctionParameterList"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitImplicitAnonymousFunctionParameterList([NotNull] TypescriptParser.ImplicitAnonymousFunctionParameterListContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.anonymousFunctionBody"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitAnonymousFunctionBody([NotNull] TypescriptParser.AnonymousFunctionBodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitAnonymous_function_body([NotNull] TypescriptParser.Anonymous_function_bodyContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>declarationStatement</c>
 	/// labeled alternative in <see cref="TypescriptParser.statement"/>.
@@ -532,18 +461,8 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitDeclarationStatement([NotNull] TypescriptParser.DeclarationStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>embedded</c>
+	/// Visit a parse tree produced by the <c>embeddedStatement</c>
 	/// labeled alternative in <see cref="TypescriptParser.statement"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitEmbedded([NotNull] TypescriptParser.EmbeddedContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.embeddedStatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -553,8 +472,18 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitEmbeddedStatement([NotNull] TypescriptParser.EmbeddedStatementContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.embedded_statement"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitEmbedded_statement([NotNull] TypescriptParser.Embedded_statementContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>emptyStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -565,7 +494,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitEmptyStatement([NotNull] TypescriptParser.EmptyStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>expressionStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -576,7 +505,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitExpressionStatement([NotNull] TypescriptParser.ExpressionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>ifStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -587,7 +516,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitIfStatement([NotNull] TypescriptParser.IfStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>switchStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -598,7 +527,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitSwitchStatement([NotNull] TypescriptParser.SwitchStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>whileStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -609,7 +538,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitWhileStatement([NotNull] TypescriptParser.WhileStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>doStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -620,7 +549,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitDoStatement([NotNull] TypescriptParser.DoStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>forStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -631,7 +560,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitForStatement([NotNull] TypescriptParser.ForStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>foreachStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -642,7 +571,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitForeachStatement([NotNull] TypescriptParser.ForeachStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>breakStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -653,7 +582,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitBreakStatement([NotNull] TypescriptParser.BreakStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>continueStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -664,7 +593,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitContinueStatement([NotNull] TypescriptParser.ContinueStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>returnStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -673,6 +602,28 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitReturnStatement([NotNull] TypescriptParser.ReturnStatementContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by the <c>throwStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitThrowStatement([NotNull] TypescriptParser.ThrowStatementContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by the <c>tryStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitTryStatement([NotNull] TypescriptParser.TryStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.block"/>.
 	/// <para>
@@ -684,7 +635,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitBlock([NotNull] TypescriptParser.BlockContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.variableDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.local_variable_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -692,9 +643,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariableDeclaration([NotNull] TypescriptParser.VariableDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitLocal_variable_declaration([NotNull] TypescriptParser.Local_variable_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.variableType"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.local_variable_type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -702,9 +653,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariableType([NotNull] TypescriptParser.VariableTypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitLocal_variable_type([NotNull] TypescriptParser.Local_variable_typeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.variableDeclarator"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.local_variable_declarator"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -712,9 +663,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariableDeclarator([NotNull] TypescriptParser.VariableDeclaratorContext context) { return VisitChildren(context); }
+	public virtual Result VisitLocal_variable_declarator([NotNull] TypescriptParser.Local_variable_declaratorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.switchSection"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.if_body"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -722,9 +673,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSwitchSection([NotNull] TypescriptParser.SwitchSectionContext context) { return VisitChildren(context); }
+	public virtual Result VisitIf_body([NotNull] TypescriptParser.If_bodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.switchLabel"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.switch_section"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -732,9 +683,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSwitchLabel([NotNull] TypescriptParser.SwitchLabelContext context) { return VisitChildren(context); }
+	public virtual Result VisitSwitch_section([NotNull] TypescriptParser.Switch_sectionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.statementList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.switch_label"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -742,9 +693,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStatementList([NotNull] TypescriptParser.StatementListContext context) { return VisitChildren(context); }
+	public virtual Result VisitSwitch_label([NotNull] TypescriptParser.Switch_labelContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.forInitializer"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.statement_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -752,9 +703,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitForInitializer([NotNull] TypescriptParser.ForInitializerContext context) { return VisitChildren(context); }
+	public virtual Result VisitStatement_list([NotNull] TypescriptParser.Statement_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.forIterator"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.for_initializer"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -762,9 +713,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitForIterator([NotNull] TypescriptParser.ForIteratorContext context) { return VisitChildren(context); }
+	public virtual Result VisitFor_initializer([NotNull] TypescriptParser.For_initializerContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.catchClauses"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.for_iterator"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -772,9 +723,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCatchClauses([NotNull] TypescriptParser.CatchClausesContext context) { return VisitChildren(context); }
+	public virtual Result VisitFor_iterator([NotNull] TypescriptParser.For_iteratorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.specificCatchClause"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.catch_clauses"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -782,9 +733,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSpecificCatchClause([NotNull] TypescriptParser.SpecificCatchClauseContext context) { return VisitChildren(context); }
+	public virtual Result VisitCatch_clauses([NotNull] TypescriptParser.Catch_clausesContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.generalCatchClause"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.specific_catch_clause"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -792,9 +743,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGeneralCatchClause([NotNull] TypescriptParser.GeneralCatchClauseContext context) { return VisitChildren(context); }
+	public virtual Result VisitSpecific_catch_clause([NotNull] TypescriptParser.Specific_catch_clauseContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.finallyClause"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.general_catch_clause"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -802,9 +753,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFinallyClause([NotNull] TypescriptParser.FinallyClauseContext context) { return VisitChildren(context); }
+	public virtual Result VisitGeneral_catch_clause([NotNull] TypescriptParser.General_catch_clauseContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.resourceAcquisition"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.finally_clause"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -812,9 +763,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitResourceAcquisition([NotNull] TypescriptParser.ResourceAcquisitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitFinally_clause([NotNull] TypescriptParser.Finally_clauseContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.moduleDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.resource_acquisition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -822,9 +773,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitModuleDeclaration([NotNull] TypescriptParser.ModuleDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitResource_acquisition([NotNull] TypescriptParser.Resource_acquisitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.moduleBody"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.namespace_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -832,9 +783,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitModuleBody([NotNull] TypescriptParser.ModuleBodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitNamespace_declaration([NotNull] TypescriptParser.Namespace_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.moduleMemberDeclarations"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.namespace_body"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -842,9 +793,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitModuleMemberDeclarations([NotNull] TypescriptParser.ModuleMemberDeclarationsContext context) { return VisitChildren(context); }
+	public virtual Result VisitNamespace_body([NotNull] TypescriptParser.Namespace_bodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.moduleMemberDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.namespace_member_declarations"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -852,9 +803,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitModuleMemberDeclaration([NotNull] TypescriptParser.ModuleMemberDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitNamespace_member_declarations([NotNull] TypescriptParser.Namespace_member_declarationsContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.typeDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.namespace_member_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -862,9 +813,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypeDeclaration([NotNull] TypescriptParser.TypeDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitNamespace_member_declaration([NotNull] TypescriptParser.Namespace_member_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.typeParameterList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.type_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -872,9 +823,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypeParameterList([NotNull] TypescriptParser.TypeParameterListContext context) { return VisitChildren(context); }
+	public virtual Result VisitType_declaration([NotNull] TypescriptParser.Type_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.typeParameter"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.type_parameter_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -882,9 +833,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypeParameter([NotNull] TypescriptParser.TypeParameterContext context) { return VisitChildren(context); }
+	public virtual Result VisitType_parameter_list([NotNull] TypescriptParser.Type_parameter_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.classBody"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.type_parameter"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -892,9 +843,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitClassBody([NotNull] TypescriptParser.ClassBodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitType_parameter([NotNull] TypescriptParser.Type_parameterContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.classMemberDeclarations"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.class_body"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -902,9 +853,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitClassMemberDeclarations([NotNull] TypescriptParser.ClassMemberDeclarationsContext context) { return VisitChildren(context); }
+	public virtual Result VisitClass_body([NotNull] TypescriptParser.Class_bodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.classMemberDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.class_member_declarations"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -912,9 +863,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitClassMemberDeclaration([NotNull] TypescriptParser.ClassMemberDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitClass_member_declarations([NotNull] TypescriptParser.Class_member_declarationsContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.allMemberModifiers"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.class_member_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -922,9 +873,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAllMemberModifiers([NotNull] TypescriptParser.AllMemberModifiersContext context) { return VisitChildren(context); }
+	public virtual Result VisitClass_member_declaration([NotNull] TypescriptParser.Class_member_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.allMemberModifier"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.all_member_modifiers"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -932,9 +883,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAllMemberModifier([NotNull] TypescriptParser.AllMemberModifierContext context) { return VisitChildren(context); }
+	public virtual Result VisitAll_member_modifiers([NotNull] TypescriptParser.All_member_modifiersContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.commonMemberDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.all_member_modifier"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -942,9 +893,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCommonMemberDeclaration([NotNull] TypescriptParser.CommonMemberDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitAll_member_modifier([NotNull] TypescriptParser.All_member_modifierContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.typedMemberDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.common_member_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -952,9 +903,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypedMemberDeclaration([NotNull] TypescriptParser.TypedMemberDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitCommon_member_declaration([NotNull] TypescriptParser.Common_member_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.classField"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.typed_member_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -962,9 +913,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitClassField([NotNull] TypescriptParser.ClassFieldContext context) { return VisitChildren(context); }
+	public virtual Result VisitTyped_member_declaration([NotNull] TypescriptParser.Typed_member_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.returnTypeList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.variable_declarators"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -972,9 +923,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitReturnTypeList([NotNull] TypescriptParser.ReturnTypeListContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariable_declarators([NotNull] TypescriptParser.Variable_declaratorsContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.returnType"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.variable_declarator"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -982,9 +933,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitReturnType([NotNull] TypescriptParser.ReturnTypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariable_declarator([NotNull] TypescriptParser.Variable_declaratorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.memberName"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.variable_initializer"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -992,9 +943,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMemberName([NotNull] TypescriptParser.MemberNameContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariable_initializer([NotNull] TypescriptParser.Variable_initializerContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.methodBody"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.return_type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1002,9 +953,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMethodBody([NotNull] TypescriptParser.MethodBodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitReturn_type([NotNull] TypescriptParser.Return_typeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.formalParameterList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.member_name"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1012,9 +963,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFormalParameterList([NotNull] TypescriptParser.FormalParameterListContext context) { return VisitChildren(context); }
+	public virtual Result VisitMember_name([NotNull] TypescriptParser.Member_nameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.fixedParameters"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.method_body"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1022,9 +973,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFixedParameters([NotNull] TypescriptParser.FixedParametersContext context) { return VisitChildren(context); }
+	public virtual Result VisitMethod_body([NotNull] TypescriptParser.Method_bodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.fixedParameter"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.formal_parameter_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1032,9 +983,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFixedParameter([NotNull] TypescriptParser.FixedParameterContext context) { return VisitChildren(context); }
+	public virtual Result VisitFormal_parameter_list([NotNull] TypescriptParser.Formal_parameter_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.constructorInitializer"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.fixed_parameters"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1042,7 +993,27 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitConstructorInitializer([NotNull] TypescriptParser.ConstructorInitializerContext context) { return VisitChildren(context); }
+	public virtual Result VisitFixed_parameters([NotNull] TypescriptParser.Fixed_parametersContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.fixed_parameter"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitFixed_parameter([NotNull] TypescriptParser.Fixed_parameterContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.constructor_initializer"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitConstructor_initializer([NotNull] TypescriptParser.Constructor_initializerContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.body"/>.
 	/// <para>
@@ -1054,7 +1025,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitBody([NotNull] TypescriptParser.BodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.variantTypeParameterList"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.variant_type_parameter_list"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1062,9 +1033,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariantTypeParameterList([NotNull] TypescriptParser.VariantTypeParameterListContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariant_type_parameter_list([NotNull] TypescriptParser.Variant_type_parameter_listContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.variantTypeParameter"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.variant_type_parameter"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1072,9 +1043,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariantTypeParameter([NotNull] TypescriptParser.VariantTypeParameterContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariant_type_parameter([NotNull] TypescriptParser.Variant_type_parameterContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.enumBody"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.enum_body"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1082,9 +1053,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEnumBody([NotNull] TypescriptParser.EnumBodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitEnum_body([NotNull] TypescriptParser.Enum_bodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.enumMemberDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.enum_member_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1092,9 +1063,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEnumMemberDeclaration([NotNull] TypescriptParser.EnumMemberDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitEnum_member_declaration([NotNull] TypescriptParser.Enum_member_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.rightArrow"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.right_arrow"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1102,9 +1073,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRightArrow([NotNull] TypescriptParser.RightArrowContext context) { return VisitChildren(context); }
+	public virtual Result VisitRight_arrow([NotNull] TypescriptParser.Right_arrowContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.rightShift"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.right_shift"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1112,9 +1083,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRightShift([NotNull] TypescriptParser.RightShiftContext context) { return VisitChildren(context); }
+	public virtual Result VisitRight_shift([NotNull] TypescriptParser.Right_shiftContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.rightShiftAssignment"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.right_shift_assignment"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1122,7 +1093,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRightShiftAssignment([NotNull] TypescriptParser.RightShiftAssignmentContext context) { return VisitChildren(context); }
+	public virtual Result VisitRight_shift_assignment([NotNull] TypescriptParser.Right_shift_assignmentContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.literal"/>.
 	/// <para>
@@ -1134,7 +1105,7 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitLiteral([NotNull] TypescriptParser.LiteralContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.booleanLiteral"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.boolean_literal"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1142,9 +1113,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitBooleanLiteral([NotNull] TypescriptParser.BooleanLiteralContext context) { return VisitChildren(context); }
+	public virtual Result VisitBoolean_literal([NotNull] TypescriptParser.Boolean_literalContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.stringLiteral"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.string_literal"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1152,9 +1123,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStringLiteral([NotNull] TypescriptParser.StringLiteralContext context) { return VisitChildren(context); }
+	public virtual Result VisitString_literal([NotNull] TypescriptParser.String_literalContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.classDefinition"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.class_definition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1162,9 +1133,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitClassDefinition([NotNull] TypescriptParser.ClassDefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitClass_definition([NotNull] TypescriptParser.Class_definitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.enumDefinition"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.enum_definition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1172,9 +1143,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEnumDefinition([NotNull] TypescriptParser.EnumDefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitEnum_definition([NotNull] TypescriptParser.Enum_definitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.constructorDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.field_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1182,9 +1153,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitConstructorDeclaration([NotNull] TypescriptParser.ConstructorDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitField_declaration([NotNull] TypescriptParser.Field_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.methodDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.constructor_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1192,9 +1163,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMethodDeclaration([NotNull] TypescriptParser.MethodDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitConstructor_declaration([NotNull] TypescriptParser.Constructor_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.getterSetterDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.method_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1202,9 +1173,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGetterSetterDeclaration([NotNull] TypescriptParser.GetterSetterDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitMethod_declaration([NotNull] TypescriptParser.Method_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.argDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.method_member_name"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1212,9 +1183,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArgDeclaration([NotNull] TypescriptParser.ArgDeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitMethod_member_name([NotNull] TypescriptParser.Method_member_nameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.methodInvocation"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.arg_declaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1222,9 +1193,9 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMethodInvocation([NotNull] TypescriptParser.MethodInvocationContext context) { return VisitChildren(context); }
+	public virtual Result VisitArg_declaration([NotNull] TypescriptParser.Arg_declarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.objectCreationExpression"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.method_invocation"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1232,7 +1203,17 @@ public partial class TypescriptParserBaseVisitor<Result> : AbstractParseTreeVisi
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitObjectCreationExpression([NotNull] TypescriptParser.ObjectCreationExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitMethod_invocation([NotNull] TypescriptParser.Method_invocationContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.object_creation_expression"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitObject_creation_expression([NotNull] TypescriptParser.Object_creation_expressionContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.identifier"/>.
 	/// <para>

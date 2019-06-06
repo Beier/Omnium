@@ -35,65 +35,29 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.sourceFiles"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.compilation_unit"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSourceFiles([NotNull] TypescriptParser.SourceFilesContext context) { }
+	public virtual void EnterCompilation_unit([NotNull] TypescriptParser.Compilation_unitContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.sourceFiles"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.compilation_unit"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSourceFiles([NotNull] TypescriptParser.SourceFilesContext context) { }
+	public virtual void ExitCompilation_unit([NotNull] TypescriptParser.Compilation_unitContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.sourceFile"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.namespace_or_type_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSourceFile([NotNull] TypescriptParser.SourceFileContext context) { }
+	public virtual void EnterNamespace_or_type_name([NotNull] TypescriptParser.Namespace_or_type_nameContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.sourceFile"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.namespace_or_type_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSourceFile([NotNull] TypescriptParser.SourceFileContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.importDeclaration"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterImportDeclaration([NotNull] TypescriptParser.ImportDeclarationContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.importDeclaration"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitImportDeclaration([NotNull] TypescriptParser.ImportDeclarationContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.moduleOrTypeName"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterModuleOrTypeName([NotNull] TypescriptParser.ModuleOrTypeNameContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.moduleOrTypeName"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitModuleOrTypeName([NotNull] TypescriptParser.ModuleOrTypeNameContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.typeList"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTypeList([NotNull] TypescriptParser.TypeListContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.typeList"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTypeList([NotNull] TypescriptParser.TypeListContext context) { }
+	public virtual void ExitNamespace_or_type_name([NotNull] TypescriptParser.Namespace_or_type_nameContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.type"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -107,77 +71,77 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitType([NotNull] TypescriptParser.TypeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.baseType"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.base_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBaseType([NotNull] TypescriptParser.BaseTypeContext context) { }
+	public virtual void EnterBase_type([NotNull] TypescriptParser.Base_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.baseType"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.base_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBaseType([NotNull] TypescriptParser.BaseTypeContext context) { }
+	public virtual void ExitBase_type([NotNull] TypescriptParser.Base_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.primitiveType"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.simple_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterPrimitiveType([NotNull] TypescriptParser.PrimitiveTypeContext context) { }
+	public virtual void EnterSimple_type([NotNull] TypescriptParser.Simple_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.primitiveType"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.simple_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitPrimitiveType([NotNull] TypescriptParser.PrimitiveTypeContext context) { }
+	public virtual void ExitSimple_type([NotNull] TypescriptParser.Simple_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.classType"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.numeric_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterClassType([NotNull] TypescriptParser.ClassTypeContext context) { }
+	public virtual void EnterNumeric_type([NotNull] TypescriptParser.Numeric_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.classType"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.numeric_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitClassType([NotNull] TypescriptParser.ClassTypeContext context) { }
+	public virtual void ExitNumeric_type([NotNull] TypescriptParser.Numeric_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.typeArgumentList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.class_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTypeArgumentList([NotNull] TypescriptParser.TypeArgumentListContext context) { }
+	public virtual void EnterClass_type([NotNull] TypescriptParser.Class_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.typeArgumentList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.class_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTypeArgumentList([NotNull] TypescriptParser.TypeArgumentListContext context) { }
+	public virtual void ExitClass_type([NotNull] TypescriptParser.Class_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.functionType"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.type_argument_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFunctionType([NotNull] TypescriptParser.FunctionTypeContext context) { }
+	public virtual void EnterType_argument_list([NotNull] TypescriptParser.Type_argument_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.functionType"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.type_argument_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFunctionType([NotNull] TypescriptParser.FunctionTypeContext context) { }
+	public virtual void ExitType_argument_list([NotNull] TypescriptParser.Type_argument_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.argumentList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.argument_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterArgumentList([NotNull] TypescriptParser.ArgumentListContext context) { }
+	public virtual void EnterArgument_list([NotNull] TypescriptParser.Argument_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.argumentList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.argument_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitArgumentList([NotNull] TypescriptParser.ArgumentListContext context) { }
+	public virtual void ExitArgument_list([NotNull] TypescriptParser.Argument_listContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.argument"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -203,17 +167,17 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExpression([NotNull] TypescriptParser.ExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.nonAssignmentExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.non_assignment_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNonAssignmentExpression([NotNull] TypescriptParser.NonAssignmentExpressionContext context) { }
+	public virtual void EnterNon_assignment_expression([NotNull] TypescriptParser.Non_assignment_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.nonAssignmentExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.non_assignment_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNonAssignmentExpression([NotNull] TypescriptParser.NonAssignmentExpressionContext context) { }
+	public virtual void ExitNon_assignment_expression([NotNull] TypescriptParser.Non_assignment_expressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.assignment"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -227,403 +191,353 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAssignment([NotNull] TypescriptParser.AssignmentContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.assignmentOperator"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.assignment_operator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAssignmentOperator([NotNull] TypescriptParser.AssignmentOperatorContext context) { }
+	public virtual void EnterAssignment_operator([NotNull] TypescriptParser.Assignment_operatorContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.assignmentOperator"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.assignment_operator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAssignmentOperator([NotNull] TypescriptParser.AssignmentOperatorContext context) { }
+	public virtual void ExitAssignment_operator([NotNull] TypescriptParser.Assignment_operatorContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.conditionalExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.conditional_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterConditionalExpression([NotNull] TypescriptParser.ConditionalExpressionContext context) { }
+	public virtual void EnterConditional_expression([NotNull] TypescriptParser.Conditional_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.conditionalExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.conditional_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitConditionalExpression([NotNull] TypescriptParser.ConditionalExpressionContext context) { }
+	public virtual void ExitConditional_expression([NotNull] TypescriptParser.Conditional_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.conditionalOrExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.conditional_or_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterConditionalOrExpression([NotNull] TypescriptParser.ConditionalOrExpressionContext context) { }
+	public virtual void EnterConditional_or_expression([NotNull] TypescriptParser.Conditional_or_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.conditionalOrExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.conditional_or_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitConditionalOrExpression([NotNull] TypescriptParser.ConditionalOrExpressionContext context) { }
+	public virtual void ExitConditional_or_expression([NotNull] TypescriptParser.Conditional_or_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.conditionalAndExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.conditional_and_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterConditionalAndExpression([NotNull] TypescriptParser.ConditionalAndExpressionContext context) { }
+	public virtual void EnterConditional_and_expression([NotNull] TypescriptParser.Conditional_and_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.conditionalAndExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.conditional_and_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitConditionalAndExpression([NotNull] TypescriptParser.ConditionalAndExpressionContext context) { }
+	public virtual void ExitConditional_and_expression([NotNull] TypescriptParser.Conditional_and_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.inclusive_or_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context) { }
+	public virtual void EnterInclusive_or_expression([NotNull] TypescriptParser.Inclusive_or_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.inclusive_or_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context) { }
+	public virtual void ExitInclusive_or_expression([NotNull] TypescriptParser.Inclusive_or_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.exclusive_or_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context) { }
+	public virtual void EnterExclusive_or_expression([NotNull] TypescriptParser.Exclusive_or_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.exclusive_or_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context) { }
+	public virtual void ExitExclusive_or_expression([NotNull] TypescriptParser.Exclusive_or_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.and_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAndExpression([NotNull] TypescriptParser.AndExpressionContext context) { }
+	public virtual void EnterAnd_expression([NotNull] TypescriptParser.And_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.and_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAndExpression([NotNull] TypescriptParser.AndExpressionContext context) { }
+	public virtual void ExitAnd_expression([NotNull] TypescriptParser.And_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.equalityExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.equality_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEqualityExpression([NotNull] TypescriptParser.EqualityExpressionContext context) { }
+	public virtual void EnterEquality_expression([NotNull] TypescriptParser.Equality_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.equalityExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.equality_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEqualityExpression([NotNull] TypescriptParser.EqualityExpressionContext context) { }
+	public virtual void ExitEquality_expression([NotNull] TypescriptParser.Equality_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.castExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.relational_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCastExpression([NotNull] TypescriptParser.CastExpressionContext context) { }
+	public virtual void EnterRelational_expression([NotNull] TypescriptParser.Relational_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.castExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.relational_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCastExpression([NotNull] TypescriptParser.CastExpressionContext context) { }
+	public virtual void ExitRelational_expression([NotNull] TypescriptParser.Relational_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.relationalExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.shift_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRelationalExpression([NotNull] TypescriptParser.RelationalExpressionContext context) { }
+	public virtual void EnterShift_expression([NotNull] TypescriptParser.Shift_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.relationalExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.shift_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRelationalExpression([NotNull] TypescriptParser.RelationalExpressionContext context) { }
+	public virtual void ExitShift_expression([NotNull] TypescriptParser.Shift_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.additive_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context) { }
+	public virtual void EnterAdditive_expression([NotNull] TypescriptParser.Additive_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.additive_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context) { }
+	public virtual void ExitAdditive_expression([NotNull] TypescriptParser.Additive_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.additiveExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.multiplicative_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAdditiveExpression([NotNull] TypescriptParser.AdditiveExpressionContext context) { }
+	public virtual void EnterMultiplicative_expression([NotNull] TypescriptParser.Multiplicative_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.additiveExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.multiplicative_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAdditiveExpression([NotNull] TypescriptParser.AdditiveExpressionContext context) { }
+	public virtual void ExitMultiplicative_expression([NotNull] TypescriptParser.Multiplicative_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.multiplicativeExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.unary_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMultiplicativeExpression([NotNull] TypescriptParser.MultiplicativeExpressionContext context) { }
+	public virtual void EnterUnary_expression([NotNull] TypescriptParser.Unary_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.multiplicativeExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.unary_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMultiplicativeExpression([NotNull] TypescriptParser.MultiplicativeExpressionContext context) { }
+	public virtual void ExitUnary_expression([NotNull] TypescriptParser.Unary_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.unaryExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.primary_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterUnaryExpression([NotNull] TypescriptParser.UnaryExpressionContext context) { }
+	public virtual void EnterPrimary_expression([NotNull] TypescriptParser.Primary_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.unaryExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.primary_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitUnaryExpression([NotNull] TypescriptParser.UnaryExpressionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.primaryExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterPrimaryExpression([NotNull] TypescriptParser.PrimaryExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.primaryExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitPrimaryExpression([NotNull] TypescriptParser.PrimaryExpressionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.nativeMethodInvocationStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNativeMethodInvocationStatement([NotNull] TypescriptParser.NativeMethodInvocationStatementContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.nativeMethodInvocationStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNativeMethodInvocationStatement([NotNull] TypescriptParser.NativeMethodInvocationStatementContext context) { }
+	public virtual void ExitPrimary_expression([NotNull] TypescriptParser.Primary_expressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>literalExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterLiteralExpression([NotNull] TypescriptParser.LiteralExpressionContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>literalExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitLiteralExpression([NotNull] TypescriptParser.LiteralExpressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>simpleNameExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterSimpleNameExpression([NotNull] TypescriptParser.SimpleNameExpressionContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>simpleNameExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitSimpleNameExpression([NotNull] TypescriptParser.SimpleNameExpressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>parenthesisExpressions</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterParenthesisExpressions([NotNull] TypescriptParser.ParenthesisExpressionsContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>parenthesisExpressions</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitParenthesisExpressions([NotNull] TypescriptParser.ParenthesisExpressionsContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>literalAccessExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterLiteralAccessExpression([NotNull] TypescriptParser.LiteralAccessExpressionContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>literalAccessExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitLiteralAccessExpression([NotNull] TypescriptParser.LiteralAccessExpressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>thisReferenceExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterThisReferenceExpression([NotNull] TypescriptParser.ThisReferenceExpressionContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>thisReferenceExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitThisReferenceExpression([NotNull] TypescriptParser.ThisReferenceExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>objectCreation</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// Enter a parse tree produced by the <c>objectCreationExpression</c>
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterObjectCreation([NotNull] TypescriptParser.ObjectCreationContext context) { }
+	public virtual void EnterObjectCreationExpression([NotNull] TypescriptParser.ObjectCreationExpressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>objectCreation</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// Exit a parse tree produced by the <c>objectCreationExpression</c>
+	/// labeled alternative in <see cref="TypescriptParser.primary_expression_start"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitObjectCreation([NotNull] TypescriptParser.ObjectCreationContext context) { }
+	public virtual void ExitObjectCreationExpression([NotNull] TypescriptParser.ObjectCreationExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>arrayCreationExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.member_access"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterArrayCreationExpression([NotNull] TypescriptParser.ArrayCreationExpressionContext context) { }
+	public virtual void EnterMember_access([NotNull] TypescriptParser.Member_accessContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by the <c>arrayCreationExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.member_access"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitArrayCreationExpression([NotNull] TypescriptParser.ArrayCreationExpressionContext context) { }
+	public virtual void ExitMember_access([NotNull] TypescriptParser.Member_accessContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.expressionList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.bracket_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExpressionList([NotNull] TypescriptParser.ExpressionListContext context) { }
+	public virtual void EnterBracket_expression([NotNull] TypescriptParser.Bracket_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.expressionList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.bracket_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExpressionList([NotNull] TypescriptParser.ExpressionListContext context) { }
+	public virtual void ExitBracket_expression([NotNull] TypescriptParser.Bracket_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.memberAccess"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.lambda_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMemberAccess([NotNull] TypescriptParser.MemberAccessContext context) { }
+	public virtual void EnterLambda_expression([NotNull] TypescriptParser.Lambda_expressionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.memberAccess"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.lambda_expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMemberAccess([NotNull] TypescriptParser.MemberAccessContext context) { }
+	public virtual void ExitLambda_expression([NotNull] TypescriptParser.Lambda_expressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.bracketExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.anonymous_function_signature"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBracketExpression([NotNull] TypescriptParser.BracketExpressionContext context) { }
+	public virtual void EnterAnonymous_function_signature([NotNull] TypescriptParser.Anonymous_function_signatureContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.bracketExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.anonymous_function_signature"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBracketExpression([NotNull] TypescriptParser.BracketExpressionContext context) { }
+	public virtual void ExitAnonymous_function_signature([NotNull] TypescriptParser.Anonymous_function_signatureContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.lambdaExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.explicit_anonymous_function_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterLambdaExpression([NotNull] TypescriptParser.LambdaExpressionContext context) { }
+	public virtual void EnterExplicit_anonymous_function_parameter_list([NotNull] TypescriptParser.Explicit_anonymous_function_parameter_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.lambdaExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.explicit_anonymous_function_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitLambdaExpression([NotNull] TypescriptParser.LambdaExpressionContext context) { }
+	public virtual void ExitExplicit_anonymous_function_parameter_list([NotNull] TypescriptParser.Explicit_anonymous_function_parameter_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.anonymousFunctionSignature"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.explicit_anonymous_function_parameter"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAnonymousFunctionSignature([NotNull] TypescriptParser.AnonymousFunctionSignatureContext context) { }
+	public virtual void EnterExplicit_anonymous_function_parameter([NotNull] TypescriptParser.Explicit_anonymous_function_parameterContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.anonymousFunctionSignature"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.explicit_anonymous_function_parameter"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAnonymousFunctionSignature([NotNull] TypescriptParser.AnonymousFunctionSignatureContext context) { }
+	public virtual void ExitExplicit_anonymous_function_parameter([NotNull] TypescriptParser.Explicit_anonymous_function_parameterContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.explicitAnonymousFunctionParameterList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.implicit_anonymous_function_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExplicitAnonymousFunctionParameterList([NotNull] TypescriptParser.ExplicitAnonymousFunctionParameterListContext context) { }
+	public virtual void EnterImplicit_anonymous_function_parameter_list([NotNull] TypescriptParser.Implicit_anonymous_function_parameter_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.explicitAnonymousFunctionParameterList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.implicit_anonymous_function_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExplicitAnonymousFunctionParameterList([NotNull] TypescriptParser.ExplicitAnonymousFunctionParameterListContext context) { }
+	public virtual void ExitImplicit_anonymous_function_parameter_list([NotNull] TypescriptParser.Implicit_anonymous_function_parameter_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.explicitAnonymousFunctionParameter"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.anonymous_function_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExplicitAnonymousFunctionParameter([NotNull] TypescriptParser.ExplicitAnonymousFunctionParameterContext context) { }
+	public virtual void EnterAnonymous_function_body([NotNull] TypescriptParser.Anonymous_function_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.explicitAnonymousFunctionParameter"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.anonymous_function_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExplicitAnonymousFunctionParameter([NotNull] TypescriptParser.ExplicitAnonymousFunctionParameterContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.implicitAnonymousFunctionParameterList"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterImplicitAnonymousFunctionParameterList([NotNull] TypescriptParser.ImplicitAnonymousFunctionParameterListContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.implicitAnonymousFunctionParameterList"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitImplicitAnonymousFunctionParameterList([NotNull] TypescriptParser.ImplicitAnonymousFunctionParameterListContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.anonymousFunctionBody"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAnonymousFunctionBody([NotNull] TypescriptParser.AnonymousFunctionBodyContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.anonymousFunctionBody"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAnonymousFunctionBody([NotNull] TypescriptParser.AnonymousFunctionBodyContext context) { }
+	public virtual void ExitAnonymous_function_body([NotNull] TypescriptParser.Anonymous_function_bodyContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>declarationStatement</c>
 	/// labeled alternative in <see cref="TypescriptParser.statement"/>.
@@ -639,185 +553,213 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDeclarationStatement([NotNull] TypescriptParser.DeclarationStatementContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>embedded</c>
+	/// Enter a parse tree produced by the <c>embeddedStatement</c>
 	/// labeled alternative in <see cref="TypescriptParser.statement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEmbedded([NotNull] TypescriptParser.EmbeddedContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>embedded</c>
-	/// labeled alternative in <see cref="TypescriptParser.statement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEmbedded([NotNull] TypescriptParser.EmbeddedContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.embeddedStatement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterEmbeddedStatement([NotNull] TypescriptParser.EmbeddedStatementContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.embeddedStatement"/>.
+	/// Exit a parse tree produced by the <c>embeddedStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitEmbeddedStatement([NotNull] TypescriptParser.EmbeddedStatementContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.embedded_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEmbedded_statement([NotNull] TypescriptParser.Embedded_statementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.embedded_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEmbedded_statement([NotNull] TypescriptParser.Embedded_statementContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>emptyStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterEmptyStatement([NotNull] TypescriptParser.EmptyStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>emptyStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitEmptyStatement([NotNull] TypescriptParser.EmptyStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>expressionStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterExpressionStatement([NotNull] TypescriptParser.ExpressionStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>expressionStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExpressionStatement([NotNull] TypescriptParser.ExpressionStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>ifStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterIfStatement([NotNull] TypescriptParser.IfStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>ifStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitIfStatement([NotNull] TypescriptParser.IfStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>switchStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterSwitchStatement([NotNull] TypescriptParser.SwitchStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>switchStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitSwitchStatement([NotNull] TypescriptParser.SwitchStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>whileStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterWhileStatement([NotNull] TypescriptParser.WhileStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>whileStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitWhileStatement([NotNull] TypescriptParser.WhileStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>doStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterDoStatement([NotNull] TypescriptParser.DoStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>doStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDoStatement([NotNull] TypescriptParser.DoStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>forStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterForStatement([NotNull] TypescriptParser.ForStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>forStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitForStatement([NotNull] TypescriptParser.ForStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>foreachStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterForeachStatement([NotNull] TypescriptParser.ForeachStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>foreachStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitForeachStatement([NotNull] TypescriptParser.ForeachStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>breakStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterBreakStatement([NotNull] TypescriptParser.BreakStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>breakStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBreakStatement([NotNull] TypescriptParser.BreakStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>continueStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterContinueStatement([NotNull] TypescriptParser.ContinueStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>continueStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitContinueStatement([NotNull] TypescriptParser.ContinueStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>returnStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void EnterReturnStatement([NotNull] TypescriptParser.ReturnStatementContext context) { }
 	/// <summary>
 	/// Exit a parse tree produced by the <c>returnStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitReturnStatement([NotNull] TypescriptParser.ReturnStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>throwStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterThrowStatement([NotNull] TypescriptParser.ThrowStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>throwStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitThrowStatement([NotNull] TypescriptParser.ThrowStatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>tryStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTryStatement([NotNull] TypescriptParser.TryStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>tryStatement</c>
+	/// labeled alternative in <see cref="TypescriptParser.simple_embedded_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTryStatement([NotNull] TypescriptParser.TryStatementContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.block"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -831,437 +773,461 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBlock([NotNull] TypescriptParser.BlockContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.variableDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.local_variable_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterVariableDeclaration([NotNull] TypescriptParser.VariableDeclarationContext context) { }
+	public virtual void EnterLocal_variable_declaration([NotNull] TypescriptParser.Local_variable_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.variableDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.local_variable_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitVariableDeclaration([NotNull] TypescriptParser.VariableDeclarationContext context) { }
+	public virtual void ExitLocal_variable_declaration([NotNull] TypescriptParser.Local_variable_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.variableType"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.local_variable_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterVariableType([NotNull] TypescriptParser.VariableTypeContext context) { }
+	public virtual void EnterLocal_variable_type([NotNull] TypescriptParser.Local_variable_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.variableType"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.local_variable_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitVariableType([NotNull] TypescriptParser.VariableTypeContext context) { }
+	public virtual void ExitLocal_variable_type([NotNull] TypescriptParser.Local_variable_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.variableDeclarator"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.local_variable_declarator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterVariableDeclarator([NotNull] TypescriptParser.VariableDeclaratorContext context) { }
+	public virtual void EnterLocal_variable_declarator([NotNull] TypescriptParser.Local_variable_declaratorContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.variableDeclarator"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.local_variable_declarator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitVariableDeclarator([NotNull] TypescriptParser.VariableDeclaratorContext context) { }
+	public virtual void ExitLocal_variable_declarator([NotNull] TypescriptParser.Local_variable_declaratorContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.switchSection"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.if_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSwitchSection([NotNull] TypescriptParser.SwitchSectionContext context) { }
+	public virtual void EnterIf_body([NotNull] TypescriptParser.If_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.switchSection"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.if_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSwitchSection([NotNull] TypescriptParser.SwitchSectionContext context) { }
+	public virtual void ExitIf_body([NotNull] TypescriptParser.If_bodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.switchLabel"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.switch_section"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSwitchLabel([NotNull] TypescriptParser.SwitchLabelContext context) { }
+	public virtual void EnterSwitch_section([NotNull] TypescriptParser.Switch_sectionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.switchLabel"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.switch_section"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSwitchLabel([NotNull] TypescriptParser.SwitchLabelContext context) { }
+	public virtual void ExitSwitch_section([NotNull] TypescriptParser.Switch_sectionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.statementList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.switch_label"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterStatementList([NotNull] TypescriptParser.StatementListContext context) { }
+	public virtual void EnterSwitch_label([NotNull] TypescriptParser.Switch_labelContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.statementList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.switch_label"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitStatementList([NotNull] TypescriptParser.StatementListContext context) { }
+	public virtual void ExitSwitch_label([NotNull] TypescriptParser.Switch_labelContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.forInitializer"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.statement_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterForInitializer([NotNull] TypescriptParser.ForInitializerContext context) { }
+	public virtual void EnterStatement_list([NotNull] TypescriptParser.Statement_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.forInitializer"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.statement_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitForInitializer([NotNull] TypescriptParser.ForInitializerContext context) { }
+	public virtual void ExitStatement_list([NotNull] TypescriptParser.Statement_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.forIterator"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.for_initializer"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterForIterator([NotNull] TypescriptParser.ForIteratorContext context) { }
+	public virtual void EnterFor_initializer([NotNull] TypescriptParser.For_initializerContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.forIterator"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.for_initializer"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitForIterator([NotNull] TypescriptParser.ForIteratorContext context) { }
+	public virtual void ExitFor_initializer([NotNull] TypescriptParser.For_initializerContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.catchClauses"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.for_iterator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCatchClauses([NotNull] TypescriptParser.CatchClausesContext context) { }
+	public virtual void EnterFor_iterator([NotNull] TypescriptParser.For_iteratorContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.catchClauses"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.for_iterator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCatchClauses([NotNull] TypescriptParser.CatchClausesContext context) { }
+	public virtual void ExitFor_iterator([NotNull] TypescriptParser.For_iteratorContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.specificCatchClause"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.catch_clauses"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSpecificCatchClause([NotNull] TypescriptParser.SpecificCatchClauseContext context) { }
+	public virtual void EnterCatch_clauses([NotNull] TypescriptParser.Catch_clausesContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.specificCatchClause"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.catch_clauses"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSpecificCatchClause([NotNull] TypescriptParser.SpecificCatchClauseContext context) { }
+	public virtual void ExitCatch_clauses([NotNull] TypescriptParser.Catch_clausesContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.generalCatchClause"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.specific_catch_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGeneralCatchClause([NotNull] TypescriptParser.GeneralCatchClauseContext context) { }
+	public virtual void EnterSpecific_catch_clause([NotNull] TypescriptParser.Specific_catch_clauseContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.generalCatchClause"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.specific_catch_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGeneralCatchClause([NotNull] TypescriptParser.GeneralCatchClauseContext context) { }
+	public virtual void ExitSpecific_catch_clause([NotNull] TypescriptParser.Specific_catch_clauseContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.finallyClause"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.general_catch_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFinallyClause([NotNull] TypescriptParser.FinallyClauseContext context) { }
+	public virtual void EnterGeneral_catch_clause([NotNull] TypescriptParser.General_catch_clauseContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.finallyClause"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.general_catch_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFinallyClause([NotNull] TypescriptParser.FinallyClauseContext context) { }
+	public virtual void ExitGeneral_catch_clause([NotNull] TypescriptParser.General_catch_clauseContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.resourceAcquisition"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.finally_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterResourceAcquisition([NotNull] TypescriptParser.ResourceAcquisitionContext context) { }
+	public virtual void EnterFinally_clause([NotNull] TypescriptParser.Finally_clauseContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.resourceAcquisition"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.finally_clause"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitResourceAcquisition([NotNull] TypescriptParser.ResourceAcquisitionContext context) { }
+	public virtual void ExitFinally_clause([NotNull] TypescriptParser.Finally_clauseContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.moduleDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.resource_acquisition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterModuleDeclaration([NotNull] TypescriptParser.ModuleDeclarationContext context) { }
+	public virtual void EnterResource_acquisition([NotNull] TypescriptParser.Resource_acquisitionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.moduleDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.resource_acquisition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitModuleDeclaration([NotNull] TypescriptParser.ModuleDeclarationContext context) { }
+	public virtual void ExitResource_acquisition([NotNull] TypescriptParser.Resource_acquisitionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.moduleBody"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.namespace_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterModuleBody([NotNull] TypescriptParser.ModuleBodyContext context) { }
+	public virtual void EnterNamespace_declaration([NotNull] TypescriptParser.Namespace_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.moduleBody"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.namespace_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitModuleBody([NotNull] TypescriptParser.ModuleBodyContext context) { }
+	public virtual void ExitNamespace_declaration([NotNull] TypescriptParser.Namespace_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.moduleMemberDeclarations"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.namespace_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterModuleMemberDeclarations([NotNull] TypescriptParser.ModuleMemberDeclarationsContext context) { }
+	public virtual void EnterNamespace_body([NotNull] TypescriptParser.Namespace_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.moduleMemberDeclarations"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.namespace_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitModuleMemberDeclarations([NotNull] TypescriptParser.ModuleMemberDeclarationsContext context) { }
+	public virtual void ExitNamespace_body([NotNull] TypescriptParser.Namespace_bodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.moduleMemberDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.namespace_member_declarations"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterModuleMemberDeclaration([NotNull] TypescriptParser.ModuleMemberDeclarationContext context) { }
+	public virtual void EnterNamespace_member_declarations([NotNull] TypescriptParser.Namespace_member_declarationsContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.moduleMemberDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.namespace_member_declarations"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitModuleMemberDeclaration([NotNull] TypescriptParser.ModuleMemberDeclarationContext context) { }
+	public virtual void ExitNamespace_member_declarations([NotNull] TypescriptParser.Namespace_member_declarationsContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.typeDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.namespace_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTypeDeclaration([NotNull] TypescriptParser.TypeDeclarationContext context) { }
+	public virtual void EnterNamespace_member_declaration([NotNull] TypescriptParser.Namespace_member_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.typeDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.namespace_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTypeDeclaration([NotNull] TypescriptParser.TypeDeclarationContext context) { }
+	public virtual void ExitNamespace_member_declaration([NotNull] TypescriptParser.Namespace_member_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.typeParameterList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.type_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTypeParameterList([NotNull] TypescriptParser.TypeParameterListContext context) { }
+	public virtual void EnterType_declaration([NotNull] TypescriptParser.Type_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.typeParameterList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.type_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTypeParameterList([NotNull] TypescriptParser.TypeParameterListContext context) { }
+	public virtual void ExitType_declaration([NotNull] TypescriptParser.Type_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.typeParameter"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.type_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTypeParameter([NotNull] TypescriptParser.TypeParameterContext context) { }
+	public virtual void EnterType_parameter_list([NotNull] TypescriptParser.Type_parameter_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.typeParameter"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.type_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTypeParameter([NotNull] TypescriptParser.TypeParameterContext context) { }
+	public virtual void ExitType_parameter_list([NotNull] TypescriptParser.Type_parameter_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.classBody"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.type_parameter"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterClassBody([NotNull] TypescriptParser.ClassBodyContext context) { }
+	public virtual void EnterType_parameter([NotNull] TypescriptParser.Type_parameterContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.classBody"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.type_parameter"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitClassBody([NotNull] TypescriptParser.ClassBodyContext context) { }
+	public virtual void ExitType_parameter([NotNull] TypescriptParser.Type_parameterContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.classMemberDeclarations"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.class_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterClassMemberDeclarations([NotNull] TypescriptParser.ClassMemberDeclarationsContext context) { }
+	public virtual void EnterClass_body([NotNull] TypescriptParser.Class_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.classMemberDeclarations"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.class_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitClassMemberDeclarations([NotNull] TypescriptParser.ClassMemberDeclarationsContext context) { }
+	public virtual void ExitClass_body([NotNull] TypescriptParser.Class_bodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.classMemberDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.class_member_declarations"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterClassMemberDeclaration([NotNull] TypescriptParser.ClassMemberDeclarationContext context) { }
+	public virtual void EnterClass_member_declarations([NotNull] TypescriptParser.Class_member_declarationsContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.classMemberDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.class_member_declarations"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitClassMemberDeclaration([NotNull] TypescriptParser.ClassMemberDeclarationContext context) { }
+	public virtual void ExitClass_member_declarations([NotNull] TypescriptParser.Class_member_declarationsContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.allMemberModifiers"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.class_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAllMemberModifiers([NotNull] TypescriptParser.AllMemberModifiersContext context) { }
+	public virtual void EnterClass_member_declaration([NotNull] TypescriptParser.Class_member_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.allMemberModifiers"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.class_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAllMemberModifiers([NotNull] TypescriptParser.AllMemberModifiersContext context) { }
+	public virtual void ExitClass_member_declaration([NotNull] TypescriptParser.Class_member_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.allMemberModifier"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.all_member_modifiers"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAllMemberModifier([NotNull] TypescriptParser.AllMemberModifierContext context) { }
+	public virtual void EnterAll_member_modifiers([NotNull] TypescriptParser.All_member_modifiersContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.allMemberModifier"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.all_member_modifiers"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAllMemberModifier([NotNull] TypescriptParser.AllMemberModifierContext context) { }
+	public virtual void ExitAll_member_modifiers([NotNull] TypescriptParser.All_member_modifiersContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.commonMemberDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.all_member_modifier"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCommonMemberDeclaration([NotNull] TypescriptParser.CommonMemberDeclarationContext context) { }
+	public virtual void EnterAll_member_modifier([NotNull] TypescriptParser.All_member_modifierContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.commonMemberDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.all_member_modifier"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCommonMemberDeclaration([NotNull] TypescriptParser.CommonMemberDeclarationContext context) { }
+	public virtual void ExitAll_member_modifier([NotNull] TypescriptParser.All_member_modifierContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.typedMemberDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.common_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTypedMemberDeclaration([NotNull] TypescriptParser.TypedMemberDeclarationContext context) { }
+	public virtual void EnterCommon_member_declaration([NotNull] TypescriptParser.Common_member_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.typedMemberDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.common_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTypedMemberDeclaration([NotNull] TypescriptParser.TypedMemberDeclarationContext context) { }
+	public virtual void ExitCommon_member_declaration([NotNull] TypescriptParser.Common_member_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.classField"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.typed_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterClassField([NotNull] TypescriptParser.ClassFieldContext context) { }
+	public virtual void EnterTyped_member_declaration([NotNull] TypescriptParser.Typed_member_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.classField"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.typed_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitClassField([NotNull] TypescriptParser.ClassFieldContext context) { }
+	public virtual void ExitTyped_member_declaration([NotNull] TypescriptParser.Typed_member_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.returnTypeList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.variable_declarators"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterReturnTypeList([NotNull] TypescriptParser.ReturnTypeListContext context) { }
+	public virtual void EnterVariable_declarators([NotNull] TypescriptParser.Variable_declaratorsContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.returnTypeList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.variable_declarators"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitReturnTypeList([NotNull] TypescriptParser.ReturnTypeListContext context) { }
+	public virtual void ExitVariable_declarators([NotNull] TypescriptParser.Variable_declaratorsContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.returnType"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.variable_declarator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterReturnType([NotNull] TypescriptParser.ReturnTypeContext context) { }
+	public virtual void EnterVariable_declarator([NotNull] TypescriptParser.Variable_declaratorContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.returnType"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.variable_declarator"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitReturnType([NotNull] TypescriptParser.ReturnTypeContext context) { }
+	public virtual void ExitVariable_declarator([NotNull] TypescriptParser.Variable_declaratorContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.memberName"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.variable_initializer"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMemberName([NotNull] TypescriptParser.MemberNameContext context) { }
+	public virtual void EnterVariable_initializer([NotNull] TypescriptParser.Variable_initializerContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.memberName"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.variable_initializer"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMemberName([NotNull] TypescriptParser.MemberNameContext context) { }
+	public virtual void ExitVariable_initializer([NotNull] TypescriptParser.Variable_initializerContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.methodBody"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.return_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMethodBody([NotNull] TypescriptParser.MethodBodyContext context) { }
+	public virtual void EnterReturn_type([NotNull] TypescriptParser.Return_typeContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.methodBody"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.return_type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMethodBody([NotNull] TypescriptParser.MethodBodyContext context) { }
+	public virtual void ExitReturn_type([NotNull] TypescriptParser.Return_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.formalParameterList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.member_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFormalParameterList([NotNull] TypescriptParser.FormalParameterListContext context) { }
+	public virtual void EnterMember_name([NotNull] TypescriptParser.Member_nameContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.formalParameterList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.member_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFormalParameterList([NotNull] TypescriptParser.FormalParameterListContext context) { }
+	public virtual void ExitMember_name([NotNull] TypescriptParser.Member_nameContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.fixedParameters"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.method_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFixedParameters([NotNull] TypescriptParser.FixedParametersContext context) { }
+	public virtual void EnterMethod_body([NotNull] TypescriptParser.Method_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.fixedParameters"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.method_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFixedParameters([NotNull] TypescriptParser.FixedParametersContext context) { }
+	public virtual void ExitMethod_body([NotNull] TypescriptParser.Method_bodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.fixedParameter"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.formal_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterFixedParameter([NotNull] TypescriptParser.FixedParameterContext context) { }
+	public virtual void EnterFormal_parameter_list([NotNull] TypescriptParser.Formal_parameter_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.fixedParameter"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.formal_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitFixedParameter([NotNull] TypescriptParser.FixedParameterContext context) { }
+	public virtual void ExitFormal_parameter_list([NotNull] TypescriptParser.Formal_parameter_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.constructorInitializer"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.fixed_parameters"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterConstructorInitializer([NotNull] TypescriptParser.ConstructorInitializerContext context) { }
+	public virtual void EnterFixed_parameters([NotNull] TypescriptParser.Fixed_parametersContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.constructorInitializer"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.fixed_parameters"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitConstructorInitializer([NotNull] TypescriptParser.ConstructorInitializerContext context) { }
+	public virtual void ExitFixed_parameters([NotNull] TypescriptParser.Fixed_parametersContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.fixed_parameter"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFixed_parameter([NotNull] TypescriptParser.Fixed_parameterContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.fixed_parameter"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFixed_parameter([NotNull] TypescriptParser.Fixed_parameterContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.constructor_initializer"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterConstructor_initializer([NotNull] TypescriptParser.Constructor_initializerContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.constructor_initializer"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitConstructor_initializer([NotNull] TypescriptParser.Constructor_initializerContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.body"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -1275,89 +1241,89 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBody([NotNull] TypescriptParser.BodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.variantTypeParameterList"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.variant_type_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterVariantTypeParameterList([NotNull] TypescriptParser.VariantTypeParameterListContext context) { }
+	public virtual void EnterVariant_type_parameter_list([NotNull] TypescriptParser.Variant_type_parameter_listContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.variantTypeParameterList"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.variant_type_parameter_list"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitVariantTypeParameterList([NotNull] TypescriptParser.VariantTypeParameterListContext context) { }
+	public virtual void ExitVariant_type_parameter_list([NotNull] TypescriptParser.Variant_type_parameter_listContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.variantTypeParameter"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.variant_type_parameter"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterVariantTypeParameter([NotNull] TypescriptParser.VariantTypeParameterContext context) { }
+	public virtual void EnterVariant_type_parameter([NotNull] TypescriptParser.Variant_type_parameterContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.variantTypeParameter"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.variant_type_parameter"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitVariantTypeParameter([NotNull] TypescriptParser.VariantTypeParameterContext context) { }
+	public virtual void ExitVariant_type_parameter([NotNull] TypescriptParser.Variant_type_parameterContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.enumBody"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.enum_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEnumBody([NotNull] TypescriptParser.EnumBodyContext context) { }
+	public virtual void EnterEnum_body([NotNull] TypescriptParser.Enum_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.enumBody"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.enum_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEnumBody([NotNull] TypescriptParser.EnumBodyContext context) { }
+	public virtual void ExitEnum_body([NotNull] TypescriptParser.Enum_bodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.enumMemberDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.enum_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEnumMemberDeclaration([NotNull] TypescriptParser.EnumMemberDeclarationContext context) { }
+	public virtual void EnterEnum_member_declaration([NotNull] TypescriptParser.Enum_member_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.enumMemberDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.enum_member_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEnumMemberDeclaration([NotNull] TypescriptParser.EnumMemberDeclarationContext context) { }
+	public virtual void ExitEnum_member_declaration([NotNull] TypescriptParser.Enum_member_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.rightArrow"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.right_arrow"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRightArrow([NotNull] TypescriptParser.RightArrowContext context) { }
+	public virtual void EnterRight_arrow([NotNull] TypescriptParser.Right_arrowContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.rightArrow"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.right_arrow"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRightArrow([NotNull] TypescriptParser.RightArrowContext context) { }
+	public virtual void ExitRight_arrow([NotNull] TypescriptParser.Right_arrowContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.rightShift"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.right_shift"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRightShift([NotNull] TypescriptParser.RightShiftContext context) { }
+	public virtual void EnterRight_shift([NotNull] TypescriptParser.Right_shiftContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.rightShift"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.right_shift"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRightShift([NotNull] TypescriptParser.RightShiftContext context) { }
+	public virtual void ExitRight_shift([NotNull] TypescriptParser.Right_shiftContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.rightShiftAssignment"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.right_shift_assignment"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRightShiftAssignment([NotNull] TypescriptParser.RightShiftAssignmentContext context) { }
+	public virtual void EnterRight_shift_assignment([NotNull] TypescriptParser.Right_shift_assignmentContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.rightShiftAssignment"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.right_shift_assignment"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRightShiftAssignment([NotNull] TypescriptParser.RightShiftAssignmentContext context) { }
+	public virtual void ExitRight_shift_assignment([NotNull] TypescriptParser.Right_shift_assignmentContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.literal"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -1371,125 +1337,137 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitLiteral([NotNull] TypescriptParser.LiteralContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.booleanLiteral"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.boolean_literal"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBooleanLiteral([NotNull] TypescriptParser.BooleanLiteralContext context) { }
+	public virtual void EnterBoolean_literal([NotNull] TypescriptParser.Boolean_literalContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.booleanLiteral"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.boolean_literal"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBooleanLiteral([NotNull] TypescriptParser.BooleanLiteralContext context) { }
+	public virtual void ExitBoolean_literal([NotNull] TypescriptParser.Boolean_literalContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.stringLiteral"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.string_literal"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterStringLiteral([NotNull] TypescriptParser.StringLiteralContext context) { }
+	public virtual void EnterString_literal([NotNull] TypescriptParser.String_literalContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.stringLiteral"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.string_literal"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitStringLiteral([NotNull] TypescriptParser.StringLiteralContext context) { }
+	public virtual void ExitString_literal([NotNull] TypescriptParser.String_literalContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.classDefinition"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.class_definition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterClassDefinition([NotNull] TypescriptParser.ClassDefinitionContext context) { }
+	public virtual void EnterClass_definition([NotNull] TypescriptParser.Class_definitionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.classDefinition"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.class_definition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitClassDefinition([NotNull] TypescriptParser.ClassDefinitionContext context) { }
+	public virtual void ExitClass_definition([NotNull] TypescriptParser.Class_definitionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.enumDefinition"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.enum_definition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEnumDefinition([NotNull] TypescriptParser.EnumDefinitionContext context) { }
+	public virtual void EnterEnum_definition([NotNull] TypescriptParser.Enum_definitionContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.enumDefinition"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.enum_definition"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEnumDefinition([NotNull] TypescriptParser.EnumDefinitionContext context) { }
+	public virtual void ExitEnum_definition([NotNull] TypescriptParser.Enum_definitionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.constructorDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.field_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterConstructorDeclaration([NotNull] TypescriptParser.ConstructorDeclarationContext context) { }
+	public virtual void EnterField_declaration([NotNull] TypescriptParser.Field_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.constructorDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.field_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitConstructorDeclaration([NotNull] TypescriptParser.ConstructorDeclarationContext context) { }
+	public virtual void ExitField_declaration([NotNull] TypescriptParser.Field_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.methodDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.constructor_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMethodDeclaration([NotNull] TypescriptParser.MethodDeclarationContext context) { }
+	public virtual void EnterConstructor_declaration([NotNull] TypescriptParser.Constructor_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.methodDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.constructor_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMethodDeclaration([NotNull] TypescriptParser.MethodDeclarationContext context) { }
+	public virtual void ExitConstructor_declaration([NotNull] TypescriptParser.Constructor_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.getterSetterDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.method_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterGetterSetterDeclaration([NotNull] TypescriptParser.GetterSetterDeclarationContext context) { }
+	public virtual void EnterMethod_declaration([NotNull] TypescriptParser.Method_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.getterSetterDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.method_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitGetterSetterDeclaration([NotNull] TypescriptParser.GetterSetterDeclarationContext context) { }
+	public virtual void ExitMethod_declaration([NotNull] TypescriptParser.Method_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.argDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.method_member_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterArgDeclaration([NotNull] TypescriptParser.ArgDeclarationContext context) { }
+	public virtual void EnterMethod_member_name([NotNull] TypescriptParser.Method_member_nameContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.argDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.method_member_name"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitArgDeclaration([NotNull] TypescriptParser.ArgDeclarationContext context) { }
+	public virtual void ExitMethod_member_name([NotNull] TypescriptParser.Method_member_nameContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.methodInvocation"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.arg_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMethodInvocation([NotNull] TypescriptParser.MethodInvocationContext context) { }
+	public virtual void EnterArg_declaration([NotNull] TypescriptParser.Arg_declarationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.methodInvocation"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.arg_declaration"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMethodInvocation([NotNull] TypescriptParser.MethodInvocationContext context) { }
+	public virtual void ExitArg_declaration([NotNull] TypescriptParser.Arg_declarationContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.objectCreationExpression"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.method_invocation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterObjectCreationExpression([NotNull] TypescriptParser.ObjectCreationExpressionContext context) { }
+	public virtual void EnterMethod_invocation([NotNull] TypescriptParser.Method_invocationContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.objectCreationExpression"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.method_invocation"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitObjectCreationExpression([NotNull] TypescriptParser.ObjectCreationExpressionContext context) { }
+	public virtual void ExitMethod_invocation([NotNull] TypescriptParser.Method_invocationContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.object_creation_expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterObject_creation_expression([NotNull] TypescriptParser.Object_creation_expressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.object_creation_expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitObject_creation_expression([NotNull] TypescriptParser.Object_creation_expressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.identifier"/>.
 	/// <para>The default implementation does nothing.</para>

@@ -10,47 +10,74 @@ sourceFiles : sourceFile*;
 
 // entry point
 sourceFile
-	: BYTE_ORDER_MARK? importDeclaration* namespaceMemberDeclarations? EOF
+locals[string FilePath]
+	: BYTE_ORDER_MARK? importDeclaration* moduleMemberDeclarations? EOF
 	;
 
-importDeclaration: IMPORT stringLiteral ';';
+importDeclaration
+locals[
+	SourceFileContext TargetFile { get; set; }
+	public string TargetPath
+        {
+            get
+            {
+                var parent = (SourceFileContext) Parent;
+                var currentFolder = new FileInfo(parent.FilePath).Directory.FullName;
+                var importPath = Path.Combine(currentFolder, RemoveQuotes(stringLiteral().GetText()));
+                return Path.GetFullPath(importPath);
+            }
+        }
+
+        private string RemoveQuotes(string s)
+        {
+            return s.Substring(1, s.Length - 2);
+        }
+		private string ignoreMe
+]
+	: IMPORT stringLiteral ';'
+	;
 
 //B.2 Syntactic grammar
 
 //B.2.1 Basic concepts
 
-namespaceOrTypeName 
+moduleOrTypeName 
 	: (identifier typeArgumentList?) ('.' identifier typeArgumentList?)*
 	;
 
 //B.2.2 Types
+typeList
+	: type ('|' type)*
+	;
+
 type 
 	: baseType (OPEN_BRACKET CLOSE_BRACKET)*
 	;
 
 baseType
-	: simpleType
+	: primitiveType
 	| classType  // represents types: enum, class, delegate, typeParameter
+	| functionType
 	;
 
-simpleType 
-	: numericType
-	| BOOL
-	;
-
-numericType 
+primitiveType 
 	: NUMBER
-	;
-
-
-/** namespaceOrTypeName, OBJECT, STRING */
-classType 
-	: namespaceOrTypeName
+	| BOOL
 	| STRING
 	;
 
+
+/** moduleOrTypeName, OBJECT, STRING */
+classType 
+	: moduleOrTypeName
+	;
+
 typeArgumentList 
-	: '<' type ( ',' type)* '>'
+	: '<' typeList ( ',' typeList)* '>'
+	;
+
+functionType
+	: OPEN_PARENS formalParameterList? CLOSE_PARENS rightArrow returnTypeList
 	;
 
 //B.2.4 Expressions
@@ -105,7 +132,11 @@ andExpression
 	;
 
 equalityExpression
-	: relationalExpression ((OP_EQ | OP_NE)  relationalExpression)*
+	: castExpression ((OP_EQ | OP_NE)  castExpression)*
+	;
+
+castExpression
+	: relationalExpression (AS type)?
 	;
 
 relationalExpression
@@ -131,12 +162,15 @@ unaryExpression
 	| '-' unaryExpression
 	| BANG unaryExpression
 	| '~' unaryExpression
-	| OPEN_PARENS type CLOSE_PARENS unaryExpression
 	;
 
 primaryExpression  // Null-conditional operators C# 6: https://msdn.microsoft.com/en-us/library/dn986595.aspx
 	: pe=primaryExpressionStart bracketExpression*
 	  ((memberAccess | methodInvocation | '++' | '--') bracketExpression*)*
+	;
+
+nativeMethodInvocationStatement  // Null-conditional operators C# 6: https://msdn.microsoft.com/en-us/library/dn986595.aspx
+	: pe=identifier memberAccess methodInvocation ';'
 	;
 
 primaryExpressionStart
@@ -145,7 +179,12 @@ primaryExpressionStart
 	| OPEN_PARENS expression CLOSE_PARENS       #parenthesisExpressions
 	| LITERAL_ACCESS                            #literalAccessExpression
 	| THIS                                      #thisReferenceExpression
-	| NEW type (objectCreationExpression | '[' expression ']')                       #objectCreation
+	| NEW type objectCreationExpression                       #objectCreation
+	| '[' expressionList? ']' #arrayCreationExpression
+	;
+
+expressionList
+	: expression ( ',' expression)*
 	;
 
 memberAccess
@@ -153,7 +192,7 @@ memberAccess
 	;
 
 bracketExpression
-	: '[' expression ( ',' expression)* ']'
+	: '[' expressionList ']'
 	;
 
 lambdaExpression
@@ -186,7 +225,7 @@ anonymousFunctionBody
 
 //B.2.5 Statements
 statement
-	: localVariableDeclaration ';'  #declarationStatement
+	: variableDeclaration ';'  #declarationStatement
 	| embeddedStatement             #embedded                               
 	;
 
@@ -200,41 +239,33 @@ simpleEmbeddedStatement
 	| expression ';'                                              #expressionStatement
 
 	// selection statements
-	| IF OPEN_PARENS expression CLOSE_PARENS ifBody (ELSE ifBody)?               #ifStatement
+	| IF OPEN_PARENS expression CLOSE_PARENS embeddedStatement (ELSE embeddedStatement)?               #ifStatement
     | SWITCH OPEN_PARENS expression CLOSE_PARENS OPEN_BRACE switchSection* CLOSE_BRACE           #switchStatement
 
     // iteration statements
 	| WHILE OPEN_PARENS expression CLOSE_PARENS embeddedStatement                                        #whileStatement
-	| DO embeddedStatement WHILE OPEN_PARENS expression CLOSE_PARENS ';'                                 #doStatement
 	| FOR OPEN_PARENS forInitializer? ';' expression? ';' forIterator? CLOSE_PARENS embeddedStatement  #forStatement
-	| FOREACH OPEN_PARENS localVariableType identifier OF expression CLOSE_PARENS embeddedStatement    #foreachStatement
+	| FOREACH OPEN_PARENS variableType identifier OF expression CLOSE_PARENS embeddedStatement    #foreachStatement
 
     // jump statements
 	| BREAK ';'                                                   #breakStatement
 	| CONTINUE ';'                                                #continueStatement
 	| RETURN expression? ';'                                      #returnStatement
-	| THROW expression? ';'                                       #throwStatement
-
-	| TRY block (catchClauses finallyClause? | finallyClause)  #tryStatement
 	;
 
 block
 	: OPEN_BRACE statementList? CLOSE_BRACE
 	;
-localVariableDeclaration
-	: localVariableType localVariableDeclarator ( ','  localVariableDeclarator)*
+
+variableDeclaration
+	: variableType variableDeclarator ( ','  variableDeclarator)*
 	;
 
-localVariableType 
+variableType 
 	: VAR | CONST | LET ;
 
-localVariableDeclarator
+variableDeclarator
 	: identifier (':' type)? ('=' expression)?
-	;
-
-ifBody
-	: block
-	| simpleEmbeddedStatement
 	;
 
 switchSection
@@ -251,7 +282,7 @@ statementList
 	;
 
 forInitializer
-	: localVariableDeclaration
+	: variableDeclaration
 	| expression (','  expression)*
 	;
 
@@ -277,33 +308,33 @@ finallyClause
 	;
 
 resourceAcquisition
-	: localVariableDeclaration
+	: variableDeclaration
 	| expression
 	;
 
-//B.2.6 Namespaces;
-namespaceDeclaration
-	: MODULE identifier namespaceBody ';'?
+//B.2.6 modules;
+moduleDeclaration
+	: MODULE identifier moduleBody ';'?
 	;
 
-namespaceBody
-	: OPEN_BRACE namespaceMemberDeclarations? CLOSE_BRACE
+moduleBody
+	: OPEN_BRACE moduleMemberDeclarations? CLOSE_BRACE
 	;
 
-namespaceMemberDeclarations
-	: namespaceMemberDeclaration+
+moduleMemberDeclarations
+	: moduleMemberDeclaration+
 	;
 
-namespaceMemberDeclaration
-	: namespaceDeclaration
+moduleMemberDeclaration
+	: moduleDeclaration
 	| typeDeclaration
-	| classMemberDeclaration
-	| statement
+	| variableDeclaration ';'
+	| nativeMethodInvocationStatement
 	;
+
 
 typeDeclaration
-	: allMemberModifiers?
-      (classDefinition | enumDefinition)
+	: allMemberModifiers? (classDefinition | enumDefinition)
   	;
 
 //B.2.7 Classes;
@@ -325,6 +356,7 @@ classMemberDeclarations
 
 classMemberDeclaration
 	: allMemberModifiers? commonMemberDeclaration
+//	| FUNCTION methodMemberName typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS (':' returnTypeList)? methodBody #classFunctionDeclaration
 	;
 
 allMemberModifiers
@@ -332,41 +364,35 @@ allMemberModifiers
 	;
 
 allMemberModifier
-	: NEW
-	| PUBLIC
+	: PUBLIC
 	| PROTECTED
 	| PRIVATE
 	| READONLY
-	| OVERRIDE
 	| ABSTRACT
 	| STATIC
+	| EXPORT
 	;
 
 // represents the intersection of structMemberDeclaration and classMemberDeclaration
 commonMemberDeclaration
 	: typedMemberDeclaration
 	| constructorDeclaration
-	| classDefinition
-	| enumDefinition
 	;
 
 typedMemberDeclaration
 	: 
 	  ( methodDeclaration
-	  | fieldDeclaration
+	  | getterSetterDeclaration
+	  | classField ';'
 	  )
 	;
 
-variableDeclarators
-	: variableDeclarator (','  variableDeclarator)*
+classField
+	: variableDeclarator ( ','  variableDeclarator)*
 	;
 
-variableDeclarator
-	: identifier (':' type)? ('=' variableInitializer)?
-	;
-
-variableInitializer
-	: expression
+returnTypeList
+	: returnType ('|' returnType)*
 	;
 
 returnType
@@ -375,12 +401,11 @@ returnType
 	;
 
 memberName
-	: namespaceOrTypeName
+	: moduleOrTypeName
 	;
 
 methodBody
 	: block
-	| ';'
 	;
 
 formalParameterList
@@ -467,25 +492,20 @@ enumDefinition
 	: ENUM identifier enumBody ';'?
 	;
 
-fieldDeclaration
-	: variableDeclarators ';'
-	;
-
 constructorDeclaration
-	: identifier OPEN_PARENS formalParameterList? CLOSE_PARENS body
+	: CONSTRUCTOR OPEN_PARENS formalParameterList? CLOSE_PARENS body
 	;
 
 methodDeclaration // lamdas from C# 6
-	: (GET | SET)? methodMemberName typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS
-	    (':' returnType)? (methodBody | rightArrow expression ';')
+	: identifier typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS (':' returnTypeList)? methodBody
 	;
 
-methodMemberName
-	: (identifier | identifier '::' identifier) (typeArgumentList? '.' identifier)*
+getterSetterDeclaration // lamdas from C# 6
+	: (GET | SET) identifier OPEN_PARENS CLOSE_PARENS (':' returnTypeList)? methodBody
 	;
 
 argDeclaration
-	: identifier (':' type)? ('=' expression)?
+	: identifier ':' typeList ('=' expression)?
 	;
 
 methodInvocation

@@ -1,7 +1,9 @@
 ﻿/// <reference path="../../../../OverwatchCompiler.ToWorkshop/library/core.ts" />
 import "../../../library/core.ts";
 
-rule("Rule 1",
+var a: number = 2;
+
+Native.rule("Rule 1",
     Events.Ongoing.Global,
     () => {
         let number = Math.abs(0);
