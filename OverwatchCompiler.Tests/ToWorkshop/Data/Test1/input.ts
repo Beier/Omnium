@@ -14,7 +14,7 @@ Native.rule("Rule 1",
         players = Players.onTeam(Teams.all);
         players = Players.notOnObjectiveFromTeam(Teams.all);
         players = Players.onObjectiveFromTeam(Teams.all);
-        heroes = Heroes.allowedForPlayer(Rule.Event.player);
-        number = Rule.Event.player.altitude;
+        heroes = Heroes.allowedForPlayer(Triggering.player);
+        number = Triggering.player.altitude;
     }
 );

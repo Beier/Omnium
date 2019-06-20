@@ -73,11 +73,11 @@ IDENTIFIER:          '@'? IdentifierOrKeyword;
 // 0.Equals() would be parsed as an invalid real (1. branch) causing a lexer error
 LITERAL_ACCESS:      [0-9]+ IntegerTypeSuffix? '.' '@'? IdentifierOrKeyword;
 INTEGER_LITERAL:     [0-9]+ IntegerTypeSuffix?;
-HEX_INTEGER_LITERAL: '0' [xX] HexDigit+ IntegerTypeSuffix?;
+HEX_INTEGER_LITERAL: '0' [xX] HexDigit+;
 REAL_LITERAL:        [0-9]* '.' [0-9]+ ExponentPart? [FfDdMm]? | [0-9]+ ([FfDdMm] | ExponentPart [FfDdMm]?);
 
-CHARACTER_LITERAL:                   '\'' (~['\\\r\n\u0085\u2028\u2029] | CommonCharacter) '\'';
 REGULAR_STRING:                      '"'  (~["\\\r\n\u0085\u2028\u2029] | CommonCharacter)* '"';
+SINGLE_QUOTE_STRING_LITERAL:         '\'' (~['\\\r\n\u0085\u2028\u2029] | CommonCharacter)* '\'';
 
 //B.1.9 Operators And Punctuators
 OPEN_BRACE:               '{';

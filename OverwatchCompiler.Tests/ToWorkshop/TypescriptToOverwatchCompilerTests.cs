@@ -4,6 +4,7 @@ using NUnit.Framework;
 using OverwatchCompiler.ToTypescript;
 using OverwatchCompiler.ToWorkshop;
 using OverwatchCompiler.ToWorkshop.compiler;
+using OverwatchCompiler.ToWorkshop.compiler.parsing;
 
 namespace OverwatchCompiler.Tests.ToWorkshop
 {

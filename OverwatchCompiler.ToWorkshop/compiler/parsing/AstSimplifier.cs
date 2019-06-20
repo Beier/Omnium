@@ -1,0 +1,681 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.ast;
+using OverwatchCompiler.ToWorkshop.ast.declarations;
+using OverwatchCompiler.ToWorkshop.ast.expressions;
+using OverwatchCompiler.ToWorkshop.ast.expressions.literals;
+using OverwatchCompiler.ToWorkshop.ast.statements;
+using OverwatchCompiler.ToWorkshop.ast.types;
+using OverwatchCompiler.ToWorkshop.extensions;
+
+namespace OverwatchCompiler.ToWorkshop.compiler.parsing
+{
+    public class AstSimplifier : TypescriptParserBaseVisitor<IEnumerable<INode>>
+    {
+        protected override IEnumerable<INode> DefaultResult => Enumerable.Empty<INode>();
+
+        protected override IEnumerable<INode> AggregateResult(IEnumerable<INode> first, IEnumerable<INode> second)
+        {
+            return first.Concat(second);
+        }
+
+        public override IEnumerable<INode> Visit(IParseTree tree)
+        {
+            try
+            {
+                if (tree == null)
+                    return Enumerable.Empty<INode>();
+                return base.Visit(tree).ToList();
+            }
+            catch (CompilationError)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new CompilationError(tree, "An internal error occured trying to simplify the AST", e);
+            }
+        }
+
+        public override IEnumerable<INode> VisitSourceFiles(TypescriptParser.SourceFilesContext context)
+        {
+            var root = new Root();
+            var sourceFilesByPath = context.sourceFile().ToDictionary(x => x.FilePath, x => (SourceFile)Visit(x).Single());
+
+            root.SourceFiles.AddRange(sourceFilesByPath.Values);
+            foreach (var rawSourceFile in context.sourceFile())
+            {
+                var sourceFile = sourceFilesByPath[rawSourceFile.FilePath];
+                sourceFile.ImportedSourceFiles.AddRange(rawSourceFile.importDeclaration().Select(x => sourceFilesByPath[x.TargetPath]));
+            }
+            yield return root;
+        }
+
+        public override IEnumerable<INode> VisitSourceFile(TypescriptParser.SourceFileContext context)
+        {
+            var sourceFile = new SourceFile(context, context.FilePath);
+
+            foreach (var childNode in context.children.SelectMany(Visit))
+            {
+                if (childNode is ClassDeclaration classDeclaration)
+                    sourceFile.ClassDeclarations.Add(classDeclaration);
+                else if (childNode is MethodDeclaration methodDeclaration)
+                    sourceFile.MethodDeclarations.Add(methodDeclaration);
+                else if (childNode is VariableDeclaration variableDeclaration)
+                    sourceFile.VariableDeclarations.Add(variableDeclaration);
+                else if (childNode is ModuleDeclaration moduleDeclaration)
+                    sourceFile.ModuleDeclarations.Add(moduleDeclaration);
+                else if (childNode is MethodInvocationExpression methodInvocation)
+                    sourceFile.MethodInvocations.Add(methodInvocation);
+                else if (childNode is EnumDeclaration enumDeclaration)
+                    sourceFile.EnumDeclarations.Add(enumDeclaration);
+                else
+                    throw new CompilationError(childNode.Context, "Unknown source file member: " + childNode.GetType().Name);
+            }
+
+            yield return sourceFile;
+        }
+
+        public override IEnumerable<INode> VisitModuleDeclaration(TypescriptParser.ModuleDeclarationContext context)
+        {
+            var module = new ModuleDeclaration(context, context.identifier().GetText());
+
+            foreach (var childNode in context.children.SelectMany(Visit))
+            {
+                if (childNode is ClassDeclaration classDeclaration)
+                    module.ClassDeclarations.Add(classDeclaration);
+                else if (childNode is MethodDeclaration methodDeclaration)
+                    module.MethodDeclarations.Add(methodDeclaration);
+                else if (childNode is VariableDeclaration variableDeclaration)
+                    module.VariableDeclarations.Add(variableDeclaration);
+                else if (childNode is ModuleDeclaration moduleDeclaration)
+                    module.ModuleDeclarations.Add(moduleDeclaration);
+                else if (childNode is MethodInvocationExpression methodInvocation)
+                    module.MethodInvocations.Add(methodInvocation);
+                else if (childNode is EnumDeclaration enumDeclaration)
+                    module.EnumDeclarations.Add(enumDeclaration);
+                else
+                    throw new CompilationError(childNode.Context, "Unknown module member:" + childNode.GetType().Name);
+            }
+
+            yield return module;
+        }
+
+        public override IEnumerable<INode> VisitFunctionDeclaration(TypescriptParser.FunctionDeclarationContext context)
+        {
+            var methodDeclaration = (MethodDeclaration) Visit(context.methodDeclaration()).Single();
+            methodDeclaration.Modifiers.Add(MemberModifier.Static);
+            yield return methodDeclaration;
+        }
+
+        public override IEnumerable<INode> VisitEnumDefinition(TypescriptParser.EnumDefinitionContext context)
+        {
+            yield return new EnumDeclaration(
+                context,
+                context.identifier().GetText(),
+                context.children.SelectMany(Visit).Cast<EnumValue>());
+        }
+
+        public override IEnumerable<INode> VisitEnumMemberDeclaration(TypescriptParser.EnumMemberDeclarationContext context)
+        {
+            yield return new EnumValue(
+                context,
+                context.identifier().GetText(),
+                (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitVariableDeclaration(TypescriptParser.VariableDeclarationContext context)
+        {
+            var variableDeclarations = context
+                .variableDeclarator()
+                .SelectMany(Visit)
+                .Cast<VariableDeclaration>()
+                .ToList();
+            VariableType? variableType = null;
+            if (context.variableType().VAR() != null)
+                variableType = VariableType.Var;
+            if (context.variableType().LET() != null)
+                variableType = VariableType.Let;
+            if (context.variableType().CONST() != null)
+                variableType = VariableType.Const;
+
+            foreach (var variableDeclaration in variableDeclarations)
+            {
+                variableDeclaration.VariableType = variableType;
+            }
+
+            return variableDeclarations;
+        }
+
+        public override IEnumerable<INode> VisitVariableDeclarator(TypescriptParser.VariableDeclaratorContext context)
+        {
+            yield return new VariableDeclaration(
+                context,
+                context.identifier().GetText(),
+                (ITypeNode)Visit(context.type()).SingleOrDefault(),
+                (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitNativeMethodInvocationStatement(TypescriptParser.NativeMethodInvocationStatementContext context)
+        {
+            yield return new MethodInvocationExpression(
+                context,
+                new MemberExpression(
+                    context.memberAccess(),
+                    new SimpleNameExpression(context, context.identifier().GetText()),
+                    context.memberAccess().identifier().GetText()
+                    ),
+                    Visit(context.memberAccess().typeArgumentList()).Cast<ITypeNode>(),
+                    Visit(context.methodInvocation()).Cast<IExpression>()
+                );
+        }
+
+        public override IEnumerable<INode> VisitClassDefinition(TypescriptParser.ClassDefinitionContext context)
+        {
+            var children = context.children.SelectMany(Visit).ToArray();
+            var unknownTypes = children.Where(x => !(x is ConstructorDeclaration || x is GetterDeclaration || x is SetterDeclaration || x is MethodDeclaration || x is VariableDeclaration)).ToList();
+            if (unknownTypes.Any())
+                throw new CompilationError(unknownTypes.First().Context, "Unknown class member: " + unknownTypes.GetType().Name);
+            
+            var classDeclaration = new ClassDeclaration(
+                context, 
+                context.identifier().GetText(),
+                children.OfType<ConstructorDeclaration>(),
+                children.OfType<GetterDeclaration>(),
+                children.OfType<SetterDeclaration>(),
+                children.OfType<MethodDeclaration>(),
+                children.OfType<VariableDeclaration>());
+
+            yield return classDeclaration;
+        }
+
+        public override IEnumerable<INode> VisitClassMemberDeclaration(TypescriptParser.ClassMemberDeclarationContext context)
+        {
+            var declaration = Visit(context.commonMemberDeclaration()).SingleOrDefault();
+            var modifiers = context.allMemberModifiers()?.allMemberModifier().Select(modifier =>
+            {
+                switch (modifier.GetText())
+                {
+                    case "public":
+                        return MemberModifier.Public;
+                    case "private":
+                        return MemberModifier.Private;
+                    case "static":
+                        return MemberModifier.Static;
+                    case "readonly":
+                        return MemberModifier.Readonly;
+                    case "export":
+                        return MemberModifier.Export;
+                    default:
+                        throw new Exception();
+                }
+            }).ToList() ?? new List<MemberModifier>();
+            switch (declaration)
+            {
+                case ConstructorDeclaration constructorDeclaration:
+                    constructorDeclaration.Modifiers.AddRange(modifiers);
+                    break;
+                case GetterDeclaration getterDeclaration:
+                    getterDeclaration.Modifiers.AddRange(modifiers);
+                    break;
+                case SetterDeclaration setterDeclaration:
+                    setterDeclaration.Modifiers.AddRange(modifiers);
+                    break;
+                case MethodDeclaration methodDeclaration:
+                    methodDeclaration.Modifiers.AddRange(modifiers);
+                    break;
+                case VariableDeclaration variableDeclaration:
+                    variableDeclaration.Modifiers.AddRange(modifiers);
+                    break;
+            }
+
+            yield return declaration;
+        }
+
+        public override IEnumerable<INode> VisitConstructorDeclaration(TypescriptParser.ConstructorDeclarationContext context)
+        {
+            yield return new ConstructorDeclaration(
+                context,
+                Visit(context.formalParameterList()).Cast<VariableDeclaration>(),
+                (BlockStatement)Visit(context.body()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitMethodDeclaration(TypescriptParser.MethodDeclarationContext context)
+        {
+            yield return new MethodDeclaration(
+                context,
+                context.identifier().GetText(),
+                (ITypeNode)Visit(context.returnTypeList()).SingleOrDefault(),
+                Visit(context.typeParameterList()).Cast<GenericTypeDeclaration>(),
+                Visit(context.formalParameterList()).Cast<VariableDeclaration>(),
+                (BlockStatement)Visit(context.methodBody()).SingleOrDefault()
+                );
+        }
+
+        public override IEnumerable<INode> VisitGetterDeclaration(TypescriptParser.GetterDeclarationContext context)
+        {
+            yield return new GetterDeclaration(
+                context,
+                context.identifier().GetText(),
+                (ITypeNode)Visit(context.returnTypeList()).SingleOrDefault(),
+                (BlockStatement)Visit(context.methodBody()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitSetterDeclaration(TypescriptParser.SetterDeclarationContext context)
+        {
+            yield return new SetterDeclaration(
+                context,
+                context.identifier().GetText(),
+                (VariableDeclaration)Visit(context.formalParameterList()).SingleOrDefault(),
+                (BlockStatement)Visit(context.methodBody()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitArgDeclaration(TypescriptParser.ArgDeclarationContext context)
+        {
+            yield return new VariableDeclaration(
+                context,
+                context.identifier().GetText(),
+                (ITypeNode)Visit(context.typeList()).SingleOrDefault(),
+                (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitTypeParameter(TypescriptParser.TypeParameterContext context)
+        {
+            yield return new GenericTypeDeclaration(context, context.identifier().GetText());
+        }
+
+        public override IEnumerable<INode> VisitBlock(TypescriptParser.BlockContext context)
+        {
+            yield return new BlockStatement(
+                context,
+                Visit(context.statementList()).Cast<IStatement>());
+        }
+
+        public override IEnumerable<INode> VisitDeclarationStatement(TypescriptParser.DeclarationStatementContext context)
+        {
+            return Visit(context.variableDeclaration())
+                .Cast<VariableDeclaration>()
+                .Select(variableDeclaration => new VariableDeclarationStatement(context, variableDeclaration));
+        }
+
+        public override IEnumerable<INode> VisitExpressionStatement(TypescriptParser.ExpressionStatementContext context)
+        {
+            yield return new ExpressionStatement(
+                context,
+                (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitIfStatement(TypescriptParser.IfStatementContext context)
+        {
+            var condition = (IExpression)Visit(context.expression()).SingleOrDefault();
+            var branches = context.embeddedStatement().SelectMany(Visit).Cast<IStatement>().ToList();
+            yield return new IfStatement(
+                context,
+                condition,
+                branches.First(),
+                branches.Skip(1).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitSwitchStatement(TypescriptParser.SwitchStatementContext context)
+        {
+            yield return new SwitchStatement(
+                context,
+                (IExpression)Visit(context.expression()).SingleOrDefault(),
+                context.switchSection().SelectMany(Visit).Cast<SwitchGroup>());
+        }
+
+        public override IEnumerable<INode> VisitSwitchSection(TypescriptParser.SwitchSectionContext context)
+        {
+            yield return new SwitchGroup(
+                context,
+                context.switchLabel().SelectMany(Visit).Cast<SwitchLabel>(),
+                Visit(context.statementList()).Cast<IStatement>());
+        }
+
+        public override IEnumerable<INode> VisitSwitchLabel(TypescriptParser.SwitchLabelContext context)
+        {
+            yield return new SwitchLabel(context, (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitWhileStatement(TypescriptParser.WhileStatementContext context)
+        {
+            yield return new WhileStatement(
+                context,
+                (IExpression)Visit(context.expression()).SingleOrDefault(),
+                (IStatement)Visit(context.embeddedStatement()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitForStatement(TypescriptParser.ForStatementContext context)
+        {
+            var inits = Visit(context.forInitializer()).ToList();
+            var condition = (IExpression)Visit(context.expression()).SingleOrDefault();
+            var nextExpressions = Visit(context.forIterator()).Cast<IExpression>();
+            var body = (IStatement)Visit(context.embeddedStatement()).SingleOrDefault();
+
+            yield return new ForStatement(
+                context,
+                inits.OfType<VariableDeclaration>(),
+                inits.OfType<IExpression>(),
+                condition,
+                nextExpressions,
+                body);
+        }
+
+        public override IEnumerable<INode> VisitForeachStatement(TypescriptParser.ForeachStatementContext context)
+        {
+            yield return new ForeachStatement(
+                context,
+                new VariableDeclaration(context, context.identifier().GetText(), null, null),
+                (IExpression)Visit(context.expression()).SingleOrDefault(),
+                (IStatement)Visit(context.embeddedStatement()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitBreakStatement(TypescriptParser.BreakStatementContext context)
+        {
+            yield return new BreakStatement(context);
+        }
+
+        public override IEnumerable<INode> VisitContinueStatement(TypescriptParser.ContinueStatementContext context)
+        {
+            yield return new ContinueStatement(context);
+        }
+
+        public override IEnumerable<INode> VisitReturnStatement(TypescriptParser.ReturnStatementContext context)
+        {
+            yield return new ReturnStatement(
+                context,
+                (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitAssignment(TypescriptParser.AssignmentContext context)
+        {
+            yield return new AssignmentExpression(
+                context,
+                (IExpression)Visit(context.unaryExpression()).SingleOrDefault(),
+                (AssignmentOperator)Visit(context.assignmentOperator()).SingleOrDefault(),
+                (IExpression)Visit(context.expression()).SingleOrDefault());
+        }
+
+        public override IEnumerable<INode> VisitAssignmentOperator(TypescriptParser.AssignmentOperatorContext context)
+        {
+            yield return new AssignmentOperator(context, context.GetText());
+        }
+
+        public override IEnumerable<INode> VisitConditionalOrExpression(TypescriptParser.ConditionalOrExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.conditionalAndExpression(), context.OP_OR());
+        }
+
+        public override IEnumerable<INode> VisitConditionalAndExpression(TypescriptParser.ConditionalAndExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.inclusiveOrExpression(), context.OP_AND());
+        }
+
+        public override IEnumerable<INode> VisitInclusiveOrExpression(TypescriptParser.InclusiveOrExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.exclusiveOrExpression(), context.BITWISE_OR());
+        }
+
+        public override IEnumerable<INode> VisitExclusiveOrExpression(TypescriptParser.ExclusiveOrExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.andExpression(), context.CARET());
+        }
+
+        public override IEnumerable<INode> VisitAndExpression(TypescriptParser.AndExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.equalityExpression(), context.AMP());
+        }
+
+        public override IEnumerable<INode> VisitEqualityExpression(TypescriptParser.EqualityExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.castExpression(), context.OP_EQ().Concat(context.OP_NE()));
+        }
+
+        public override IEnumerable<INode> VisitCastExpression(TypescriptParser.CastExpressionContext context)
+        {
+            var @base = (IExpression)Visit(context.relationalExpression()).SingleOrDefault();
+            var type = (ITypeNode)Visit(context.type()).SingleOrDefault();
+            if (type == null)
+                yield return @base;
+            else
+                yield return new CastExpression(context, @base, type);
+        }
+
+        public override IEnumerable<INode> VisitRelationalExpression(TypescriptParser.RelationalExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.shiftExpression(), context.GT().Concat(context.LT()).Concat(context.OP_GE()).Concat(context.OP_LE()));
+        }
+
+        public override IEnumerable<INode> VisitShiftExpression(TypescriptParser.ShiftExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.additiveExpression(), context.OP_LEFT_SHIFT().Concat<IParseTree>(context.rightShift()));
+        }
+
+        public override IEnumerable<INode> VisitAdditiveExpression(TypescriptParser.AdditiveExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.multiplicativeExpression(), context.PLUS().Concat(context.MINUS()));
+        }
+
+        public override IEnumerable<INode> VisitMultiplicativeExpression(TypescriptParser.MultiplicativeExpressionContext context)
+        {
+            yield return CreateBinaryExpression(context, context.unaryExpression(), context.DIV().Concat(context.PERCENT()).Concat(context.STAR()));
+        }
+
+        public override IEnumerable<INode> VisitUnaryExpression(TypescriptParser.UnaryExpressionContext context)
+        {
+            if (context.primaryExpression() != null)
+                yield return (IExpression)Visit(context.primaryExpression()).SingleOrDefault();
+            else
+            {
+                var token = CreateToken(context.PLUS() ?? context.MINUS() ?? context.BANG() ?? context.TILDE() ?? context.OP_INC() ?? context.OP_DEC());
+                var @base = (IExpression)Visit(context.unaryExpression()).SingleOrDefault();
+                yield return new UnaryExpression(context, token, @base);
+            }
+        }
+
+        public override IEnumerable<INode> VisitPrimaryExpression(TypescriptParser.PrimaryExpressionContext context)
+        {
+            var @base = (IExpression)Visit(context.primaryExpressionStart()).SingleOrDefault();
+            var operations = context.bracketExpression()
+                .Concat<IParseTree>(context.memberAccess())
+                .Concat(context.methodInvocation())
+                .Concat(context.OP_INC())
+                .Concat(context.OP_DEC())
+                .OrderBy(x => x.GetTokens().First().Line)
+                .ThenBy(x => x.GetTokens().First().Column);
+
+            foreach (var operation in operations)
+            {
+                if (operation is TypescriptParser.BracketExpressionContext bracketExpression)
+                    @base = new ArrayIndexExpression(bracketExpression, @base, (IExpression)Visit(bracketExpression).SingleOrDefault());
+                else if (operation is TypescriptParser.MemberAccessContext memberAccess)
+                    @base = new MemberExpression(memberAccess, @base, memberAccess.identifier().GetText());
+                else if (operation is TypescriptParser.MethodInvocationContext methodInvocation)
+                {
+                    var genericTypeArguments = Visit((@base.Context as TypescriptParser.MemberAccessContext)?.typeArgumentList()).Cast<ITypeNode>();
+                    var arguments = Visit(methodInvocation.argumentList()).Cast<IExpression>();
+
+                    @base = new MethodInvocationExpression(
+                        methodInvocation,
+                        @base,
+                        genericTypeArguments,
+                        arguments);
+                }
+                else if (operation is ITerminalNode terminalNode)
+                {
+                    @base = new PosfixOperationExpression(terminalNode, @base, new Token(terminalNode));
+                }
+                else
+                    throw new Exception("Unexpected operation: " + operation);
+            }
+
+            yield return @base;
+        }
+
+        public override IEnumerable<INode> VisitLambdaExpression(TypescriptParser.LambdaExpressionContext context)
+        {
+            var body = Visit(context.anonymousFunctionBody()).SingleOrDefault();
+            yield return new LambdaExpression(
+                context,
+                Visit(context.anonymousFunctionSignature()).Cast<VariableDeclaration>(),
+                body as BlockStatement,
+                body as IExpression);
+        }
+
+        public override IEnumerable<INode> VisitExplicitAnonymousFunctionParameter(TypescriptParser.ExplicitAnonymousFunctionParameterContext context)
+        {
+            yield return new VariableDeclaration(
+                context,
+                context.identifier().GetText(),
+                (ITypeNode)Visit(context.type()).SingleOrDefault(),
+                null);
+        }
+
+        public override IEnumerable<INode> VisitImplicitAnonymousFunctionParameterList(TypescriptParser.ImplicitAnonymousFunctionParameterListContext context)
+        {
+            return context.identifier()
+                .Select(identifier =>
+                    new VariableDeclaration(
+                    identifier,
+                              identifier.GetText(),
+                    null,
+                    null));
+        }
+
+        public override IEnumerable<INode> VisitSimpleNameExpression(TypescriptParser.SimpleNameExpressionContext context)
+        {
+            yield return new SimpleNameExpression(context, context.identifier().GetText());
+        }
+
+        public override IEnumerable<INode> VisitThisReferenceExpression(TypescriptParser.ThisReferenceExpressionContext context)
+        {
+            yield return new ThisExpression(context);
+        }
+
+        public override IEnumerable<INode> VisitObjectCreation(TypescriptParser.ObjectCreationContext context)
+        {
+            yield return new ObjectCreationExpression(
+                context,
+                (ITypeNode)Visit(context.type()).SingleOrDefault(),
+                Visit(context.objectCreationExpression()).Cast<IExpression>());
+        }
+
+        public override IEnumerable<INode> VisitArrayCreationExpression(TypescriptParser.ArrayCreationExpressionContext context)
+        {
+            yield return new ArrayCreationExpression(
+                context,
+                Visit(context.expressionList()).Cast<IExpression>());
+        }
+
+        private IExpression CreateBinaryExpression(IParseTree context, IEnumerable<IParseTree> expressions, IEnumerable<IParseTree> tokens)
+        {
+            var subExpressions = expressions.SelectMany(Visit).Cast<IExpression>().ToArray();
+            var operators = tokens.Select(CreateToken).OrderBy(x => x.Line).ThenBy(x => x.Column).ToArray();
+
+            var previous = subExpressions[0];
+            for (int i = 1; i < subExpressions.Length; i++)
+            {
+                previous = new BinaryExpression(
+                    context,
+                    previous,
+                    operators[i - 1],
+                    subExpressions[i]);
+            }
+
+            return previous;
+        }
+
+        private Token CreateToken(IParseTree node)
+        {
+            return new Token(node);
+        }
+
+
+
+        public override IEnumerable<INode> VisitLiteral(TypescriptParser.LiteralContext context)
+        {
+            if (context.booleanLiteral() != null)
+                yield return new BooleanLiteral(context);
+            if (context.stringLiteral() != null)
+                yield return new StringLiteral(context);
+            if (context.INTEGER_LITERAL() != null)
+                yield return new NumberLiteral(context);
+            if (context.HEX_INTEGER_LITERAL() != null)
+            {
+                var hex = context.GetText();
+                var number = Convert.ToInt32(hex, 16);
+                yield return new NumberLiteral(context, number.ToString());
+            }
+            if (context.REAL_LITERAL() != null)
+                yield return new NumberLiteral(context);
+            if (context.NULL() != null)
+                yield return new NullLiteral(context);
+        }
+
+
+        public override IEnumerable<INode> VisitTypeList(TypescriptParser.TypeListContext context)
+        {
+            var subTypes = context.type().SelectMany(Visit).Cast<ITypeNode>().ToArray();
+            if (subTypes.Length == 1)
+                yield return subTypes[0];
+            else
+                yield return new TypeList(context, subTypes);
+        }
+
+        public override IEnumerable<INode> VisitReturnTypeList(TypescriptParser.ReturnTypeListContext context)
+        {
+            var subTypes = context.returnType().SelectMany(Visit).Cast<ITypeNode>().ToArray();
+            if (subTypes.Length == 1)
+                yield return subTypes[0];
+            else
+                yield return new TypeList(context, subTypes);
+        }
+
+        public override IEnumerable<INode> VisitType(TypescriptParser.TypeContext context)
+        {
+            var @base = (ITypeNode)Visit(context.baseType()).SingleOrDefault();
+            for (int i = 0; i < context.OPEN_BRACKET().Length; i++)
+            {
+                @base = new ArrayType(context, @base);
+            }
+
+            yield return @base;
+        }
+
+        public override IEnumerable<INode> VisitPrimitiveType(TypescriptParser.PrimitiveTypeContext context)
+        {
+            if (context.NUMBER() != null)
+                yield return new NumberType(context);
+            if (context.BOOL() != null)
+                yield return new BoolType(context);
+            if (context.STRING() != null)
+                yield return new StringType(context);
+        }
+
+        public override IEnumerable<INode> VisitModuleOrTypeName(TypescriptParser.ModuleOrTypeNameContext context)
+        {
+            yield return new ReferenceType(
+                context,
+                context.identifier().Select(CreateToken));
+        }
+
+        public override IEnumerable<INode> VisitReturnType(TypescriptParser.ReturnTypeContext context)
+        {
+            if (context.VOID() != null)
+                yield return new VoidType(context);
+            else
+                yield return Visit(context.type()).SingleOrDefault();
+        }
+
+        public override IEnumerable<INode> VisitFunctionType(TypescriptParser.FunctionTypeContext context)
+        {
+            yield return new FunctionType(
+                context,
+                Visit(context.formalParameterList()).Cast<VariableDeclaration>(),
+                (ITypeNode)Visit(context.returnTypeList()).SingleOrDefault()
+                );
+        }
+    }
+}

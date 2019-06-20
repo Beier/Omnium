@@ -12,6 +12,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         {
         }
 
+        public CompilationError(IParseTree context, string message, Exception innerException) : base(AddContextToMessage(context, message), innerException)
+        {
+        }
+
         private static string AddContextToMessage(IParseTree context, string message)
         {
             return $"{context.GetPositionString()}: {message}";

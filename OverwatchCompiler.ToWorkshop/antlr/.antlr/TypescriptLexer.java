@@ -24,7 +24,7 @@ public class TypescriptLexer extends Lexer {
 		SWITCH=36, THIS=37, THROW=38, TRUE=39, TRY=40, VAR=41, VOID=42, WHILE=43, 
 		NUMBER=44, SUPER=45, MODULE=46, OF=47, IMPORT=48, FUNCTION=49, CONSTRUCTOR=50, 
 		EXPORT=51, AS=52, IDENTIFIER=53, LITERAL_ACCESS=54, INTEGER_LITERAL=55, 
-		HEX_INTEGER_LITERAL=56, REAL_LITERAL=57, CHARACTER_LITERAL=58, REGULAR_STRING=59, 
+		HEX_INTEGER_LITERAL=56, REAL_LITERAL=57, REGULAR_STRING=58, SINGLE_QUOTE_STRING_LITERAL=59, 
 		OPEN_BRACE=60, CLOSE_BRACE=61, OPEN_BRACKET=62, CLOSE_BRACKET=63, OPEN_PARENS=64, 
 		CLOSE_PARENS=65, DOT=66, COMMA=67, COLON=68, SEMICOLON=69, PLUS=70, MINUS=71, 
 		STAR=72, DIV=73, PERCENT=74, AMP=75, BITWISE_OR=76, CARET=77, BANG=78, 
@@ -58,28 +58,29 @@ public class TypescriptLexer extends Lexer {
 		"THROW", "TRUE", "TRY", "VAR", "VOID", "WHILE", "NUMBER", "SUPER", "MODULE", 
 		"OF", "IMPORT", "FUNCTION", "CONSTRUCTOR", "EXPORT", "AS", "IDENTIFIER", 
 		"LITERAL_ACCESS", "INTEGER_LITERAL", "HEX_INTEGER_LITERAL", "REAL_LITERAL", 
-		"CHARACTER_LITERAL", "REGULAR_STRING", "OPEN_BRACE", "CLOSE_BRACE", "OPEN_BRACKET", 
-		"CLOSE_BRACKET", "OPEN_PARENS", "CLOSE_PARENS", "DOT", "COMMA", "COLON", 
-		"SEMICOLON", "PLUS", "MINUS", "STAR", "DIV", "PERCENT", "AMP", "BITWISE_OR", 
-		"CARET", "BANG", "TILDE", "ASSIGNMENT", "LT", "GT", "INTERR", "DOUBLE_COLON", 
-		"OP_COALESCING", "OP_INC", "OP_DEC", "OP_AND", "OP_OR", "OP_PTR", "OP_EQ", 
-		"OP_NE", "OP_LE", "OP_GE", "OP_ADD_ASSIGNMENT", "OP_SUB_ASSIGNMENT", "OP_MULT_ASSIGNMENT", 
-		"OP_DIV_ASSIGNMENT", "OP_MOD_ASSIGNMENT", "OP_AND_ASSIGNMENT", "OP_OR_ASSIGNMENT", 
-		"OP_XOR_ASSIGNMENT", "OP_LEFT_SHIFT", "OP_LEFT_SHIFT_ASSIGNMENT", "DIRECTIVE_WHITESPACES", 
-		"DIGITS", "DIRECTIVE_TRUE", "DIRECTIVE_FALSE", "DEFINE", "UNDEF", "DIRECTIVE_IF", 
-		"ELIF", "DIRECTIVE_ELSE", "ENDIF", "LINE", "ERROR", "WARNING", "REGION", 
-		"ENDREGION", "PRAGMA", "DIRECTIVE_DEFAULT", "DIRECTIVE_HIDDEN", "DIRECTIVE_OPEN_PARENS", 
-		"DIRECTIVE_CLOSE_PARENS", "DIRECTIVE_BANG", "DIRECTIVE_OP_EQ", "DIRECTIVE_OP_NE", 
-		"DIRECTIVE_OP_AND", "DIRECTIVE_OP_OR", "DIRECTIVE_STRING", "CONDITIONAL_SYMBOL", 
-		"DIRECTIVE_SINGLE_LINE_COMMENT", "DIRECTIVE_NEW_LINE", "TEXT", "TEXT_NEW_LINE", 
-		"InputCharacter", "NewLineCharacter", "IntegerTypeSuffix", "ExponentPart", 
-		"CommonCharacter", "SimpleEscapeSequence", "HexEscapeSequence", "NewLine", 
-		"Whitespace", "UnicodeClassZS", "IdentifierOrKeyword", "IdentifierStartCharacter", 
-		"IdentifierPartCharacter", "LetterCharacter", "DecimalDigitCharacter", 
-		"ConnectingCharacter", "CombiningCharacter", "FormattingCharacter", "UnicodeEscapeSequence", 
-		"HexDigit", "UnicodeClassLU", "UnicodeClassLL", "UnicodeClassLT", "UnicodeClassLM", 
-		"UnicodeClassLO", "UnicodeClassNL", "UnicodeClassMN", "UnicodeClassMC", 
-		"UnicodeClassCF", "UnicodeClassPC", "UnicodeClassND"
+		"REGULAR_STRING", "SINGLE_QUOTE_STRING_LITERAL", "OPEN_BRACE", "CLOSE_BRACE", 
+		"OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PARENS", "CLOSE_PARENS", "DOT", 
+		"COMMA", "COLON", "SEMICOLON", "PLUS", "MINUS", "STAR", "DIV", "PERCENT", 
+		"AMP", "BITWISE_OR", "CARET", "BANG", "TILDE", "ASSIGNMENT", "LT", "GT", 
+		"INTERR", "DOUBLE_COLON", "OP_COALESCING", "OP_INC", "OP_DEC", "OP_AND", 
+		"OP_OR", "OP_PTR", "OP_EQ", "OP_NE", "OP_LE", "OP_GE", "OP_ADD_ASSIGNMENT", 
+		"OP_SUB_ASSIGNMENT", "OP_MULT_ASSIGNMENT", "OP_DIV_ASSIGNMENT", "OP_MOD_ASSIGNMENT", 
+		"OP_AND_ASSIGNMENT", "OP_OR_ASSIGNMENT", "OP_XOR_ASSIGNMENT", "OP_LEFT_SHIFT", 
+		"OP_LEFT_SHIFT_ASSIGNMENT", "DIRECTIVE_WHITESPACES", "DIGITS", "DIRECTIVE_TRUE", 
+		"DIRECTIVE_FALSE", "DEFINE", "UNDEF", "DIRECTIVE_IF", "ELIF", "DIRECTIVE_ELSE", 
+		"ENDIF", "LINE", "ERROR", "WARNING", "REGION", "ENDREGION", "PRAGMA", 
+		"DIRECTIVE_DEFAULT", "DIRECTIVE_HIDDEN", "DIRECTIVE_OPEN_PARENS", "DIRECTIVE_CLOSE_PARENS", 
+		"DIRECTIVE_BANG", "DIRECTIVE_OP_EQ", "DIRECTIVE_OP_NE", "DIRECTIVE_OP_AND", 
+		"DIRECTIVE_OP_OR", "DIRECTIVE_STRING", "CONDITIONAL_SYMBOL", "DIRECTIVE_SINGLE_LINE_COMMENT", 
+		"DIRECTIVE_NEW_LINE", "TEXT", "TEXT_NEW_LINE", "InputCharacter", "NewLineCharacter", 
+		"IntegerTypeSuffix", "ExponentPart", "CommonCharacter", "SimpleEscapeSequence", 
+		"HexEscapeSequence", "NewLine", "Whitespace", "UnicodeClassZS", "IdentifierOrKeyword", 
+		"IdentifierStartCharacter", "IdentifierPartCharacter", "LetterCharacter", 
+		"DecimalDigitCharacter", "ConnectingCharacter", "CombiningCharacter", 
+		"FormattingCharacter", "UnicodeEscapeSequence", "HexDigit", "UnicodeClassLU", 
+		"UnicodeClassLL", "UnicodeClassLT", "UnicodeClassLM", "UnicodeClassLO", 
+		"UnicodeClassNL", "UnicodeClassMN", "UnicodeClassMC", "UnicodeClassCF", 
+		"UnicodeClassPC", "UnicodeClassND"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -108,17 +109,18 @@ public class TypescriptLexer extends Lexer {
 		"THROW", "TRUE", "TRY", "VAR", "VOID", "WHILE", "NUMBER", "SUPER", "MODULE", 
 		"OF", "IMPORT", "FUNCTION", "CONSTRUCTOR", "EXPORT", "AS", "IDENTIFIER", 
 		"LITERAL_ACCESS", "INTEGER_LITERAL", "HEX_INTEGER_LITERAL", "REAL_LITERAL", 
-		"CHARACTER_LITERAL", "REGULAR_STRING", "OPEN_BRACE", "CLOSE_BRACE", "OPEN_BRACKET", 
-		"CLOSE_BRACKET", "OPEN_PARENS", "CLOSE_PARENS", "DOT", "COMMA", "COLON", 
-		"SEMICOLON", "PLUS", "MINUS", "STAR", "DIV", "PERCENT", "AMP", "BITWISE_OR", 
-		"CARET", "BANG", "TILDE", "ASSIGNMENT", "LT", "GT", "INTERR", "DOUBLE_COLON", 
-		"OP_COALESCING", "OP_INC", "OP_DEC", "OP_AND", "OP_OR", "OP_PTR", "OP_EQ", 
-		"OP_NE", "OP_LE", "OP_GE", "OP_ADD_ASSIGNMENT", "OP_SUB_ASSIGNMENT", "OP_MULT_ASSIGNMENT", 
-		"OP_DIV_ASSIGNMENT", "OP_MOD_ASSIGNMENT", "OP_AND_ASSIGNMENT", "OP_OR_ASSIGNMENT", 
-		"OP_XOR_ASSIGNMENT", "OP_LEFT_SHIFT", "OP_LEFT_SHIFT_ASSIGNMENT", "DIRECTIVE_WHITESPACES", 
-		"DIGITS", "DEFINE", "UNDEF", "ELIF", "ENDIF", "LINE", "ERROR", "WARNING", 
-		"REGION", "ENDREGION", "PRAGMA", "DIRECTIVE_HIDDEN", "CONDITIONAL_SYMBOL", 
-		"DIRECTIVE_NEW_LINE", "TEXT"
+		"REGULAR_STRING", "SINGLE_QUOTE_STRING_LITERAL", "OPEN_BRACE", "CLOSE_BRACE", 
+		"OPEN_BRACKET", "CLOSE_BRACKET", "OPEN_PARENS", "CLOSE_PARENS", "DOT", 
+		"COMMA", "COLON", "SEMICOLON", "PLUS", "MINUS", "STAR", "DIV", "PERCENT", 
+		"AMP", "BITWISE_OR", "CARET", "BANG", "TILDE", "ASSIGNMENT", "LT", "GT", 
+		"INTERR", "DOUBLE_COLON", "OP_COALESCING", "OP_INC", "OP_DEC", "OP_AND", 
+		"OP_OR", "OP_PTR", "OP_EQ", "OP_NE", "OP_LE", "OP_GE", "OP_ADD_ASSIGNMENT", 
+		"OP_SUB_ASSIGNMENT", "OP_MULT_ASSIGNMENT", "OP_DIV_ASSIGNMENT", "OP_MOD_ASSIGNMENT", 
+		"OP_AND_ASSIGNMENT", "OP_OR_ASSIGNMENT", "OP_XOR_ASSIGNMENT", "OP_LEFT_SHIFT", 
+		"OP_LEFT_SHIFT_ASSIGNMENT", "DIRECTIVE_WHITESPACES", "DIGITS", "DEFINE", 
+		"UNDEF", "ELIF", "ENDIF", "LINE", "ERROR", "WARNING", "REGION", "ENDREGION", 
+		"PRAGMA", "DIRECTIVE_HIDDEN", "CONDITIONAL_SYMBOL", "DIRECTIVE_NEW_LINE", 
+		"TEXT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -224,10 +226,10 @@ public class TypescriptLexer extends Lexer {
 		"\3\64\3\64\3\64\3\64\3\64\3\64\3\64\3\65\3\65\3\65\3\66\5\66\u02a4\n\66"+
 		"\3\66\3\66\3\67\6\67\u02a9\n\67\r\67\16\67\u02aa\3\67\5\67\u02ae\n\67"+
 		"\3\67\3\67\5\67\u02b2\n\67\3\67\3\67\38\68\u02b7\n8\r8\168\u02b8\38\5"+
-		"8\u02bc\n8\39\39\39\69\u02c1\n9\r9\169\u02c2\39\59\u02c6\n9\3:\7:\u02c9"+
-		"\n:\f:\16:\u02cc\13:\3:\3:\6:\u02d0\n:\r:\16:\u02d1\3:\5:\u02d5\n:\3:"+
-		"\5:\u02d8\n:\3:\6:\u02db\n:\r:\16:\u02dc\3:\3:\3:\5:\u02e2\n:\5:\u02e4"+
-		"\n:\5:\u02e6\n:\3;\3;\3;\5;\u02eb\n;\3;\3;\3<\3<\3<\7<\u02f2\n<\f<\16"+
+		"8\u02bc\n8\39\39\39\69\u02c1\n9\r9\169\u02c2\3:\7:\u02c6\n:\f:\16:\u02c9"+
+		"\13:\3:\3:\6:\u02cd\n:\r:\16:\u02ce\3:\5:\u02d2\n:\3:\5:\u02d5\n:\3:\6"+
+		":\u02d8\n:\r:\16:\u02d9\3:\3:\3:\5:\u02df\n:\5:\u02e1\n:\5:\u02e3\n:\3"+
+		";\3;\3;\7;\u02e8\n;\f;\16;\u02eb\13;\3;\3;\3<\3<\3<\7<\u02f2\n<\f<\16"+
 		"<\u02f5\13<\3<\3<\3=\3=\3>\3>\3?\3?\3@\3@\3A\3A\3B\3B\3C\3C\3D\3D\3E\3"+
 		"E\3F\3F\3G\3G\3H\3H\3I\3I\3J\3J\3K\3K\3L\3L\3M\3M\3N\3N\3O\3O\3P\3P\3"+
 		"Q\3Q\3R\3R\3S\3S\3T\3T\3U\3U\3U\3V\3V\3V\3W\3W\3W\3X\3X\3X\3Y\3Y\3Y\3"+
@@ -288,8 +290,8 @@ public class TypescriptLexer extends Lexer {
 		"\2\u0119\2\u011b\2\u011d\2\u011f\2\u0121\2\u0123\2\u0125\2\u0127\2\u0129"+
 		"\2\u012b\2\u012d\2\u012f\2\u0131\2\u0133\2\u0135\2\u0137\2\u0139\2\u013b"+
 		"\2\u013d\2\u013f\2\u0141\2\u0143\2\u0145\2\u0147\2\u0149\2\u014b\2\u014d"+
-		"\2\u014f\2\5\2\3\4\32\3\2\62;\4\2ZZzz\b\2FFHHOOffhhoo\b\2\f\f\17\17))"+
-		"^^\u0087\u0087\u202a\u202b\b\2\f\f\17\17$$^^\u0087\u0087\u202a\u202b\7"+
+		"\2\u014f\2\5\2\3\4\32\3\2\62;\4\2ZZzz\b\2FFHHOOffhhoo\b\2\f\f\17\17$$"+
+		"^^\u0087\u0087\u202a\u202b\b\2\f\f\17\17))^^\u0087\u0087\u202a\u202b\7"+
 		"\2\f\f\17\17$$\u0087\u0087\u202a\u202b\6\2\f\f\17\17\u0087\u0087\u202a"+
 		"\u202b\4\2NNnn\4\2WWww\4\2GGgg\4\2--//\4\2\13\13\r\16\13\2\"\"\u00a2\u00a2"+
 		"\u1682\u1682\u1810\u1810\u2002\u2008\u200a\u200c\u2031\u2031\u2061\u2061"+
@@ -413,7 +415,7 @@ public class TypescriptLexer extends Lexer {
 		"\2\2S\u0252\3\2\2\2U\u0256\3\2\2\2W\u025a\3\2\2\2Y\u025f\3\2\2\2[\u0265"+
 		"\3\2\2\2]\u026c\3\2\2\2_\u0272\3\2\2\2a\u0279\3\2\2\2c\u027c\3\2\2\2e"+
 		"\u0283\3\2\2\2g\u028c\3\2\2\2i\u0298\3\2\2\2k\u029f\3\2\2\2m\u02a3\3\2"+
-		"\2\2o\u02a8\3\2\2\2q\u02b6\3\2\2\2s\u02bd\3\2\2\2u\u02e5\3\2\2\2w\u02e7"+
+		"\2\2o\u02a8\3\2\2\2q\u02b6\3\2\2\2s\u02bd\3\2\2\2u\u02e2\3\2\2\2w\u02e4"+
 		"\3\2\2\2y\u02ee\3\2\2\2{\u02f8\3\2\2\2}\u02fa\3\2\2\2\177\u02fc\3\2\2"+
 		"\2\u0081\u02fe\3\2\2\2\u0083\u0300\3\2\2\2\u0085\u0302\3\2\2\2\u0087\u0304"+
 		"\3\2\2\2\u0089\u0306\3\2\2\2\u008b\u0308\3\2\2\2\u008d\u030a\3\2\2\2\u008f"+
@@ -545,25 +547,25 @@ public class TypescriptLexer extends Lexer {
 		"\u02b9\3\2\2\2\u02b9\u02bb\3\2\2\2\u02ba\u02bc\5\u0117\u008b\2\u02bb\u02ba"+
 		"\3\2\2\2\u02bb\u02bc\3\2\2\2\u02bcr\3\2\2\2\u02bd\u02be\7\62\2\2\u02be"+
 		"\u02c0\t\3\2\2\u02bf\u02c1\5\u0139\u009c\2\u02c0\u02bf\3\2\2\2\u02c1\u02c2"+
-		"\3\2\2\2\u02c2\u02c0\3\2\2\2\u02c2\u02c3\3\2\2\2\u02c3\u02c5\3\2\2\2\u02c4"+
-		"\u02c6\5\u0117\u008b\2\u02c5\u02c4\3\2\2\2\u02c5\u02c6\3\2\2\2\u02c6t"+
-		"\3\2\2\2\u02c7\u02c9\t\2\2\2\u02c8\u02c7\3\2\2\2\u02c9\u02cc\3\2\2\2\u02ca"+
-		"\u02c8\3\2\2\2\u02ca\u02cb\3\2\2\2\u02cb\u02cd\3\2\2\2\u02cc\u02ca\3\2"+
-		"\2\2\u02cd\u02cf\7\60\2\2\u02ce\u02d0\t\2\2\2\u02cf\u02ce\3\2\2\2\u02d0"+
-		"\u02d1\3\2\2\2\u02d1\u02cf\3\2\2\2\u02d1\u02d2\3\2\2\2\u02d2\u02d4\3\2"+
-		"\2\2\u02d3\u02d5\5\u0119\u008c\2\u02d4\u02d3\3\2\2\2\u02d4\u02d5\3\2\2"+
-		"\2\u02d5\u02d7\3\2\2\2\u02d6\u02d8\t\4\2\2\u02d7\u02d6\3\2\2\2\u02d7\u02d8"+
-		"\3\2\2\2\u02d8\u02e6\3\2\2\2\u02d9\u02db\t\2\2\2\u02da\u02d9\3\2\2\2\u02db"+
-		"\u02dc\3\2\2\2\u02dc\u02da\3\2\2\2\u02dc\u02dd\3\2\2\2\u02dd\u02e3\3\2"+
-		"\2\2\u02de\u02e4\t\4\2\2\u02df\u02e1\5\u0119\u008c\2\u02e0\u02e2\t\4\2"+
-		"\2\u02e1\u02e0\3\2\2\2\u02e1\u02e2\3\2\2\2\u02e2\u02e4\3\2\2\2\u02e3\u02de"+
-		"\3\2\2\2\u02e3\u02df\3\2\2\2\u02e4\u02e6\3\2\2\2\u02e5\u02ca\3\2\2\2\u02e5"+
-		"\u02da\3\2\2\2\u02e6v\3\2\2\2\u02e7\u02ea\7)\2\2\u02e8\u02eb\n\5\2\2\u02e9"+
-		"\u02eb\5\u011b\u008d\2\u02ea\u02e8\3\2\2\2\u02ea\u02e9\3\2\2\2\u02eb\u02ec"+
-		"\3\2\2\2\u02ec\u02ed\7)\2\2\u02edx\3\2\2\2\u02ee\u02f3\7$\2\2\u02ef\u02f2"+
-		"\n\6\2\2\u02f0\u02f2\5\u011b\u008d\2\u02f1\u02ef\3\2\2\2\u02f1\u02f0\3"+
-		"\2\2\2\u02f2\u02f5\3\2\2\2\u02f3\u02f1\3\2\2\2\u02f3\u02f4\3\2\2\2\u02f4"+
-		"\u02f6\3\2\2\2\u02f5\u02f3\3\2\2\2\u02f6\u02f7\7$\2\2\u02f7z\3\2\2\2\u02f8"+
+		"\3\2\2\2\u02c2\u02c0\3\2\2\2\u02c2\u02c3\3\2\2\2\u02c3t\3\2\2\2\u02c4"+
+		"\u02c6\t\2\2\2\u02c5\u02c4\3\2\2\2\u02c6\u02c9\3\2\2\2\u02c7\u02c5\3\2"+
+		"\2\2\u02c7\u02c8\3\2\2\2\u02c8\u02ca\3\2\2\2\u02c9\u02c7\3\2\2\2\u02ca"+
+		"\u02cc\7\60\2\2\u02cb\u02cd\t\2\2\2\u02cc\u02cb\3\2\2\2\u02cd\u02ce\3"+
+		"\2\2\2\u02ce\u02cc\3\2\2\2\u02ce\u02cf\3\2\2\2\u02cf\u02d1\3\2\2\2\u02d0"+
+		"\u02d2\5\u0119\u008c\2\u02d1\u02d0\3\2\2\2\u02d1\u02d2\3\2\2\2\u02d2\u02d4"+
+		"\3\2\2\2\u02d3\u02d5\t\4\2\2\u02d4\u02d3\3\2\2\2\u02d4\u02d5\3\2\2\2\u02d5"+
+		"\u02e3\3\2\2\2\u02d6\u02d8\t\2\2\2\u02d7\u02d6\3\2\2\2\u02d8\u02d9\3\2"+
+		"\2\2\u02d9\u02d7\3\2\2\2\u02d9\u02da\3\2\2\2\u02da\u02e0\3\2\2\2\u02db"+
+		"\u02e1\t\4\2\2\u02dc\u02de\5\u0119\u008c\2\u02dd\u02df\t\4\2\2\u02de\u02dd"+
+		"\3\2\2\2\u02de\u02df\3\2\2\2\u02df\u02e1\3\2\2\2\u02e0\u02db\3\2\2\2\u02e0"+
+		"\u02dc\3\2\2\2\u02e1\u02e3\3\2\2\2\u02e2\u02c7\3\2\2\2\u02e2\u02d7\3\2"+
+		"\2\2\u02e3v\3\2\2\2\u02e4\u02e9\7$\2\2\u02e5\u02e8\n\5\2\2\u02e6\u02e8"+
+		"\5\u011b\u008d\2\u02e7\u02e5\3\2\2\2\u02e7\u02e6\3\2\2\2\u02e8\u02eb\3"+
+		"\2\2\2\u02e9\u02e7\3\2\2\2\u02e9\u02ea\3\2\2\2\u02ea\u02ec\3\2\2\2\u02eb"+
+		"\u02e9\3\2\2\2\u02ec\u02ed\7$\2\2\u02edx\3\2\2\2\u02ee\u02f3\7)\2\2\u02ef"+
+		"\u02f2\n\6\2\2\u02f0\u02f2\5\u011b\u008d\2\u02f1\u02ef\3\2\2\2\u02f1\u02f0"+
+		"\3\2\2\2\u02f2\u02f5\3\2\2\2\u02f3\u02f1\3\2\2\2\u02f3\u02f4\3\2\2\2\u02f4"+
+		"\u02f6\3\2\2\2\u02f5\u02f3\3\2\2\2\u02f6\u02f7\7)\2\2\u02f7z\3\2\2\2\u02f8"+
 		"\u02f9\7}\2\2\u02f9|\3\2\2\2\u02fa\u02fb\7\177\2\2\u02fb~\3\2\2\2\u02fc"+
 		"\u02fd\7]\2\2\u02fd\u0080\3\2\2\2\u02fe\u02ff\7_\2\2\u02ff\u0082\3\2\2"+
 		"\2\u0300\u0301\7*\2\2\u0301\u0084\3\2\2\2\u0302\u0303\7+\2\2\u0303\u0086"+
@@ -742,7 +744,7 @@ public class TypescriptLexer extends Lexer {
 		"\u014a\3\2\2\2\u0524\u0525\t\27\2\2\u0525\u014c\3\2\2\2\u0526\u0527\t"+
 		"\30\2\2\u0527\u014e\3\2\2\2\u0528\u0529\t\31\2\2\u0529\u0150\3\2\2\2:"+
 		"\2\3\4\u015b\u0166\u0170\u0172\u02a3\u02aa\u02ad\u02b1\u02b8\u02bb\u02c2"+
-		"\u02c5\u02ca\u02d1\u02d4\u02d7\u02dc\u02e1\u02e3\u02e5\u02ea\u02f1\u02f3"+
+		"\u02c7\u02ce\u02d1\u02d4\u02d9\u02de\u02e0\u02e2\u02e7\u02e9\u02f1\u02f3"+
 		"\u036b\u0372\u03c5\u03d5\u03e4\u03f7\u0407\u044b\u045d\u046b\u047a\u047e"+
 		"\u0481\u0485\u048a\u048f\u04a7\u04c2\u04c7\u04cb\u04d3\u04d8\u04df\u04e8"+
 		"\u04ec\u04f0\u04f5\u04f9\u050f\u0512\26\2\4\2\2\3\2\2\5\2\t)\2\t\23\2"+

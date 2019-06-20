@@ -42,7 +42,7 @@ locals[
 //B.2.1 Basic concepts
 
 moduleOrTypeName 
-	: (identifier typeArgumentList?) ('.' identifier typeArgumentList?)*
+	: (identifier) ('.' identifier)*
 	;
 
 //B.2.2 Types
@@ -96,7 +96,7 @@ expression
 
 nonAssignmentExpression
 	: lambdaExpression
-	| conditionalExpression
+	| conditionalOrExpression
 	;
 
 assignment
@@ -105,10 +105,6 @@ assignment
 
 assignmentOperator
 	: '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | rightShiftAssignment
-	;
-
-conditionalExpression
-	: conditionalOrExpression ('?' expression ':' expression)?
 	;
 
 conditionalOrExpression
@@ -162,6 +158,8 @@ unaryExpression
 	| '-' unaryExpression
 	| BANG unaryExpression
 	| '~' unaryExpression
+	| '++' unaryExpression
+	| '--' unaryExpression
 	;
 
 primaryExpression  // Null-conditional operators C# 6: https://msdn.microsoft.com/en-us/library/dn986595.aspx
@@ -177,7 +175,6 @@ primaryExpressionStart
 	: literal                                   #literalExpression
 	| identifier typeArgumentList?            #simpleNameExpression
 	| OPEN_PARENS expression CLOSE_PARENS       #parenthesisExpressions
-	| LITERAL_ACCESS                            #literalAccessExpression
 	| THIS                                      #thisReferenceExpression
 	| NEW type objectCreationExpression                       #objectCreation
 	| '[' expressionList? ']' #arrayCreationExpression
@@ -192,7 +189,7 @@ memberAccess
 	;
 
 bracketExpression
-	: '[' expressionList ']'
+	: '[' expression ']'
 	;
 
 lambdaExpression
@@ -202,8 +199,8 @@ lambdaExpression
 anonymousFunctionSignature
 	: OPEN_PARENS CLOSE_PARENS
 	| OPEN_PARENS explicitAnonymousFunctionParameterList CLOSE_PARENS
-	| OPEN_PARENS implicitAnonymousFunctionParameterList CLOSE_PARENS
-	| identifier
+	//| OPEN_PARENS implicitAnonymousFunctionParameterList CLOSE_PARENS
+	//| identifier
 	;
 
 explicitAnonymousFunctionParameterList
@@ -290,28 +287,6 @@ forIterator
 	: expression (','  expression)*
 	;
 
-catchClauses
-	: specificCatchClause (specificCatchClause)* generalCatchClause?
-	| generalCatchClause
-	;
-
-specificCatchClause
-	: CATCH OPEN_PARENS classType identifier? CLOSE_PARENS block
-	;
-
-generalCatchClause
-	: CATCH block
-	;
-
-finallyClause
-	: FINALLY block
-	;
-
-resourceAcquisition
-	: variableDeclaration
-	| expression
-	;
-
 //B.2.6 modules;
 moduleDeclaration
 	: MODULE identifier moduleBody ';'?
@@ -330,8 +305,12 @@ moduleMemberDeclaration
 	| typeDeclaration
 	| variableDeclaration ';'
 	| nativeMethodInvocationStatement
+	| functionDeclaration
 	;
 
+functionDeclaration
+	: EXPORT? FUNCTION methodDeclaration 
+	;
 
 typeDeclaration
 	: allMemberModifiers? (classDefinition | enumDefinition)
@@ -365,10 +344,10 @@ allMemberModifiers
 
 allMemberModifier
 	: PUBLIC
-	| PROTECTED
+	//| PROTECTED
 	| PRIVATE
 	| READONLY
-	| ABSTRACT
+	//| ABSTRACT
 	| STATIC
 	| EXPORT
 	;
@@ -382,7 +361,8 @@ commonMemberDeclaration
 typedMemberDeclaration
 	: 
 	  ( methodDeclaration
-	  | getterSetterDeclaration
+	  | getterDeclaration
+	  | setterDeclaration
 	  | classField ';'
 	  )
 	;
@@ -398,10 +378,6 @@ returnTypeList
 returnType
 	: type
 	| VOID
-	;
-
-memberName
-	: moduleOrTypeName
 	;
 
 methodBody
@@ -468,7 +444,6 @@ literal
 	| INTEGER_LITERAL
 	| HEX_INTEGER_LITERAL
 	| REAL_LITERAL
-	| CHARACTER_LITERAL
 	| NULL
 	;
 
@@ -479,6 +454,7 @@ booleanLiteral
 
 stringLiteral
 	: REGULAR_STRING
+	| SINGLE_QUOTE_STRING_LITERAL
 	;
 
 // -------------------- extra rules for modularization --------------------------------
@@ -496,12 +472,16 @@ constructorDeclaration
 	: CONSTRUCTOR OPEN_PARENS formalParameterList? CLOSE_PARENS body
 	;
 
-methodDeclaration // lamdas from C# 6
-	: identifier typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS (':' returnTypeList)? methodBody
+methodDeclaration
+	: identifier typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS (':' returnTypeList) methodBody
 	;
 
-getterSetterDeclaration // lamdas from C# 6
-	: (GET | SET) identifier OPEN_PARENS CLOSE_PARENS (':' returnTypeList)? methodBody
+getterDeclaration
+	: GET identifier OPEN_PARENS CLOSE_PARENS (':' returnTypeList)? methodBody
+	;
+
+setterDeclaration
+	: SET identifier OPEN_PARENS formalParameterList CLOSE_PARENS (':' returnTypeList)? methodBody
 	;
 
 argDeclaration

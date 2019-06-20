@@ -201,16 +201,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitAssignmentOperator([NotNull] TypescriptParser.AssignmentOperatorContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.conditionalExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterConditionalExpression([NotNull] TypescriptParser.ConditionalExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.conditionalExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitConditionalExpression([NotNull] TypescriptParser.ConditionalExpressionContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.conditionalOrExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -386,18 +376,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitParenthesisExpressions([NotNull] TypescriptParser.ParenthesisExpressionsContext context);
-	/// <summary>
-	/// Enter a parse tree produced by the <c>literalAccessExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterLiteralAccessExpression([NotNull] TypescriptParser.LiteralAccessExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>literalAccessExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitLiteralAccessExpression([NotNull] TypescriptParser.LiteralAccessExpressionContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>thisReferenceExpression</c>
 	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
@@ -619,18 +597,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitWhileStatement([NotNull] TypescriptParser.WhileStatementContext context);
 	/// <summary>
-	/// Enter a parse tree produced by the <c>doStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterDoStatement([NotNull] TypescriptParser.DoStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>doStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitDoStatement([NotNull] TypescriptParser.DoStatementContext context);
-	/// <summary>
 	/// Enter a parse tree produced by the <c>forStatement</c>
 	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
 	/// </summary>
@@ -781,56 +747,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitForIterator([NotNull] TypescriptParser.ForIteratorContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.catchClauses"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCatchClauses([NotNull] TypescriptParser.CatchClausesContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.catchClauses"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCatchClauses([NotNull] TypescriptParser.CatchClausesContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.specificCatchClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSpecificCatchClause([NotNull] TypescriptParser.SpecificCatchClauseContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.specificCatchClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSpecificCatchClause([NotNull] TypescriptParser.SpecificCatchClauseContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.generalCatchClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterGeneralCatchClause([NotNull] TypescriptParser.GeneralCatchClauseContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.generalCatchClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitGeneralCatchClause([NotNull] TypescriptParser.GeneralCatchClauseContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.finallyClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterFinallyClause([NotNull] TypescriptParser.FinallyClauseContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.finallyClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitFinallyClause([NotNull] TypescriptParser.FinallyClauseContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.resourceAcquisition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterResourceAcquisition([NotNull] TypescriptParser.ResourceAcquisitionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.resourceAcquisition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitResourceAcquisition([NotNull] TypescriptParser.ResourceAcquisitionContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.moduleDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -870,6 +786,16 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitModuleMemberDeclaration([NotNull] TypescriptParser.ModuleMemberDeclarationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.functionDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFunctionDeclaration([NotNull] TypescriptParser.FunctionDeclarationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.functionDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFunctionDeclaration([NotNull] TypescriptParser.FunctionDeclarationContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.typeDeclaration"/>.
 	/// </summary>
@@ -1000,16 +926,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitReturnType([NotNull] TypescriptParser.ReturnTypeContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.memberName"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterMemberName([NotNull] TypescriptParser.MemberNameContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.memberName"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitMemberName([NotNull] TypescriptParser.MemberNameContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.methodBody"/>.
 	/// </summary>
@@ -1211,15 +1127,25 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitMethodDeclaration([NotNull] TypescriptParser.MethodDeclarationContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.getterSetterDeclaration"/>.
+	/// Enter a parse tree produced by <see cref="TypescriptParser.getterDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterGetterSetterDeclaration([NotNull] TypescriptParser.GetterSetterDeclarationContext context);
+	void EnterGetterDeclaration([NotNull] TypescriptParser.GetterDeclarationContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.getterSetterDeclaration"/>.
+	/// Exit a parse tree produced by <see cref="TypescriptParser.getterDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitGetterSetterDeclaration([NotNull] TypescriptParser.GetterSetterDeclarationContext context);
+	void ExitGetterDeclaration([NotNull] TypescriptParser.GetterDeclarationContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.setterDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSetterDeclaration([NotNull] TypescriptParser.SetterDeclarationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.setterDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSetterDeclaration([NotNull] TypescriptParser.SetterDeclarationContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.argDeclaration"/>.
 	/// </summary>

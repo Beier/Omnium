@@ -134,12 +134,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitAssignmentOperator([NotNull] TypescriptParser.AssignmentOperatorContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.conditionalExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitConditionalExpression([NotNull] TypescriptParser.ConditionalExpressionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.conditionalOrExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -244,13 +238,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitParenthesisExpressions([NotNull] TypescriptParser.ParenthesisExpressionsContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>literalAccessExpression</c>
-	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitLiteralAccessExpression([NotNull] TypescriptParser.LiteralAccessExpressionContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>thisReferenceExpression</c>
 	/// labeled alternative in <see cref="TypescriptParser.primaryExpressionStart"/>.
@@ -382,13 +369,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitWhileStatement([NotNull] TypescriptParser.WhileStatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>doStatement</c>
-	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDoStatement([NotNull] TypescriptParser.DoStatementContext context);
-	/// <summary>
 	/// Visit a parse tree produced by the <c>forStatement</c>
 	/// labeled alternative in <see cref="TypescriptParser.simpleEmbeddedStatement"/>.
 	/// </summary>
@@ -478,36 +458,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitForIterator([NotNull] TypescriptParser.ForIteratorContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.catchClauses"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCatchClauses([NotNull] TypescriptParser.CatchClausesContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.specificCatchClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSpecificCatchClause([NotNull] TypescriptParser.SpecificCatchClauseContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.generalCatchClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitGeneralCatchClause([NotNull] TypescriptParser.GeneralCatchClauseContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.finallyClause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitFinallyClause([NotNull] TypescriptParser.FinallyClauseContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.resourceAcquisition"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitResourceAcquisition([NotNull] TypescriptParser.ResourceAcquisitionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.moduleDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -531,6 +481,12 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitModuleMemberDeclaration([NotNull] TypescriptParser.ModuleMemberDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.functionDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFunctionDeclaration([NotNull] TypescriptParser.FunctionDeclarationContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.typeDeclaration"/>.
 	/// </summary>
@@ -609,12 +565,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitReturnType([NotNull] TypescriptParser.ReturnTypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.memberName"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMemberName([NotNull] TypescriptParser.MemberNameContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.methodBody"/>.
 	/// </summary>
@@ -736,11 +686,17 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitMethodDeclaration([NotNull] TypescriptParser.MethodDeclarationContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.getterSetterDeclaration"/>.
+	/// Visit a parse tree produced by <see cref="TypescriptParser.getterDeclaration"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitGetterSetterDeclaration([NotNull] TypescriptParser.GetterSetterDeclarationContext context);
+	Result VisitGetterDeclaration([NotNull] TypescriptParser.GetterDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.setterDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSetterDeclaration([NotNull] TypescriptParser.SetterDeclarationContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.argDeclaration"/>.
 	/// </summary>

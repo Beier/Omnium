@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using OverwatchCompiler.ToWorkshop.ast;
+using OverwatchCompiler.ToWorkshop.ast.declarations;
 
 namespace OverwatchCompiler.ToWorkshop
 {
@@ -10,6 +13,110 @@ namespace OverwatchCompiler.ToWorkshop
     {
         static void Main(string[] args)
         {
+            BuildVoidWalker();
+        }
+
+        private static void BuildVoidWalker()
+        {
+            var nodeTypes =
+                Assembly
+                    .GetAssembly(typeof(INode))
+                    .GetTypes()
+                    .Where(x => typeof(INode).IsAssignableFrom(x))
+                    .OrderBy(DistanceToINode)
+                    .ToList();
+
+
+            var builder = new StringBuilder();
+            builder.AppendLine("using System.Collections.Generic;");
+            builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast;");
+            builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.declarations;");
+            builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.expressions;");
+            builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.expressions.literals;");
+            builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.statements;");
+            builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.types;");
+            builder.AppendLine();
+            builder.AppendLine("namespace OverwatchCompiler.ToWorkshop.compiler");
+            builder.AppendLine("{");
+            builder.AppendLine("    public abstract class TreeVoidWalker");
+            builder.AppendLine("    {");
+            builder.AppendLine("        public readonly List<CompilationError> Errors = new List<CompilationError>();");
+            builder.AppendLine();
+            builder.AppendLine("        public virtual void Visit(INode node)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            if (node == null)");
+            builder.AppendLine("                return;");
+
+            foreach (var nodeType in nodeTypes)
+            {
+                var typeName = nodeType.Name;
+                builder.AppendLine($"            if (node is {typeName})");
+                builder.AppendLine($"                Enter{typeName}(({typeName}) node);");
+            }
+
+            builder.AppendLine("            foreach (var child in node.Children)");
+            builder.AppendLine("                Visit(child);");
+
+            foreach (var nodeType in nodeTypes)
+            {
+                var typeName = nodeType.Name;
+                builder.AppendLine($"            if (node is {typeName})");
+                builder.AppendLine($"                Exit{typeName}(({typeName}) node);");
+            }
+
+            builder.AppendLine("        }");
+            builder.AppendLine();
+
+            foreach (var nodeType in nodeTypes)
+            {
+                var typeName = nodeType.Name;
+                var variableName = typeName[0].ToString().ToLower() + typeName.Substring(1);
+                builder.AppendLine($"        public virtual void Enter{typeName}({typeName} {variableName}) {{ }}");
+                builder.AppendLine($"        public virtual void Exit{typeName}({typeName} {variableName}) {{ }}");
+            }
+
+
+            builder.AppendLine("    }");
+            builder.AppendLine("}");
+
+            var result = builder.ToString();
+            Console.WriteLine(result);
+        }
+
+        private static int DistanceToINode(Type type)
+        {
+            if (type == typeof(INode))
+                return 0;
+            if (!typeof(INode).IsAssignableFrom(type))
+                return -1;
+
+            return GetUniqueSuperTypes(type)
+                       .Select(DistanceToINode)
+                       .Max() + 1;
+        }
+
+        private static IEnumerable<Type> GetUniqueSuperTypes(Type type)
+        {
+            var superTypes = GetSuperTypes(type).ToList();
+
+            foreach (var superDuberType in superTypes.SelectMany(GetSuperTypes).ToList())
+            {
+                superTypes.Remove(superDuberType);
+            }
+
+            return superTypes;
+        }
+
+        private static IEnumerable<Type> GetSuperTypes(Type type)
+        {
+            if (type.BaseType != null && type.BaseType != typeof(object))
+                yield return type.BaseType;
+            foreach (var @interface in type.GetInterfaces())
+            {
+                yield return @interface;
+            }
+
         }
     }
+
 }
