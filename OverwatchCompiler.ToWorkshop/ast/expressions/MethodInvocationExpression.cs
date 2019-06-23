@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.types;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
     public class MethodInvocationExpression : Expression
     {
-        public readonly ChildProperty<IExpression> Base;
-        public readonly ChildList<ITypeNode> GenericTypes;
-        public readonly ChildList<IExpression> Arguments;
+        public IExpression Base => Children.OfType<IExpression>().First();
+        public IEnumerable<ITypeNode> GenericTypes => Children.OfType<ITypeNode>();
+        public IEnumerable<IExpression> Arguments => Children.OfType<IExpression>().Skip(1);
+        public MethodDeclaration Target => Base is SimpleNameExpression simpleNameExpression ? simpleNameExpression.Declaration as MethodDeclaration
+            : Base is MemberExpression memberExpression ? memberExpression.Declaration as MethodDeclaration
+            : null;
 
-        public MethodInvocationExpression(IParseTree context, IExpression @base, IEnumerable<ITypeNode> genericTypes, IEnumerable<IExpression> arguments) : base(context)
+        public MethodInvocationExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Base = new ChildProperty<IExpression>(this, @base);
-            GenericTypes = new ChildList<ITypeNode>(this);
-            GenericTypes.AddRange(genericTypes);
-            Arguments = new ChildList<IExpression>(this);
-            Arguments.AddRange(arguments);
         }
     }
 }

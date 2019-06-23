@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using Antlr4.Runtime.Tree;
 
 namespace OverwatchCompiler.ToWorkshop.ast.declarations
 {
@@ -6,7 +7,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
     {
         public string Name { get; set; }
 
-        public ModuleDeclaration(IParseTree context, string name) : base(context)
+        public ModuleDeclaration(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)
         {
             Name = name;
         }

@@ -7,12 +7,10 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public class TypeList : Node, ITypeNode
     {
-        public readonly ChildList<ITypeNode> SubTypes;
+        public IEnumerable<ITypeNode> SubTypes => Children.OfType<ITypeNode>();
 
-        public TypeList(IParseTree context, IEnumerable<ITypeNode> subTypes) : base(context)
+        public TypeList(IParseTree context, IEnumerable<ITypeNode> subTypes) : base(context, subTypes)
         {
-            SubTypes = new ChildList<ITypeNode>(this);
-            SubTypes.AddRange(subTypes);
         }
 
         public override string ToString()

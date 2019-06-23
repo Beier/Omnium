@@ -181,17 +181,20 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ToWorkshop\Data\Test1\Input.ts">
+    <Content Include="ToWorkshop\Data\CountShots\ExpectedOutput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ToWorkshop\Data\HelloWorld\Input.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ToWorkshop\Data\Test1\ExpectedOutput.txt">
+    <Content Include="ToWorkshop\Data\HelloWorld\ExpectedOutput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ToWorkshop\Data\Test2\Input.ts">
+    <Content Include="ToWorkshop\Data\CountShots\Input.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

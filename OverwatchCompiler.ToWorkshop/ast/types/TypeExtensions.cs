@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.compiler;
 using OverwatchCompiler.ToWorkshop.extensions;
 
@@ -7,6 +8,13 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public static class TypeExtensions
     {
+        public static ITypeNode Wrap(this IType type, IParseTree context)
+        {
+            if (type is ITypeNode typeNode)
+                return typeNode;
+            return new TypeNodeWrapper(context, type);
+        }
+
         public static bool IsEquivalentTo(this IType type1, IType type2)
         {
             if (type1 is TypeNodeWrapper wrapper1)
@@ -30,7 +38,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
                     var method2 = (AnonymousMethodType)type2;
                     throw new NotImplementedException();
                 case ArrayType _:
-                    return ((ArrayType)type1).Base.Value.IsEquivalentTo(((ArrayType)type2).Base.Value);
+                    return ((ArrayType)type1).Base.IsEquivalentTo(((ArrayType)type2).Base);
                 case ReferenceType _:
                     return ((ReferenceType)type1).Declaration == ((ReferenceType)type2).Declaration;
                 case StaticReference _:
@@ -75,8 +83,8 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
             if (fromType.IsEquivalentTo(toType))
                 return true;
             if (fromType is AnonymousMethodType anonymousMethodFromType && toType is FunctionType functionToType)
-                return anonymousMethodFromType.ReturnType.IsEquivalentTo(functionToType.ReturnType.Value)
-                       && anonymousMethodFromType.Expression.Parameters.Select(x => x.Type.Value).Zip(functionToType.Parameters.Select(x => x.Type.Value), (x, y) => x.IsEquivalentTo(y)).All(x => x);
+                return anonymousMethodFromType.ReturnType.IsEquivalentTo(functionToType.ReturnType)
+                       && anonymousMethodFromType.Expression.Variables.Select(x => x.Type).Zip(functionToType.Parameters.Select(x => x.Type), (x, y) => x.IsEquivalentTo(y)).All(x => x);
             return false;
         }
 

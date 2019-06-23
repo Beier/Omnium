@@ -146,24 +146,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitConditionalAndExpression([NotNull] TypescriptParser.ConditionalAndExpressionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitAndExpression([NotNull] TypescriptParser.AndExpressionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.equalityExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -181,12 +163,6 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitRelationalExpression([NotNull] TypescriptParser.RelationalExpressionContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.additiveExpression"/>.
 	/// </summary>

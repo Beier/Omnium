@@ -221,36 +221,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitConditionalAndExpression([NotNull] TypescriptParser.ConditionalAndExpressionContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterAndExpression([NotNull] TypescriptParser.AndExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitAndExpression([NotNull] TypescriptParser.AndExpressionContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.equalityExpression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -280,16 +250,6 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitRelationalExpression([NotNull] TypescriptParser.RelationalExpressionContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.additiveExpression"/>.
 	/// </summary>

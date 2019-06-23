@@ -25,6 +25,12 @@ namespace OverwatchCompiler.ToWorkshop.extensions
             }
         }
 
+        public static IEnumerable<T> NotOfType<T>(this IEnumerable<T> enumerable, params Type[] types)
+        {
+            return enumerable.Where(x => !types.Any(t => t.IsInstanceOfType(x)));
+        }
+
+
         public static IEnumerable<TRet> Select<TIn, TRet, T1, T2>(this IEnumerable<TIn> items, Func<T1, TRet> f1, Func<T2, TRet> f2) where T1 : TIn where T2 : TIn
         {
             return items.Select(item =>
@@ -35,6 +41,24 @@ namespace OverwatchCompiler.ToWorkshop.extensions
                     return f2(t2);
                 throw new Exception("Unexpected alternative: " + item?.GetType().FullName);
             });
+        }
+
+        public static int IndexOf<T>(this IEnumerable<T> enumerable, T item)
+        {
+            var index = 0;
+            foreach (var e in enumerable)
+            {
+                if (e.Equals(item))
+                    return index;
+                index++;
+            }
+
+            return -1;
+        }
+
+        public static T AtIndex<T>(this IEnumerable<T> enumerable, int index)
+        {
+            return enumerable.Skip(index).First();
         }
 
         public static IEnumerable<TRet> Select<TIn, TRet, T1, T2, T3, T4, T5>(
@@ -66,5 +90,11 @@ namespace OverwatchCompiler.ToWorkshop.extensions
             });
         }
 
+        public static IEnumerable<T> DistinctBy<T, K>(this IEnumerable<T> enumerable, Func<T, K> selector)
+        {
+            return enumerable
+                .GroupBy(selector)
+                .Select(x => x.First());
+        }
     }
 }

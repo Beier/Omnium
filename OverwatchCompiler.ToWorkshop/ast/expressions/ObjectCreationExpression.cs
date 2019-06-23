@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.types;
 
@@ -6,14 +7,11 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
     public class ObjectCreationExpression : Expression
     {
-        public readonly ChildProperty<ITypeNode> CreatedType;
-        public readonly ChildList<IExpression> Arguments;
+        public ITypeNode CreatedType => Children.OfType<ITypeNode>().SingleOrDefault();
+        public IEnumerable<IExpression> Arguments => Children.OfType<IExpression>();
 
-        public ObjectCreationExpression(IParseTree context, ITypeNode createdType, IEnumerable<IExpression> arguments) : base(context)
+        public ObjectCreationExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            CreatedType = new ChildProperty<ITypeNode>(this, createdType);
-            Arguments = new ChildList<IExpression>(this);
-            Arguments.AddRange(arguments);
         }
     }
 }

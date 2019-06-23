@@ -7,7 +7,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public class MethodReferenceType : IType
     {
-        public MethodDeclaration Declaration { get; }
+        public MethodDeclaration Declaration { get; set; }
 
         public MethodReferenceType(MethodDeclaration declaration)
         {

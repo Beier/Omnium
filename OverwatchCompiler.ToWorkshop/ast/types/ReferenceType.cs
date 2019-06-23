@@ -9,19 +9,16 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public class ReferenceType : Node, ITypeNode
     {
-        public readonly ChildList<Token> Identifiers;
+        public IEnumerable<Token> Identifiers => Children.OfType<Token>();
         public INode Declaration { get; set; }
 
         public ReferenceType(IParseTree context, INode declaration) : base(context)
         {
-            Identifiers = new ChildList<Token>(this);
             Declaration = declaration;
         }
 
-        public ReferenceType(IParseTree context, IEnumerable<Token> identifiers) : base(context)
+        public ReferenceType(IParseTree context, IEnumerable<Token> identifiers) : base(context, identifiers)
         {
-            Identifiers = new ChildList<Token>(this);
-            Identifiers.AddRange(identifiers);
         }
 
         public override string ToString()

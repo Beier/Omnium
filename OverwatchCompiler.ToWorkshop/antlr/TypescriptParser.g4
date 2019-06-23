@@ -104,7 +104,7 @@ assignment
 	;
 
 assignmentOperator
-	: '=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | rightShiftAssignment
+	: '=' | '+=' | '-=' | '*=' | '/=' | '%=' //| '&=' | '|=' | '^=' | '<<=' | rightShiftAssignment
 	;
 
 conditionalOrExpression
@@ -112,20 +112,20 @@ conditionalOrExpression
 	;
 
 conditionalAndExpression
-	: inclusiveOrExpression (OP_AND inclusiveOrExpression)*
+	: equalityExpression (OP_AND equalityExpression)*
 	;
 
-inclusiveOrExpression
-	: exclusiveOrExpression ('|' exclusiveOrExpression)*
-	;
+// inclusiveOrExpression
+// 	: exclusiveOrExpression ('|' exclusiveOrExpression)*
+// 	;
 
-exclusiveOrExpression
-	: andExpression ('^' andExpression)*
-	;
+// exclusiveOrExpression
+// 	: andExpression ('^' andExpression)*
+// 	;
 
-andExpression
-	: equalityExpression ('&' equalityExpression)*
-	;
+// andExpression
+// 	: equalityExpression ('&' equalityExpression)*
+// 	;
 
 equalityExpression
 	: castExpression ((OP_EQ | OP_NE)  castExpression)*
@@ -136,12 +136,12 @@ castExpression
 	;
 
 relationalExpression
-	: shiftExpression (('<' | '>' | '<=' | '>=') shiftExpression)*
+	: additiveExpression (('<' | '>' | '<=' | '>=') additiveExpression)*
 	;
 
-shiftExpression
-	: additiveExpression (('<<' | rightShift)  additiveExpression)*
-	;
+// shiftExpression
+// 	: additiveExpression (('<<' | rightShift)  additiveExpression)*
+// 	;
 
 additiveExpression
 	: multiplicativeExpression (('+' | '-')  multiplicativeExpression)*
@@ -151,23 +151,19 @@ multiplicativeExpression
 	: unaryExpression (('*' | '/' | '%')  unaryExpression)*
 	;
 
-// https://msdn.microsoft.com/library/6a71f45d(v=vs.110).aspx
 unaryExpression
 	: primaryExpression
 	| '+' unaryExpression
 	| '-' unaryExpression
 	| BANG unaryExpression
-	| '~' unaryExpression
-	| '++' unaryExpression
-	| '--' unaryExpression
 	;
 
-primaryExpression  // Null-conditional operators C# 6: https://msdn.microsoft.com/en-us/library/dn986595.aspx
+primaryExpression 
 	: pe=primaryExpressionStart bracketExpression*
 	  ((memberAccess | methodInvocation | '++' | '--') bracketExpression*)*
 	;
 
-nativeMethodInvocationStatement  // Null-conditional operators C# 6: https://msdn.microsoft.com/en-us/library/dn986595.aspx
+nativeMethodInvocationStatement 
 	: pe=identifier memberAccess methodInvocation ';'
 	;
 
@@ -289,7 +285,7 @@ forIterator
 
 //B.2.6 modules;
 moduleDeclaration
-	: MODULE identifier moduleBody ';'?
+	: EXPORT? MODULE identifier moduleBody ';'?
 	;
 
 moduleBody

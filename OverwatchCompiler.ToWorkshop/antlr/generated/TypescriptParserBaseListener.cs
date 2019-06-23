@@ -263,42 +263,6 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitConditionalAndExpression([NotNull] TypescriptParser.ConditionalAndExpressionContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.inclusiveOrExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitInclusiveOrExpression([NotNull] TypescriptParser.InclusiveOrExpressionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.exclusiveOrExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExclusiveOrExpression([NotNull] TypescriptParser.ExclusiveOrExpressionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterAndExpression([NotNull] TypescriptParser.AndExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.andExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitAndExpression([NotNull] TypescriptParser.AndExpressionContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.equalityExpression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -334,18 +298,6 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitRelationalExpression([NotNull] TypescriptParser.RelationalExpressionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="TypescriptParser.shiftExpression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitShiftExpression([NotNull] TypescriptParser.ShiftExpressionContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.additiveExpression"/>.
 	/// <para>The default implementation does nothing.</para>

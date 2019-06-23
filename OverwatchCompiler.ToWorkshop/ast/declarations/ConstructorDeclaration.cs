@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.statements;
 
@@ -7,14 +8,11 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
     public class ConstructorDeclaration : Node
     {
         public readonly List<MemberModifier> Modifiers = new List<MemberModifier>();
-        public readonly ChildList<VariableDeclaration> Parameters;
-        public readonly ChildProperty<BlockStatement> Body;
+        public IEnumerable<VariableDeclaration> Parameters => Children.OfType<VariableDeclaration>();
+        public BlockStatement Body => Children.OfType<BlockStatement>().Single();
         
-        public ConstructorDeclaration(IParseTree context, IEnumerable<VariableDeclaration> parameters, BlockStatement body) : base(context)
+        public ConstructorDeclaration(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Parameters = new ChildList<VariableDeclaration>(this);
-            Parameters.AddRange(parameters);
-            Body = new ChildProperty<BlockStatement>(this, body);
         }
     }
 }

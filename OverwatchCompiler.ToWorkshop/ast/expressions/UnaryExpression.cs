@@ -1,16 +1,16 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
     public class UnaryExpression : Expression
     {
-        public readonly ChildProperty<Token> Operator;
-        public readonly ChildProperty<IExpression> Base;
+        public Token Operator => Children.OfType<Token>().First();
+        public IExpression Base => Children.OfType<IExpression>().SingleOrDefault();
 
-        public UnaryExpression(IParseTree context, Token @operator, IExpression @base) : base(context)
+        public UnaryExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Operator = new ChildProperty<Token>(this, @operator);
-            Base = new ChildProperty<IExpression>(this, @base);
         }
     }
 }

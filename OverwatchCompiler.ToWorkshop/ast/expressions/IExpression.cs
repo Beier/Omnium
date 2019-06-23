@@ -13,6 +13,10 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions
     {
         public IType Type { get; set; }
 
+        protected Expression(IParseTree context, IEnumerable<INode> children) : base(context, children)
+        {
+        }
+
         protected Expression(IParseTree context) : base(context)
         {
         }

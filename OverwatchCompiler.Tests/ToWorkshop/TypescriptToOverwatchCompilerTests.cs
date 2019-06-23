@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using OverwatchCompiler.ToTypescript;
 using OverwatchCompiler.ToWorkshop;
@@ -11,14 +12,19 @@ namespace OverwatchCompiler.Tests.ToWorkshop
     [TestFixture]
     public class TypescriptToOverwatchCompilerTests
     {
-        [TestCase("Test1")]
-        public void ShouldCompile(string testName)
+        [TestCase("HelloWorld")]
+        [TestCase("CountShots")]
+        public void RunTest(string testName)
         {
             var compiler = new TypescriptToOverwatchCompiler(new Parser());
 
             var exeLocation = AppDomain.CurrentDomain.BaseDirectory;
             var code = compiler.Compile($"{exeLocation}/ToWorkshop/Data/{testName}/Input.ts");
             var expectedOutput = File.ReadAllText($"{exeLocation}/ToWorkshop/Data/{testName}/ExpectedOutput.txt");
+
+            code = code.Replace("\r", "");
+            expectedOutput = expectedOutput.Replace("\r", "");
+
             Assert.AreEqual(expectedOutput, code);
         }
     }

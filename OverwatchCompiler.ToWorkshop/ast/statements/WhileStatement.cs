@@ -1,17 +1,17 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class WhileStatement : Node, IStatement
     {
-        public readonly ChildProperty<IExpression> Condition;
-        public readonly ChildProperty<IStatement> Body;
+        public IExpression Condition => Children.OfType<IExpression>().SingleOrDefault();
+        public IStatement Body => Children.OfType<IStatement>().SingleOrDefault();
 
-        public WhileStatement(IParseTree context, IExpression condition, IStatement body) : base(context)
+        public WhileStatement(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Condition = new ChildProperty<IExpression>(this, condition);
-            Body = new ChildProperty<IStatement>(this, body);
         }
     }
 }

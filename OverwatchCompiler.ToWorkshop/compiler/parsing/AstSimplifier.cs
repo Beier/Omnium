@@ -41,10 +41,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitSourceFiles(TypescriptParser.SourceFilesContext context)
         {
-            var root = new Root();
-            var sourceFilesByPath = context.sourceFile().ToDictionary(x => x.FilePath, x => (SourceFile)Visit(x).Single());
+            var root = new Root(base.VisitSourceFiles(context));
+            var sourceFilesByPath = root.SourceFiles.ToDictionary(x => x.Path);
 
-            root.SourceFiles.AddRange(sourceFilesByPath.Values);
             foreach (var rawSourceFile in context.sourceFile())
             {
                 var sourceFile = sourceFilesByPath[rawSourceFile.FilePath];
@@ -55,57 +54,17 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitSourceFile(TypescriptParser.SourceFileContext context)
         {
-            var sourceFile = new SourceFile(context, context.FilePath);
-
-            foreach (var childNode in context.children.SelectMany(Visit))
-            {
-                if (childNode is ClassDeclaration classDeclaration)
-                    sourceFile.ClassDeclarations.Add(classDeclaration);
-                else if (childNode is MethodDeclaration methodDeclaration)
-                    sourceFile.MethodDeclarations.Add(methodDeclaration);
-                else if (childNode is VariableDeclaration variableDeclaration)
-                    sourceFile.VariableDeclarations.Add(variableDeclaration);
-                else if (childNode is ModuleDeclaration moduleDeclaration)
-                    sourceFile.ModuleDeclarations.Add(moduleDeclaration);
-                else if (childNode is MethodInvocationExpression methodInvocation)
-                    sourceFile.MethodInvocations.Add(methodInvocation);
-                else if (childNode is EnumDeclaration enumDeclaration)
-                    sourceFile.EnumDeclarations.Add(enumDeclaration);
-                else
-                    throw new CompilationError(childNode.Context, "Unknown source file member: " + childNode.GetType().Name);
-            }
-
-            yield return sourceFile;
+            yield return new SourceFile(context, context.FilePath, base.VisitSourceFile(context));
         }
 
         public override IEnumerable<INode> VisitModuleDeclaration(TypescriptParser.ModuleDeclarationContext context)
         {
-            var module = new ModuleDeclaration(context, context.identifier().GetText());
-
-            foreach (var childNode in context.children.SelectMany(Visit))
-            {
-                if (childNode is ClassDeclaration classDeclaration)
-                    module.ClassDeclarations.Add(classDeclaration);
-                else if (childNode is MethodDeclaration methodDeclaration)
-                    module.MethodDeclarations.Add(methodDeclaration);
-                else if (childNode is VariableDeclaration variableDeclaration)
-                    module.VariableDeclarations.Add(variableDeclaration);
-                else if (childNode is ModuleDeclaration moduleDeclaration)
-                    module.ModuleDeclarations.Add(moduleDeclaration);
-                else if (childNode is MethodInvocationExpression methodInvocation)
-                    module.MethodInvocations.Add(methodInvocation);
-                else if (childNode is EnumDeclaration enumDeclaration)
-                    module.EnumDeclarations.Add(enumDeclaration);
-                else
-                    throw new CompilationError(childNode.Context, "Unknown module member:" + childNode.GetType().Name);
-            }
-
-            yield return module;
+            yield return new ModuleDeclaration(context, context.identifier().GetText(), base.VisitModuleDeclaration(context));
         }
 
         public override IEnumerable<INode> VisitFunctionDeclaration(TypescriptParser.FunctionDeclarationContext context)
         {
-            var methodDeclaration = (MethodDeclaration) Visit(context.methodDeclaration()).Single();
+            var methodDeclaration = (MethodDeclaration)Visit(context.methodDeclaration()).Single();
             methodDeclaration.Modifiers.Add(MemberModifier.Static);
             yield return methodDeclaration;
         }
@@ -123,7 +82,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
             yield return new EnumValue(
                 context,
                 context.identifier().GetText(),
-                (IExpression)Visit(context.expression()).SingleOrDefault());
+                Visit(context.expression()));
         }
 
         public override IEnumerable<INode> VisitVariableDeclaration(TypescriptParser.VariableDeclarationContext context)
@@ -151,11 +110,12 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitVariableDeclarator(TypescriptParser.VariableDeclaratorContext context)
         {
+            if (context.identifier().GetText() == "header")
+                Console.WriteLine();
             yield return new VariableDeclaration(
                 context,
                 context.identifier().GetText(),
-                (ITypeNode)Visit(context.type()).SingleOrDefault(),
-                (IExpression)Visit(context.expression()).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitNativeMethodInvocationStatement(TypescriptParser.NativeMethodInvocationStatementContext context)
@@ -164,31 +124,20 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
                 context,
                 new MemberExpression(
                     context.memberAccess(),
-                    new SimpleNameExpression(context, context.identifier().GetText()),
-                    context.memberAccess().identifier().GetText()
-                    ),
-                    Visit(context.memberAccess().typeArgumentList()).Cast<ITypeNode>(),
-                    Visit(context.methodInvocation()).Cast<IExpression>()
-                );
+                    context.memberAccess().identifier().GetText(),
+                    new SimpleNameExpression(context, context.identifier().GetText()).Yield()
+                ).Yield()
+                    .Concat<INode>(Visit(context.memberAccess().typeArgumentList()).Cast<ITypeNode>())
+                    .Concat(Visit(context.methodInvocation()).Cast<IExpression>())
+            );
         }
 
         public override IEnumerable<INode> VisitClassDefinition(TypescriptParser.ClassDefinitionContext context)
         {
-            var children = context.children.SelectMany(Visit).ToArray();
-            var unknownTypes = children.Where(x => !(x is ConstructorDeclaration || x is GetterDeclaration || x is SetterDeclaration || x is MethodDeclaration || x is VariableDeclaration)).ToList();
-            if (unknownTypes.Any())
-                throw new CompilationError(unknownTypes.First().Context, "Unknown class member: " + unknownTypes.GetType().Name);
-            
-            var classDeclaration = new ClassDeclaration(
-                context, 
+            yield return new ClassDeclaration(
+                context,
                 context.identifier().GetText(),
-                children.OfType<ConstructorDeclaration>(),
-                children.OfType<GetterDeclaration>(),
-                children.OfType<SetterDeclaration>(),
-                children.OfType<MethodDeclaration>(),
-                children.OfType<VariableDeclaration>());
-
-            yield return classDeclaration;
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitClassMemberDeclaration(TypescriptParser.ClassMemberDeclarationContext context)
@@ -238,29 +187,26 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
         {
             yield return new ConstructorDeclaration(
                 context,
-                Visit(context.formalParameterList()).Cast<VariableDeclaration>(),
-                (BlockStatement)Visit(context.body()).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitMethodDeclaration(TypescriptParser.MethodDeclarationContext context)
         {
+            if (context.identifier().GetText() == "createHudText")
+                Console.WriteLine();
             yield return new MethodDeclaration(
                 context,
                 context.identifier().GetText(),
-                (ITypeNode)Visit(context.returnTypeList()).SingleOrDefault(),
-                Visit(context.typeParameterList()).Cast<GenericTypeDeclaration>(),
-                Visit(context.formalParameterList()).Cast<VariableDeclaration>(),
-                (BlockStatement)Visit(context.methodBody()).SingleOrDefault()
-                );
+                VisitChildren(context));
         }
+
 
         public override IEnumerable<INode> VisitGetterDeclaration(TypescriptParser.GetterDeclarationContext context)
         {
             yield return new GetterDeclaration(
                 context,
                 context.identifier().GetText(),
-                (ITypeNode)Visit(context.returnTypeList()).SingleOrDefault(),
-                (BlockStatement)Visit(context.methodBody()).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitSetterDeclaration(TypescriptParser.SetterDeclarationContext context)
@@ -268,17 +214,17 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
             yield return new SetterDeclaration(
                 context,
                 context.identifier().GetText(),
-                (VariableDeclaration)Visit(context.formalParameterList()).SingleOrDefault(),
-                (BlockStatement)Visit(context.methodBody()).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitArgDeclaration(TypescriptParser.ArgDeclarationContext context)
         {
+            if (context.identifier().GetText() == "header")
+                Console.WriteLine();
             yield return new VariableDeclaration(
                 context,
                 context.identifier().GetText(),
-                (ITypeNode)Visit(context.typeList()).SingleOrDefault(),
-                (IExpression)Visit(context.expression()).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitTypeParameter(TypescriptParser.TypeParameterContext context)
@@ -309,42 +255,35 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitIfStatement(TypescriptParser.IfStatementContext context)
         {
-            var condition = (IExpression)Visit(context.expression()).SingleOrDefault();
-            var branches = context.embeddedStatement().SelectMany(Visit).Cast<IStatement>().ToList();
             yield return new IfStatement(
                 context,
-                condition,
-                branches.First(),
-                branches.Skip(1).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitSwitchStatement(TypescriptParser.SwitchStatementContext context)
         {
             yield return new SwitchStatement(
                 context,
-                (IExpression)Visit(context.expression()).SingleOrDefault(),
-                context.switchSection().SelectMany(Visit).Cast<SwitchGroup>());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitSwitchSection(TypescriptParser.SwitchSectionContext context)
         {
             yield return new SwitchGroup(
                 context,
-                context.switchLabel().SelectMany(Visit).Cast<SwitchLabel>(),
-                Visit(context.statementList()).Cast<IStatement>());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitSwitchLabel(TypescriptParser.SwitchLabelContext context)
         {
-            yield return new SwitchLabel(context, (IExpression)Visit(context.expression()).SingleOrDefault());
+            yield return new SwitchLabel(context, VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitWhileStatement(TypescriptParser.WhileStatementContext context)
         {
             yield return new WhileStatement(
                 context,
-                (IExpression)Visit(context.expression()).SingleOrDefault(),
-                (IStatement)Visit(context.embeddedStatement()).SingleOrDefault());
+                VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitForStatement(TypescriptParser.ForStatementContext context)
@@ -365,11 +304,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitForeachStatement(TypescriptParser.ForeachStatementContext context)
         {
-            yield return new ForeachStatement(
-                context,
-                new VariableDeclaration(context, context.identifier().GetText(), null, null),
-                (IExpression)Visit(context.expression()).SingleOrDefault(),
-                (IStatement)Visit(context.embeddedStatement()).SingleOrDefault());
+            yield return new ForeachStatement(context, VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitBreakStatement(TypescriptParser.BreakStatementContext context)
@@ -384,18 +319,12 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitReturnStatement(TypescriptParser.ReturnStatementContext context)
         {
-            yield return new ReturnStatement(
-                context,
-                (IExpression)Visit(context.expression()).SingleOrDefault());
+            yield return new ReturnStatement(context, VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitAssignment(TypescriptParser.AssignmentContext context)
         {
-            yield return new AssignmentExpression(
-                context,
-                (IExpression)Visit(context.unaryExpression()).SingleOrDefault(),
-                (AssignmentOperator)Visit(context.assignmentOperator()).SingleOrDefault(),
-                (IExpression)Visit(context.expression()).SingleOrDefault());
+            yield return new AssignmentExpression(context, VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitAssignmentOperator(TypescriptParser.AssignmentOperatorContext context)
@@ -410,22 +339,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitConditionalAndExpression(TypescriptParser.ConditionalAndExpressionContext context)
         {
-            yield return CreateBinaryExpression(context, context.inclusiveOrExpression(), context.OP_AND());
-        }
-
-        public override IEnumerable<INode> VisitInclusiveOrExpression(TypescriptParser.InclusiveOrExpressionContext context)
-        {
-            yield return CreateBinaryExpression(context, context.exclusiveOrExpression(), context.BITWISE_OR());
-        }
-
-        public override IEnumerable<INode> VisitExclusiveOrExpression(TypescriptParser.ExclusiveOrExpressionContext context)
-        {
-            yield return CreateBinaryExpression(context, context.andExpression(), context.CARET());
-        }
-
-        public override IEnumerable<INode> VisitAndExpression(TypescriptParser.AndExpressionContext context)
-        {
-            yield return CreateBinaryExpression(context, context.equalityExpression(), context.AMP());
+            yield return CreateBinaryExpression(context, context.equalityExpression(), context.OP_AND());
         }
 
         public override IEnumerable<INode> VisitEqualityExpression(TypescriptParser.EqualityExpressionContext context)
@@ -435,22 +349,14 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitCastExpression(TypescriptParser.CastExpressionContext context)
         {
-            var @base = (IExpression)Visit(context.relationalExpression()).SingleOrDefault();
-            var type = (ITypeNode)Visit(context.type()).SingleOrDefault();
-            if (type == null)
-                yield return @base;
-            else
-                yield return new CastExpression(context, @base, type);
+            if (context.type() == null)
+                return VisitChildren(context);
+            return new CastExpression(context, VisitChildren(context)).Yield();
         }
 
         public override IEnumerable<INode> VisitRelationalExpression(TypescriptParser.RelationalExpressionContext context)
         {
-            yield return CreateBinaryExpression(context, context.shiftExpression(), context.GT().Concat(context.LT()).Concat(context.OP_GE()).Concat(context.OP_LE()));
-        }
-
-        public override IEnumerable<INode> VisitShiftExpression(TypescriptParser.ShiftExpressionContext context)
-        {
-            yield return CreateBinaryExpression(context, context.additiveExpression(), context.OP_LEFT_SHIFT().Concat<IParseTree>(context.rightShift()));
+            yield return CreateBinaryExpression(context, context.additiveExpression(), context.GT().Concat(context.LT()).Concat(context.OP_GE()).Concat(context.OP_LE()));
         }
 
         public override IEnumerable<INode> VisitAdditiveExpression(TypescriptParser.AdditiveExpressionContext context)
@@ -469,9 +375,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
                 yield return (IExpression)Visit(context.primaryExpression()).SingleOrDefault();
             else
             {
-                var token = CreateToken(context.PLUS() ?? context.MINUS() ?? context.BANG() ?? context.TILDE() ?? context.OP_INC() ?? context.OP_DEC());
+                var token = CreateToken(context.PLUS() ?? context.MINUS() ?? context.BANG() ?? context.TILDE());
                 var @base = (IExpression)Visit(context.unaryExpression()).SingleOrDefault();
-                yield return new UnaryExpression(context, token, @base);
+                yield return new UnaryExpression(context, new INode[] { token, @base });
             }
         }
 
@@ -489,9 +395,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
             foreach (var operation in operations)
             {
                 if (operation is TypescriptParser.BracketExpressionContext bracketExpression)
-                    @base = new ArrayIndexExpression(bracketExpression, @base, (IExpression)Visit(bracketExpression).SingleOrDefault());
+                    @base = new ArrayIndexExpression(bracketExpression, @base.Yield().Concat(Visit(bracketExpression)));
                 else if (operation is TypescriptParser.MemberAccessContext memberAccess)
-                    @base = new MemberExpression(memberAccess, @base, memberAccess.identifier().GetText());
+                    @base = new MemberExpression(memberAccess, memberAccess.identifier().GetText(), @base.Yield());
                 else if (operation is TypescriptParser.MethodInvocationContext methodInvocation)
                 {
                     var genericTypeArguments = Visit((@base.Context as TypescriptParser.MemberAccessContext)?.typeArgumentList()).Cast<ITypeNode>();
@@ -499,13 +405,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
                     @base = new MethodInvocationExpression(
                         methodInvocation,
-                        @base,
-                        genericTypeArguments,
-                        arguments);
+                        @base.Yield().Concat<INode>(genericTypeArguments).Concat(arguments));
                 }
                 else if (operation is ITerminalNode terminalNode)
                 {
-                    @base = new PosfixOperationExpression(terminalNode, @base, new Token(terminalNode));
+                    @base = new PosfixOperationExpression(terminalNode, new INode[] { @base, new Token(terminalNode) });
                 }
                 else
                     throw new Exception("Unexpected operation: " + operation);
@@ -516,32 +420,23 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitLambdaExpression(TypescriptParser.LambdaExpressionContext context)
         {
-            var body = Visit(context.anonymousFunctionBody()).SingleOrDefault();
-            yield return new LambdaExpression(
-                context,
-                Visit(context.anonymousFunctionSignature()).Cast<VariableDeclaration>(),
-                body as BlockStatement,
-                body as IExpression);
+            var children = VisitChildren(context).ToList();
+            var variables = children.OfType<VariableDeclaration>();
+            var expressionBody = children.OfType<IExpression>().SingleOrDefault();
+            var blockBody = children.OfType<BlockStatement>().SingleOrDefault()
+                            ?? new BlockStatement(context, new ReturnStatement(context, expressionBody.Yield()).Yield());
+            yield return new LambdaExpression(context, variables.Concat<INode>(blockBody.Yield()));
         }
 
         public override IEnumerable<INode> VisitExplicitAnonymousFunctionParameter(TypescriptParser.ExplicitAnonymousFunctionParameterContext context)
         {
-            yield return new VariableDeclaration(
-                context,
-                context.identifier().GetText(),
-                (ITypeNode)Visit(context.type()).SingleOrDefault(),
-                null);
+            yield return new VariableDeclaration(context, context.identifier().GetText(), Visit(context.type()));
         }
 
         public override IEnumerable<INode> VisitImplicitAnonymousFunctionParameterList(TypescriptParser.ImplicitAnonymousFunctionParameterListContext context)
         {
             return context.identifier()
-                .Select(identifier =>
-                    new VariableDeclaration(
-                    identifier,
-                              identifier.GetText(),
-                    null,
-                    null));
+                .Select(identifier => new VariableDeclaration(identifier, identifier.GetText(), new INode[0]));
         }
 
         public override IEnumerable<INode> VisitSimpleNameExpression(TypescriptParser.SimpleNameExpressionContext context)
@@ -556,10 +451,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitObjectCreation(TypescriptParser.ObjectCreationContext context)
         {
-            yield return new ObjectCreationExpression(
-                context,
-                (ITypeNode)Visit(context.type()).SingleOrDefault(),
-                Visit(context.objectCreationExpression()).Cast<IExpression>());
+            yield return new ObjectCreationExpression(context, VisitChildren(context));
         }
 
         public override IEnumerable<INode> VisitArrayCreationExpression(TypescriptParser.ArrayCreationExpressionContext context)
@@ -579,9 +471,12 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
             {
                 previous = new BinaryExpression(
                     context,
-                    previous,
-                    operators[i - 1],
-                    subExpressions[i]);
+                    new INode[]
+                    {
+                        previous,
+                        operators[i - 1],
+                        subExpressions[i]
+                    });
             }
 
             return previous;
@@ -671,11 +566,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitFunctionType(TypescriptParser.FunctionTypeContext context)
         {
-            yield return new FunctionType(
-                context,
-                Visit(context.formalParameterList()).Cast<VariableDeclaration>(),
-                (ITypeNode)Visit(context.returnTypeList()).SingleOrDefault()
-                );
+            yield return new FunctionType(context, VisitChildren(context));
         }
     }
 }

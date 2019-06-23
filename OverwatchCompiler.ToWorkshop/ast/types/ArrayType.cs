@@ -1,19 +1,20 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Linq;
+using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public class ArrayType : Node, ITypeNode
     {
-        public readonly ChildProperty<ITypeNode> Base;
+        public ITypeNode Base => Children.OfType<ITypeNode>().SingleOrDefault();
 
-        public ArrayType(IParseTree context, ITypeNode @base) : base(context)
+        public ArrayType(IParseTree context, ITypeNode @base) : base(context, @base.Yield())
         {
-            Base = new ChildProperty<ITypeNode>(this, @base);
         }
 
         public override string ToString()
         {
-            return Base.Value + "[]";
+            return Base + "[]";
         }
     }
 }

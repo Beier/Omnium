@@ -1,15 +1,21 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class ExpressionStatement : Node, IStatement
     {
-        public readonly ChildProperty<IExpression> Expression;
+        public IExpression Expression => Children.OfType<IExpression>().SingleOrDefault();
 
-        public ExpressionStatement(IParseTree context, IExpression expression) : base(context)
+        public ExpressionStatement(IParseTree context, IExpression expression) : base(context, expression.Yield())
         {
-            Expression = new ChildProperty<IExpression>(this, expression);
+        }
+
+        public override string ToString()
+        {
+            return Expression + ";";
         }
     }
 }

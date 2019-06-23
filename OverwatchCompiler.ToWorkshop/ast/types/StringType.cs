@@ -10,7 +10,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 
         public override string ToString()
         {
-            return "boolean";
+            return "string";
         }
     }
 }

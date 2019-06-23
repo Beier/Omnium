@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
@@ -10,6 +11,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 {
     public abstract class TreeVoidWalker
     {
+        protected bool skipChildren = false;
         public readonly List<CompilationError> Errors = new List<CompilationError>();
 
         public virtual void Visit(INode node)
@@ -28,6 +30,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterIExpression((IExpression)node);
             if (node is IHasVariables)
                 EnterIHasVariables((IHasVariables)node);
+            if (node is INamedDeclaration)
+                EnterINamedDeclaration((INamedDeclaration)node);
             if (node is Token)
                 EnterToken((Token)node);
             if (node is ArrayType)
@@ -40,6 +44,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterTypeList((TypeList)node);
             if (node is TypeNodeWrapper)
                 EnterTypeNodeWrapper((TypeNodeWrapper)node);
+            if (node is GotoStatement)
+                EnterGotoStatement((GotoStatement)node);
+            if (node is GotoTargetStatement)
+                EnterGotoTargetStatement((GotoTargetStatement)node);
             if (node is BlockStatement)
                 EnterBlockStatement((BlockStatement)node);
             if (node is BreakStatement)
@@ -66,8 +74,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterVariableDeclarationStatement((VariableDeclarationStatement)node);
             if (node is WhileStatement)
                 EnterWhileStatement((WhileStatement)node);
-            if (node is AssignmentOperator)
-                EnterAssignmentOperator((AssignmentOperator)node);
             if (node is Expression)
                 EnterExpression((Expression)node);
             if (node is NativeMethodInvocationExpression)
@@ -84,10 +90,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterGenericTypeDeclaration((GenericTypeDeclaration)node);
             if (node is GetterDeclaration)
                 EnterGetterDeclaration((GetterDeclaration)node);
+            if (node is GetterSetterDeclaration)
+                EnterGetterSetterDeclaration((GetterSetterDeclaration)node);
             if (node is MethodDeclaration)
                 EnterMethodDeclaration((MethodDeclaration)node);
-            if (node is NativeMethodDeclaration)
-                EnterNativeMethodDeclaration((NativeMethodDeclaration)node);
             if (node is Root)
                 EnterRoot((Root)node);
             if (node is RuleDeclaration)
@@ -114,6 +120,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterArrayIndexExpression((ArrayIndexExpression)node);
             if (node is AssignmentExpression)
                 EnterAssignmentExpression((AssignmentExpression)node);
+            if (node is AssignmentOperator)
+                EnterAssignmentOperator((AssignmentOperator)node);
             if (node is BinaryExpression)
                 EnterBinaryExpression((BinaryExpression)node);
             if (node is CastExpression)
@@ -124,6 +132,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterLambdaExpression((LambdaExpression)node);
             if (node is MethodInvocationExpression)
                 EnterMethodInvocationExpression((MethodInvocationExpression)node);
+            if (node is NativeTrigger)
+                EnterNativeTrigger((NativeTrigger)node);
             if (node is ObjectCreationExpression)
                 EnterObjectCreationExpression((ObjectCreationExpression)node);
             if (node is PosfixOperationExpression)
@@ -146,8 +156,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterModuleDeclaration((ModuleDeclaration)node);
             if (node is SourceFile)
                 EnterSourceFile((SourceFile)node);
-            foreach (var child in node.Children)
-                Visit(child);
+            if (skipChildren)
+                skipChildren = false;
+            else
+                foreach (var child in node.Children.ToList())
+                    Visit(child);
             if (node is INode)
                 ExitINode((INode)node);
             if (node is Node)
@@ -160,6 +173,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitIExpression((IExpression)node);
             if (node is IHasVariables)
                 ExitIHasVariables((IHasVariables)node);
+            if (node is INamedDeclaration)
+                ExitINamedDeclaration((INamedDeclaration)node);
             if (node is Token)
                 ExitToken((Token)node);
             if (node is ArrayType)
@@ -172,6 +187,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitTypeList((TypeList)node);
             if (node is TypeNodeWrapper)
                 ExitTypeNodeWrapper((TypeNodeWrapper)node);
+            if (node is GotoStatement)
+                ExitGotoStatement((GotoStatement)node);
+            if (node is GotoTargetStatement)
+                ExitGotoTargetStatement((GotoTargetStatement)node);
             if (node is BlockStatement)
                 ExitBlockStatement((BlockStatement)node);
             if (node is BreakStatement)
@@ -198,8 +217,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitVariableDeclarationStatement((VariableDeclarationStatement)node);
             if (node is WhileStatement)
                 ExitWhileStatement((WhileStatement)node);
-            if (node is AssignmentOperator)
-                ExitAssignmentOperator((AssignmentOperator)node);
             if (node is Expression)
                 ExitExpression((Expression)node);
             if (node is NativeMethodInvocationExpression)
@@ -216,10 +233,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitGenericTypeDeclaration((GenericTypeDeclaration)node);
             if (node is GetterDeclaration)
                 ExitGetterDeclaration((GetterDeclaration)node);
+            if (node is GetterSetterDeclaration)
+                ExitGetterSetterDeclaration((GetterSetterDeclaration)node);
             if (node is MethodDeclaration)
                 ExitMethodDeclaration((MethodDeclaration)node);
-            if (node is NativeMethodDeclaration)
-                ExitNativeMethodDeclaration((NativeMethodDeclaration)node);
             if (node is Root)
                 ExitRoot((Root)node);
             if (node is RuleDeclaration)
@@ -246,6 +263,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitArrayIndexExpression((ArrayIndexExpression)node);
             if (node is AssignmentExpression)
                 ExitAssignmentExpression((AssignmentExpression)node);
+            if (node is AssignmentOperator)
+                ExitAssignmentOperator((AssignmentOperator)node);
             if (node is BinaryExpression)
                 ExitBinaryExpression((BinaryExpression)node);
             if (node is CastExpression)
@@ -256,6 +275,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitLambdaExpression((LambdaExpression)node);
             if (node is MethodInvocationExpression)
                 ExitMethodInvocationExpression((MethodInvocationExpression)node);
+            if (node is NativeTrigger)
+                ExitNativeTrigger((NativeTrigger)node);
             if (node is ObjectCreationExpression)
                 ExitObjectCreationExpression((ObjectCreationExpression)node);
             if (node is PosfixOperationExpression)
@@ -292,6 +313,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitIExpression(IExpression iExpression) { }
         public virtual void EnterIHasVariables(IHasVariables iHasVariables) { }
         public virtual void ExitIHasVariables(IHasVariables iHasVariables) { }
+        public virtual void EnterINamedDeclaration(INamedDeclaration iNamedDeclaration) { }
+        public virtual void ExitINamedDeclaration(INamedDeclaration iNamedDeclaration) { }
         public virtual void EnterToken(Token token) { }
         public virtual void ExitToken(Token token) { }
         public virtual void EnterArrayType(ArrayType arrayType) { }
@@ -304,6 +327,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitTypeList(TypeList typeList) { }
         public virtual void EnterTypeNodeWrapper(TypeNodeWrapper typeNodeWrapper) { }
         public virtual void ExitTypeNodeWrapper(TypeNodeWrapper typeNodeWrapper) { }
+        public virtual void EnterGotoStatement(GotoStatement gotoStatement) { }
+        public virtual void ExitGotoStatement(GotoStatement gotoStatement) { }
+        public virtual void EnterGotoTargetStatement(GotoTargetStatement gotoTargetStatement) { }
+        public virtual void ExitGotoTargetStatement(GotoTargetStatement gotoTargetStatement) { }
         public virtual void EnterBlockStatement(BlockStatement blockStatement) { }
         public virtual void ExitBlockStatement(BlockStatement blockStatement) { }
         public virtual void EnterBreakStatement(BreakStatement breakStatement) { }
@@ -330,8 +357,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitVariableDeclarationStatement(VariableDeclarationStatement variableDeclarationStatement) { }
         public virtual void EnterWhileStatement(WhileStatement whileStatement) { }
         public virtual void ExitWhileStatement(WhileStatement whileStatement) { }
-        public virtual void EnterAssignmentOperator(AssignmentOperator assignmentOperator) { }
-        public virtual void ExitAssignmentOperator(AssignmentOperator assignmentOperator) { }
         public virtual void EnterExpression(Expression expression) { }
         public virtual void ExitExpression(Expression expression) { }
         public virtual void EnterNativeMethodInvocationExpression(NativeMethodInvocationExpression nativeMethodInvocationExpression) { }
@@ -348,10 +373,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitGenericTypeDeclaration(GenericTypeDeclaration genericTypeDeclaration) { }
         public virtual void EnterGetterDeclaration(GetterDeclaration getterDeclaration) { }
         public virtual void ExitGetterDeclaration(GetterDeclaration getterDeclaration) { }
+        public virtual void EnterGetterSetterDeclaration(GetterSetterDeclaration getterSetterDeclaration) { }
+        public virtual void ExitGetterSetterDeclaration(GetterSetterDeclaration getterSetterDeclaration) { }
         public virtual void EnterMethodDeclaration(MethodDeclaration methodDeclaration) { }
         public virtual void ExitMethodDeclaration(MethodDeclaration methodDeclaration) { }
-        public virtual void EnterNativeMethodDeclaration(NativeMethodDeclaration nativeMethodDeclaration) { }
-        public virtual void ExitNativeMethodDeclaration(NativeMethodDeclaration nativeMethodDeclaration) { }
         public virtual void EnterRoot(Root root) { }
         public virtual void ExitRoot(Root root) { }
         public virtual void EnterRuleDeclaration(RuleDeclaration ruleDeclaration) { }
@@ -378,6 +403,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitArrayIndexExpression(ArrayIndexExpression arrayIndexExpression) { }
         public virtual void EnterAssignmentExpression(AssignmentExpression assignmentExpression) { }
         public virtual void ExitAssignmentExpression(AssignmentExpression assignmentExpression) { }
+        public virtual void EnterAssignmentOperator(AssignmentOperator assignmentOperator) { }
+        public virtual void ExitAssignmentOperator(AssignmentOperator assignmentOperator) { }
         public virtual void EnterBinaryExpression(BinaryExpression binaryExpression) { }
         public virtual void ExitBinaryExpression(BinaryExpression binaryExpression) { }
         public virtual void EnterCastExpression(CastExpression castExpression) { }
@@ -388,6 +415,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitLambdaExpression(LambdaExpression lambdaExpression) { }
         public virtual void EnterMethodInvocationExpression(MethodInvocationExpression methodInvocationExpression) { }
         public virtual void ExitMethodInvocationExpression(MethodInvocationExpression methodInvocationExpression) { }
+        public virtual void EnterNativeTrigger(NativeTrigger nativeTrigger) { }
+        public virtual void ExitNativeTrigger(NativeTrigger nativeTrigger) { }
         public virtual void EnterObjectCreationExpression(ObjectCreationExpression objectCreationExpression) { }
         public virtual void ExitObjectCreationExpression(ObjectCreationExpression objectCreationExpression) { }
         public virtual void EnterPosfixOperationExpression(PosfixOperationExpression posfixOperationExpression) { }

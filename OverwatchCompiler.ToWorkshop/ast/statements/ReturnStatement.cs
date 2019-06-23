@@ -1,15 +1,22 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class ReturnStatement: Node, IStatement
     {
-        public readonly ChildProperty<IExpression> Value;
+        public IExpression Value => Children.OfType<IExpression>().SingleOrDefault();
 
-        public ReturnStatement(IParseTree context, IExpression value) : base(context)
+        public ReturnStatement(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Value = new ChildProperty<IExpression>(this, value);
+        }
+
+        public override string ToString()
+        {
+            var valueString = Value == null ? null : " " + Value;
+            return "return" + valueString + ";";
         }
     }
 }

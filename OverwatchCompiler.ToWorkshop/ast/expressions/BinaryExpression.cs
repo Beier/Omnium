@@ -1,18 +1,23 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
     public class BinaryExpression: Expression
     {
-        public readonly ChildProperty<IExpression> Left;
-        public readonly ChildProperty<Token> Operator;
-        public readonly ChildProperty<IExpression> Right;
+        public IExpression Left => Children.OfType<IExpression>().First();
+        public Token Operator => Children.Skip(1).OfType<Token>().NotOfType(typeof(IExpression)).SingleOrDefault();
+        public IExpression Right => Children.OfType<IExpression>().Last();
 
-        public BinaryExpression(IParseTree context, IExpression left, Token @operator, IExpression right) : base(context)
+        public BinaryExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Left = new ChildProperty<IExpression>(this, left);
-            Operator = new ChildProperty<Token>(this, @operator);
-            Right = new ChildProperty<IExpression>(this, right);
+        }
+
+        public override string ToString()
+        {
+            return "(" + Left + " " + Operator + " " + Right + ")";
         }
     }
 }

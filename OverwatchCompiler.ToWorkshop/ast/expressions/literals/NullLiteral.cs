@@ -7,7 +7,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions.literals
     {
         public IType Type { get; set; }
 
-        public NullLiteral(IParseTree context) : base(context)
+        public NullLiteral(IParseTree context) : base(context, "null")
         {
         }
     }

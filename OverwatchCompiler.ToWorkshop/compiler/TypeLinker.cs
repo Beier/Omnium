@@ -42,12 +42,12 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         private List<GenericTypeDeclaration> GetMatchingGenerics(ReferenceType referenceType)
         {
-            if (referenceType.Identifiers.Count != 1)
+            if (referenceType.Identifiers.Count() != 1)
                 return new List<GenericTypeDeclaration>();
             var parentMethod = referenceType.NearestAncestorOfType<MethodDeclaration>();
             if (parentMethod == null)
                 return new List<GenericTypeDeclaration>();
-            return parentMethod.GenericTypeDeclarations.Where(x => x.Name == referenceType.Identifiers[0].Text).ToList();
+            return parentMethod.GenericTypeDeclarations.Where(x => x.Name == referenceType.Identifiers.First().Text).ToList();
         }
 
         private List<INode> GetMatchingClassesAndEnums(ReferenceType referenceType)
@@ -57,18 +57,18 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             foreach (var ancestor in ancestors)
             {
                 var nodes = new List<AbstractTopLevelNode> { ancestor };
-                for (int i = 0; i < referenceType.Identifiers.Count; i++)
+                for (int i = 0; i < referenceType.Identifiers.Count(); i++)
                 {
-                    if (i < referenceType.Identifiers.Count - 1)
+                    if (i < referenceType.Identifiers.Count() - 1)
                     {
                         nodes = nodes
-                            .SelectMany(x => x.ModuleDeclarations.Where(y => y.Name == referenceType.Identifiers[i].Text))
+                            .SelectMany(x => x.ModuleDeclarations.Where(y => y.Name == referenceType.Identifiers.AtIndex(i).Text))
                             .Cast<AbstractTopLevelNode>()
                             .ToList();
                     }
                     else
                     {
-                        var matchingClasses = nodes.SelectMany(x => x.ClassDeclarations.Where(y => y.Name == names[i])).ToList();
+                        var matchingClasses = nodes.SelectMany(x => x.ClassDeclarations.Where(y => y.Name == names[i])).DistinctBy(x => x.Name).ToList();
                         var matchingEnums = nodes.SelectMany(x => x.EnumDeclarations.Where(y => y.Name == names[i])).ToList();
 
                         if (matchingClasses.Count + matchingEnums.Count > 0)
@@ -85,7 +85,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             {
                 if (getterSetterDeclaration.Getter != null
                     && getterSetterDeclaration.Setter != null
-                    && getterSetterDeclaration.Getter.ReturnType.Value != getterSetterDeclaration.Setter.Parameter.Value.Type.Value)
+                    && getterSetterDeclaration.Getter.ReturnType != getterSetterDeclaration.Setter.Parameter.Type)
                     Errors.Add(new CompilationError(getterSetterDeclaration.Getter.Context, "Getters and setters of the same name must have the same type."));
             }
         }

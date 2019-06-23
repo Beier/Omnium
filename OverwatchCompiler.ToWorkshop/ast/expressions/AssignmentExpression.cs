@@ -1,24 +1,28 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
     public class AssignmentExpression : Expression
     {
-        public readonly ChildProperty<IExpression> Left;
-        public readonly ChildProperty<AssignmentOperator> Operator;
-        public readonly ChildProperty<IExpression> Right;
+        public IExpression Left => Children.OfType<IExpression>().First();
+        public AssignmentOperator Operator => Children.OfType<AssignmentOperator>().SingleOrDefault();
+        public IExpression Right => Children.OfType<IExpression>().Last();
 
-        public AssignmentExpression(IParseTree context, IExpression left, AssignmentOperator @operator, IExpression right) : base(context)
+        public AssignmentExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Left = new ChildProperty<IExpression>(this, left);
-            Operator = new ChildProperty<AssignmentOperator>(this, @operator);
-            Right = new ChildProperty<IExpression>(this, right);
+        }
+
+        public override string ToString()
+        {
+            return Left + " = " + Right;
         }
     }
 
-    public class AssignmentOperator : Node
+    public class AssignmentOperator : Token
     {
-        public readonly string Value;
+        public string Value { get; set; }
 
         public AssignmentOperator(IParseTree context, string value) : base(context)
         {

@@ -6,7 +6,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public class StaticReference : IType
     {
-        public INode Declaration { get; }
+        public INode Declaration { get; set; }
 
         public StaticReference(INode declaration)
         {

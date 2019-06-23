@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class ForStatement : Node, IStatement, IHasVariables
     {
-        public readonly ChildList<VariableDeclaration> VariableDeclarations;
-        public readonly ChildList<IExpression> InitExpressions;
-        public readonly ChildProperty<IExpression> Condition;
-        public readonly ChildList<IExpression> NextExpressions;
-        public readonly ChildProperty<IStatement> Body;
+        public IEnumerable<VariableDeclaration> Variables => ChildGroups.First().Cast<VariableDeclaration>();
+        public IEnumerable<IExpression> InitExpressions => ChildGroups.Skip(1).First().Cast<IExpression>();
+        public IExpression Condition => ChildGroups.Skip(2).First().Cast<IExpression>().SingleOrDefault();
+        public IEnumerable<IExpression> NextExpressions => ChildGroups.Skip(3).First().Cast<IExpression>();
+        public IStatement Body => ChildGroups.Skip(4).First().Cast<IStatement>().SingleOrDefault();
 
         public ForStatement(
             IParseTree context, 
@@ -19,18 +21,16 @@ namespace OverwatchCompiler.ToWorkshop.ast.statements
             IEnumerable<IExpression> initExpressions, 
             IExpression condition, 
             IEnumerable<IExpression> nextExpressions, 
-            IStatement body) : base(context)
+            IStatement body) : base(context, new IEnumerable<INode>[]
         {
-            VariableDeclarations = new ChildList<VariableDeclaration>(this);
-            VariableDeclarations.AddRange(variableDeclarations);
-            InitExpressions = new ChildList<IExpression>(this);
-            InitExpressions.AddRange(initExpressions);
-            Condition = new ChildProperty<IExpression>(this, condition);
-            NextExpressions = new ChildList<IExpression>(this);
-            NextExpressions.AddRange(nextExpressions);
-            Body = new ChildProperty<IStatement>(this, body);
+            variableDeclarations,
+            initExpressions,
+            condition.Yield(),
+            nextExpressions,
+            body.Yield()
+        })
+        {
         }
         
-        public IEnumerable<VariableDeclaration> Variables => VariableDeclarations;
     }
 }

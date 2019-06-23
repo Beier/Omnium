@@ -9,7 +9,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
         public string Path { get; set; }
         public readonly List<SourceFile> ImportedSourceFiles = new List<SourceFile>();
 
-        public SourceFile(IParseTree context, string path) : base(context)
+        public SourceFile(IParseTree context, string path, IEnumerable<INode> children) : base(context, children)
         {
             Path = path;
         }

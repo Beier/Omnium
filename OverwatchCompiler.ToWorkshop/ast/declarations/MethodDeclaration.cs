@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.statements;
 using OverwatchCompiler.ToWorkshop.ast.types;
@@ -9,28 +10,23 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
     {
         public string Name { get; set; }
         public readonly List<MemberModifier> Modifiers = new List<MemberModifier>();
-        public readonly ChildProperty<ITypeNode> ReturnType;
-        public readonly ChildList<GenericTypeDeclaration> GenericTypeDeclarations;
-        public readonly ChildList<VariableDeclaration> Parameters;
-        public readonly ChildProperty<BlockStatement> Body;
+        public ITypeNode ReturnType => Children.OfType<ITypeNode>().SingleOrDefault();
+        public IEnumerable<GenericTypeDeclaration> GenericTypeDeclarations => Children.OfType<GenericTypeDeclaration>();
+        public IEnumerable<VariableDeclaration> Variables => Children.OfType<VariableDeclaration>();
+        public BlockStatement Body => Children.OfType<BlockStatement>().SingleOrDefault();
 
         public MethodDeclaration(
             IParseTree context, 
-            string name, 
-            ITypeNode returnType,
-            IEnumerable<GenericTypeDeclaration> genericTypeDeclarations,
-            IEnumerable<VariableDeclaration> parameters, 
-            BlockStatement body) : base(context)
+            string name,
+            IEnumerable<INode> children) : base(context, children)
         {
             Name = name;
-            ReturnType = new ChildProperty<ITypeNode>(this, returnType);
-            GenericTypeDeclarations = new ChildList<GenericTypeDeclaration>(this);
-            GenericTypeDeclarations.AddRange(genericTypeDeclarations);
-            Parameters = new ChildList<VariableDeclaration>(this);
-            Parameters.AddRange(parameters);
-            Body = new ChildProperty<BlockStatement>(this, body);
         }
 
-        public IEnumerable<VariableDeclaration> Variables => Parameters;
+        public override string ToString()
+        {
+            var sourceFile = this.NearestAncestorOfType<SourceFile>();
+            return $"{Name} [{sourceFile?.FileName}: {Position?.Line}, {Position?.Column}]";
+        }
     }
 }

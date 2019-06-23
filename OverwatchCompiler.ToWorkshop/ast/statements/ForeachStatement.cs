@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
@@ -7,21 +8,15 @@ namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class ForeachStatement : Node, IStatement, IHasVariables
     {
-        public readonly ChildProperty<VariableDeclaration> Variable;
-        public readonly ChildProperty<IExpression> List;
-        public readonly ChildProperty<IStatement> Body;
+        public VariableDeclaration Variable => Variables.SingleOrDefault();
+        public IExpression List => Children.OfType<IExpression>().SingleOrDefault();
+        public IStatement Body => Children.OfType<IStatement>().SingleOrDefault();
 
 
-        public ForeachStatement(IParseTree context, VariableDeclaration variable, IExpression list, IStatement body) : base(context)
+        public ForeachStatement(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Variable = new ChildProperty<VariableDeclaration>(this, variable);
-            List = new ChildProperty<IExpression>(this, list);
-            Body = new ChildProperty<IStatement>(this, body);
         }
 
-        public IEnumerable<VariableDeclaration> Variables
-        {
-            get { yield return Variable.Value; }
-        }
+        public IEnumerable<VariableDeclaration> Variables => Children.OfType<VariableDeclaration>();
     }
 }

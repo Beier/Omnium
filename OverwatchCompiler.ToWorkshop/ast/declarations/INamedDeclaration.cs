@@ -1,6 +1,6 @@
 ﻿namespace OverwatchCompiler.ToWorkshop.ast.declarations
 {
-    public interface INamedDeclaration
+    public interface INamedDeclaration : INode
     {
         string Name { get; }
     }

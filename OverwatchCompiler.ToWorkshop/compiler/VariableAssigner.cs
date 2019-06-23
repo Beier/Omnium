@@ -13,7 +13,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 Errors.Add(new CompilationError(variableDeclaration.Context, "Variable must be declared in a block."));
                 return;
             }
-            block.VariableDeclarations.Add(variableDeclaration.VariableDeclaration.Value);
+            block.VariableDeclarations.Add(variableDeclaration.VariableDeclaration);
         }
     }
 }

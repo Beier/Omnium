@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 
@@ -6,38 +7,30 @@ namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class SwitchStatement : Node, IStatement
     {
-        public readonly ChildProperty<IExpression> Expression;
-        public readonly ChildList<SwitchGroup> Groups;
+        public IExpression Expression => Children.OfType<IExpression>().SingleOrDefault();
+        public IEnumerable<SwitchGroup> Groups => Children.OfType<SwitchGroup>();
 
-        public SwitchStatement(IParseTree context, IExpression expression, IEnumerable<SwitchGroup> groups) : base(context)
+        public SwitchStatement(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Expression = new ChildProperty<IExpression>(this, expression);
-            Groups = new ChildList<SwitchGroup>(this);
-            Groups.AddRange(groups);
         }
     }
 
     public class SwitchGroup : Node
     {
-        public readonly ChildList<SwitchLabel> Labels;
-        public readonly ChildList<IStatement> Statements;
+        public IEnumerable<SwitchLabel> Labels => Children.OfType<SwitchLabel>();
+        public IEnumerable<IStatement> Statements => Children.OfType<IStatement>();
 
-        public SwitchGroup(IParseTree context, IEnumerable<SwitchLabel> labels, IEnumerable<IStatement> statements) : base(context)
+        public SwitchGroup(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Labels = new ChildList<SwitchLabel>(this);
-            Labels.AddRange(labels);
-            Statements = new ChildList<IStatement>(this);
-            Statements.AddRange(statements);
         }
     }
 
     public class SwitchLabel : Node
     {
-        public readonly ChildProperty<IExpression> condition;
+        public IExpression condition => Children.OfType<IExpression>().SingleOrDefault();
 
-        public SwitchLabel(IParseTree context, IExpression condition) : base(context)
+        public SwitchLabel(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            this.condition = new ChildProperty<IExpression>(this, condition);
         }
     }
 }

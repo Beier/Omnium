@@ -18,7 +18,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 
         public override string ToString()
         {
-            return "(" + Expression.Parameters.Select(x => x.Type.Value).MkString(", ") + ") => " + ReturnType;
+            return "(" + Expression.Variables.Select(x => x.Type).MkString(", ") + ") => " + ReturnType;
         }
     }
 }

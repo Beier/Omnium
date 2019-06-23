@@ -12,5 +12,10 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions
         {
             Name = name;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

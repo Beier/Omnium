@@ -1,31 +1,30 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
+using OverwatchCompiler.ToWorkshop.ast.expressions.literals;
 
 namespace OverwatchCompiler.ToWorkshop.ast.declarations
 {
     public class EnumDeclaration : Node, INamedDeclaration
     {
         public string Name { get; set; }
-        public readonly ChildList<EnumValue> Values;
+        public IEnumerable<EnumValue> Values => Children.Cast<EnumValue>();
 
-        public EnumDeclaration(IParseTree context, string name, IEnumerable<EnumValue> values) : base(context)
+        public EnumDeclaration(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)
         {
             Name = name;
-            Values = new ChildList<EnumValue>(this);
-            Values.AddRange(values);
         }
     }
 
-    public class EnumValue : Node
+    public class EnumValue : Node, INamedDeclaration
     {
         public string Name { get; set; }
-        public readonly ChildProperty<IExpression> Value;
+        public StringLiteral Value => (StringLiteral)Children.SingleOrDefault();
 
-        public EnumValue(IParseTree context, string name, IExpression value) : base(context)
+        public EnumValue(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)
         {
             Name = name;
-            Value = new ChildProperty<IExpression>(this, value);
         }
     }
 }

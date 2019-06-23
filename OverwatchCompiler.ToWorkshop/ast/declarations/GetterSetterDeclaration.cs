@@ -1,12 +1,17 @@
-﻿using OverwatchCompiler.ToWorkshop.ast.types;
+﻿using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.ast.types;
 
 namespace OverwatchCompiler.ToWorkshop.ast.declarations
 {
-    public class GetterSetterDeclaration : INamedDeclaration
+    public class GetterSetterDeclaration : Node, INamedDeclaration
     {
         public string Name => Getter?.Name ?? Setter?.Name;
-        public IType Type => Getter?.ReturnType.Value ?? Setter?.Parameter.Value?.Type.Value;
+        public IType Type => Getter?.ReturnType ?? Setter?.Parameter?.Type;
         public GetterDeclaration Getter { get; set; }
         public SetterDeclaration Setter { get; set; }
+
+        public GetterSetterDeclaration(IParseTree context) : base(context)
+        {
+        }
     }
 }

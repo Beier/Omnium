@@ -8,80 +8,73 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
     public class ClassDeclaration : Node, IHasVariables, INamedDeclaration
     {
         public string Name { get; set; }
-        public readonly ChildList<ConstructorDeclaration> Constructors;
-        public readonly ChildList<GetterDeclaration> Getters;
-        public readonly ChildList<SetterDeclaration> Setters;
+        public IEnumerable<ConstructorDeclaration> Constructors => Children.OfType<ConstructorDeclaration>();
+        public IEnumerable<GetterDeclaration> Getters => Children.OfType<GetterDeclaration>();
+        public IEnumerable<SetterDeclaration> Setters => Children.OfType<SetterDeclaration>();
         public readonly List<GetterSetterDeclaration> GettersAndSetters = new List<GetterSetterDeclaration>();
-        public readonly ChildList<MethodDeclaration> MethodDeclarations;
-        public readonly ChildList<VariableDeclaration> VariableDeclarations;
+        public IEnumerable<MethodDeclaration> MethodDeclarations => Children.OfType<MethodDeclaration>();
+        public IEnumerable<VariableDeclaration> Variables => Children.OfType<VariableDeclaration>();
+        public readonly List<ClassDeclaration> EquivalentClassDeclarations = new List<ClassDeclaration>();
 
         public ClassDeclaration(
-            IParseTree context, 
-            string name, 
-            IEnumerable<ConstructorDeclaration> constructors, 
-            IEnumerable<GetterDeclaration> getters,
-            IEnumerable<SetterDeclaration> setters,
-            IEnumerable<MethodDeclaration> methodDeclarations,
-            IEnumerable<VariableDeclaration> variableDeclarations) : base(context)
+            IParseTree context,
+            string name,
+            IEnumerable<INode> children) : base(context, children)
         {
             Name = name;
-            Constructors = new ChildList<ConstructorDeclaration>(this);
-            Getters = new ChildList<GetterDeclaration>(this);
-            Setters = new ChildList<SetterDeclaration>(this);
-            MethodDeclarations = new ChildList<MethodDeclaration>(this);
-            VariableDeclarations = new ChildList<VariableDeclaration>(this);
 
-            Getters.ItemAdded += getter =>
+            foreach (var child in Children)
             {
-                var matchingGetterSetter = GettersAndSetters.SingleOrDefault(x => x.Name == getter.Name);
-                if (matchingGetterSetter != null)
-                {
-                    if (matchingGetterSetter.Getter != null)
-                        throw new CompilationError(context, "Multiple getters defined with name: " + getter.Name);
-                    matchingGetterSetter.Getter = getter;
-                }
-                else
-                {
-                    GettersAndSetters.Add(new GetterSetterDeclaration {Getter = getter});
-                }
-            };
-            Getters.ItemRemoved += getter =>
-            {
-                var matchingGetterSetter = GettersAndSetters.Single(x => x.Name == getter.Name);
-                matchingGetterSetter.Getter = null;
-                if (matchingGetterSetter.Setter == null)
-                    GettersAndSetters.Remove(matchingGetterSetter);
-            };
-            Setters.ItemAdded += setter =>
-            {
-                var matchingGetterSetter = GettersAndSetters.SingleOrDefault(x => x.Name == setter.Name);
-                if (matchingGetterSetter != null)
-                {
-                    if (matchingGetterSetter.Setter != null)
-                        throw new CompilationError(context, "Multiple setters defined with name: " + setter.Name);
-                    matchingGetterSetter.Setter = setter;
-                }
-                else
-                {
-                    GettersAndSetters.Add(new GetterSetterDeclaration {Setter = setter});
-                }
-            };
-            Setters.ItemRemoved += setter =>
-            {
-                var matchingGetterSetter = GettersAndSetters.Single(x => x.Name == setter.Name);
-                matchingGetterSetter.Setter = null;
-                if (matchingGetterSetter.Getter == null)
-                    GettersAndSetters.Remove(matchingGetterSetter);
-            };
-
-
-            Constructors.AddRange(constructors);
-            Getters.AddRange(getters);
-            Setters.AddRange(setters);
-            MethodDeclarations.AddRange(methodDeclarations);
-            VariableDeclarations.AddRange(variableDeclarations);
+                OnChildAdded(child);
+            }
+            ItemAdded += OnChildAdded;
+            ItemRemoved += OnChildRemoved;
         }
 
-        public IEnumerable<VariableDeclaration> Variables => VariableDeclarations;
+        private void OnChildAdded(INode child)
+        {
+            var getter = child as GetterDeclaration;
+            var setter = child as SetterDeclaration;
+            if (getter == null && setter == null)
+                return;
+            var getterSetterName = getter?.Name ?? setter.Name;
+
+            var matchingGetterSetter = GettersAndSetters.SingleOrDefault(x => x.Name == getterSetterName);
+            if (matchingGetterSetter != null)
+            {
+                if (getter != null)
+                {
+                    if (matchingGetterSetter.Getter != null)
+                        throw new CompilationError(Context, "Multiple getters defined with name: " + getterSetterName);
+                    matchingGetterSetter.Getter = getter;
+                }
+                if (setter != null)
+                {
+                    if (matchingGetterSetter.Setter != null)
+                        throw new CompilationError(Context, "Multiple setters defined with name: " + getterSetterName);
+                    matchingGetterSetter.Setter = setter;
+                }
+            }
+            else
+            {
+                GettersAndSetters.Add(new GetterSetterDeclaration(child.Context) { Getter = getter, Setter = setter });
+            }
+        }
+
+        private void OnChildRemoved(INode child)
+        {
+            var getter = child as GetterDeclaration;
+            var setter = child as SetterDeclaration;
+            if (getter == null && setter == null)
+                return;
+            var getterSetterName = getter?.Name ?? setter.Name;
+            var matchingGetterSetter = GettersAndSetters.Single(x => x.Name == getterSetterName);
+            if (getter != null)
+                matchingGetterSetter.Getter = null;
+            if (setter != null)
+                matchingGetterSetter.Setter = null;
+            if (matchingGetterSetter.Getter == null && matchingGetterSetter.Setter == null)
+                GettersAndSetters.Remove(matchingGetterSetter);
+        }
     }
 }

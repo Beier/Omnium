@@ -1,16 +1,24 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.ast.declarations;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
     public class MemberExpression : Expression
     {
-        public readonly ChildProperty<IExpression> Base;
-        public string Name { get; set; }
+        public IExpression Base => Children.OfType<IExpression>().SingleOrDefault();
+        public string Name { get; }
+        public INamedDeclaration Declaration { get; set; }
 
-        public MemberExpression(IParseTree context, IExpression @base, string name) : base(context)
+        public MemberExpression(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)
         {
-            Base = new ChildProperty<IExpression>(this, @base);
             Name = name;
+        }
+
+        public override string ToString()
+        {
+            return Base + "." + Name;
         }
     }
 }

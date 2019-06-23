@@ -13,8 +13,18 @@ namespace OverwatchCompiler.ToWorkshop.ast
     {
         INode Parent { get; set; }
         IEnumerable<INode> Children { get; }
+        IEnumerable<IEnumerable<INode>> ChildGroups { get; }
         IParseTree Context { get; }
         NodePosition Position { get; }
+        void AddChild(INode item);
+        void AddChildFirst(INode item);
+        void AddChildBefore(INode existingItem, INode newItem);
+        void AddChildAfter(INode existingItem, INode newItem);
+        void AddChildren(IEnumerable<INode> items);
+        void ReplaceChild(INode oldItem, INode newItem);
+        void ReplaceWith(INode replacement);
+        void RemoveChild(INode item);
+        void Remove();
     }
 
     public class NodePosition : IComparable<NodePosition>
@@ -39,7 +49,6 @@ namespace OverwatchCompiler.ToWorkshop.ast
 
     public static class NodeExtensions
     {
-
         public static T NearestAncestorOfType<T>(this INode node) where T : class, INode
         {
             if (node == null)
@@ -49,6 +58,15 @@ namespace OverwatchCompiler.ToWorkshop.ast
             return node.Parent.NearestAncestorOfType<T>();
         }
 
+        public static bool IsDescendantOf(this INode child, INode parent)
+        {
+            if (child == null)
+                return false;
+            if (child == parent)
+                return true;
+            return child.Parent.IsDescendantOf(parent);
+        }
+        
         public static IEnumerable<T> AllAncestorOfType<T>(this INode node) where T : class, INode
         {
             for (var n = node.NearestAncestorOfType<T>(); n != null; n = n.Parent.NearestAncestorOfType<T>())
@@ -132,23 +150,29 @@ namespace OverwatchCompiler.ToWorkshop.ast
                 .Where(x => x.Value.Count > 1)
                 .ToDictionary(x => x.Key, x => x.Value);
         }
+
+        public static bool IsVisibleFrom(this INode target, INode source)
+        {
+            //Todo: Also account for public/private
+            var targetFile = target.NearestAncestorOfType<SourceFile>();
+            var sourceFile = source.NearestAncestorOfType<SourceFile>();
+            return sourceFile == targetFile || sourceFile.ImportedSourceFiles.Contains(targetFile);
+        }
     }
 
     //Todo: Move all items to a single child collection
+    public delegate void ItemAddedOrRemoved(INode item);
     public abstract class Node : INode
     {
         public INode Parent { get; set; }
         public IParseTree Context { get; set; }
         public NodePosition Position { get; set; }
+        private readonly List<List<INode>> children = new List<List<INode>>();
+        public IEnumerable<INode> Children => children.SelectMany(x => x);
+        public IEnumerable<IEnumerable<INode>> ChildGroups => children.Select(x => x.AsReadOnly());
 
-        public IEnumerable<INode> Children =>
-            //Todo: Preload reflection for better performance
-            GetType()
-                .GetProperties()
-                .SelectMany(GetChildrenFromProperty)
-                .Concat(GetType().GetFields().SelectMany(GetChildrenFromField))
-                .OrderBy(x => x.Position);
-
+        public event ItemAddedOrRemoved ItemAdded;
+        public event ItemAddedOrRemoved ItemRemoved;
 
         protected Node(IParseTree context)
         {
@@ -158,113 +182,117 @@ namespace OverwatchCompiler.ToWorkshop.ast
                 Position = new NodePosition(nearestToken.Line, nearestToken.Column);
         }
 
-        private IEnumerable<INode> GetChildrenFromProperty(PropertyInfo property)
+        protected Node(IParseTree context, IEnumerable<INode> children) : this(context)
         {
-            if (!property.PropertyType.IsGenericType)
-                return Enumerable.Empty<INode>();
-            if (property.PropertyType.GetGenericTypeDefinition() == typeof(ChildList<>))
-                return ((IEnumerable)property.GetValue(this)).OfType<INode>();
-            if (property.PropertyType.GetGenericTypeDefinition() == typeof(ChildProperty<>))
-            {
-                var childProperty = property.GetValue(this);
-                var value = (INode)childProperty.GetType().GetProperty("Value").GetValue(childProperty);
-                if (value != null)
-                    return Enumerable.Repeat(value, 1);
-            }
-
-            return Enumerable.Empty<INode>();
+            AddChildren(children);
         }
 
-        private IEnumerable<INode> GetChildrenFromField(FieldInfo field)
+        protected Node(IParseTree context, IEnumerable<IEnumerable<INode>> childGroups) : this(context)
         {
-            if (!field.FieldType.IsGenericType)
-                return Enumerable.Empty<INode>();
-            if (field.FieldType.GetGenericTypeDefinition() == typeof(ChildList<>))
-                return ((IEnumerable)field.GetValue(this)).OfType<INode>();
-            if (field.FieldType.GetGenericTypeDefinition() == typeof(ChildProperty<>))
+            foreach (var childGroup in childGroups)
             {
-                var childProperty = field.GetValue(this);
-                var value = (INode)childProperty.GetType().GetProperty("Value").GetValue(childProperty);
-                if (value != null)
-                    return Enumerable.Repeat(value, 1);
+                children.Add(childGroup.ToList());
             }
 
-            return Enumerable.Empty<INode>();
+            foreach (var child in Children)
+            {
+                child.Parent = this;
+                ItemAdded?.Invoke(child);
+            }
         }
 
-        //Todo: Reduce code duplication
+        public void AddChild(INode item)
+        {
+            item.Parent = this;
+            if (children.Count == 0)
+                children.Add(new List<INode>());
+            children.Last().Add(item);
+            ItemAdded?.Invoke(item);
+        }
+
+        public void AddChildFirst(INode item)
+        {
+            item.Parent = this;
+            if (children.Count == 0)
+                children.Add(new List<INode>());
+            children.First().Insert(0, item);
+            ItemAdded?.Invoke(item);
+        }
+
+        public void AddChildBefore(INode existingItem, INode newItem)
+        {
+            foreach (var childGroup in children)
+            {
+                var index = childGroup.IndexOf(existingItem);
+                if (index == -1)
+                    continue;
+                childGroup.Insert(index, newItem);
+                newItem.Parent = this;
+                ItemAdded?.Invoke(newItem);
+                return;
+            }
+        }
+
+        public void AddChildAfter(INode existingItem, INode newItem)
+        {
+            foreach (var childGroup in children)
+            {
+                var index = childGroup.IndexOf(existingItem);
+                if (index == -1)
+                    continue;
+                childGroup.Insert(index + 1, newItem);
+                newItem.Parent = this;
+                ItemAdded?.Invoke(newItem);
+                return;
+            }
+        }
+
+        public void AddChildren(IEnumerable<INode> items)
+        {
+            foreach (var item in items)
+            {
+                AddChild(item);
+            }
+        }
+
+
+        public void ReplaceChild(INode oldItem, INode newItem)
+        {
+            if (oldItem == newItem)
+                return;
+            foreach (var childGroup in children)
+            {
+                var index = childGroup.IndexOf(oldItem);
+                if (index == -1)
+                    continue;
+                childGroup[index] = newItem;
+                oldItem.Parent = null;
+                newItem.Parent = this;
+                ItemRemoved?.Invoke(oldItem);
+                ItemAdded?.Invoke(newItem);
+                return;
+            }
+        }
+
         public void ReplaceWith(INode replacement)
         {
-            var fieldsAndProperties = Parent.GetType().GetFields().Concat<object>(Parent.GetType().GetProperties());
-            foreach (var fieldOrProperty in fieldsAndProperties)
+            Parent.ReplaceChild(this, replacement);
+        }
+
+        public void RemoveChild(INode child)
+        {
+            foreach (var childGroup in children)
             {
-                var fieldInfo = fieldOrProperty as FieldInfo;
-                var propertyInfo = fieldOrProperty as PropertyInfo;
-                var type = fieldInfo?.FieldType ?? propertyInfo.PropertyType;
-                if (!type.IsGenericType)
-                    continue;
-                if (type.GetGenericTypeDefinition() == typeof(ChildList<>))
-                {
-                    var list = fieldInfo?.GetValue(Parent) ?? propertyInfo.GetValue(Parent);
-                    if (!list.GetType().GenericTypeArguments[0].IsInstanceOfType(this))
-                        continue;
-                    var hasChild = (bool) list.GetType().GetMethod("Contains").Invoke(list, new object[] { this });
-                    if (hasChild)
-                    {
-                        list.GetType().GetMethod("Replace").Invoke(list, new object[] {this, replacement});
-                        return;
-                    }
-                }
-                else if (type.GetGenericTypeDefinition() == typeof(ChildProperty<>))
-                {
-                    var property = fieldInfo?.GetValue(Parent) ?? propertyInfo.GetValue(Parent);
-                    if (!property.GetType().GenericTypeArguments[0].IsInstanceOfType(this))
-                        continue;
-                    var currentValue = (INode)property.GetType().GetProperty("Value").GetValue(property);
-                    if (currentValue == this)
-                    {
-                        property.GetType().GetProperty("Value").SetValue(property, replacement);
-                        return;
-                    }
-                }
+                if (childGroup.Remove(child))
+                    break;
             }
+            child.Parent = null;
+            ItemRemoved?.Invoke(child);
         }
 
         public void Remove()
         {
-            var fieldsAndProperties = Parent.GetType().GetFields().Concat<object>(Parent.GetType().GetProperties());
-            foreach (var fieldOrProperty in fieldsAndProperties)
-            {
-                var fieldInfo = fieldOrProperty as FieldInfo;
-                var propertyInfo = fieldOrProperty as PropertyInfo;
-                var type = fieldInfo?.FieldType ?? propertyInfo.PropertyType;
-                if (!type.IsGenericType)
-                    continue;
-                if (type.GetGenericTypeDefinition() == typeof(ChildList<>))
-                {
-                    var list = fieldInfo?.GetValue(Parent) ?? propertyInfo.GetValue(Parent);
-                    if (!list.GetType().GenericTypeArguments[0].IsInstanceOfType(this))
-                        continue;
-                    var hasChild = (bool) list.GetType().GetMethod("Contains").Invoke(list, new object[] { this });
-                    if (hasChild)
-                    {
-                        list.GetType().GetMethod("Remove").Invoke(list, new object[] {this});
-                        return;
-                    }
-                }
-                else if (type.GetGenericTypeDefinition() == typeof(ChildProperty<>))
-                {
-                    var property = fieldInfo?.GetValue(Parent) ?? propertyInfo.GetValue(Parent);
-                    if (!property.GetType().GenericTypeArguments[0].IsInstanceOfType(this))
-                        continue;
-                    var currentValue = (INode)property.GetType().GetProperty("Value").GetValue(property);
-                    if (currentValue == this)
-                    {
-                        property.GetType().GetProperty("Value").SetValue(property, null);
-                        return;
-                    }
-                }
-            }
+            Parent.RemoveChild(this);
         }
 
         public override string ToString()

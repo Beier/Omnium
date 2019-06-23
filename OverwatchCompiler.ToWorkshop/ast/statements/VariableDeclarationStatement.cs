@@ -1,15 +1,21 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class VariableDeclarationStatement : Node, IStatement
     {
-        public readonly ChildProperty<VariableDeclaration> VariableDeclaration;
+        public VariableDeclaration VariableDeclaration => Children.OfType<VariableDeclaration>().SingleOrDefault();
 
-        public VariableDeclarationStatement(IParseTree context, VariableDeclaration variableDeclaration) : base(context)
+        public VariableDeclarationStatement(IParseTree context, VariableDeclaration variableDeclaration) : base(context, variableDeclaration.Yield())
         {
-            VariableDeclaration = new ChildProperty<VariableDeclaration>(this, variableDeclaration);
+        }
+
+        public override string ToString()
+        {
+            return VariableDeclaration + ";";
         }
     }
 }

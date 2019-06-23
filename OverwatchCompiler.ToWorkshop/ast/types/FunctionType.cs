@@ -8,19 +8,16 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public class FunctionType : Node, ITypeNode
     {
-        public readonly ChildList<VariableDeclaration> Parameters;
-        public readonly ChildProperty<ITypeNode> ReturnType;
+        public IEnumerable<VariableDeclaration> Parameters => Children.OfType<VariableDeclaration>();
+        public ITypeNode ReturnType => Children.OfType<ITypeNode>().SingleOrDefault();
 
-        public FunctionType(IParseTree context, IEnumerable<VariableDeclaration> parameters, ITypeNode returnType) : base(context)
+        public FunctionType(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
-            Parameters = new ChildList<VariableDeclaration>(this);
-            Parameters.AddRange(parameters);
-            ReturnType = new ChildProperty<ITypeNode>(this, returnType);
         }
 
         public override string ToString()
         {
-            return "(" + Parameters.Select(x => x.Type.Value).MkString(", ") + ") => " + ReturnType.Value;
+            return "(" + Parameters.Select(x => x.Type).MkString(", ") + ") => " + ReturnType;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 
@@ -6,25 +7,16 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
 {
     public abstract class AbstractTopLevelNode : Node, IHasVariables
     {
-        public readonly ChildList<ModuleDeclaration> ModuleDeclarations;
-        public readonly ChildList<ClassDeclaration> ClassDeclarations;
-        public readonly ChildList<MethodDeclaration> MethodDeclarations;
-        public readonly ChildList<EnumDeclaration> EnumDeclarations;
-        public readonly ChildList<VariableDeclaration> VariableDeclarations;
-        public readonly ChildList<MethodInvocationExpression> MethodInvocations;
-        public readonly ChildList<RuleDeclaration> RuleDeclarations;
-        
-        protected AbstractTopLevelNode(IParseTree context) : base(context)
-        {
-            ModuleDeclarations = new ChildList<ModuleDeclaration>(this);
-            ClassDeclarations = new ChildList<ClassDeclaration>(this);
-            MethodDeclarations = new ChildList<MethodDeclaration>(this);
-            EnumDeclarations = new ChildList<EnumDeclaration>(this);
-            VariableDeclarations = new ChildList<VariableDeclaration>(this);
-            MethodInvocations = new ChildList<MethodInvocationExpression>(this);
-            RuleDeclarations = new ChildList<RuleDeclaration>(this);
-        }
+        public IEnumerable<ModuleDeclaration> ModuleDeclarations => Children.OfType<ModuleDeclaration>();
+        public IEnumerable<ClassDeclaration> ClassDeclarations => Children.OfType<ClassDeclaration>();
+        public IEnumerable<MethodDeclaration> MethodDeclarations => Children.OfType<MethodDeclaration>();
+        public IEnumerable<EnumDeclaration> EnumDeclarations => Children.OfType<EnumDeclaration>();
+        public IEnumerable<VariableDeclaration> Variables => Children.OfType<VariableDeclaration>();
+        public IEnumerable<MethodInvocationExpression> MethodInvocations => Children.OfType<MethodInvocationExpression>();
+        public IEnumerable<RuleDeclaration> RuleDeclarations => Children.OfType<RuleDeclaration>();
 
-        public IEnumerable<VariableDeclaration> Variables => VariableDeclarations;
+        protected AbstractTopLevelNode(IParseTree context, IEnumerable<INode> children) : base(context, children)
+        {
+        }
     }
 }

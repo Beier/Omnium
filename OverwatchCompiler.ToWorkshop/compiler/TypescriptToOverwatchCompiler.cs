@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.compiler.parsing;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.compiler
 {
@@ -26,11 +27,20 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             //Todo: Extract
             var astTraversalSteps = new TreeVoidWalker[]
             {
+                new ClassMerger(), 
                 new VariableAssigner(),
                 new AstValidator(),
                 new TypeLinker(),
                 new NativeLoader(), 
-                new ExpressionTypeAssignerAndMethodLinker()
+                new ExpressionTypeAssignerAndMethodLinker(),
+                new AssignmentSimplifier(), 
+                new ClassDeleter(), 
+                new GlobalVariableInitializer(), 
+                new MethodFlattener(),
+                new LoopUnroller(),
+                new IfDeleter(), 
+                new VariableRemoverAndCodeOptimizer(),
+                new StringProcessor()
             };
 
             foreach (var step in astTraversalSteps)
@@ -46,7 +56,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 }
             }
 
-            var result = "";
+
+            var result = new CodeGenerator().Visit(root).ToString();
             return result;
         }
     }

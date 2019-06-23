@@ -1,19 +1,18 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.statements
 {
     public class IfStatement : Node, IStatement
     {
-        public readonly ChildProperty<IExpression> Condition;
-        public readonly ChildProperty<IStatement> TrueBranch;
-        public readonly ChildProperty<IStatement> FalseBranch;
+        public IExpression Condition => Children.OfType<IExpression>().SingleOrDefault();
+        public IStatement TrueBranch => Children.OfType<IStatement>().First();
+        public IStatement FalseBranch => Children.OfType<IStatement>().Skip(1).FirstOrDefault();
         
-        public IfStatement(IParseTree context, IExpression condition, IStatement trueBranch, IStatement falseBranch): base(context)
+        public IfStatement(IParseTree context, IEnumerable<INode> children): base(context, children)
         {
-            Condition = new ChildProperty<IExpression>(this, condition);
-            TrueBranch = new ChildProperty<IStatement>(this, trueBranch);
-            FalseBranch = new ChildProperty<IStatement>(this, falseBranch);
         }
     }
 }
