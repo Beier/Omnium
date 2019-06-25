@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
@@ -65,12 +66,27 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     blockStatement.VariableDeclarations.Clear();
                     blockStatement.VariableDeclarations.AddRange(oldVariables.Select(GetClone));
                     break;
+                case GotoStatement gotoStatement:
+                    gotoStatement.TargetStatement = GetClone(gotoStatement.TargetStatement);
+                    break;
             }
 
             foreach (var child in node.Children)
             {
                 UpdateReferences(child);
             }
+        }
+
+        public override INode VisitGotoStatement(GotoStatement gotoStatement)
+        {
+            if (gotoStatement.Condition == null)
+                return new GotoStatement(gotoStatement.Context, gotoStatement.TargetStatement);
+            return new GotoStatement(gotoStatement.Context, gotoStatement.Condition, gotoStatement.TargetStatement);
+        }
+
+        public override INode VisitGotoTargetStatement(GotoTargetStatement gotoTargetStatement)
+        {
+            return new GotoTargetStatement(gotoTargetStatement.Context);
         }
 
         private T GetClone<T>(T node) where T : class, INode
@@ -86,7 +102,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public override INode GetDefault(INode node)
         {
-            throw new System.NotImplementedException();
+            throw new Exception("AstCloner is missing implementation for " + node.GetType().Name);
         }
 
         public override INode Combine(INode v1, INode v2)

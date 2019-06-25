@@ -7,6 +7,11 @@ Native.rule("Hello World",
     Events.Ongoing.eachPlayer(Events.Team.All, Events.Player.All),
     Triggering.player.isHoldingButton(Button.PrimaryFire),
     () => {
-        Game.sendMessageTo(Triggering.player, "Hello " + Triggering.player + "!");
+        for (var i = 0; i < 10; i++) {
+            if (i % 2 == 0)
+                Game.sendMessageTo(Triggering.player, "Hello " + i + "!");
+            else
+                Game.sendMessageTo(Triggering.player, "Bye!!?1", MessageSize.Small);
+        }
     }
 );

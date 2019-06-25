@@ -14,6 +14,7 @@ namespace OverwatchCompiler.Tests.ToWorkshop
     {
         [TestCase("HelloWorld")]
         [TestCase("CountShots")]
+        [TestCase("LoopUnrolling")]
         public void RunTest(string testName)
         {
             var compiler = new TypescriptToOverwatchCompiler(new Parser());

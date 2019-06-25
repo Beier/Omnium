@@ -165,7 +165,11 @@
     <None Include="antlr\CompileGrammer.cmd" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="library\strings.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="library\core.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

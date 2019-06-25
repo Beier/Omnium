@@ -375,7 +375,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
                 yield return (IExpression)Visit(context.primaryExpression()).SingleOrDefault();
             else
             {
-                var token = CreateToken(context.PLUS() ?? context.MINUS() ?? context.BANG() ?? context.TILDE());
+                var token = CreateToken(context.PLUS() ?? context.MINUS() ?? context.BANG());
                 var @base = (IExpression)Visit(context.unaryExpression()).SingleOrDefault();
                 yield return new UnaryExpression(context, new INode[] { token, @base });
             }

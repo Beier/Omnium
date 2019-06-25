@@ -1,4 +1,6 @@
-﻿//This serves as a definition of the methods and properties avalible in Overwatch, and how to map to them.
+﻿
+
+//This serves as a definition of the methods and properties avalible in Overwatch, and how to map to them.
 //For instance, in TypeScript, there is a class called Player, which has a getter "altitude", which defines a mapping to "Altitude Of(this)"
 
 
@@ -145,118 +147,6 @@ module Events {
 
 Native.defineTypescriptNativeArg1Function<number, number>("Absolute Value", false, false, Math.abs);
 
-Native.registerString("");
-Native.registerString("----------");
-Native.registerString("-> {0}");
-Native.registerString("!");
-Native.registerString("!!");
-Native.registerString("!!!");
-Native.registerString("#{0}");
-Native.registerString("({0})");
-Native.registerString("*");
-Native.registerString("...");
-Native.registerString("?");
-Native.registerString("??");
-Native.registerString("???");
-Native.registerString("{0} - {1}");
-Native.registerString("{0} - {1} - {2}");
-Native.registerString("{0} ->");
-Native.registerString("{0} -> {1}");
-Native.registerString("{0} != {1}");
-Native.registerString("{0} * {1}");
-Native.registerString("{0} / {1}");
-Native.registerString("{0} : {1} : {2}");
-Native.registerString("{0} {1}");
-Native.registerString("{0} {1} {2}");
-Native.registerString("{0} + {1}");
-Native.registerString("{0} <-");
-Native.registerString("{0} <- {1}");
-Native.registerString("{0} <->");
-Native.registerString("{0} <-> {1}");
-Native.registerString("{0} < {1}");
-Native.registerString("{0} <= {1}");
-Native.registerString("{0} = {1}");
-Native.registerString("{0} == {1}");
-Native.registerString("{0} > {1}");
-Native.registerString("{0} >= {1}");
-Native.registerString("{0} and {1}");
-Native.registerString("{0} m");
-Native.registerString("{0} m/s");
-Native.registerString("{0} sec");
-Native.registerString("{0} vs {1}");
-Native.registerString("{0}!");
-Native.registerString("{0}!!");
-Native.registerString("{0}!!!");
-Native.registerString("{0}%");
-Native.registerString("{0}, {1}");
-Native.registerString("{0}, {1}, and {2}");
-Native.registerString("{0}:");
-Native.registerString("{0}: {1}");
-Native.registerString("{0}: {1} and {2}");
-Native.registerString("{0}:{1}");
-Native.registerString("{0}?");
-Native.registerString("{0}??");
-Native.registerString("{0}???");
-Native.registerString("<- {0}");
-Native.registerString("<-> {0}");
-Native.registerString("Abilities");
-Native.registerString("Ability");
-Native.registerString("Ability 1");
-Native.registerString("Ability 2");
-Native.registerString("Alert");
-Native.registerString("Alive");
-Native.registerString("Allies");
-Native.registerString("Ally");
-Native.registerString("Attack");
-Native.registerString("Attacked");
-Native.registerString("Attacking");
-Native.registerString("Attempt");
-Native.registerString("Attempts");
-Native.registerString("Average");
-Native.registerString("Avoid");
-Native.registerString("Avoided");
-Native.registerString("Avoiding");
-Native.registerString("Backward");
-Native.registerString("Bad");
-Native.registerString("Ban");
-Native.registerString("Banned");
-Native.registerString("Banning");
-Native.registerString("Best");
-Native.registerString("Better");
-Native.registerString("Boss");
-Native.registerString("Bosses");
-Native.registerString("Bought");
-Native.registerString("Build");
-Native.registerString("Built");
-Native.registerString("Burn");
-Native.registerString("Burning");
-Native.registerString("Burnt");
-Native.registerString("Buy");
-Native.registerString("Buying");
-
-//Todo: add all strings
-Native.registerString("Hello");
-Native.registerString("Total");
-
-/*actions
-{
-	Small Message(All Players(All Teams), String("----------", Null, Null, Null));
-
-actions
-{
-	Small Message(All Players(All Teams), String("-> {0}", String("Abilities", Null, Null, Null), Null, Null));
-}
-actions
-{
-	Small Message(All Players(All Teams), String("-> {0}", String("{0} {1}", Null, Null, Null), Null, Null));
-}
-
-actions
-{
-	Small Message(All Players(All Teams), String("-> {0}", String("{0} - {1}", Null, Null, Null), Null, Null));
-}
-
-}*/
 
 class Player {
     private constructor() { }

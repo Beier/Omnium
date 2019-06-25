@@ -62,6 +62,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         {
             if (variableDeclaration.Parent is VariableDeclarationStatement
                 || variableDeclaration.Parent is MethodDeclaration
+                || variableDeclaration.Parent is ForStatement
+                || variableDeclaration.Parent is ForeachStatement
                 || variableDeclaration.Parent is LambdaExpression)
                 return;
             if (variableDeclaration.InitExpression == null)

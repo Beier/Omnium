@@ -55,7 +55,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public override void ExitPosfixOperationExpression(PosfixOperationExpression posfixOperationExpression)
         {
-            if (!(posfixOperationExpression.Parent is ExpressionStatement))
+            if (!(posfixOperationExpression.Parent is ExpressionStatement || posfixOperationExpression.Parent is ForStatement forStatement && forStatement.NextExpressions.Contains(posfixOperationExpression)))
                 Errors.Add(new CompilationError(posfixOperationExpression.Context, "The postfix operator can only be used directly in a statement"));
             var assignmentExpression = new AssignmentExpression(
                 posfixOperationExpression.Context,
@@ -138,7 +138,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 assignmentExpression.Operator.Value = "=";
             }
 
-            if (!(assignmentExpression.Parent is ExpressionStatement))
+            if (!(assignmentExpression.Parent is ExpressionStatement || assignmentExpression.Parent is ForStatement || assignmentExpression.Parent is ForeachStatement))
             {
                 var statement = assignmentExpression.NearestAncestorOfType<IStatement>();
                 var block = (BlockStatement)statement.Parent;
