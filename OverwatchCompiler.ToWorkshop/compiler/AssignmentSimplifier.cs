@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
@@ -12,6 +13,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 {
     public class AssignmentSimplifier : TreeVoidWalker
     {
+
         public override void EnterIfStatement(IfStatement ifStatement)
         {
             WrapInBlock(ifStatement.TrueBranch);
@@ -31,6 +33,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public override void EnterWhileStatement(WhileStatement whileStatement)
         {
             WrapInBlock(whileStatement.Body);
+
         }
 
         public override void EnterSwitchGroup(SwitchGroup switchGroup)
@@ -49,8 +52,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         {
             if (statement == null || statement is BlockStatement)
                 return;
-            var parent = statement.Parent;
-            parent.ReplaceChild(statement, new BlockStatement(statement.Context, statement.Yield()));
+            var block = new BlockStatement(statement.Context, new List<IStatement>());
+            statement.Parent.ReplaceChild(statement, block);
+            block.AddChild(statement);
         }
 
         public override void ExitPosfixOperationExpression(PosfixOperationExpression posfixOperationExpression)
@@ -103,6 +107,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public override void ExitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
+            var parent = assignmentExpression.Parent;
             if (assignmentExpression.Operator.Value != "=")
             {
                 var rightSide = assignmentExpression.Right;

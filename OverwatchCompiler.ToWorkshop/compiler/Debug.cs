@@ -3,6 +3,7 @@ using System.Linq;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
+using OverwatchCompiler.ToWorkshop.ast.statements;
 using OverwatchCompiler.ToWorkshop.ast.types;
 
 namespace OverwatchCompiler.ToWorkshop.compiler
@@ -16,6 +17,15 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 if (child.Parent != node)
                     throw new Exception();
                 CheckForErrorsInParentChildRelationShips(child);
+            }
+        }
+
+        public static void CheckChildIsRightType(INode node)
+        {
+
+            foreach (var child in node.Children)
+            {
+                CheckChildIsRightType(child);
             }
         }
 

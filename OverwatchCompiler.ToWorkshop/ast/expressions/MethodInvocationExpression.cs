@@ -2,7 +2,9 @@
 using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
+using OverwatchCompiler.ToWorkshop.ast.statements;
 using OverwatchCompiler.ToWorkshop.ast.types;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
@@ -17,6 +19,12 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions
 
         public MethodInvocationExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
+        }
+
+        public override string ToString()
+        {
+            var genericTypesString = GenericTypes.Any() ? $"<{GenericTypes.MkString(", ")}>" : null;
+            return $"{Base}{genericTypesString}({Arguments.MkString(", ")})";
         }
     }
 }
