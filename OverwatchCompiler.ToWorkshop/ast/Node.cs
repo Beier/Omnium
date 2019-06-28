@@ -143,6 +143,20 @@ namespace OverwatchCompiler.ToWorkshop.ast
             }
         }
 
+        public static List<INode> AllDescendantsAndSelfList(this INode node)
+        {
+            if (node == null)
+                return new List<INode>();
+            var list = new List<INode>();
+            list.Add(node);
+            foreach (var child in node.Children)
+            {
+                list.AddRange(child.AllDescendantsAndSelfList());
+            }
+
+            return list;
+        }
+
         public static Dictionary<K, List<T>> GetDuplicatesBy<T, K>(this IEnumerable<T> nodes, Func<T, K> selector)
         {
             return nodes.GroupBy(selector)

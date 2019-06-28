@@ -155,7 +155,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var builder = new StringBuilder();
             foreach (var statement in blockStatement.Statements)
             {
-                AppendLine(builder, Visit(statement));
+                var line = Visit(statement);
+                if (line.Length > 0)
+                    AppendLine(builder, line);
             }
             return builder;
         }

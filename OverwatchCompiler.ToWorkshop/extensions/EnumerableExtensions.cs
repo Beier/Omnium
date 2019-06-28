@@ -11,6 +11,11 @@ namespace OverwatchCompiler.ToWorkshop.extensions
             yield return item;
         }
 
+        public static IEnumerable<T> Concat<T>(this IEnumerable<T> list, T item)
+        {
+            return list.Concat(item.Yield());
+        }
+        
         public static IEnumerable<IEnumerable<T>> GetAllPermutations<T>(this IEnumerable<T> enumerable)
         {
             var list = enumerable.ToList();

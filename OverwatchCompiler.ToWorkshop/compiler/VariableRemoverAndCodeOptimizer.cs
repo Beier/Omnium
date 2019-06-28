@@ -19,16 +19,16 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         //Merge variables within rule if possible
         //Assign player/global variables to be 100% safe locals (if the usage span does not cross loop or wait)
         //Variables spanning loop or wait will only be used for that rule
-        private readonly Dictionary<IStatement, List<IStatement>> successors = new Dictionary<IStatement, List<IStatement>>();
-        private readonly Dictionary<IStatement, List<IStatement>> predecessors = new Dictionary<IStatement, List<IStatement>>();
+        private Dictionary<IStatement, List<IStatement>> successors = new Dictionary<IStatement, List<IStatement>>();
+        private Dictionary<IStatement, List<IStatement>> predecessors = new Dictionary<IStatement, List<IStatement>>();
         private readonly Dictionary<VariableDeclaration, List<IExpression>> variableReads = new Dictionary<VariableDeclaration, List<IExpression>>();
         private readonly Dictionary<VariableDeclaration, List<IExpression>> variableWrites = new Dictionary<VariableDeclaration, List<IExpression>>();
 
 
         public override void EnterRoot(Root root)
         {
-            BuildSuccessorGraph(root);
-            BuildPredecessorGraph();
+            successors = BuildSuccessorGraph(root);
+            predecessors = BuildPredecessorGraph(successors);
             BuildVariableReadsWritesGraph(root);
 
 
@@ -65,25 +65,23 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
             skipChildren = true;
         }
-
-        private void BuildSuccessorGraph(INode node)
+        
+        private Dictionary<IStatement, List<IStatement>> BuildSuccessorGraph(Root root)
         {
-            if (!(node is IStatement || node is Root || node is SourceFile || node is ModuleDeclaration || node is RuleDeclaration || node is LambdaExpression))
-                return;
+            var successors = new Dictionary<IStatement, List<IStatement>>();
+            var statements = root.AllDescendantsAndSelf().OfType<IStatement>().ToList();
 
-            if (node is IStatement statement)
+            foreach (var statement in statements)
             {
                 successors.Add(statement, GetSuccessors(statement).ToList());
             }
 
-            foreach (var child in node.Children)
-            {
-                BuildSuccessorGraph(child);
-            }
+            return successors;
         }
 
-        private void BuildPredecessorGraph()
+        private Dictionary<IStatement, List<IStatement>> BuildPredecessorGraph(Dictionary<IStatement, List<IStatement>> successors)
         {
+            var predecessors = new Dictionary<IStatement, List<IStatement>>();
             foreach (var statement in successors.Keys)
             {
                 predecessors.Add(statement, new List<IStatement>());
@@ -97,6 +95,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     predecessors[followingStatement].Add(statement);
                 }
             }
+
+            return predecessors;
         }
 
         private void BuildVariableReadsWritesGraph(INode node)
@@ -118,19 +118,19 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var (reads, writes) = BuildVariableReadsWritesGraph2(node);
             foreach (var read in reads)
             {
-                if (variableReads[read.Key].Count != read.Value.Count 
+                if (variableReads[read.Key].Count != read.Value.Count
                     || !variableReads[read.Key].SequenceEqual(read.Value))
                     throw new Exception();
             }
             foreach (var write in writes)
             {
-                if (variableWrites[write.Key].Count != write.Value.Count 
+                if (variableWrites[write.Key].Count != write.Value.Count
                     || !variableWrites[write.Key].SequenceEqual(write.Value))
                     throw new Exception();
             }
         }
-        
-        private (Dictionary<VariableDeclaration, List<IExpression>>, Dictionary<VariableDeclaration, List<IExpression>>) 
+
+        private (Dictionary<VariableDeclaration, List<IExpression>>, Dictionary<VariableDeclaration, List<IExpression>>)
             BuildVariableReadsWritesGraph2(INode node)
         {
             var reads = new Dictionary<VariableDeclaration, List<IExpression>>();
@@ -232,6 +232,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         private bool RemoveRedundantGotos()
         {
+            var root = successors.First().Key.NearestAncestorOfType<Root>();
             var changedSomething = false;
             foreach (var successorPair in successors.ToList())
             {
@@ -286,6 +287,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                                 }
                                 else
                                 {
+                                    var gotoTarget = gotoStatement.TargetStatement;
+                                    successors[gotoStatement].Remove(gotoTarget);
+                                    predecessors[gotoTarget].Remove(gotoStatement);
                                     RemoveStatement(gotoStatement);
                                 }
                             }
@@ -355,8 +359,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 if (!(variableDeclaration.Parent is VariableDeclarationStatement))
                     continue;
                 
-                var usagePaths = UsagePaths(variableDeclaration, assignment).ToList();
-                if (usagePaths.Count == 0)
+                var readsAndPredecessors = FindReadsAndStatementsTowardsRead(variableDeclaration, assignment);
+                if (readsAndPredecessors.Count == 0)
                 {
                     RemoveStatement((ExpressionStatement)assignment.Parent);
                     madeChanges = true;
@@ -364,15 +368,20 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 }
 
                 var assignmentRight = assignment.Right;
-                if (usagePaths.Count == 1 && IsSafeToMoveExpressionAlongPath(assignmentRight, usagePaths[0]))
+                if (readsAndPredecessors.Count == 1 || IsConstant(assignmentRight))
                 {//Only used once, as the very next thing
-                    var usage = (IExpression)usagePaths[0].Last();
-                    variableReads[variableDeclaration].Remove(usage);
-                    assignmentRight.Remove();
-                    usage.ReplaceWith(assignmentRight);
-                    RemoveStatement((ExpressionStatement)assignment.Parent);
-                    madeChanges = true;
-                    continue;
+                    if (readsAndPredecessors.All(x => IsSafeToMoveExpressionAlongPath(assignmentRight, x.Item2, x.Item1)))
+                    {
+                        assignmentRight.Remove();
+                        foreach (var (read, _) in readsAndPredecessors)
+                        {
+                            variableReads[variableDeclaration].Remove(read);
+                            read.ReplaceWith(AstCloner.Clone(assignmentRight));
+                        }
+                        RemoveStatement((ExpressionStatement)assignment.Parent);
+                        madeChanges = true;
+                        continue;
+                    }
                 }
 
                 //Todo: Move if right side can safely be moved across all statements in-between.
@@ -382,10 +391,87 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             return madeChanges;
         }
 
-        private bool IsSafeToMoveExpressionAlongPath(IExpression expression, List<INode> path)
+        private List<(IExpression, HashSet<IStatement>)> FindReadsAndStatementsTowardsRead(VariableDeclaration variableDeclaration, AssignmentExpression assignment)
+        {
+            var readsForStatement = new Dictionary<IStatement, List<(IExpression, HashSet<IStatement>)>>();
+            var queue = new Queue<(IStatement, HashSet<IStatement>)>();
+            foreach (var successor in successors[(IStatement) assignment.Parent])
+            {
+                queue.Enqueue((successor, new HashSet<IStatement>()));
+            }
+
+            while (queue.Count > 0)
+            {
+                var (statement, predecessors) = queue.Dequeue();
+                if (readsForStatement.TryGetValue(statement, out var reads))
+                {
+                    //Add predecessors for this statement
+                    foreach (var (_, readPredecessors) in reads)
+                    {
+                        foreach (var predecessor in predecessors)
+                        {
+                            readPredecessors.Add(predecessor);
+                        }
+                    }
+                    continue;
+                }
+
+                reads = GetReadsOfVariable(statement, variableDeclaration).Select(read => (read, new HashSet<IStatement>(predecessors))).ToList();
+                readsForStatement.Add(statement, reads);
+
+                if (HasWritesToVariable(statement, variableDeclaration))
+                    continue;
+
+                foreach (var successor in successors[statement])
+                {
+                    queue.Enqueue((successor, new HashSet<IStatement>(predecessors.Concat(statement))));
+                }
+            }
+
+            return readsForStatement.Values.SelectMany(x => x).ToList();
+        }
+        
+        private IEnumerable<IExpression> GetReadsOfVariable(IStatement statement, VariableDeclaration variableDeclaration)
+        {
+            return GetUsagesOfVariable(statement, variableDeclaration, false);
+        }
+        
+        private bool HasWritesToVariable(IStatement statement, VariableDeclaration variableDeclaration)
+        {
+            return GetWritesToVariable(statement, variableDeclaration).Any();
+        }
+        
+        private IEnumerable<IExpression> GetWritesToVariable(IStatement statement, VariableDeclaration variableDeclaration)
+        {
+            return GetUsagesOfVariable(statement, variableDeclaration, true);
+        }
+        
+        private IEnumerable<IExpression> GetUsagesOfVariable(IStatement statement, VariableDeclaration variableDeclaration, bool usageTypeWrite)
+        {
+            foreach (var decendant in statement.AllDescendantsAndSelf())
+            {
+                var isWrite = decendant.Parent is AssignmentExpression assignmentExpression && decendant == assignmentExpression.Left;
+                if (isWrite != usageTypeWrite)
+                    continue;
+                switch (decendant)
+                {
+                    case SimpleNameExpression simpleNameExpression:
+                        if (simpleNameExpression.Declaration == variableDeclaration)
+                            yield return simpleNameExpression;
+                        break;
+                    case MemberExpression memberExpression:
+                        if (memberExpression.Declaration == variableDeclaration)
+                            yield return memberExpression;
+                        break;
+                }
+            }
+        }
+
+        private bool IsSafeToMoveExpressionAlongPath(IExpression expression, HashSet<IStatement> predecessors, IExpression usage)
         {
             //Constant or literally the next expression
-            if (IsConstant(expression) || path.OfType<IStatement>().Count() == 1 && path.OfType<IExpression>().Count() == 1)
+            var expressionsBeforeUsage = GetDecendantsInExecutionOrder(usage.NearestAncestorOfType<IStatement>()).TakeWhile(x => x != usage).ToList();
+            if (IsConstant(expression) || predecessors.Count == 0 && expressionsBeforeUsage.Count == 0)
                 return true;
             GetPossibleExecutionEffects(expression, out var expressionHasReads, out var expressionHasWrites, out var expressionHasSleeps);
             if (expressionHasWrites || expressionHasSleeps)
@@ -393,34 +479,39 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var variableReads = GetVariableReads(expression).ToList();
             if (!expressionHasReads && variableReads.Count == 0)
                 return true;
-
-            var statements = path.TakeWhile(x => x is IStatement).Cast<IStatement>().ToList();
-            var pathToUsage = statements.Last().Yield().Concat(path.SkipWhile(x => x is IStatement)).ToList();
-            statements.RemoveAt(statements.Count - 1);
-            foreach (var statement in statements)
+            
+            foreach (var node in predecessors.Concat<INode>(expressionsBeforeUsage))
             {
-                GetPossibleExecutionEffects(statement, out _, out var statementHasWrites, out var statementHasSleeps);
+                GetPossibleExecutionEffects(node, out _, out var statementHasWrites, out var statementHasSleeps);
                 if (statementHasWrites && expressionHasReads || statementHasSleeps)
                     return false;
-                if (GetVariableWrites(statement).Any(x => variableReads.Contains(x)))
+                if (GetVariableWrites(node).Any(x => variableReads.Contains(x)))
                     return false;
             }
-
-            for (int i = 0; i < pathToUsage.Count - 1; i++)
-            {
-                var indexOfNext = pathToUsage[i].Children.IndexOf(pathToUsage[i + 1]);
-                foreach (var node in pathToUsage[i].Children.Take(indexOfNext))
-                {
-                    GetPossibleExecutionEffects(node, out _, out var statementHasWrites, out var statementHasSleeps);
-                    if (statementHasWrites && expressionHasReads || statementHasSleeps)
-                        return false;
-                    if (GetVariableWrites(node).Any(x => variableReads.Contains(x)))
-                        return false;
-                }
-            }
-
             return true;
         }
+
+        private IEnumerable<IExpression> GetDecendantsInExecutionOrder(INode node)
+        {
+            if (node == null)
+                return Enumerable.Empty<IExpression>();
+            switch (node)
+            {
+                case AssignmentExpression assignmentExpression:
+                    return GetDecendantsInExecutionOrder(assignmentExpression.Right)
+                        .Concat(assignmentExpression)
+                        .Concat(GetDecendantsInExecutionOrder(assignmentExpression.Left));
+                case MethodInvocationExpression methodInvocation:
+                    return methodInvocation.Arguments.SelectMany(GetDecendantsInExecutionOrder)
+                        .Concat(methodInvocation);
+                case NativeMethodInvocationExpression methodInvocation:
+                    return methodInvocation.Arguments.SelectMany(GetDecendantsInExecutionOrder)
+                        .Concat(methodInvocation);
+                default:
+                    return node.Yield().OfType<IExpression>()
+                        .Concat(node.Children.SelectMany(GetDecendantsInExecutionOrder));
+            }
+        } 
 
         private bool IsConstant(IExpression expression)
         {
@@ -533,91 +624,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             }
             throw new Exception();
         }
-
-        private List<List<INode>> UsagePaths(VariableDeclaration variableDeclaration, AssignmentExpression assignment)
-        {
-            var parent = (ExpressionStatement)assignment.Parent;
-            var successorPaths = GetAllSuccessorPaths(parent);
-            var usagePaths = new List<List<INode>>();
-            foreach (var successorPath in successorPaths)
-            {
-                //Remove the initial assignment
-                successorPath.RemoveAt(0);
-                //Remove everything after a subsequent assignment
-                for (int i = 0; i < successorPath.Count; i++)
-                {
-                    if (successorPath[i] is ExpressionStatement es && es.Expression is AssignmentExpression ass)
-                    {
-                        var assTarget = GetAssignmentTarget(ass);
-                        if (assTarget == variableDeclaration)
-                        {
-                            successorPath.RemoveRange(i + 1, successorPath.Count - i - 1);
-                            break;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < successorPath.Count; i++)
-                {
-                    var decendants = successorPath[i].AllDescendantsAndSelf().ToList();
-                    for (int j = 0; j < decendants.Count; j++)
-                    {
-                        if (IsReadOfVariable(decendants[j], variableDeclaration))
-                        {
-                            var usagePath = successorPath.Take(i).Concat(decendants.Take(j + 1)).ToList();
-                            if (!usagePaths.Exists(x => x.Count == usagePath.Count && x.SequenceEqual(usagePath)))
-                                usagePaths.Add(usagePath);
-                        }
-                    }
-                }
-
-            }
-
-            return usagePaths;
-        }
-
-        private bool IsReadOfVariable(INode node, VariableDeclaration variableDeclaration)
-        {
-            if (node.Parent is AssignmentExpression assignment && node == assignment.Left)
-                return false;
-            switch (node)
-            {
-                case SimpleNameExpression simpleNameExpression:
-                    return simpleNameExpression.Declaration == variableDeclaration;
-                case MemberExpression memberExpression:
-                    return memberExpression.Declaration == variableDeclaration;
-            }
-
-            return false;
-        }
-
-        private List<List<IStatement>> GetAllSuccessorPaths(IStatement statement)
-        {
-            Queue<List<IStatement>> paths = new Queue<List<IStatement>>();
-            List<List<IStatement>> finishedPaths = new List<List<IStatement>>();
-            paths.Enqueue(new List<IStatement> { statement });
-            while (paths.Any())
-            {
-                var path = paths.Dequeue();
-                var lastNode = path.Last();
-                var nodeSuccessors = successors[lastNode];
-                if (nodeSuccessors.Count == 0)
-                    finishedPaths.Add(path);
-                else
-                {
-                    foreach (var successor in nodeSuccessors)
-                    {
-                        if (path.Contains(successor))
-                            finishedPaths.Add(path);
-                        else
-                            paths.Enqueue(path.Concat(successor.Yield()).ToList());
-                    }
-                }
-            }
-
-            return finishedPaths;
-        }
-
+        
         private bool RemoveReadVariables()
         {
             bool removedVariable = false;
@@ -800,22 +807,43 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     .OfType<AssignmentExpression>()
                     .Where(x => GetAssignmentTarget(x).Parent is VariableDeclarationStatement)
                     .ToList();
-                var usedVariablesWithoutWait = new List<(VariableDeclaration, List<List<INode>>)>();
-                var usedVariablesWithWaits = new List<(VariableDeclaration, List<List<INode>>)>();
+                var usedVariablesWithoutWait = new List<(VariableDeclaration, HashSet<INode>)>();
+                var usedVariablesWithWaits = new List<(VariableDeclaration, HashSet<INode>)>();
 
                 //Todo: could maybe be optimized to reduce number of variables.
                 foreach (var assignment in assignmentsToLocals)
                 {
                     var sourceFile = assignment.NearestAncestorOfType<SourceFile>();
                     var localVar = GetAssignmentTarget(assignment);
-                    var usagePaths = UsagePaths(localVar, assignment).ToList();
+                    var readsAndPredecessors = FindReadsAndStatementsTowardsRead(localVar, assignment);
+                    var reads = readsAndPredecessors.Select(x => x.Item1).ToList();
+                    var nodesBetweenAssignmentAndAllReads = new HashSet<INode>(readsAndPredecessors
+                        .SelectMany(x =>
+                        {
+                            var (read, predecessors) = x;
+                            var expressionsBeforeUsage = GetDecendantsInExecutionOrder(read.NearestAncestorOfType<IStatement>()).TakeWhile(y => y != read).ToList();
+                            return predecessors
+                                .SelectMany(y => y.AllDescendantsAndSelf())
+                                .Concat(expressionsBeforeUsage);
+                        }));
+
+
+
                     VariableDeclaration newDeclaration;
-                    if (usagePaths.Any(DoesUsagePathCrossWait))
+                    if (nodesBetweenAssignmentAndAllReads.Any(IsWait))
                     {
-                        var (globalVariableDeclaration, list) = usedVariablesWithWaits.FirstOrDefault(x => x.Item2.All(y => usagePaths.All(z => !DoesUsagePathsOverlap(y, z))));
+                        var (globalVariableDeclaration, list) = usedVariablesWithWaits.FirstOrDefault(x =>
+                        {
+                            var set = new HashSet<INode>(x.Item2);
+                            set.IntersectWith(nodesBetweenAssignmentAndAllReads);
+                            return set.Count == 0;
+                        });
                         if (globalVariableDeclaration != null)
                         {
-                            list.AddRange(usagePaths);
+                            foreach (var nodesBetweenAssignmentAndAllRead in nodesBetweenAssignmentAndAllReads)
+                            {
+                                list.Add(nodesBetweenAssignmentAndAllRead);
+                            }
                             newDeclaration = globalVariableDeclaration;
                         }
                         else
@@ -827,15 +855,23 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                                 sourceFile.AddChild(newDeclaration);
                             variableReads.Add(newDeclaration, new List<IExpression>());
                             variableWrites.Add(newDeclaration, new List<IExpression>());
-                            usedVariablesWithWaits.Add((newDeclaration, usagePaths));
+                            usedVariablesWithWaits.Add((newDeclaration, nodesBetweenAssignmentAndAllReads));
                         }
                     }
                     else
                     {
-                        var (globalVariableDeclaration, list) = usedVariablesWithoutWait.FirstOrDefault(x => x.Item2.All(y => usagePaths.All(z => !DoesUsagePathsOverlap(y, z))));
+                        var (globalVariableDeclaration, list) = usedVariablesWithoutWait.FirstOrDefault(x =>
+                        {
+                            var set = new HashSet<INode>(x.Item2);
+                            set.IntersectWith(nodesBetweenAssignmentAndAllReads);
+                            return set.Count == 0;
+                        });
                         if (globalVariableDeclaration != null)
                         {
-                            list.AddRange(usagePaths);
+                            foreach (var nodesBetweenAssignmentAndAllRead in nodesBetweenAssignmentAndAllReads)
+                            {
+                                list.Add(nodesBetweenAssignmentAndAllRead);
+                            }
                             newDeclaration = globalVariableDeclaration;
                         }
                         else
@@ -853,18 +889,17 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                                     sourceFile.AddChild(newDeclaration);
                                 variableReads.Add(newDeclaration, new List<IExpression>());
                                 variableWrites.Add(newDeclaration, new List<IExpression>());
-                                usedVariablesWithoutWait.Add((newDeclaration, usagePaths));
+                                usedVariablesWithoutWait.Add((newDeclaration, nodesBetweenAssignmentAndAllReads));
                             }
                         }
                     }
 
                     ((SimpleNameExpression)assignment.Left).Declaration = newDeclaration;
                     variableWrites[newDeclaration].Add((SimpleNameExpression)assignment.Left);
-                    foreach (var usagePath in usagePaths)
+                    foreach (SimpleNameExpression read in reads)
                     {
-                        var target = (SimpleNameExpression)usagePath.Last();
-                        target.Declaration = newDeclaration;
-                        variableReads[newDeclaration].Add(target);
+                        read.Declaration = newDeclaration;
+                        variableReads[newDeclaration].Add(read);
                     }
                 }
                 if (IsPlayerRule(rule))
@@ -879,13 +914,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             }
         }
 
-        private bool DoesUsagePathCrossWait(List<INode> usagePath)
+        private bool IsWait(INode node)
         {
-            return usagePath
-                .OfType<IStatement>()
-                .SelectMany(x => x.AllDescendantsAndSelf())
-                .OfType<NativeMethodInvocationExpression>()
-                .Any(x => x.NativeMethodName == "Wait");
+            return node is NativeMethodInvocationExpression methodInvocation && methodInvocation.NativeMethodName.ToLower() == "wait";
         }
 
         private bool DoesUsagePathsOverlap(List<INode> usagePath1, List<INode> usagePath2)
@@ -1003,5 +1034,41 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 }
             }
         }
+
+
+        //private void ValidateSuccessorsAndPredecessors(Root root)
+        //{
+        //    var currentSuccessors = BuildSuccessorGraph(root);
+        //    var currentPredecessors = BuildPredecessorGraph(successors);
+
+        //    foreach (var pair in currentSuccessors)
+        //    {
+        //        if (!successors.TryGetValue(pair.Key, out var existingList))
+        //            throw new Exception();
+        //        if (!pair.Value.All(existingList.Contains))
+        //            throw new Exception();
+        //    }
+        //    foreach (var pair in currentPredecessors)
+        //    {
+        //        if (!predecessors.TryGetValue(pair.Key, out var existingList))
+        //            throw new Exception();
+        //        if (!pair.Value.All(existingList.Contains))
+        //            throw new Exception();
+        //    }
+        //    foreach (var pair in successors)
+        //    {
+        //        if (!currentSuccessors.TryGetValue(pair.Key, out var existingList))
+        //            throw new Exception();
+        //        if (!pair.Value.All(existingList.Contains))
+        //            throw new Exception();
+        //    }
+        //    foreach (var pair in predecessors)
+        //    {
+        //        if (!currentPredecessors.TryGetValue(pair.Key, out var existingList))
+        //            throw new Exception();
+        //        if (!pair.Value.All(existingList.Contains))
+        //            throw new Exception();
+        //    }
+        //}
     }
 }

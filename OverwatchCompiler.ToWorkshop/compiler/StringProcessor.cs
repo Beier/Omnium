@@ -32,7 +32,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 stringLiteral.ReplaceWith(constructed);
                 Visit(constructed);
             }
-            skipChildren = true;
         }
 
         public override void EnterBinaryExpression(BinaryExpression binaryExpression)
@@ -108,7 +107,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         .ToList();
                     if (subParts.Any(x => x == null))
                         continue;
-                    var newLiteral = new StringLiteral(context, wildcardString);
+                    var newLiteral = new StringLiteral(context, "\"" + wildcardString + "\"");
                     var arg1 = subParts[0];
                     var arg2 = subParts.Count >= 2 ? subParts[1] : null;
                     var arg3 = subParts.Count >= 3 ? subParts[2] : null;
