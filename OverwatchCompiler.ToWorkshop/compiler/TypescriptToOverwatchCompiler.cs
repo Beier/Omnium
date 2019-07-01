@@ -45,7 +45,14 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
             foreach (var step in astTraversalSteps)
             {
-                step.Visit(root);
+                try
+                {
+                    step.Visit(root);
+                }
+                catch (CompilationError e)
+                {
+                    step.Errors.Add(e);
+                }
                 foreach (var error in step.Errors)
                 {
                     Console.WriteLine(error.Message);

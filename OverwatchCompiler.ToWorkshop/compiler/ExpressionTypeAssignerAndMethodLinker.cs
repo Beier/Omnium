@@ -28,7 +28,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 var declarations = GetMatchingDeclarations(ancestor, simpleNameExpression, simpleNameExpression.Name);
                 if (!declarations.Any())
                     continue;
-                if (declarations.Count() > 1)
+                if (declarations.Count > 1)
                     Errors.Add(new CompilationError(simpleNameExpression.Context, $"Found multiple declarations matching '{simpleNameExpression.Name}'"));
 
                 simpleNameExpression.Declaration = declarations.First();
@@ -89,6 +89,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     matchingDeclarations.AddRange(importedSourceFile.ModuleDeclarations.Where(x => x.Name == name));
                     matchingDeclarations.AddRange(importedSourceFile.ClassDeclarations.Where(x => x.Name == name).DistinctBy(x => x.Name));
                     matchingDeclarations.AddRange(importedSourceFile.EnumDeclarations.Where(x => x.Name == name));
+                    matchingDeclarations.AddRange(importedSourceFile.MethodDeclarations.Where(x => x.Name == name));
                 }
             }
 
@@ -208,6 +209,14 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             if (!fromType.IsAssignableTo(toType))
                 Errors.Add(new CompilationError(assignmentExpression.Context, $"The type {fromType} is not assignable to {toType}"));
             assignmentExpression.Type = toType;
+        }
+
+        public override void ExitAssertion(Assertion assertion)
+        {
+            if (!assertion.Condition.Type.IsAssignableTo(new BoolType(assertion.Context)))
+            {
+                Errors.Add(new CompilationError(assertion.Context, $"The type {assertion.Condition.Type} is not assignable to boolean"));
+            }
         }
 
         public override void ExitBinaryExpression(BinaryExpression binaryExpression)
@@ -337,12 +346,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     }
                     var matchingDeclarations = GetMatchingDeclarations(staticReference.Declaration, memberExpression, memberExpression.Name);
                     if (matchingDeclarations.Count() > 1)
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations matching {memberExpression.Name}"));
+                        Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
                     if (!matchingDeclarations.Any())
                     {
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found no declarations matching {memberExpression.Name}"));
-                        memberExpression.Type = new NullType();
-                        return;
+                        throw new CompilationError(memberExpression.Context, $"Found no on {memberExpression.Base.Type} declarations matching {memberExpression.Name}");
                     }
                     if (!IsStatic(matchingDeclarations[0]))
                         Errors.Add(new CompilationError(memberExpression.Context, "Non-static declaration referenced in static context."));
@@ -353,30 +360,32 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 case ReferenceType referenceType:
                     if (referenceType.Declaration is EnumDeclaration)
                     {
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found no declarations matching {memberExpression.Name}"));
+                        Errors.Add(new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
                         memberExpression.Type = new NullType();
                         return;
                     }
                     matchingDeclarations = GetMatchingDeclarations(referenceType.Declaration, memberExpression, memberExpression.Name);
                     if (matchingDeclarations.Count() > 1)
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations matching {memberExpression.Name}"));
+                        Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
                     if (matchingDeclarations.Count == 0)
                     {
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found no declarations matching {memberExpression.Name}"));
-                        memberExpression.Type = new NullType();
-                        return;
+                        throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
                     }
                     if (IsStatic(matchingDeclarations[0]))
                         Errors.Add(new CompilationError(memberExpression.Context, "Static declaration referenced in non-static context."));
                     memberExpression.Type = GetType(matchingDeclarations[0]);
                     memberExpression.Declaration = matchingDeclarations[0];
                     break;
+                case ArrayType _:
+                    if (memberExpression.Name != "length")
+                        throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
+                    var nativeArrayCount = NativeMethods.ArrayCount(memberExpression.Context, memberExpression.Base);
+                    memberExpression.ReplaceWith(nativeArrayCount);
+                    break;
                 default:
-                    Errors.Add(new CompilationError(memberExpression.Context, $"Found no declarations matching {memberExpression.Name}"));
-                    memberExpression.Type = new NullType();
-                    return;
+                    throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
             }
-            
+
             if (memberExpression.Declaration is GetterSetterDeclaration getterSetterDeclaration)
             {
                 if (memberExpression.Parent is AssignmentExpression assignmentExpression && memberExpression == assignmentExpression.Left)
@@ -398,20 +407,82 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             }
         }
 
+        public override void EnterForeachStatement(ForeachStatement foreachStatement)
+        {
+            Visit(foreachStatement.List);
+            if (!(foreachStatement.List.Type is ArrayType arrayType))
+            {
+                Errors.Add(new CompilationError(foreachStatement.Context, $"Can not iterate over {foreachStatement.List.Type}."));
+                skipChildren = true;
+                return;
+            }
+
+            foreachStatement.Variable.AddChild(AstCloner.Clone(arrayType.Base));
+            Visit(foreachStatement.Body);
+            skipChildren = true;
+        }
+
         public override void EnterMethodInvocationExpression(MethodInvocationExpression methodInvocationExpression)
         {
-            if (methodInvocationExpression.Base is MemberExpression memberExpression
-                && memberExpression.Name == "toString")
+            if (methodInvocationExpression.Base is MemberExpression memberExpression)
             {
-                if (methodInvocationExpression.GenericTypes.Any())
-                    Errors.Add(new CompilationError(memberExpression.Context, "Expected 0 generic type arguments"));
-                if (methodInvocationExpression.Arguments.Any())
-                    Errors.Add(new CompilationError(memberExpression.Context, "Expected 0 arguments"));
-                var replacement = memberExpression.Base;
-                methodInvocationExpression.ReplaceWith(replacement);
-                Visit(replacement);
-                replacement.Type = new StringType(methodInvocationExpression.Context);
-                skipChildren = true;
+                switch (memberExpression.Name)
+                {
+                    case "toString":
+                        {
+                            if (methodInvocationExpression.GenericTypes.Any())
+                                Errors.Add(new CompilationError(memberExpression.Context, "Expected 0 generic type arguments"));
+                            if (methodInvocationExpression.Arguments.Any())
+                                Errors.Add(new CompilationError(memberExpression.Context, "Expected 0 arguments"));
+                            var replacement = memberExpression.Base;
+                            methodInvocationExpression.ReplaceWith(replacement);
+                            var parent = replacement.Parent;
+                            var index = parent.Children.IndexOf(replacement);
+                            Visit(replacement);
+                            if (replacement.Parent == null)
+                                replacement = (IExpression) parent.Children.ElementAt(index);
+                            replacement.Type = new StringType(methodInvocationExpression.Context);
+                            skipChildren = true;
+                            break;
+                        }
+                    case "push":
+                        {
+                            Visit(memberExpression.Base);
+                            foreach (var argument in methodInvocationExpression.Arguments.ToList())
+                            {
+                                Visit(argument);
+                            }
+                            if (memberExpression.Base.Type is ArrayType)
+                                throw new CompilationError(memberExpression.Context, "Use concat to add elements to an array. The modified array is returned.");
+                            ExitMemberExpression(memberExpression);
+                            skipChildren = true;
+                            break;
+                        }
+                    case "concat":
+                        {
+                            Visit(memberExpression.Base);
+                            foreach (var argument in methodInvocationExpression.Arguments.ToList())
+                            {
+                                Visit(argument);
+                            }
+                            if (memberExpression.Base.Type is ArrayType)
+                            {
+                                if (methodInvocationExpression.GenericTypes.Any())
+                                    Errors.Add(new CompilationError(methodInvocationExpression.Context, "The concat method does not support generic type arguments"));
+                                if (methodInvocationExpression.Arguments.Count() != 1)
+                                    Errors.Add(new CompilationError(methodInvocationExpression.Context, "Expected 1 argument for concat"));
+                                var nativeAppend = NativeMethods.AppendToArray(methodInvocationExpression.Context, memberExpression.Base, methodInvocationExpression.Arguments.FirstOrDefault());
+                                methodInvocationExpression.ReplaceWith(nativeAppend);
+                                skipChildren = true;
+                            }
+                            else
+                            {
+                                ExitMemberExpression(memberExpression);
+                                skipChildren = true;
+                            }
+                            break;
+                        }
+                }
             }
         }
 

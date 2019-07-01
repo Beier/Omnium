@@ -20,6 +20,12 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         //If it spans the entire rule, simply replace with a loop statement at the bottom
         //If not, split it into a new rule, use a global/player variable to trigger it
 
+        private Root root;
+        public override void EnterRoot(Root root)
+        {
+            this.root = root;
+        }
+
         public override void EnterMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             BlockFlattener.FlattenAllSubBlocks(methodDeclaration.Body);
@@ -27,17 +33,19 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public override void EnterForeachStatement(ForeachStatement foreachStatement)
         {
+            Debug.CheckForErrorsInParentChildRelationShips(root);
+            var random = new Random();
             var listVariable = new VariableDeclaration(
                 foreachStatement.Context,
-                "var" + new Random().Next(),
+                "list" + random.Next(),
                 new INode[]
                 {
-                    (ArrayType)foreachStatement.List.Type,
+                    AstCloner.Clone((ArrayType)foreachStatement.List.Type),
                     foreachStatement.List
                 });
             var indexVariable = new VariableDeclaration(
                 foreachStatement.Context,
-                "var" + new Random().Next(),
+                "index" + random.Next(),
                 new INode[]
                 {
                     new NumberType(foreachStatement.Context),
@@ -113,6 +121,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 );
             forStatement.Body.AddChildFirst(new VariableDeclarationStatement(foreachStatement.Context, elmVariable));
             foreachStatement.ReplaceWith(forStatement);
+            Debug.CheckForErrorsInParentChildRelationShips(root);
             Visit(forStatement);
             skipChildren = true;
         }
@@ -208,6 +217,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         body
                     });
                 forStatement.ReplaceWith(whileStatement);
+                Debug.CheckForErrorsInParentChildRelationShips(root);
                 addedStatements.Add(whileStatement);
             }
 
@@ -216,6 +226,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 Visit(addedStatement);
             }
             BlockFlattener.FlattenAllSubBlocks(block);
+            Debug.CheckForErrorsInParentChildRelationShips(root);
             skipChildren = true;
         }
 
@@ -289,6 +300,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public override void ExitWhileStatement(WhileStatement whileStatement)
         {
             var rule = whileStatement.NearestAncestorOfType<RuleDeclaration>();
+            Debug.CheckForErrorsInParentChildRelationShips(rule);
             var stateVariable = GetOrCreateStateVariable(rule);
             var stateIndex = ++rule.NumberOfStates;
             var block = (BlockStatement)whileStatement.Parent;
@@ -371,6 +383,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         new GotoStatement(whileStatement.Context, beforeWhileGotoTarget)
                     }));
 
+            Debug.CheckForErrorsInParentChildRelationShips(rule);
             skipChildren = true;
         }
 
@@ -381,7 +394,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 rule.AddChild(
                     new VariableDeclaration(
                         rule.Context, 
-                        "var" + new Random().Next(), 
+                        "state" + new Random().Next(), 
                         new INode[]
                         {
                             new NumberType(rule.Context), new NumberLiteral(rule.Context, "0"),

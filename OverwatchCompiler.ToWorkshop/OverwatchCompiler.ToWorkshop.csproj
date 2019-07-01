@@ -91,6 +91,7 @@
     <Compile Include="ast\expressions\SimpleNameExpression.cs" />
     <Compile Include="ast\expressions\ThisExpression.cs" />
     <Compile Include="ast\expressions\UnaryExpression.cs" />
+    <Compile Include="ast\statements\Assertion.cs" />
     <Compile Include="ast\statements\GotoStatement.cs" />
     <Compile Include="ast\statements\GotoTargetStatement.cs" />
     <Compile Include="ast\Token.cs" />

@@ -18,7 +18,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         private static string AddContextToMessage(IParseTree context, string message)
         {
-            return $"{context.GetPositionString()}: {message}";
+            if (context != null)
+                return $"{context.GetPositionString()}: {message}";
+            return message;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions.literals
     public class NumberLiteral : Token, ILiteral
     {
         public IType Type { get; set; }
-        public double Value => double.Parse(Text);
+        public double Value => double.Parse(Text.Replace('.', ','));
 
         public NumberLiteral(IParseTree context, string text) : base(context, text)
         {

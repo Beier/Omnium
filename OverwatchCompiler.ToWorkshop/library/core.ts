@@ -97,13 +97,17 @@ module Native {
     }
 
     //This is used to define new rules
-    export function rule(ruleName: string, event: Events.Event, condition: boolean, action: () => void): void {
+    export function rule(ruleName: string, event: Events.Event, conditionOrAction: boolean | (() => void), action: () => void = null): void {
 
     }
 
     //Used to execute debug code in JS. This will be discarded by the compiler.
     export function debugExecute(action: () => void): void {
         action();
+    }
+
+    export function assert(condition: boolean, message: string = null): void {
+
     }
 }
 
@@ -395,6 +399,25 @@ enum InWorldTextReevaluation {
     String = "String"
 }
 
-//function format(string: string, arg1 : string, arg2: string = null, arg3: string = null) : string {
-//    return Native.callNativeArg4Function<string, string, string, string, string>("String", false, false, string, arg1, arg2, arg3);
-//}
+function wait(seconds: number): void {
+    Native.assert(seconds >= 0.3, "You can not wait for less than 0.3 seconds");
+    Native.callNativeArg1Action<number>("Wait", false, false, seconds);
+}
+
+class List<T> extends Array<T> {
+    public static empty<T>() : List<T> {
+        return Native.callNativeArg0Function<List<T>>("Empty Array", false, false);
+    }
+
+    public append(item: T) : List<T> {
+        return Native.callNativeArg1Function<T, List<T>>("Append To Array", false, false, item);
+    }
+}
+
+function FOo() {
+    var arr = List.empty<Player>();
+
+    for (var x of arr) {
+        x.
+    }
+}

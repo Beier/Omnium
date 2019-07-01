@@ -115,7 +115,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             {
                 var thisParameter = new VariableDeclaration(
                     methodDeclaration.Context,
-                    "thisVar" + new Random().Next(),
+                    "this" + new Random().Next(),
                     new ReferenceType(methodDeclaration.Context, methodDeclaration.Parent).Yield()
                     );
                 methodDeclaration.AddChildBefore(methodDeclaration.Variables.FirstOrDefault() ?? (INode)methodDeclaration.Body, thisParameter);

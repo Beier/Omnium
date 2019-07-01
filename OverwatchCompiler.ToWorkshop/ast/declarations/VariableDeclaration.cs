@@ -20,6 +20,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
         public readonly List<MemberModifier> Modifiers = new List<MemberModifier>();
         public VariableType? VariableType { get; set; }
         public ITypeNode Type => Children.OfType<ITypeNode>().SingleOrDefault();
+
         public IExpression InitExpression => Children.OfType<IExpression>().SingleOrDefault();
 
         public VariableDeclaration(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)

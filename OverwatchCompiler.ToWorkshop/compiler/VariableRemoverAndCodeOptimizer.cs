@@ -31,7 +31,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             predecessors = BuildPredecessorGraph(successors);
             BuildVariableReadsWritesGraph(root);
 
-
             MoveLocalVariableInitializationsToAssignments(root);
 
             var hadChanges = true;
@@ -48,6 +47,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             SimplifyRuleTriggers(root);
             SimplifyRuleCondition(root);
             MoveStateVariablesToInitializationRules(root);
+            RemoveAssertions(root);
 
             hadChanges = true;
             while (hadChanges)
@@ -65,7 +65,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
             skipChildren = true;
         }
-        
+
         private Dictionary<IStatement, List<IStatement>> BuildSuccessorGraph(Root root)
         {
             var successors = new Dictionary<IStatement, List<IStatement>>();
@@ -119,13 +119,15 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             foreach (var read in reads)
             {
                 if (variableReads[read.Key].Count != read.Value.Count
-                    || !variableReads[read.Key].SequenceEqual(read.Value))
+                    || !variableReads[read.Key].All(read.Value.Contains)
+                    || !read.Value.All(variableReads[read.Key].Contains))
                     throw new Exception();
             }
             foreach (var write in writes)
             {
                 if (variableWrites[write.Key].Count != write.Value.Count
-                    || !variableWrites[write.Key].SequenceEqual(write.Value))
+                    || !variableWrites[write.Key].All(write.Value.Contains)
+                    || !write.Value.All(variableWrites[write.Key].Contains))
                     throw new Exception();
             }
         }
@@ -215,28 +217,38 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         private bool RemoveUnreachableCode()
         {
-            var hasRemovedStatement = false;
-            foreach (var predecessor in predecessors.ToList())
+            var unreachableStatements = new List<IStatement>();
+            unreachableStatements.AddRange(predecessors.Where(x => !x.Value.Any() && !(x.Key.Parent is LambdaExpression)).Select(x => x.Key));
+
+            List<IStatement> unreachableSuccessors;
+            do
             {
-                var statement = predecessor.Key;
-                if (predecessor.Value.Any() || statement.Parent is LambdaExpression)
-                    continue;
+                var successors = unreachableStatements.SelectMany(x => this.successors[x]).Where(x => !unreachableStatements.Contains(x)).Distinct();
+                unreachableSuccessors = successors.Where(x => predecessors[x].All(unreachableStatements.Contains)).ToList();
+                unreachableStatements.AddRange(unreachableSuccessors);
+            } while (unreachableSuccessors.Count > 0);
 
+            var removeLast = unreachableStatements.Where(x => x is GotoTargetStatement || x is VariableDeclarationStatement).ToList();
+
+            foreach (var statement in unreachableStatements.Except(removeLast))
+            {
                 RemoveStatement(statement);
-
-                hasRemovedStatement = true;
+            }
+            foreach (var statement in removeLast)
+            {
+                RemoveStatement(statement);
             }
 
-            return hasRemovedStatement;
+            return unreachableStatements.Any();
         }
 
         private bool RemoveRedundantGotos()
         {
-            var root = successors.First().Key.NearestAncestorOfType<Root>();
             var changedSomething = false;
             foreach (var successorPair in successors.ToList())
             {
                 var statement = successorPair.Key;
+                
                 switch (statement)
                 {
                     case GotoTargetStatement gotoTarget:
@@ -262,12 +274,13 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     case GotoStatement gotoStatement:
                         {
                             //Remove goto: next line
-                            var parent = (BlockStatement)gotoStatement.Parent;
-                            var gotoStatementIndex = parent.Statements.IndexOf(gotoStatement);
-                            if (successorPair.Value.All(successor =>
+                            var block = (BlockStatement)gotoStatement.Parent;
+                            var index = block.Statements.IndexOf(gotoStatement);
+                            var statements = block.Statements.Skip(index).Take(3).ToList();
+                            if (statements.Count >= 2 && successorPair.Value.All(successor =>
                             {
                                 var successorParent = successor.Parent as BlockStatement;
-                                return successorParent == parent && parent.Statements.IndexOf(successor) == gotoStatementIndex + 1;
+                                return successorParent == block && statements[1] == successor;
                             }))
                             {
                                 RemoveStatement(statement);
@@ -292,9 +305,43 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                                     predecessors[gotoTarget].Remove(gotoStatement);
                                     RemoveStatement(gotoStatement);
                                 }
+                                changedSomething = true;
+                                break;
+                            }
+                            //Simplify
+                            // +0: goto (condition) target 1
+                            // 1: goto 42
+                            // +2: target 1
+                            //Into
+                            // +0: goto (!condition) target 42
+                            // +1: target 1
+                            if (gotoStatement.Condition != null)
+                            {
+                                if (statements.Count == 3
+                                    && statements[1] is GotoStatement skippedGotoStatement
+                                    && skippedGotoStatement.Condition == null
+                                    && statements[2] == gotoStatement.TargetStatement)
+                                {
+                                    successors[skippedGotoStatement].Remove(skippedGotoStatement.TargetStatement);
+                                    predecessors[skippedGotoStatement.TargetStatement].Remove(skippedGotoStatement);
+                                    successors[gotoStatement].Remove(skippedGotoStatement);
+                                    predecessors[skippedGotoStatement].Remove(gotoStatement);
+                                    gotoStatement.TargetStatement = skippedGotoStatement.TargetStatement;
+                                    successors[gotoStatement].Add(gotoStatement.TargetStatement);
+                                    predecessors[gotoStatement.TargetStatement].Add(gotoStatement);
+                                    
+                                    skippedGotoStatement.Remove();
+                                    predecessors.Remove(skippedGotoStatement);
+                                    successors.Remove(skippedGotoStatement);
+
+                                    var negation = new UnaryExpression(gotoStatement.Context, new []{new Token(gotoStatement.Context, "!")});
+                                    var condition = gotoStatement.Condition;
+                                    condition.ReplaceWith(negation);
+                                    negation.AddChild(condition);
+                                    return true;//We deleted a goto statement other than the one we currently process - we can not continue
+                                }
                             }
                         }
-
                         break;
                 }
 
@@ -309,6 +356,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public void MoveLocalVariableInitializationsToAssignments(Root root)
         {
+            ValidateVariableReadsWritesGrapha(root);
             var variableDeclarations = root.AllDescendantsAndSelf().OfType<VariableDeclaration>().ToList();
             foreach (var variableDeclaration in variableDeclarations)
             {
@@ -343,7 +391,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         predecessors[successor].Remove(declarationStatement);
                         predecessors[successor].Add(assignmentStatement);
                     }
-
+                    ValidateVariableReadsWritesGrapha(root);
                 }
             }
         }
@@ -351,15 +399,31 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         private bool MoveLocalAssignments(Root root)
         {
             bool madeChanges = false;
-            var assignments = root.AllDescendantsAndSelf().OfType<AssignmentExpression>().ToList();
-            foreach (var assignment in assignments)
+            var assignments = root.AllDescendantsAndSelf().OfType<AssignmentExpression>();
+            var assignmentsToLocalVariables = assignments.Where(x => GetAssignmentTarget(x).Parent is VariableDeclarationStatement);
+            var readsAndPredecessorsForAssignments = assignmentsToLocalVariables.Select(assignment =>
             {
-                //Assignments to global or player variables should not be moved
                 var variableDeclaration = GetAssignmentTarget(assignment);
-                if (!(variableDeclaration.Parent is VariableDeclarationStatement))
-                    continue;
-                
                 var readsAndPredecessors = FindReadsAndStatementsTowardsRead(variableDeclaration, assignment);
+                return (assignment, variableDeclaration, readsAndPredecessors);
+            }).ToList();
+            if (readsAndPredecessorsForAssignments.Any(x => x.Item3.Count != x.Item3.DistinctBy(y => y.Item1).Count()))
+                throw new Exception();
+
+            var assignmentsForRead = readsAndPredecessorsForAssignments
+                .SelectMany(x =>
+                {
+                    var (assignment, _, readsAndPredecessors) = x;
+                    return readsAndPredecessors.Select(y =>
+                    {
+                        var (read, _) = y;
+                        return (read, assignment);
+                    });
+                }).GroupBy(x => x.Item1)
+                .ToDictionary(x => x.Key, x => x.Select(y => y.Item2).ToList());
+
+            foreach (var (assignment, variableDeclaration, readsAndPredecessors) in readsAndPredecessorsForAssignments)
+            {
                 if (readsAndPredecessors.Count == 0)
                 {
                     RemoveStatement((ExpressionStatement)assignment.Parent);
@@ -370,10 +434,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 var assignmentRight = assignment.Right;
                 if (readsAndPredecessors.Count == 1 || IsConstant(assignmentRight))
                 {//Only used once, as the very next thing
-                    if (readsAndPredecessors.All(x => IsSafeToMoveExpressionAlongPath(assignmentRight, x.Item2, x.Item1)))
+                    if (readsAndPredecessors.All(x => assignmentsForRead[x.Item1].Count == 1 && IsSafeToMoveExpressionAlongPath(assignmentRight, x.Item2, x.Item1)))
                     {
                         assignmentRight.Remove();
-                        foreach (var (read, _) in readsAndPredecessors)
+                        foreach (var read in readsAndPredecessors.Select(x => x.Item1).Distinct())
                         {
                             variableReads[variableDeclaration].Remove(read);
                             read.ReplaceWith(AstCloner.Clone(assignmentRight));
@@ -383,9 +447,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         continue;
                     }
                 }
-
-                //Todo: Move if right side can safely be moved across all statements in-between.
-
             }
 
             return madeChanges;
@@ -395,7 +456,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         {
             var readsForStatement = new Dictionary<IStatement, List<(IExpression, HashSet<IStatement>)>>();
             var queue = new Queue<(IStatement, HashSet<IStatement>)>();
-            foreach (var successor in successors[(IStatement) assignment.Parent])
+            foreach (var successor in successors[(IStatement)assignment.Parent])
             {
                 queue.Enqueue((successor, new HashSet<IStatement>()));
             }
@@ -427,28 +488,35 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     queue.Enqueue((successor, new HashSet<IStatement>(predecessors.Concat(statement))));
                 }
             }
+            Debug.CheckForErrorsInParentChildRelationShips(assignment.NearestAncestorOfType<Root>());
+            if (readsForStatement.Any(x => readsForStatement.Any(y => x.Key != y.Key && x.Value.Any(z => y.Value.Select(h => h.Item1).Contains(z.Item1)))))
+                throw new Exception();
+            if (readsForStatement.Any(x => x.Value.Count != x.Value.DistinctBy(y => y.Item1).Count()))
+                throw new Exception();
 
             return readsForStatement.Values.SelectMany(x => x).ToList();
         }
-        
+
         private IEnumerable<IExpression> GetReadsOfVariable(IStatement statement, VariableDeclaration variableDeclaration)
         {
             return GetUsagesOfVariable(statement, variableDeclaration, false);
         }
-        
+
         private bool HasWritesToVariable(IStatement statement, VariableDeclaration variableDeclaration)
         {
             return GetWritesToVariable(statement, variableDeclaration).Any();
         }
-        
+
         private IEnumerable<IExpression> GetWritesToVariable(IStatement statement, VariableDeclaration variableDeclaration)
         {
             return GetUsagesOfVariable(statement, variableDeclaration, true);
         }
-        
+
         private IEnumerable<IExpression> GetUsagesOfVariable(IStatement statement, VariableDeclaration variableDeclaration, bool usageTypeWrite)
         {
-            foreach (var decendant in statement.AllDescendantsAndSelf())
+            var expressionChildren = statement.Children.OfType<IExpression>();
+            var decendants = expressionChildren.SelectMany(x => x.AllDescendantsAndSelf());
+            foreach (var decendant in decendants)
             {
                 var isWrite = decendant.Parent is AssignmentExpression assignmentExpression && decendant == assignmentExpression.Left;
                 if (isWrite != usageTypeWrite)
@@ -479,7 +547,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var variableReads = GetVariableReads(expression).ToList();
             if (!expressionHasReads && variableReads.Count == 0)
                 return true;
-            
+
             foreach (var node in predecessors.Concat<INode>(expressionsBeforeUsage))
             {
                 GetPossibleExecutionEffects(node, out _, out var statementHasWrites, out var statementHasSleeps);
@@ -511,7 +579,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     return node.Yield().OfType<IExpression>()
                         .Concat(node.Children.SelectMany(GetDecendantsInExecutionOrder));
             }
-        } 
+        }
 
         private bool IsConstant(IExpression expression)
         {
@@ -624,7 +692,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             }
             throw new Exception();
         }
-        
+
         private bool RemoveReadVariables()
         {
             bool removedVariable = false;
@@ -668,6 +736,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     || !(lambda.Block.Statements.Single() is ReturnStatement returnStatement)
                     || !(returnStatement.Value is NativeTrigger trigger))
                     throw new CompilationError(ruleDeclaration.Trigger.Context, "Unable to simplify trigger to a constant expression");
+                RemoveStatement(returnStatement);
+                RemoveStatement(lambda.Block);
                 lambda.ReplaceWith(trigger);
                 return;
             }
@@ -686,6 +756,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     || lambda.Block.Statements.Count() != 1
                     || !(lambda.Block.Statements.Single() is ReturnStatement returnStatement))
                     throw new CompilationError(ruleDeclaration.Condition.Context, "Unable to simplify condition to a single expression");
+                RemoveStatement(returnStatement);
+                RemoveStatement(lambda.Block);
                 lambda.ReplaceWith(returnStatement.Value);
             }
         }
@@ -810,13 +882,47 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 var usedVariablesWithoutWait = new List<(VariableDeclaration, HashSet<INode>)>();
                 var usedVariablesWithWaits = new List<(VariableDeclaration, HashSet<INode>)>();
 
-                //Todo: could maybe be optimized to reduce number of variables.
+                var connectedComponents = new List<(List<AssignmentExpression>, List<IExpression>)>();
                 foreach (var assignment in assignmentsToLocals)
                 {
-                    var sourceFile = assignment.NearestAncestorOfType<SourceFile>();
                     var localVar = GetAssignmentTarget(assignment);
-                    var readsAndPredecessors = FindReadsAndStatementsTowardsRead(localVar, assignment);
-                    var reads = readsAndPredecessors.Select(x => x.Item1).ToList();
+                    var reads = FindReadsAndStatementsTowardsRead(localVar, assignment).Select(x => x.Item1).ToList();
+                    var existingComponents = reads.SelectMany(read => connectedComponents.Where(x => x.Item2.Contains(read))).Distinct().ToList();
+                    if (existingComponents.Count == 0)
+                    {
+                        connectedComponents.Add((new List<AssignmentExpression>{assignment}, reads));
+                    }
+                    else if (existingComponents.Count == 1)
+                    {
+                        existingComponents[0].Item1.Add(assignment);
+                        existingComponents[0].Item2.AddRange(reads.Except(existingComponents[0].Item2));
+                    }
+                    else
+                    {
+                        for (int i = 1; i < existingComponents.Count; i++)
+                        {
+                            existingComponents[0].Item1.AddRange(existingComponents[i].Item1);
+                            existingComponents[0].Item2.AddRange(existingComponents[i].Item2.Except(existingComponents[0].Item2));
+                            connectedComponents.Remove(existingComponents[i]);
+                        }
+                        existingComponents[0].Item1.Add(assignment);
+                        existingComponents[0].Item2.AddRange(reads.Except(existingComponents[0].Item2));
+                    }
+                }
+
+                foreach (var connectedComponent in connectedComponents)
+                {
+                    var (assignments, reads) = connectedComponent;
+                    var localVar = GetAssignmentTarget(assignments[0]);
+                    var sourceFile = assignments[0].NearestAncestorOfType<SourceFile>();
+                    var readsAndPredecessors = assignments.SelectMany(assignment => FindReadsAndStatementsTowardsRead(localVar, assignment))
+                        .GroupBy(x => x.Item1)
+                        .Select(group =>
+                        {
+                            var read = group.Key;
+                            var usagePaths = new HashSet<IStatement>(group.SelectMany(x => x.Item2));
+                            return (read, usagePaths);
+                        }).ToList();
                     var nodesBetweenAssignmentAndAllReads = new HashSet<INode>(readsAndPredecessors
                         .SelectMany(x =>
                         {
@@ -826,7 +932,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                                 .SelectMany(y => y.AllDescendantsAndSelf())
                                 .Concat(expressionsBeforeUsage);
                         }));
-
+                    
 
 
                     VariableDeclaration newDeclaration;
@@ -848,7 +954,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         }
                         else
                         {
-                            newDeclaration = new VariableDeclaration(assignment.Context, localVar.Name, new INode[0]);
+                            newDeclaration = new VariableDeclaration(localVar.Context, localVar.Name, new INode[0]);
                             if (IsPlayerRule(rule))
                                 root.AddChild(newDeclaration);
                             else
@@ -860,7 +966,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     }
                     else
                     {
-                        var (globalVariableDeclaration, list) = usedVariablesWithoutWait.FirstOrDefault(x =>
+                        var (globalVariableDeclaration, list) = usedVariablesWithoutWait.Concat(usedVariablesWithWaits).FirstOrDefault(x =>
                         {
                             var set = new HashSet<INode>(x.Item2);
                             set.IntersectWith(nodesBetweenAssignmentAndAllReads);
@@ -882,7 +988,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                                 newDeclaration = globalVarsForLocalVars.FirstOrDefault(x => !usedVariablesWithoutWait.Exists(y => x == y.Item1));
                             if (newDeclaration == null)
                             {
-                                newDeclaration = new VariableDeclaration(assignment.Context, localVar.Name, new INode[0]);
+                                newDeclaration = new VariableDeclaration(localVar.Context, localVar.Name, new INode[0]);
                                 if (IsPlayerRule(rule))
                                     root.AddChild(newDeclaration);
                                 else
@@ -894,8 +1000,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         }
                     }
 
-                    ((SimpleNameExpression)assignment.Left).Declaration = newDeclaration;
-                    variableWrites[newDeclaration].Add((SimpleNameExpression)assignment.Left);
+                    foreach (var assignment in assignments)
+                    {
+                        ((SimpleNameExpression)assignment.Left).Declaration = newDeclaration;
+                        variableWrites[newDeclaration].Add((SimpleNameExpression)assignment.Left);
+                    }
                     foreach (SimpleNameExpression read in reads)
                     {
                         read.Declaration = newDeclaration;
@@ -919,17 +1028,23 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             return node is NativeMethodInvocationExpression methodInvocation && methodInvocation.NativeMethodName.ToLower() == "wait";
         }
 
-        private bool DoesUsagePathsOverlap(List<INode> usagePath1, List<INode> usagePath2)
-        {
-            return usagePath1.Any(usagePath2.Contains);
-        }
-
         private bool IsPlayerRule(RuleDeclaration rule)
         {
             return ((NativeTrigger)rule.Trigger).Name != "Ongoing - Global";
         }
 
-
+        private void RemoveAssertions(Root root)
+        {
+            foreach (var assertion in root.AllDescendantsAndSelf().OfType<Assertion>().ToList())
+            {
+                if (assertion.Condition is BooleanLiteral literal && !literal.Value)
+                {
+                    var message = assertion.Message?.UnquotedText ?? "Assertion failed";
+                    Errors.Add(new CompilationError(assertion.Context, message));
+                }
+                RemoveStatement(assertion);
+            }
+        }
 
 
 
@@ -1036,39 +1151,41 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         }
 
 
-        //private void ValidateSuccessorsAndPredecessors(Root root)
-        //{
-        //    var currentSuccessors = BuildSuccessorGraph(root);
-        //    var currentPredecessors = BuildPredecessorGraph(successors);
 
-        //    foreach (var pair in currentSuccessors)
-        //    {
-        //        if (!successors.TryGetValue(pair.Key, out var existingList))
-        //            throw new Exception();
-        //        if (!pair.Value.All(existingList.Contains))
-        //            throw new Exception();
-        //    }
-        //    foreach (var pair in currentPredecessors)
-        //    {
-        //        if (!predecessors.TryGetValue(pair.Key, out var existingList))
-        //            throw new Exception();
-        //        if (!pair.Value.All(existingList.Contains))
-        //            throw new Exception();
-        //    }
-        //    foreach (var pair in successors)
-        //    {
-        //        if (!currentSuccessors.TryGetValue(pair.Key, out var existingList))
-        //            throw new Exception();
-        //        if (!pair.Value.All(existingList.Contains))
-        //            throw new Exception();
-        //    }
-        //    foreach (var pair in predecessors)
-        //    {
-        //        if (!currentPredecessors.TryGetValue(pair.Key, out var existingList))
-        //            throw new Exception();
-        //        if (!pair.Value.All(existingList.Contains))
-        //            throw new Exception();
-        //    }
-        //}
+
+        private void ValidateSuccessorsAndPredecessors(Root root)
+        {
+            var currentSuccessors = BuildSuccessorGraph(root);
+            var currentPredecessors = BuildPredecessorGraph(successors);
+
+            foreach (var pair in currentSuccessors)
+            {
+                if (!successors.TryGetValue(pair.Key, out var existingList))
+                    throw new Exception();
+                if (!pair.Value.All(existingList.Contains))
+                    throw new Exception();
+            }
+            foreach (var pair in currentPredecessors)
+            {
+                if (!predecessors.TryGetValue(pair.Key, out var existingList))
+                    throw new Exception();
+                if (!pair.Value.All(existingList.Contains))
+                    throw new Exception();
+            }
+            foreach (var pair in successors)
+            {
+                if (!currentSuccessors.TryGetValue(pair.Key, out var existingList))
+                    throw new Exception();
+                if (!pair.Value.All(existingList.Contains))
+                    throw new Exception();
+            }
+            foreach (var pair in predecessors)
+            {
+                if (!currentPredecessors.TryGetValue(pair.Key, out var existingList))
+                    throw new Exception();
+                if (!pair.Value.All(existingList.Contains))
+                    throw new Exception();
+            }
+        }
     }
 }

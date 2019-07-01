@@ -95,6 +95,18 @@ public partial class TypescriptParserBaseListener : ITypescriptParserListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTypeList([NotNull] TypescriptParser.TypeListContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.typeInOptionalParenthesis"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterTypeInOptionalParenthesis([NotNull] TypescriptParser.TypeInOptionalParenthesisContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.typeInOptionalParenthesis"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitTypeInOptionalParenthesis([NotNull] TypescriptParser.TypeInOptionalParenthesisContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.type"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

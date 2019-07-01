@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
@@ -96,7 +97,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 readsState: false,
                 changesState: false,
                 modifiesControlFlow: false,
-                children: new INode[] { array, value });
+                children: new INode[] { array, value }.Where(x => x != null));
         }
 
         public static NativeMethodInvocationExpression String(IParseTree context, StringLiteral literal, IExpression arg1 = null, IExpression arg2 = null, IExpression arg3 = null)
@@ -104,13 +105,13 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             return new NativeMethodInvocationExpression(
                 context,
                 nativeMethodName: "String",
-                returnType: new StringType(context), 
+                returnType: new StringType(context),
                 readsState: false,
                 changesState: false,
                 modifiesControlFlow: false,
                 children: new INode[]
                 {
-                    literal, 
+                    literal,
                     arg1 ?? new NullLiteral(context),
                     arg2 ?? new NullLiteral(context),
                     arg3 ?? new NullLiteral(context)

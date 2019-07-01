@@ -12,5 +12,10 @@ namespace OverwatchCompiler.ToWorkshop.ast.expressions
         public UnaryExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
         }
+
+        public override string ToString()
+        {
+            return "!" + Base;
+        }
     }
 }

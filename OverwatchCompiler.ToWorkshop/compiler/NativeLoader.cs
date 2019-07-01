@@ -266,6 +266,31 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 root.NativeStrings.Add(namExpression.UnquotedText);
                 methodInvocationExpression.Remove();
             }
+            else if (memberExpression.Name == "assert")
+            {
+                if (methodInvocationExpression.GenericTypes.Any())
+                {
+                    Errors.Add(new CompilationError(context, "Expected no generic type arguments."));
+                    return;
+                }
+                if (!methodInvocationExpression.Arguments.Any() ||methodInvocationExpression.Arguments.Count() > 2)
+                {
+                    Errors.Add(new CompilationError(context, "Expected 1-2 arguments."));
+                    return;
+                }
+                if (!(methodInvocationExpression.Parent is ExpressionStatement statement))
+                {
+                    Errors.Add(new CompilationError(context, "Invalid call site"));
+                    return;
+                }
+                if (methodInvocationExpression.Arguments.Count() == 2 && !(methodInvocationExpression.Arguments.ElementAt(1) is StringLiteral namExpression))
+                {
+                    Errors.Add(new CompilationError(context, "The message argument must be a string literal."));
+                    return;
+                }
+
+                statement.ReplaceWith(new Assertion(statement.Context, methodInvocationExpression.Arguments));
+            }
         }
 
         private void CreateRuleDeclaration(IParseTree context, MethodInvocationExpression methodInvocationExpression)
@@ -273,9 +298,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             if (methodInvocationExpression.GenericTypes.Count() != 0)
                 Errors.Add(new CompilationError(context, "Expected 0 generic type arguments."));
 
-            if (methodInvocationExpression.Arguments.Count() != 4)
+            if (methodInvocationExpression.Arguments.Count() < 3 || methodInvocationExpression.Arguments.Count() > 4)
             {
-                Errors.Add(new CompilationError(context, "Expected 4 arguments."));
+                Errors.Add(new CompilationError(context, "Expected 3-4 arguments."));
                 return;
             }
 
@@ -291,12 +316,16 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 return;
             }
 
+            var arguments = methodInvocationExpression.Arguments.Skip(1).ToList();
+            if (arguments.Count == 2)
+                arguments.Insert(1, new BooleanLiteral(context, true));
+
             methodInvocationExpression.Remove();
             parent.AddChild(
                 new RuleDeclaration(
                     context,
                     namExpression.Text.Substring(1, namExpression.Text.Length - 2),
-                    methodInvocationExpression.Arguments.Skip(1)
+                    arguments
                 )
             );
         }

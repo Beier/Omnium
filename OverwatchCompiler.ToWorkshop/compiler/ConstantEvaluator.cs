@@ -1,7 +1,9 @@
-﻿using OverwatchCompiler.ToWorkshop.ast;
+﻿using System.Linq;
+using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 using OverwatchCompiler.ToWorkshop.ast.expressions.literals;
+using OverwatchCompiler.ToWorkshop.extensions;
 
 namespace OverwatchCompiler.ToWorkshop.compiler
 {
@@ -24,146 +26,146 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             {
                 case "||":
                 case "|":
-                {
-                    if (binaryExpression.Left is BooleanLiteral left && binaryExpression.Right is BooleanLiteral right)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, left.Value || right.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is BooleanLiteral left && binaryExpression.Right is BooleanLiteral right)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, left.Value || right.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "&&":
                 case "&":
-                {
-                    if (binaryExpression.Left is BooleanLiteral left && binaryExpression.Right is BooleanLiteral right)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, left.Value && right.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is BooleanLiteral left && binaryExpression.Right is BooleanLiteral right)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, left.Value && right.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "==":
-                {
-                    if (binaryExpression.Left is BooleanLiteral leftBoolean && binaryExpression.Right is BooleanLiteral rightBoolean)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftBoolean.Value == rightBoolean.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is BooleanLiteral leftBoolean && binaryExpression.Right is BooleanLiteral rightBoolean)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftBoolean.Value == rightBoolean.Value));
+                            madeChanges = true;
+                        }
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value == rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        if (binaryExpression.Left is MemberExpression leftMember
+                            && binaryExpression.Right is MemberExpression rightMember
+                            && leftMember.Declaration is EnumValue leftEnum
+                            && rightMember.Declaration is EnumValue rightEnum)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftEnum == rightEnum));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
-                    {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value == rightNumber.Value));
-                        madeChanges = true;
-                    }
-                    if (binaryExpression.Left is MemberExpression leftMember 
-                        && binaryExpression.Right is MemberExpression rightMember
-                        && leftMember.Declaration is EnumValue leftEnum
-                        && rightMember.Declaration is EnumValue rightEnum)
-                    {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftEnum == rightEnum));
-                        madeChanges = true;
-                    }
-                    break;
-                }
                 case "!=":
-                {
-                    if (binaryExpression.Left is BooleanLiteral leftBoolean && binaryExpression.Right is BooleanLiteral rightBoolean)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftBoolean.Value != rightBoolean.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is BooleanLiteral leftBoolean && binaryExpression.Right is BooleanLiteral rightBoolean)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftBoolean.Value != rightBoolean.Value));
+                            madeChanges = true;
+                        }
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value != rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
-                    {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value != rightNumber.Value));
-                        madeChanges = true;
-                    }
-                    break;
-                }
                 case "<":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value < rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value < rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "<=":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value <= rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value <= rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case ">":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value > rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value > rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case ">=":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value >= rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value >= rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "+":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value + rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value + rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        if (binaryExpression.Left is StringLiteral leftString && binaryExpression.Right is StringLiteral rightString)
+                        {
+                            binaryExpression.ReplaceWith(new StringLiteral(binaryExpression.Context, "\"" + leftString.UnquotedText + rightString.UnquotedText + "\""));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    if (binaryExpression.Left is StringLiteral leftString && binaryExpression.Right is StringLiteral rightString)
-                    {
-                        binaryExpression.ReplaceWith(new StringLiteral(binaryExpression.Context, "\"" + leftString.UnquotedText + rightString.UnquotedText + "\""));
-                        madeChanges = true;
-                    }
-                    break;
-                }
                 case "-":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value - rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value - rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "*":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
                     {
-                        binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value * rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber)
+                        {
+                            binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value * rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "/":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber && rightNumber.Value != 0)
                     {
-                        binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value / rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber && rightNumber.Value != 0)
+                        {
+                            binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value / rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "%":
-                {
-                    if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber && rightNumber.Value != 0)
                     {
-                        binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value % rightNumber.Value));
-                        madeChanges = true;
+                        if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber && rightNumber.Value != 0)
+                        {
+                            binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value % rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
             }
         }
 
@@ -172,24 +174,62 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             switch (unaryExpression.Operator.Text)
             {
                 case "-":
-                {
-                    if (unaryExpression.Base is NumberLiteral number)
                     {
-                        unaryExpression.ReplaceWith(new NumberLiteral(unaryExpression.Context, -number.Value));
-                        madeChanges = true;
+                        if (unaryExpression.Base is NumberLiteral number)
+                        {
+                            unaryExpression.ReplaceWith(new NumberLiteral(unaryExpression.Context, -number.Value));
+                            madeChanges = true;
+                        }
+                        break;
                     }
-                    break;
-                }
                 case "!":
-                {
-                    if (unaryExpression.Base is BooleanLiteral boolean)
                     {
-                        unaryExpression.ReplaceWith(new BooleanLiteral(unaryExpression.Context, !boolean.Value));
-                        madeChanges = true;
+                        switch (unaryExpression.Base)
+                        {
+                            case BooleanLiteral boolean:
+                                unaryExpression.ReplaceWith(new BooleanLiteral(unaryExpression.Context, !boolean.Value));
+                                madeChanges = true;
+                                break;
+                            case UnaryExpression subUnaryExpression:
+                                if (subUnaryExpression.Operator.Text == "!")
+                                {
+                                    unaryExpression.ReplaceWith(subUnaryExpression.Base);
+                                    madeChanges = true;
+                                }
+                                break;
+                            case BinaryExpression binaryExpression:
+                                var oppositeOperators = new[]
+                                {
+                                    new[] {"<", ">="},
+                                    new[] {">", "<="},
+                                    new[] {"==", "!="},
+                                    new[] {"&&", "||"}
+                                };
+                                var currentOperator = binaryExpression.Operator.Text;
+                                var newOperator = oppositeOperators.FirstOrDefault(x => x.Contains(currentOperator))?.Except(currentOperator.Yield()).Single();
+                                if (newOperator != null)
+                                {
+                                    binaryExpression.Operator.ReplaceWith(new Token(binaryExpression.Operator.Context, newOperator));
+                                    unaryExpression.ReplaceWith(binaryExpression);
+                                    if (currentOperator == "&&" || currentOperator == "||")
+                                    {
+                                        Negate(binaryExpression.Left);
+                                        Negate(binaryExpression.Right);
+                                    }
+                                    madeChanges = true;
+                                }
+                                break;
+                        }
+                        break;
                     }
-                    break;
-                }
             }
+        }
+
+        private void Negate(IExpression expression)
+        {
+            var negationExpression = new UnaryExpression(expression.Context, new []{new Token(expression.Context, "!")});
+            expression.ReplaceWith(negationExpression);
+            negationExpression.AddChild(expression);
         }
     }
 }

@@ -133,7 +133,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             {
                 returnValueVar = new VariableDeclaration(
                     context,
-                    "var" + new Random().Next(),
+                    declaration.Name + new Random().Next(),
                     new INode[] { AstCloner.Clone(declaration.ReturnType) });
                 var variableDeclarationStatement = new VariableDeclarationStatement(context, returnValueVar);
                 block.AddChildBefore(parentStatement, variableDeclarationStatement);

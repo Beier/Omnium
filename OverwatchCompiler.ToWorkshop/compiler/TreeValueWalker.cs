@@ -133,6 +133,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 return VisitGotoTargetStatement((GotoTargetStatement)node);
             if (node is GotoStatement)
                 return VisitGotoStatement((GotoStatement)node);
+            if (node is Assertion)
+                return VisitAssertion((Assertion)node);
             if (node is TypeNodeWrapper)
                 return VisitTypeNodeWrapper((TypeNodeWrapper)node);
             if (node is TypeList)
@@ -411,6 +413,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual T VisitGotoStatement(GotoStatement gotoStatement)
         {
             return VisitChildren(gotoStatement);
+        }
+
+        public virtual T VisitAssertion(Assertion assertion)
+        {
+            return VisitChildren(assertion);
         }
 
         public virtual T VisitTypeNodeWrapper(TypeNodeWrapper typeNodeWrapper)

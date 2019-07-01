@@ -136,6 +136,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             return clone;
         }
 
+        public override INode VisitAssertion(Assertion assertion)
+        {
+            return new Assertion(assertion.Context, assertion.Children.Select(Visit));
+        }
+
         public override INode VisitEnumDeclaration(EnumDeclaration enumDeclaration)
         {
             return new ConstructorDeclaration(enumDeclaration.Context, enumDeclaration.Children.Select(Visit));

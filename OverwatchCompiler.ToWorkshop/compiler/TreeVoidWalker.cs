@@ -44,6 +44,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterTypeList((TypeList)node);
             if (node is TypeNodeWrapper)
                 EnterTypeNodeWrapper((TypeNodeWrapper)node);
+            if (node is Assertion)
+                EnterAssertion((Assertion)node);
             if (node is GotoStatement)
                 EnterGotoStatement((GotoStatement)node);
             if (node is GotoTargetStatement)
@@ -187,6 +189,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitTypeList((TypeList)node);
             if (node is TypeNodeWrapper)
                 ExitTypeNodeWrapper((TypeNodeWrapper)node);
+            if (node is Assertion)
+                ExitAssertion((Assertion)node);
             if (node is GotoStatement)
                 ExitGotoStatement((GotoStatement)node);
             if (node is GotoTargetStatement)
@@ -327,6 +331,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitTypeList(TypeList typeList) { }
         public virtual void EnterTypeNodeWrapper(TypeNodeWrapper typeNodeWrapper) { }
         public virtual void ExitTypeNodeWrapper(TypeNodeWrapper typeNodeWrapper) { }
+        public virtual void EnterAssertion(Assertion assertion) { }
+        public virtual void ExitAssertion(Assertion assertion) { }
         public virtual void EnterGotoStatement(GotoStatement gotoStatement) { }
         public virtual void ExitGotoStatement(GotoStatement gotoStatement) { }
         public virtual void EnterGotoTargetStatement(GotoTargetStatement gotoTargetStatement) { }

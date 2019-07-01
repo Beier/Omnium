@@ -179,7 +179,13 @@
     <Content Include="ToTypescript\Data\StatusEffects\Input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ToWorkshop\Data\LoopUnrolling\ExpectedOutput.txt">
+    <Content Include="ToWorkshop\Data\TestArraySize\ExpectedOutput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ToWorkshop\Data\NonConstantLoopUnrolling\ExpectedOutput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ToWorkshop\Data\ConstantLoopUnrolling\ExpectedOutput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -202,7 +208,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ToWorkshop\Data\LoopUnrolling\Input.ts">
+    <Content Include="ToWorkshop\Data\ConstantLoopUnrolling\Input.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ToWorkshop\Data\NonConstantLoopUnrolling\Input.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ToWorkshop\Data\TestArraySize\Input.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

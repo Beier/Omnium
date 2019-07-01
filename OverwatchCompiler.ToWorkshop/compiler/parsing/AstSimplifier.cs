@@ -92,13 +92,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
                 .SelectMany(Visit)
                 .Cast<VariableDeclaration>()
                 .ToList();
-            VariableType? variableType = null;
-            if (context.variableType().VAR() != null)
-                variableType = VariableType.Var;
-            if (context.variableType().LET() != null)
-                variableType = VariableType.Let;
-            if (context.variableType().CONST() != null)
-                variableType = VariableType.Const;
+            var variableType = GetVariableType(context.variableType());
 
             foreach (var variableDeclaration in variableDeclarations)
             {
@@ -106,6 +100,17 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
             }
 
             return variableDeclarations;
+        }
+
+        private VariableType? GetVariableType(TypescriptParser.VariableTypeContext context)
+        {
+            if (context.VAR() != null)
+                return VariableType.Var;
+            if (context.LET() != null)
+                return VariableType.Let;
+            if (context.CONST() != null)
+                return VariableType.Const;
+            return null;
         }
 
         public override IEnumerable<INode> VisitVariableDeclarator(TypescriptParser.VariableDeclaratorContext context)
@@ -304,7 +309,15 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitForeachStatement(TypescriptParser.ForeachStatementContext context)
         {
-            yield return new ForeachStatement(context, VisitChildren(context));
+            var variableDeclaration = new VariableDeclaration(context, context.identifier().GetText(), new INode[0])
+            {
+                VariableType = GetVariableType(context.variableType())
+            };
+            var arrayExpression = Visit(context.expression()).Single();
+            var body = Visit(context.embeddedStatement()).Single();
+
+
+            yield return new ForeachStatement(context, new []{variableDeclaration, arrayExpression, body});
         }
 
         public override IEnumerable<INode> VisitBreakStatement(TypescriptParser.BreakStatementContext context)
@@ -512,7 +525,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
 
         public override IEnumerable<INode> VisitTypeList(TypescriptParser.TypeListContext context)
         {
-            var subTypes = context.type().SelectMany(Visit).Cast<ITypeNode>().ToArray();
+            var subTypes = context.typeInOptionalParenthesis().SelectMany(Visit).Cast<ITypeNode>().ToArray();
             if (subTypes.Length == 1)
                 yield return subTypes[0];
             else

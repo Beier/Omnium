@@ -20,9 +20,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var playerVariables = root.PlayerVariableDeclarations.ToList();
             var globalVariables = root.SourceFiles.SelectMany(x => x.AllDescendantsAndSelf()).OfType<VariableDeclaration>().ToList();
             if (playerVariables.Count > letters.Count)
-                throw new CompilationError(root.Context, "Number of player variables exceeds supported number.");
+                throw new CompilationError(null, "Number of player variables exceeds supported number.");
             if (globalVariables.Count > letters.Count)
-                throw new CompilationError(root.Context, "Number of global variables exceeds supported number.");
+                throw new CompilationError(null, "Number of global variables exceeds supported number.");
             for (int i = 0; i < playerVariables.Count; i++)
             {
                 variableAssignments.Add(playerVariables[i], letters[i]);

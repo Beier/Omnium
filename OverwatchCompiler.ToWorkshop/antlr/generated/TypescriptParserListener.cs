@@ -81,6 +81,16 @@ public interface ITypescriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitTypeList([NotNull] TypescriptParser.TypeListContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="TypescriptParser.typeInOptionalParenthesis"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterTypeInOptionalParenthesis([NotNull] TypescriptParser.TypeInOptionalParenthesisContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="TypescriptParser.typeInOptionalParenthesis"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitTypeInOptionalParenthesis([NotNull] TypescriptParser.TypeInOptionalParenthesisContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="TypescriptParser.type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -14,7 +14,7 @@ namespace OverwatchCompiler.ToWorkshop
         static void Main(string[] args)
         {
             BuildValueWalker();
-            //BuildVoidWalker();
+            BuildVoidWalker();
         }
 
         private static void BuildVoidWalker()

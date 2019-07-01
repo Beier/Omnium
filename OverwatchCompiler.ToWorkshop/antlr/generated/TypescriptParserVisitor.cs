@@ -62,6 +62,12 @@ public interface ITypescriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTypeList([NotNull] TypescriptParser.TypeListContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="TypescriptParser.typeInOptionalParenthesis"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTypeInOptionalParenthesis([NotNull] TypescriptParser.TypeInOptionalParenthesisContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="TypescriptParser.type"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

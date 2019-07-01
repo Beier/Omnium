@@ -1,0 +1,41 @@
+﻿rule("Initialize global variables")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+	
+	actions
+	{
+		Set Global Variable(A, 0);
+	}
+}
+
+rule("Hello World")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+	
+	actions
+	{
+		Skip If(Compare(Global Variable(A), ==, 1), 2);
+		Set Global Variable(B, Empty Array);
+		Set Global Variable(A, 1);
+		Set Global Variable(C, Append To Array(Global Variable(B), Count Of(Global Variable(B))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Set Global Variable(B, Append To Array(Global Variable(C), Count Of(Global Variable(C))));
+		Big Message(All Players(Team(All)), Count Of(Global Variable(B)));
+		Wait(0.3);
+		Loop;
+	}
+}
+

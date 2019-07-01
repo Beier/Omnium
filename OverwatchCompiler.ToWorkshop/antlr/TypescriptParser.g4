@@ -47,7 +47,12 @@ moduleOrTypeName
 
 //B.2.2 Types
 typeList
-	: type ('|' type)*
+	: typeInOptionalParenthesis ('|' typeInOptionalParenthesis)*
+	;
+
+typeInOptionalParenthesis
+	: '(' type ')'
+	| type
 	;
 
 type 
@@ -238,7 +243,7 @@ simpleEmbeddedStatement
     // iteration statements
 	| WHILE OPEN_PARENS expression CLOSE_PARENS embeddedStatement                                        #whileStatement
 	| FOR OPEN_PARENS forInitializer? ';' expression? ';' forIterator? CLOSE_PARENS embeddedStatement  #forStatement
-	| FOREACH OPEN_PARENS variableType identifier OF expression CLOSE_PARENS embeddedStatement    #foreachStatement
+	| FOR OPEN_PARENS variableType identifier OF expression CLOSE_PARENS embeddedStatement    #foreachStatement
 
     // jump statements
 	| BREAK ';'                                                   #breakStatement

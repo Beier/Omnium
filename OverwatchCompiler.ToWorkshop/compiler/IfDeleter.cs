@@ -1,4 +1,5 @@
 ﻿using OverwatchCompiler.ToWorkshop.ast;
+using OverwatchCompiler.ToWorkshop.ast.expressions;
 using OverwatchCompiler.ToWorkshop.ast.statements;
 
 namespace OverwatchCompiler.ToWorkshop.compiler
@@ -11,16 +12,30 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var trueBranchGotoTarget = new GotoTargetStatement(ifStatement.Context);
             var endGotoTarget = new GotoTargetStatement(ifStatement.Context);
             var trueBranch = ifStatement.TrueBranch;
-            var falseBranch = ifStatement.FalseBranch ?? new BlockStatement(ifStatement.Context, new IStatement[0]);
+            var falseBranch = ifStatement.FalseBranch;
 
-            block.AddChildBefore(ifStatement, new GotoStatement(ifStatement.Context, ifStatement.Condition, trueBranchGotoTarget));
-            block.AddChildBefore(ifStatement, falseBranch);
-            block.AddChildBefore(ifStatement, new GotoStatement(ifStatement.Context, endGotoTarget));
-            block.AddChildBefore(ifStatement, trueBranchGotoTarget);
-            block.AddChildBefore(ifStatement, trueBranch);
-            block.AddChildBefore(ifStatement, endGotoTarget);
+            if (falseBranch != null)
+            {
+                block.AddChildBefore(ifStatement,
+                    new GotoStatement(ifStatement.Context, ifStatement.Condition, trueBranchGotoTarget));
+                block.AddChildBefore(ifStatement, falseBranch);
+                block.AddChildBefore(ifStatement, new GotoStatement(ifStatement.Context, endGotoTarget));
+                block.AddChildBefore(ifStatement, trueBranchGotoTarget);
+                block.AddChildBefore(ifStatement, trueBranch);
+                block.AddChildBefore(ifStatement, endGotoTarget);
+            }
+            else
+            {
+                var condition = new UnaryExpression(ifStatement.Context, new INode[]
+                {
+                    new Token(ifStatement.Context, "!"),
+                    ifStatement.Condition
+                });
+                block.AddChildBefore(ifStatement, new GotoStatement(ifStatement.Context, condition, endGotoTarget));
+                block.AddChildBefore(ifStatement, trueBranch);
+                block.AddChildBefore(ifStatement, endGotoTarget);
+            }
             ifStatement.Remove();
-
             BlockFlattener.FlattenAllSubBlocks(block);
         }
     }
