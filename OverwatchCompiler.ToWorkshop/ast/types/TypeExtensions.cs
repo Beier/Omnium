@@ -59,6 +59,13 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
                 case NumberType _:
                 case StringType _:
                     return true;
+                case GenericType _:
+                    var genericType1 = (GenericType)type1;
+                    var genericType2 = (GenericType)type2;
+
+                    return genericType1.Base.IsEquivalentTo(genericType2.Base)
+                           && genericType1.GenericTypes.Count() == genericType2.GenericTypes.Count()
+                           && genericType1.GenericTypes.Zip(genericType2.GenericTypes, (subType1, subType2) => subType1.IsEquivalentTo(subType2)).All(x => x);
                 default:
                     throw new Exception("Internal error, unexpected type: " + type1.GetType().FullName);
             }

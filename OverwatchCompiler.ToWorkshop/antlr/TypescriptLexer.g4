@@ -63,6 +63,7 @@ FUNCTION:      'function';
 CONSTRUCTOR:   'constructor';
 EXPORT:		   'export';
 AS:		   	   'as';
+EXTENDS:	   'extends';
 
 //B.1.6 Identifiers
 // must be defined after all keywords so the first branch (Available_identifier) does not match keywords

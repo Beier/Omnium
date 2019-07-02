@@ -414,7 +414,7 @@ class List<T> extends Array<T> {
     }
 
     public static create<T>(array : T[]) : List<T> {
-        const list = Native.callNativeArg0Function<List<T>>("Empty Array", false, false);
+        const list = List.empty<T>();
         return Native.fillList(list, array);
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.ast.types;
 using OverwatchCompiler.ToWorkshop.compiler;
 
 namespace OverwatchCompiler.ToWorkshop.ast.declarations
@@ -15,6 +16,8 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
         public IEnumerable<MethodDeclaration> MethodDeclarations => Children.OfType<MethodDeclaration>();
         public IEnumerable<VariableDeclaration> Variables => Children.OfType<VariableDeclaration>();
         public readonly List<ClassDeclaration> EquivalentClassDeclarations = new List<ClassDeclaration>();
+        public IEnumerable<GenericTypeDeclaration> GenericTypeDeclarations => Children.OfType<GenericTypeDeclaration>();
+        public ITypeNode BaseType => Children.OfType<ITypeNode>().SingleOrDefault();
 
         public ClassDeclaration(
             IParseTree context,

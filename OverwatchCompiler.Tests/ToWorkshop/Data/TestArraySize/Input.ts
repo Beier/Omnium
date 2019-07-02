@@ -2,11 +2,6 @@
 import "../../../library/core.ts";
 import "../../../library/strings.ts";
 
-
-Array.prototype["add"] = function() {
-
-}
-
 Native.rule("Hello World",
     Events.Ongoing.global,
     () => {

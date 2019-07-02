@@ -120,6 +120,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
             foreach (var child in classDeclaration.Children)
             {
+                if (child is IType || child is GenericTypeDeclaration)
+                    continue;
+
                 var modifiers = child.Yield().Select(
                     (ConstructorDeclaration declaration) => declaration.Modifiers,
                     (GetterDeclaration declaration) => declaration.Modifiers,
@@ -138,6 +141,15 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     }
                 }
             }
+
+            if (classDeclaration.BaseType != null
+                && !(classDeclaration.BaseType is GenericType genericType
+                     && genericType.Base is ReferenceType referenceType
+                     && referenceType.Identifiers.Count() == 1
+                     && referenceType.Identifiers.Single().Text == "Array"
+                     && genericType.GenericTypes.Count() == 1))
+                Errors.Add(new CompilationError(classDeclaration.Context, "Object inheritance is not supported."));
+            classDeclaration.BaseType?.Remove();
         }
 
         public override void ExitModuleDeclaration(ModuleDeclaration moduleDeclaration)

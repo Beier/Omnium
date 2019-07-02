@@ -112,6 +112,7 @@
     <Compile Include="ast\statements\WhileStatement.cs" />
     <Compile Include="ast\types\ArrayType.cs" />
     <Compile Include="ast\types\AnonymousMethodType.cs" />
+    <Compile Include="ast\types\GenericType.cs" />
     <Compile Include="ast\types\NullType.cs" />
     <Compile Include="ast\types\BoolType.cs" />
     <Compile Include="ast\types\FunctionType.cs" />

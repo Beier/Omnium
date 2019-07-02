@@ -562,6 +562,17 @@ namespace OverwatchCompiler.ToWorkshop.compiler.parsing
                 yield return new StringType(context);
         }
 
+        public override IEnumerable<INode> VisitClassType(TypescriptParser.ClassTypeContext context)
+        {
+            var baseType = (ITypeNode)Visit(context.moduleOrTypeName()).Single();
+            var genericTypeArguments = Visit(context.typeArgumentList()).Cast<ITypeNode>().ToList();
+
+            if (genericTypeArguments.Any())
+                yield return new GenericType(context, baseType.Yield().Concat(genericTypeArguments));
+            else
+                yield return baseType;
+        }
+
         public override IEnumerable<INode> VisitModuleOrTypeName(TypescriptParser.ModuleOrTypeNameContext context)
         {
             yield return new ReferenceType(

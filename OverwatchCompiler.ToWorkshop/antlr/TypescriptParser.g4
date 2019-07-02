@@ -74,7 +74,7 @@ primitiveType
 
 /** moduleOrTypeName, OBJECT, STRING */
 classType 
-	: moduleOrTypeName
+	: moduleOrTypeName typeArgumentList?
 	;
 
 typeArgumentList 
@@ -461,7 +461,7 @@ stringLiteral
 // -------------------- extra rules for modularization --------------------------------
 
 classDefinition
-	: CLASS identifier typeParameterList? 
+	: CLASS identifier typeParameterList? (EXTENDS type)?
 	    classBody ';'?
 	;
 

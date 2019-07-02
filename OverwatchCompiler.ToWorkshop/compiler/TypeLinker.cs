@@ -45,9 +45,14 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             if (referenceType.Identifiers.Count() != 1)
                 return new List<GenericTypeDeclaration>();
             var parentMethod = referenceType.NearestAncestorOfType<MethodDeclaration>();
-            if (parentMethod == null)
-                return new List<GenericTypeDeclaration>();
-            return parentMethod.GenericTypeDeclarations.Where(x => x.Name == referenceType.Identifiers.First().Text).ToList();
+
+            var methodGenerics = parentMethod?.GenericTypeDeclarations.Where(x => x.Name == referenceType.Identifiers.First().Text).ToList() ?? new List<GenericTypeDeclaration>();
+            if (methodGenerics.Any())
+                return methodGenerics;
+            var parentClass = referenceType.NearestAncestorOfType<ClassDeclaration>();
+            var classGenerics = parentClass?.GenericTypeDeclarations.Where(x => x.Name == referenceType.Identifiers.First().Text).ToList() ?? new List<GenericTypeDeclaration>();
+
+            return classGenerics;
         }
 
         private List<INode> GetMatchingClassesAndEnums(ReferenceType referenceType)
