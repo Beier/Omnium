@@ -109,6 +109,10 @@ module Native {
     export function assert(condition: boolean, message: string = null): void {
 
     }
+
+    export function fillList<T>(list: List<T>, array: T[]) : List<T> {
+        return list;
+    }
 }
 
 module Events {
@@ -409,15 +413,12 @@ class List<T> extends Array<T> {
         return Native.callNativeArg0Function<List<T>>("Empty Array", false, false);
     }
 
+    public static create<T>(array : T[]) : List<T> {
+        const list = Native.callNativeArg0Function<List<T>>("Empty Array", false, false);
+        return Native.fillList(list, array);
+    }
+
     public append(item: T) : List<T> {
         return Native.callNativeArg1Function<T, List<T>>("Append To Array", false, false, item);
-    }
-}
-
-function FOo() {
-    var arr = List.empty<Player>();
-
-    for (var x of arr) {
-        x.
     }
 }

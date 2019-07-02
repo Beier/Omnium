@@ -10,13 +10,12 @@ Array.prototype["add"] = function() {
 Native.rule("Hello World",
     Events.Ongoing.global,
     () => {
-        var array: number[] = [];
+        var list : List<number> = List.empty<number>();
         while (true) {
             for (var i = 0; i < 10; i++) {
-                array = array.add(array.length);
+                list = list.append(list.length);
             }
-            array.removeAt(42)
-            Game.sendMessageTo(Players.all, array.length.toString());
+            Game.sendMessageTo(Players.all, list.length.toString());
             wait(0.3);
         }
     }
