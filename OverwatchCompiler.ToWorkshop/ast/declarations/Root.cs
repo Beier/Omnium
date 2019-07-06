@@ -16,6 +16,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.declarations
         public RuleDeclaration GlobalVariableInitializer => Children.OfType<RuleDeclaration>().FirstOrDefault();
         public RuleDeclaration PlayerVariableInitializer => Children.OfType<RuleDeclaration>().LastOrDefault();
         public ModuleDeclaration NativeModule { get; set; }
+        public ClassDeclaration ListDeclaration { get; set; }
         public readonly List<string> NativeStrings = new List<string>();
     }
 }

@@ -47,16 +47,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 );
         }
 
-        public override void ExitArrayCreationExpression(ArrayCreationExpression arrayCreationExpression)
-        {
-            var replacement = NativeMethods.EmptyArray(arrayCreationExpression.Context);
-            foreach (var initialItem in arrayCreationExpression.InitialItems)
-            {
-                replacement = NativeMethods.AppendToArray(arrayCreationExpression.Context, replacement, initialItem);
-            }
-            arrayCreationExpression.ReplaceWith(replacement);
-        }
-
         public override void ExitArrayIndexExpression(ArrayIndexExpression arrayIndexExpression)
         {
             if (arrayIndexExpression.Parent is AssignmentExpression assignment && assignment.Left == arrayIndexExpression)
@@ -190,6 +180,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             }
             BlockFlattener.FlattenAllSubBlocks(block);
         }
+
+        //private void ReplaceGenerics()
 
         private void ReplaceReturnStatements(INode node, GotoTargetStatement gotoTarget, VariableDeclaration returnValueVar)
         {

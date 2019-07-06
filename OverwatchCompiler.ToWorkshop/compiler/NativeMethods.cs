@@ -2,6 +2,7 @@
 using System.Linq;
 using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast;
+using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
 using OverwatchCompiler.ToWorkshop.ast.expressions.literals;
 using OverwatchCompiler.ToWorkshop.ast.statements;
@@ -39,7 +40,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public static NativeMethodInvocationExpression ArrayIndex(IParseTree context, IExpression array, IExpression index)
         {
-            var baseType = ((ArrayType)array.Type).Base;
+            var baseType = ((GenericType)array.Type).GenericTypes.Single();
             return new NativeMethodInvocationExpression(
                 context,
                 nativeMethodName: "Value In Array",
@@ -76,12 +77,12 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     children: new INode[0]);
         }
 
-        public static NativeMethodInvocationExpression EmptyArray(IParseTree context)
+        public static NativeMethodInvocationExpression EmptyArray(IParseTree context, Root root, ITypeNode type)
         {
             return new NativeMethodInvocationExpression(
                 context,
                 nativeMethodName: "Empty Array",
-                returnType: new ArrayType(context, new TypeNodeWrapper(context, new NullType())),
+                returnType: new GenericType(context, new []{new ReferenceType(context, root.ListDeclaration), AstCloner.Clone(type)}),
                 readsState: false,
                 changesState: false,
                 modifiesControlFlow: false,
@@ -93,7 +94,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             return new NativeMethodInvocationExpression(
                 context,
                 nativeMethodName: "Append To Array",
-                returnType: new ArrayType(context, new TypeNodeWrapper(context, new NullType())),
+                returnType: AstCloner.Clone((GenericType)array.Type),
                 readsState: false,
                 changesState: false,
                 modifiesControlFlow: false,

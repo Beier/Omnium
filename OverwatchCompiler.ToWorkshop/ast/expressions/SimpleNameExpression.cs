@@ -3,7 +3,7 @@ using OverwatchCompiler.ToWorkshop.ast.declarations;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
-    public class SimpleNameExpression : Expression
+    public class SimpleNameExpression : Expression, INameExpression
     {
         public string Name { get; set; }
         public INamedDeclaration Declaration { get; set; }

@@ -30,6 +30,7 @@ namespace OverwatchCompiler.ToWorkshop
 
             var builder = new StringBuilder();
             builder.AppendLine("using System.Collections.Generic;");
+            builder.AppendLine("using System.Linq;");
             builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast;");
             builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.declarations;");
             builder.AppendLine("using OverwatchCompiler.ToWorkshop.ast.expressions;");

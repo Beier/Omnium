@@ -20,8 +20,11 @@ rule("Hello World")
 	
 	actions
 	{
-		Skip If(Compare(Global Variable(A), ==, 1), 2);
-		Set Global Variable(B, Empty Array);
+		Skip If(Compare(Global Variable(A), ==, 1), 5);
+		Wait(5);
+		Set Global Variable(B, Append To Array(Append To Array(Empty Array, 1), 2));
+		Big Message(All Players(Team(All)), Value In Array(Global Variable(B), 1));
+		Wait(5);
 		Set Global Variable(A, 1);
 		Set Global Variable(C, Append To Array(Global Variable(B), Count Of(Global Variable(B))));
 		Set Global Variable(C, Append To Array(Global Variable(C), Count Of(Global Variable(C))));

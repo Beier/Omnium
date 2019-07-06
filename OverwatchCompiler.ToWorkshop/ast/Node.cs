@@ -24,6 +24,7 @@ namespace OverwatchCompiler.ToWorkshop.ast
         void ReplaceChild(INode oldItem, INode newItem);
         void ReplaceWith(INode replacement);
         void RemoveChild(INode item);
+        void RemoveChildren(IEnumerable<INode> children);
         void Remove();
     }
 
@@ -291,6 +292,14 @@ namespace OverwatchCompiler.ToWorkshop.ast
         public void ReplaceWith(INode replacement)
         {
             Parent.ReplaceChild(this, replacement);
+        }
+
+        public void RemoveChildren(IEnumerable<INode> children)
+        {
+            foreach (var child in children.ToList())
+            {
+                RemoveChild(child);
+            }
         }
 
         public void RemoveChild(INode child)

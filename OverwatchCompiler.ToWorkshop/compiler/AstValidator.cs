@@ -142,14 +142,18 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 }
             }
 
-            if (classDeclaration.BaseType != null
-                && !(classDeclaration.BaseType is GenericType genericType
-                     && genericType.Base is ReferenceType referenceType
-                     && referenceType.Identifiers.Count() == 1
-                     && referenceType.Identifiers.Single().Text == "Array"
-                     && genericType.GenericTypes.Count() == 1))
-                Errors.Add(new CompilationError(classDeclaration.Context, "Object inheritance is not supported."));
-            classDeclaration.BaseType?.Remove();
+            if (classDeclaration.BaseType != null)
+            {
+                if (!(classDeclaration.BaseType is GenericType genericType
+                      && genericType.Base is ReferenceType referenceType
+                      && referenceType.Identifiers.Count() == 1
+                      && referenceType.Identifiers.Single().Text == "Array"
+                      && genericType.GenericTypes.Count() == 1))
+                    Errors.Add(new CompilationError(classDeclaration.Context, "Object inheritance is not supported."));
+                else if (classDeclaration.Name == "List")
+                    classDeclaration.NearestAncestorOfType<Root>().ListDeclaration = classDeclaration;
+                classDeclaration.BaseType?.Remove();
+            }
         }
 
         public override void ExitModuleDeclaration(ModuleDeclaration moduleDeclaration)
@@ -176,6 +180,16 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             var loopStatement = continueStatement.NearestAncestorOfAnyType(typeof(ForStatement), typeof(ForeachStatement), typeof(WhileStatement));
             if (loopStatement == null)
                 Errors.Add(new CompilationError(continueStatement.Context, "Continue statements can only appear inside loops"));
+        }
+
+        public override void ExitArrayCreationExpression(ArrayCreationExpression arrayCreationExpression)
+        {
+            Errors.Add(new CompilationError(arrayCreationExpression.Context, "Native arrays are not supported. Use List instead."));
+        }
+
+        public override void ExitArrayType(ArrayType arrayType)
+        {
+            Errors.Add(new CompilationError(arrayType.Context, "Native arrays are not supported. Use List instead."));
         }
     }
 }

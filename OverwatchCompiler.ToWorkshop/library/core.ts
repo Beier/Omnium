@@ -109,10 +109,6 @@ module Native {
     export function assert(condition: boolean, message: string = null): void {
 
     }
-
-    export function fillList<T>(list: List<T>, array: T[]) : List<T> {
-        return list;
-    }
 }
 
 module Events {
@@ -181,28 +177,28 @@ class Player {
 class Players {
     private constructor() { }
 
-    public static deadOnTeam(team: Team | Team[]): Player[] {
-        return Native.callNativeArg1Function<Team | Team[], Player[]>("All Dead Players", true, false, team);
+    public static deadOnTeam(team: Team | List<Team>): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All Dead Players", true, false, team);
     }
 
-    public static aliveOnTeam(team: Team | Team[]): Player[] {
-        return Native.callNativeArg1Function<Team | Team[], Player[]>("All Living Players", true, false, team);
+    public static aliveOnTeam(team: Team | List<Team>): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All Living Players", true, false, team);
     }
 
-    public static onTeam(team: Team | Team[]): Player[] {
-        return Native.callNativeArg1Function<Team | Team[], Player[]>("All Players", true, false, team);
+    public static onTeam(team: Team | List<Team>): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All Players", true, false, team);
     }
 
-    public static get all(): Player[] {
+    public static get all(): List<Player> {
         return Players.onTeam(Teams.all);
     }
 
-    public static notOnObjectiveFromTeam(team: Team | Team[]): Player[] {
-        return Native.callNativeArg1Function<Team | Team[], Player[]>("All Players Not On Objective", true, false, team);
+    public static notOnObjectiveFromTeam(team: Team | List<Team>): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All Players Not On Objective", true, false, team);
     }
 
-    public static onObjectiveFromTeam(team: Team | Team[]): Player[] {
-        return Native.callNativeArg1Function<Team | Team[], Player[]>("All Players On Objective", true, false, team);
+    public static onObjectiveFromTeam(team: Team | List<Team>): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All Players On Objective", true, false, team);
     }
 }
 
@@ -230,8 +226,8 @@ class Team {
 }
 
 class Teams {
-    public static get all(): Team[] {
-        return Native.callNativeArg1Function<TeamConst, Team[]>("Team", true, false, TeamConst.All);
+    public static get all(): List<Team> {
+        return Native.callNativeArg1Function<TeamConst, List<Team>>("Team", true, false, TeamConst.All);
     }
 }
 
@@ -249,12 +245,12 @@ class Hero {
 class Heroes {
     private constructor() { }
 
-    public static get all(): Hero[] {
-        return Native.callNativeArg0Function<Hero[]>("All Heroes", true, false);
+    public static get all(): List<Hero> {
+        return Native.callNativeArg0Function<List<Hero>>("All Heroes", true, false);
     }
 
-    public static allowedForPlayer(player: Player): Hero[] {
-        return Native.callNativeArg1Function<Player, Hero[]>("Allowed Heroes", true, false, player);
+    public static allowedForPlayer(player: Player): List<Hero> {
+        return Native.callNativeArg1Function<Player, List<Hero>>("Allowed Heroes", true, false, player);
     }
 }
 
@@ -273,10 +269,10 @@ class Vector {
 
     public static getFirstIntersectionBetween(start: Vector,
         end: Vector,
-        playersToInclude: Player | Player[] = Players.all,
-        playersToExclude: Player | Player[] = Triggering.player,
+        playersToInclude: Player | List<Player> = Players.all,
+        playersToExclude: Player | List<Player> = Triggering.player,
         includePlayerOwnedObjects: boolean = true): Vector {
-        return Native.callNativeArg5Function<Vector, Vector, Player | Player[], Player | Player[], boolean, Vector>(
+        return Native.callNativeArg5Function<Vector, Vector, Player | List<Player>, Player | List<Player>, boolean, Vector>(
             "Ray cast hit position",
             true,
             false,
@@ -299,7 +295,7 @@ class Triggering {
 
 class Game {
     public static createHudText(
-        players: Player | Player[],
+        players: Player | List<Player>,
         header: string = null,
         subHeader: string = null,
         text: string = null,
@@ -310,7 +306,7 @@ class Game {
         textColor: TextColor = TextColor.White,
         reevaluation: HudTextReevaluation = HudTextReevaluation.VisibleToAndString): void {
         Native.callNativeArg10Action<
-            Player | Player[],
+            Player | List<Player>,
             string,
             string,
             string,
@@ -335,23 +331,23 @@ class Game {
                 reevaluation);
     }
 
-    public static sendMessageTo(players: Player | Player[], message: string, size: MessageSize = MessageSize.Big): void {
+    public static sendMessageTo(players: Player | List<Player>, message: string, size: MessageSize = MessageSize.Big): void {
         if (size == MessageSize.Big) {
-            Native.callNativeArg2Action<Player | Player[], string>("Big Message", false, false, players, message);
+            Native.callNativeArg2Action<Player | List<Player>, string>("Big Message", false, false, players, message);
         } else {
-            Native.callNativeArg2Action<Player | Player[], string>("Small Message", false, false, players, message);
+            Native.callNativeArg2Action<Player | List<Player>, string>("Small Message", false, false, players, message);
         }
     }
 
     public static createInWorldText(
-        visibleTo: Player | Player[],
+        visibleTo: Player | List<Player>,
         header: string,
         position: Vector,
         scale: number = 1,
         clipping: InWorldTextClipping = InWorldTextClipping.BlockedByWalls,
         reevaluation: InWorldTextReevaluation = InWorldTextReevaluation.VisibleToPositionAndString): void {
         Native.callNativeArg6Action
-            <Player | Player[], string, Vector, number, InWorldTextClipping, InWorldTextReevaluation>(
+            <Player | List<Player>, string, Vector, number, InWorldTextClipping, InWorldTextReevaluation>(
                 "Create in-world text", false, true, visibleTo, header, position, scale, clipping, reevaluation);
     }
 }
@@ -413,12 +409,7 @@ class List<T> extends Array<T> {
         return Native.callNativeArg0Function<List<T>>("Empty Array", false, false);
     }
 
-    public static create<T>(array : T[]) : List<T> {
-        const list = List.empty<T>();
-        return Native.fillList(list, array);
-    }
-
     public append(item: T) : List<T> {
-        return Native.callNativeArg1Function<T, List<T>>("Append To Array", false, false, item);
+        return Native.callNativeArg2Function<List<T>, T, List<T>>("Append To Array", false, false, this, item);
     }
 }

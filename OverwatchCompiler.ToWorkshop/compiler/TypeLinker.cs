@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
@@ -50,9 +51,30 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             if (methodGenerics.Any())
                 return methodGenerics;
             var parentClass = referenceType.NearestAncestorOfType<ClassDeclaration>();
+            if (parentClass == null || IsStatic(referenceType))
+                return new List<GenericTypeDeclaration>();
+
             var classGenerics = parentClass?.GenericTypeDeclarations.Where(x => x.Name == referenceType.Identifiers.First().Text).ToList() ?? new List<GenericTypeDeclaration>();
 
             return classGenerics;
+        }
+
+        private bool IsStatic(INode node)
+        {
+            var parentDeclaration = node.NearestAncestorOfAnyType(typeof(MethodDeclaration), typeof(GetterDeclaration),
+                typeof(SetterDeclaration));
+            if (parentDeclaration == null)
+                return node.NearestAncestorOfType<VariableDeclaration>().Modifiers.Contains(MemberModifier.Static);
+            switch (parentDeclaration)
+            {
+                case MethodDeclaration methodDeclaration:
+                    return methodDeclaration.Modifiers.Contains(MemberModifier.Static);
+                case GetterDeclaration getterDeclaration:
+                    return getterDeclaration.Modifiers.Contains(MemberModifier.Static);
+                case SetterDeclaration setterDeclaration:
+                    return setterDeclaration.Modifiers.Contains(MemberModifier.Static);
+            }
+            throw new Exception("Unreachable");
         }
 
         private List<INode> GetMatchingClassesAndEnums(ReferenceType referenceType)

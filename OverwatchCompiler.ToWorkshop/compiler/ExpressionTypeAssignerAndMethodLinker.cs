@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Antlr4.Runtime.Tree;
 using OverwatchCompiler.ToWorkshop.ast;
 using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.ast.expressions;
@@ -164,37 +165,13 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             stringLiteral.Type = new StringType(stringLiteral.Context);
         }
 
-        public override void ExitArrayCreationExpression(ArrayCreationExpression arrayCreationExpression)
-        {
-            var subTypes = arrayCreationExpression.InitialItems.Select(x => x.Type).ToList();
-            if (!subTypes.Any())
-                arrayCreationExpression.Type = new ArrayType(arrayCreationExpression.Context, new NullType().Wrap(arrayCreationExpression.Context));
-            else
-            {
-                IType type = null;
-                for (int i = 0; i < subTypes.Count(); i++)
-                {
-                    if (type == null || type is NullType)
-                        type = subTypes[i];
-                    for (int j = i + 1; j < subTypes.Count(); j++)
-                    {
-                        if (subTypes[i].IsEquivalentTo(subTypes[j]))
-                            Errors.Add(new CompilationError(arrayCreationExpression.Context, "Array must contain elements of the same types"));
-                    }
-                }
-
-                arrayCreationExpression.Type = new ArrayType(arrayCreationExpression.Context, type.Wrap(arrayCreationExpression.Context));
-            }
-        }
-
         public override void ExitArrayIndexExpression(ArrayIndexExpression arrayIndexExpression)
         {
-            var baseType = arrayIndexExpression.Array.Type;
-            if (baseType is ArrayType arrayType)
-                arrayIndexExpression.Type = arrayType.Base;
+            if (arrayIndexExpression.Array.Type.IsList(arrayIndexExpression.NearestAncestorOfType<Root>()))
+                arrayIndexExpression.Type = ((GenericType)arrayIndexExpression.Array.Type).GenericTypes.Single();
             else
             {
-                Errors.Add(new CompilationError(arrayIndexExpression.Context, $"Unable to index {baseType}. Type must be an array."));
+                Errors.Add(new CompilationError(arrayIndexExpression.Context, $"Unable to index {arrayIndexExpression.Array.Type}. Type must be an array."));
                 arrayIndexExpression.Type = new NullType();
             }
 
@@ -333,7 +310,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public override void ExitMemberExpression(MemberExpression memberExpression)
         {
-            switch (memberExpression.Base.Type)
+            ExitMemberExpression(memberExpression, memberExpression.Base.Type);
+        }
+        public void ExitMemberExpression(MemberExpression memberExpression, IType baseType)
+        {
+            switch (baseType)
             {
                 case StaticReference staticReference:
                     if (staticReference.Declaration is EnumDeclaration enumDeclaration)
@@ -357,6 +338,15 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     memberExpression.Declaration = matchingDeclarations[0];
 
                     break;
+                case GenericType genericType:
+                    if (genericType.IsList(memberExpression.NearestAncestorOfType<Root>()) && memberExpression.Name == "length")
+                    {
+                        var nativeArrayCount = NativeMethods.ArrayCount(memberExpression.Context, memberExpression.Base);
+                        memberExpression.ReplaceWith(nativeArrayCount);
+                        break;
+                    }
+                    ExitMemberExpression(memberExpression, genericType.Base);
+                    return;
                 case ReferenceType referenceType:
                     if (referenceType.Declaration is EnumDeclaration)
                     {
@@ -375,12 +365,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         Errors.Add(new CompilationError(memberExpression.Context, "Static declaration referenced in non-static context."));
                     memberExpression.Type = GetType(matchingDeclarations[0]);
                     memberExpression.Declaration = matchingDeclarations[0];
-                    break;
-                case ArrayType _:
-                    if (memberExpression.Name != "length")
-                        throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
-                    var nativeArrayCount = NativeMethods.ArrayCount(memberExpression.Context, memberExpression.Base);
-                    memberExpression.ReplaceWith(nativeArrayCount);
                     break;
                 default:
                     throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
@@ -410,14 +394,16 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public override void EnterForeachStatement(ForeachStatement foreachStatement)
         {
             Visit(foreachStatement.List);
-            if (!(foreachStatement.List.Type is ArrayType arrayType))
+            if (!foreachStatement.List.Type.IsList(foreachStatement.NearestAncestorOfType<Root>()))
             {
                 Errors.Add(new CompilationError(foreachStatement.Context, $"Can not iterate over {foreachStatement.List.Type}."));
                 skipChildren = true;
                 return;
             }
 
-            foreachStatement.Variable.AddChild(AstCloner.Clone(arrayType.Base));
+            var genericType = (GenericType)foreachStatement.List.Type;
+
+            foreachStatement.Variable.AddChild(AstCloner.Clone(genericType.GenericTypes.Single()));
             Visit(foreachStatement.Body);
             skipChildren = true;
         }
@@ -440,46 +426,9 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                             var index = parent.Children.IndexOf(replacement);
                             Visit(replacement);
                             if (replacement.Parent == null)
-                                replacement = (IExpression) parent.Children.ElementAt(index);
+                                replacement = (IExpression)parent.Children.ElementAt(index);
                             replacement.Type = new StringType(methodInvocationExpression.Context);
                             skipChildren = true;
-                            break;
-                        }
-                    case "push":
-                        {
-                            Visit(memberExpression.Base);
-                            foreach (var argument in methodInvocationExpression.Arguments.ToList())
-                            {
-                                Visit(argument);
-                            }
-                            if (memberExpression.Base.Type is ArrayType)
-                                throw new CompilationError(memberExpression.Context, "Use concat to add elements to an array. The modified array is returned.");
-                            ExitMemberExpression(memberExpression);
-                            skipChildren = true;
-                            break;
-                        }
-                    case "concat":
-                        {
-                            Visit(memberExpression.Base);
-                            foreach (var argument in methodInvocationExpression.Arguments.ToList())
-                            {
-                                Visit(argument);
-                            }
-                            if (memberExpression.Base.Type is ArrayType)
-                            {
-                                if (methodInvocationExpression.GenericTypes.Any())
-                                    Errors.Add(new CompilationError(methodInvocationExpression.Context, "The concat method does not support generic type arguments"));
-                                if (methodInvocationExpression.Arguments.Count() != 1)
-                                    Errors.Add(new CompilationError(methodInvocationExpression.Context, "Expected 1 argument for concat"));
-                                var nativeAppend = NativeMethods.AppendToArray(methodInvocationExpression.Context, memberExpression.Base, methodInvocationExpression.Arguments.FirstOrDefault());
-                                methodInvocationExpression.ReplaceWith(nativeAppend);
-                                skipChildren = true;
-                            }
-                            else
-                            {
-                                ExitMemberExpression(memberExpression);
-                                skipChildren = true;
-                            }
                             break;
                         }
                 }
@@ -508,21 +457,13 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                         for (int i = 0; i < arguments.Count; i++)
                         {
                             var fromType = arguments[i].Type;
-                            var toType = parameters[i].Type;
+                            var toType = ReplaceGenerics(methodInvocationExpression, parameters[i].Type);
                             if (!fromType.IsAssignableTo(toType))
                                 Errors.Add(new CompilationError(arguments[i].Context, $"Can not assign {fromType} to {toType}"));
                         }
                     }
 
-                    methodInvocationExpression.Type = methodReference.Declaration.ReturnType;
-                    if (methodReference.Declaration.ReturnType is ReferenceType referenceType && referenceType.Declaration is GenericTypeDeclaration genericDeclaration)
-                    {
-                        var genericDeclarationIndex = methodReference.Declaration.GenericTypeDeclarations.IndexOf(genericDeclaration);
-                        if (methodInvocationExpression.GenericTypes.Count() > genericDeclarationIndex)
-                            methodInvocationExpression.Type = methodInvocationExpression.GenericTypes.AtIndex(genericDeclarationIndex);
-                        else
-                            methodInvocationExpression.Type = new NullType();
-                    }
+                    methodInvocationExpression.Type = ReplaceGenerics(methodInvocationExpression, methodReference.Declaration.ReturnType);
                     break;
                 case AnonymousMethodType _:
                 case FunctionType _:
@@ -534,7 +475,47 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                     methodInvocationExpression.Type = new NullType();
                     break;
             }
+        }
 
+        private ITypeNode ReplaceGenerics(MethodInvocationExpression methodInvocationExpression, ITypeNode type)
+        {
+            var clone = AstCloner.Clone(type);
+            foreach (var referenceType in clone.AllDescendantsAndSelf().OfType<ReferenceType>().ToList())
+            {
+                if (!(referenceType.Declaration is GenericTypeDeclaration genericTargetDeclaration))
+                    continue;
+                if (methodInvocationExpression.IsDescendantOf(genericTargetDeclaration.Parent))
+                    continue;
+                List<GenericTypeDeclaration> genericList;
+                List<ITypeNode> typeList;
+                switch (genericTargetDeclaration.Parent)
+                {
+                    case MethodDeclaration method:
+                        genericList = method.GenericTypeDeclarations.ToList();
+                        typeList = methodInvocationExpression.GenericTypes.ToList();
+                        break;
+                    case ClassDeclaration classDeclaration:
+                        genericList = classDeclaration.GenericTypeDeclarations.ToList();
+                        if (!(methodInvocationExpression.Base is MemberExpression memberExpression
+                              && memberExpression.Base.Type is GenericType genericType))
+                            throw new CompilationError(methodInvocationExpression.Context, "Expected generic type parameters");
+                        typeList = genericType.GenericTypes.ToList();
+                        break;
+                    default:
+                        throw new Exception("Unexpected method parent: " + genericTargetDeclaration.Parent);
+                }
+
+                if (genericList.Count != typeList.Count)
+                    throw new CompilationError(methodInvocationExpression.Context, $"Expected {genericList.Count} generic type parameters, but got {typeList}");
+                var index = genericList.IndexOf(genericTargetDeclaration);
+                var replacement = AstCloner.Clone(typeList[index]);
+                if (referenceType.Parent == null)
+                    clone = replacement;
+                else
+                    referenceType.ReplaceWith(replacement);
+            }
+
+            return clone;
         }
 
         public override void ExitObjectCreationExpression(ObjectCreationExpression objectCreationExpression)
@@ -562,13 +543,25 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 Errors.Add(new CompilationError(thisExpression.Context, "The this keyword can only be used inside classes"));
                 thisExpression.Type = new NullType();
             }
+            else if (classDeclaration.GenericTypeDeclarations.Any())
+            {
+                thisExpression.Type = new GenericType(thisExpression.Context,
+                    ReferenceToType(thisExpression.Context, classDeclaration).Yield()
+                        .Concat(classDeclaration.GenericTypeDeclarations.Select(x => ReferenceToType(thisExpression.Context, x)))
+                );
+            }
             else
             {
-                thisExpression.Type = new ReferenceType(thisExpression.Context, Enumerable.Empty<Token>())
-                {
-                    Declaration = classDeclaration
-                };
+                thisExpression.Type = ReferenceToType(thisExpression.Context, classDeclaration);
             }
+        }
+
+        private ReferenceType ReferenceToType(IParseTree context, INode declaration)
+        {
+            return new ReferenceType(context, Enumerable.Empty<Token>())
+            {
+                Declaration = declaration
+            };
         }
 
         public override void ExitUnaryExpression(UnaryExpression unaryExpression)
@@ -602,7 +595,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
 
         public override void ExitForeachStatement(ForeachStatement foreachStatement)
         {
-            if (!(foreachStatement.List.Type is ArrayType))
+            if (!foreachStatement.List.Type.IsList(foreachStatement.NearestAncestorOfType<Root>()))
                 Errors.Add(new CompilationError(foreachStatement.Context, $"Can not iterate over {foreachStatement.List.Type}."));
         }
 

@@ -40,7 +40,7 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 "list" + random.Next(),
                 new INode[]
                 {
-                    AstCloner.Clone((ArrayType)foreachStatement.List.Type),
+                    AstCloner.Clone((GenericType)foreachStatement.List.Type),
                     foreachStatement.List
                 });
             var indexVariable = new VariableDeclaration(

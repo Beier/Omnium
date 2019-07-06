@@ -52,10 +52,6 @@
     <Compile Include="ToWorkshop\TypescriptToOverwatchCompilerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OverwatchCompiler.ToTypescript\OverwatchCompiler.ToTypescript.csproj">
-      <Project>{7bace503-9096-4cbc-a926-44172a4b0de7}</Project>
-      <Name>OverwatchCompiler.ToTypescript</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OverwatchCompiler.ToWorkshop\OverwatchCompiler.ToWorkshop.csproj">
       <Project>{df3382bb-b9f4-4758-bfbf-d3e94076cc8b}</Project>
       <Name>OverwatchCompiler.ToWorkshop</Name>

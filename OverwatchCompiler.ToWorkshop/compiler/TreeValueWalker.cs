@@ -143,6 +143,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 return VisitReferenceType((ReferenceType)node);
             if (node is FunctionType)
                 return VisitFunctionType((FunctionType)node);
+            if (node is GenericType)
+                return VisitGenericType((GenericType)node);
             if (node is ArrayType)
                 return VisitArrayType((ArrayType)node);
             if (node is Token)
@@ -438,6 +440,11 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual T VisitFunctionType(FunctionType functionType)
         {
             return VisitChildren(functionType);
+        }
+
+        public virtual T VisitGenericType(GenericType genericType)
+        {
+            return VisitChildren(genericType);
         }
 
         public virtual T VisitArrayType(ArrayType arrayType)

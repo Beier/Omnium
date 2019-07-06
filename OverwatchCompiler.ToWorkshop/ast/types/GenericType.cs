@@ -9,7 +9,7 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
     public class GenericType : Node, ITypeNode
     {
         public ReferenceType Base => (ReferenceType)Children.First();
-        public IEnumerable<IType> GenericTypes => Children.Skip(1).Cast<IType>();
+        public IEnumerable<ITypeNode> GenericTypes => Children.Skip(1).Cast<ITypeNode>();
         public GenericType(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
         }

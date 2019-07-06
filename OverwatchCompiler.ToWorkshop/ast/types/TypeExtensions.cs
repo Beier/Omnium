@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Antlr4.Runtime.Tree;
+using OverwatchCompiler.ToWorkshop.ast.declarations;
 using OverwatchCompiler.ToWorkshop.compiler;
 using OverwatchCompiler.ToWorkshop.extensions;
 
@@ -8,6 +9,13 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
 {
     public static class TypeExtensions
     {
+        public static bool IsList(this IType type, Root root)
+        {
+            if (!(type is GenericType genericType))
+                return false;
+            return genericType.Base is ReferenceType referenceType && referenceType.Declaration == root.ListDeclaration;
+        }
+
         public static ITypeNode Wrap(this IType type, IParseTree context)
         {
             if (type is ITypeNode typeNode)
@@ -37,8 +45,6 @@ namespace OverwatchCompiler.ToWorkshop.ast.types
                     var method1 = (AnonymousMethodType)type1;
                     var method2 = (AnonymousMethodType)type2;
                     throw new NotImplementedException();
-                case ArrayType _:
-                    return ((ArrayType)type1).Base.IsEquivalentTo(((ArrayType)type2).Base);
                 case ReferenceType _:
                     return ((ReferenceType)type1).Declaration == ((ReferenceType)type2).Declaration;
                 case StaticReference _:

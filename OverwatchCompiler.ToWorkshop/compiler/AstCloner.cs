@@ -98,6 +98,10 @@ namespace OverwatchCompiler.ToWorkshop.compiler
             return node;
         }
 
+        public override INode VisitGenericType(GenericType genericType)
+        {
+            return new GenericType(genericType.Context, genericType.Children.Select(Visit));
+        }
 
 
         public override INode GetDefault(INode node)
@@ -417,11 +421,6 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public override INode VisitWhileStatement(WhileStatement whileStatement)
         {
             return new WhileStatement(whileStatement.Context, whileStatement.Children.Select(Visit));
-        }
-
-        public override INode VisitArrayType(ArrayType arrayType)
-        {
-            return new ArrayType(arrayType.Context, (ITypeNode)Visit(arrayType.Base));
         }
 
         public override INode VisitBoolType(BoolType boolType)

@@ -36,6 +36,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 EnterToken((Token)node);
             if (node is ArrayType)
                 EnterArrayType((ArrayType)node);
+            if (node is GenericType)
+                EnterGenericType((GenericType)node);
             if (node is FunctionType)
                 EnterFunctionType((FunctionType)node);
             if (node is ReferenceType)
@@ -181,6 +183,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
                 ExitToken((Token)node);
             if (node is ArrayType)
                 ExitArrayType((ArrayType)node);
+            if (node is GenericType)
+                ExitGenericType((GenericType)node);
             if (node is FunctionType)
                 ExitFunctionType((FunctionType)node);
             if (node is ReferenceType)
@@ -323,6 +327,8 @@ namespace OverwatchCompiler.ToWorkshop.compiler
         public virtual void ExitToken(Token token) { }
         public virtual void EnterArrayType(ArrayType arrayType) { }
         public virtual void ExitArrayType(ArrayType arrayType) { }
+        public virtual void EnterGenericType(GenericType genericType) { }
+        public virtual void ExitGenericType(GenericType genericType) { }
         public virtual void EnterFunctionType(FunctionType functionType) { }
         public virtual void ExitFunctionType(FunctionType functionType) { }
         public virtual void EnterReferenceType(ReferenceType referenceType) { }

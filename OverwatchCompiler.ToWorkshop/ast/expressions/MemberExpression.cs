@@ -5,7 +5,7 @@ using OverwatchCompiler.ToWorkshop.ast.declarations;
 
 namespace OverwatchCompiler.ToWorkshop.ast.expressions
 {
-    public class MemberExpression : Expression
+    public class MemberExpression : Expression, INameExpression
     {
         public IExpression Base => Children.OfType<IExpression>().SingleOrDefault();
         public string Name { get; }

@@ -75,6 +75,7 @@
     <Compile Include="ast\expressions\BinaryExpression.cs" />
     <Compile Include="ast\expressions\CastExpression.cs" />
     <Compile Include="ast\expressions\IExpression.cs" />
+    <Compile Include="ast\expressions\INameExpression.cs" />
     <Compile Include="ast\expressions\literals\BooleanLiteral.cs" />
     <Compile Include="ast\expressions\literals\ILiteral.cs" />
     <Compile Include="ast\expressions\literals\NullLiteral.cs" />

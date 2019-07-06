@@ -5,7 +5,13 @@ import "../../../library/strings.ts";
 Native.rule("Hello World",
     Events.Ongoing.global,
     () => {
-        var list : List<number> = List.empty<number>();
+        wait(5);
+        var list: List<number> = List.empty<number>();
+        list = list.append(1).append(2);
+        Game.sendMessageTo(Players.all, list[1].toString());
+        wait(5);
+
+
         while (true) {
             for (var i = 0; i < 10; i++) {
                 list = list.append(list.length);
