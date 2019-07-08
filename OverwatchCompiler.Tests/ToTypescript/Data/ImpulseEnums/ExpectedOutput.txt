@@ -1,8 +1,0 @@
-﻿rule("Rule 2",
-	Events.Ongoing.global,
-	() => {
-		Event.player.applyImpulse(Vector(0, 0, 0), 0, Relative.ToWorld, MotionType.CancelContraryMotion);
-		Event.player.applyImpulse(Vector(0, 0, 0), 0, Relative.ToPlayer, MotionType.IncorporateContraryMotion);
-	}
-);
-

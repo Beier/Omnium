@@ -1,0 +1,9 @@
+﻿rule("Rule 1",
+	Events.Ongoing.global,
+	() => {
+		createHudEffect(Players.onTeam(Teams.all), "Hello".format(null, null, null), null, null, HudTextLocation.Left, 0, Color.White, Color.White, Color.White, HudTextReevaluation.VisibleToAndString);
+		createHudEffect(Players.onTeam(Teams.all), "Hello".format(null, null, null), null, null, HudTextLocation.Top, 0, Color.White, Color.White, Color.White, HudTextReevaluation.String);
+		createHudEffect(Players.onTeam(Teams.all), "Hello".format(null, null, null), null, null, HudTextLocation.Right, 0, Color.White, Color.White, Color.White, HudTextReevaluation.String);
+	}
+);
+

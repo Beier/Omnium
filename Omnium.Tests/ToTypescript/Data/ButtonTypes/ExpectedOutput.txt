@@ -1,0 +1,16 @@
+﻿var a;
+
+rule("Rule 1",
+	Events.Ongoing.global,
+	() => {
+		a = Event.player.isHoldingButton(Button.PrimaryFire);
+		a = Event.player.isHoldingButton(Button.SecondaryFire);
+		a = Event.player.isHoldingButton(Button.Ability1);
+		a = Event.player.isHoldingButton(Button.Ability2);
+		a = Event.player.isHoldingButton(Button.Ultimate);
+		a = Event.player.isHoldingButton(Button.Interact);
+		a = Event.player.isHoldingButton(Button.Jump);
+		a = Event.player.isHoldingButton(Button.Crouch);
+	}
+);
+

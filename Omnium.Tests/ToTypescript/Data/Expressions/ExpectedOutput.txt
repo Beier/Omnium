@@ -1,0 +1,281 @@
+﻿var a;
+
+rule("Rule 1",
+	Events.Ongoing.global,
+	() => {
+		a = Math.abs(0);
+		a = (0 + 0);
+		a = Players.deadOnTeam(Teams.all);
+		a = Heroes.all;
+		a = Players.aliveOnTeam(Teams.all);
+		a = Players.onTeam(Teams.all);
+		a = Players.notOnObjectiveFromTeam(Teams.all);
+		a = Players.onObjectiveFromTeam(Teams.all);
+		a = Heroes.allowedForPlayer(Event.player);
+		a = altitudeOf(Event.player);
+	}
+);
+
+rule("Rule 2",
+	Events.Ongoing.global,
+	() => {
+		a = (true && true);
+		a = angleDifference(0, 0);
+		a = Players.onTeam(Teams.all).push(0);
+		a = Players.onTeam(Teams.all).includes(0);
+		a = a.slice(0, 0);
+		a = Player.attacker;
+		a = Vector.backward;
+		a = Player.closestTo(Vector(0, 0, 0), Teams.all);
+		a = (0 == 0);
+		a = controlModeScoringPercentage(Teams.all);
+	}
+);
+
+rule("Rule 3",
+	Events.Ongoing.global,
+	() => {
+		a = Team.scoringControlMode;
+		a = Math.cosDeg(0);
+		a = Math.cos(0);
+		a = a.length;
+		a = Vector(0, 0, 0).cross(Vector(0, 0, 0));
+		a = currentArrayElement;
+		a = Vector.fromAngles(0, 0);
+		a = Vector(0, 0, 0).directionTowards(Vector(0, 0, 0));
+		a = Vector(0, 0, 0).distanceTo(Vector(0, 0, 0));
+		a = (0 / 0);
+	}
+);
+
+rule("Rule 4",
+	Events.Ongoing.global,
+	() => {
+		a = Vector(0, 0, 0).dot(Vector(0, 0, 0));
+		a = Vector.down;
+		a = [];
+		a = exists(Event.player);
+		a = Event.damage;
+		a = Event.wasCriticalHit;
+		a = Event.player.eyePosition;
+		a = Event.player.facingDirection;
+		a = Player.farthestFrom(Vector(0, 0, 0), Teams.all);
+		a = Players.onTeam(Teams.all).filter(currentArrayElement => (0 == 0));
+	}
+);
+
+rule("Rule 5",
+	Events.Ongoing.global,
+	() => {
+		a = a.head;
+		a = Game.Ctf.flagPositionFor(Teams.all);
+		a = Vector.forward;
+		a = Event.player.hasSpawned;
+		a = Event.player.hasStatus(StatusEffect.Hacked);
+		a = Event.player.health;
+		a = Event.player.healthPercent;
+		a = Hero.Ana;
+		a = Hero.Ana.iconString;
+		a = Event.player.hero;
+	}
+);
+
+rule("Rule 6",
+	Events.Ongoing.global,
+	() => {
+		a = Vector(0, 0, 0).horizontalAngle;
+		a = Event.player.horizontalAngleTowards(Vector(0, 0, 0));
+		a = Event.player.horizontalFacingAngle;
+		a = Event.player.horizontalSpeed;
+		a = Players.onTeam(Teams.all).indexOf(0);
+		a = Event.player.isAlive;
+		a = Game.isAssemblingHeroes;
+		a = Game.isBetweenRounds;
+		a = Event.player.isHoldingButton(Button.PrimaryFire);
+		a = Event.player.isCommunicating(CommunicationType.VoiceLineUp);
+	}
+);
+
+rule("Rule 7",
+	Events.Ongoing.global,
+	() => {
+		a = Event.player.isCommunicating;
+		a = Event.player.isCommunicatingWithEmote;
+		a = Event.player.isCommunicatingWithVoiceLine;
+		a = Game.ControlPoint.isPointLocked;
+		a = Event.player.isCrouching;
+		a = Game.Ctf.isInSuddenDeath;
+		a = Event.player.isDead;
+		a = Event.player.isFiringPrimary;
+		a = Event.player.isFiringSecondary;
+		a = Game.Ctf.isFlagAtBaseFor(Teams.all);
+	}
+);
+
+rule("Rule 8",
+	Events.Ongoing.global,
+	() => {
+		a = Game.Ctf.isFlagBeingCarriedFor(Teams.all);
+		a = Game.isInProgress;
+		a = Game.isHeroBeingPlayed(Hero.Ana, Teams.all);
+		a = Event.player.isInAir;
+		a = Vector(0, 0, 0).isInLineOfSightOf(Vector(0, 0, 0), BarrierBlockType.BarriersDoNotBlockLOS);
+		a = Game.isInSetup;
+		a = Event.player.isInSpawnRoom;
+		a = Event.player.isLookingAt(Vector(0, 0, 0), 45);
+		a = Game.isMatchComplete;
+		a = Event.player.isMoving;
+	}
+);
+
+rule("Rule 9",
+	Events.Ongoing.global,
+	() => {
+		a = Game.isObjectiveComplete(0);
+		a = Event.player.isOnGround;
+		a = Event.player.isOnObjective;
+		a = Event.player.isOnWall;
+		a = Event.player.isPortraitOnFire;
+		a = Event.player.isStanding;
+		a = Game.isOnDefense(Teams.all);
+		a = Game.isOnOffense(Teams.all);
+		a = a.forall(currentArrayElement => (0 == 0));
+		a = a.exists(currentArrayElement => (0 == 0));
+	}
+);
+
+rule("Rule 10",
+	Events.Ongoing.global,
+	() => {
+		a = Event.player.isUsingAbility1;
+		a = Event.player.isUsingAbility2;
+		a = Event.player.isUsingUltimate;
+		a = Game.isWaitingForPlayers;
+		a = Game.getLastCreatedEntity();
+		a = Game.getIdOfLastDamageModification();
+		a = Game.getIdOfLastDamageOverTime();
+		a = Game.getIdOfLastHealOverTime();
+		a = a.last;
+		a = Game.getIdOfLastText();
+	}
+);
+
+rule("Rule 11",
+	Events.Ongoing.global,
+	() => {
+		a = Vector.left;
+		a = Vector(0, 0, 0).toLocalCoordinatesFor(Event.player, VectorTransformationType.Rotation);
+		a = Game.matchRound;
+		a = Game.matchTime;
+		a = Math.max(0, 0);
+		a = Event.player.maxHealth;
+		a = Math.min(0, 0);
+		a = (0 % 0);
+		a = (0 * 0);
+		a = Vector.getNearestWalkablePosition(Vector(0, 0, 0));
+	}
+);
+
+rule("Rule 12",
+	Events.Ongoing.global,
+	() => {
+		a = Vector(0, 0, 0).normalize();
+		a = !true;
+		a = Game.numberOfDeadPlayersOnTeam(Teams.all);
+		a = Event.player.numberOfDeaths;
+		a = Event.player.numberOfEliminations;
+		a = Event.player.numberOfFinalBlows;
+		a = Game.numberOfHeroesOfTypeOnTeam(Hero.Ana, Teams.all);
+		a = Game.numberOfLivingPlayersOnTeam(Teams.all);
+		a = Game.numberOfPlayersOnTeam(Teams.all);
+		a = Game.numberOfPlayersFromTeamOnObjective(Teams.all);
+	}
+);
+
+rule("Rule 13",
+	Events.Ongoing.global,
+	() => {
+		a = Game.indexOfCurrentObjective;
+		a = Game.positionOfObjective(0);
+		a = Team.oppositeOf(Teams.all);
+		a = (true || true);
+		a = Game.Payload.position;
+		a = Game.Payload.progressPercentage;
+		a = Game.Ctf.playerCarryingFlagFor(Teams.all);
+		a = Player.getPlayerClosestToReticleOf(Event.player, Teams.all);
+		a = Event.player.variables.a;
+		a = Player.inSlot(0, Teams.all);
+	}
+);
+
+rule("Rule 14",
+	Events.Ongoing.global,
+	() => {
+		a = Players.inLineOfSightOf(Event.player, Teams.all, 45);
+		a = Players.onHero(Hero.Ana, Teams.all);
+		a = Players.withinRadiusOf(Vector(0, 0, 0), 5, Teams.all, LineOfSightCheck.Off);
+		a = Game.ControlPoint.capturePercentage;
+		a = Event.player.position;
+		a = Math.pow(0, 0);
+		a = Math.randomInt(0, 0);
+		a = Math.randomReal(0, 0);
+		a = a.getRandomElement();
+		a = a.shuffle();
+	}
+);
+
+rule("Rule 15",
+	Events.Ongoing.global,
+	() => {
+		a = Vector.normalFromRayCastHit(Vector(0, 0, 0), Vector(0, 0, 0), Players.onTeam(Teams.all), Event.player, true);
+		a = Player.fromRayCastHit(Vector(0, 0, 0), Vector(0, 0, 0), Players.onTeam(Teams.all), Event.player, true);
+		a = Vector.positionFromRayCastHit(Vector(0, 0, 0), Vector(0, 0, 0), Players.onTeam(Teams.all), Event.player, true);
+		a = Players.onTeam(Teams.all).remove(0);
+		a = Vector.right;
+		a = Math.round(0, RoundingDirection.Up);
+		a = Event.player.score;
+		a = Math.sinDeg(0);
+		a = Math.sin(0);
+		a = Event.player.slot;
+	}
+);
+
+rule("Rule 16",
+	Events.Ongoing.global,
+	() => {
+		a = a.sortBy(currentArrayElement => currentArrayElement);
+		a = Event.player.speed;
+		a = Event.player.getSpeedInDirection(Vector(0, 0, 0));
+		a = Math.sqrt(0);
+		a = "Hello".format(null, null, null);
+		a = (0 - 0);
+		a = Event.player.team;
+		a = Teams.all.score;
+		a = Event.player.throttle;
+		a = Game.totalTimeElapsed;
+	}
+);
+
+rule("Rule 17",
+	Events.Ongoing.global,
+	() => {
+		a = Event.player.ultimateChargePercent;
+		a = ;
+		a = a[0];
+		a = Vector.towards(Vector(0, 0, 0), Vector(0, 0, 0));
+		a = Event.player.verticalFacingAngle;
+		a = Event.player.verticalSpeed;
+		a = Event.victim;
+		a = Vector(0, 0, 0).toWorldCoordinatesFor(Event.player, VectorTransformationType.Rotation);
+		a = Vector(0, 0, 0).x;
+		a = Vector(0, 0, 0).y;
+	}
+);
+
+rule("Rule 18",
+	Events.Ongoing.global,
+	() => {
+		a = Vector(0, 0, 0).z;
+	}
+);
+

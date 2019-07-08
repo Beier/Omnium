@@ -1,0 +1,23 @@
+﻿rule("Initialize")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		0 == True;
+		Null == False;
+	}
+
+	actions
+	{
+		Set Global Variable(P, Vector(55.090, 36.220, -93.160));
+		Set Global Variable(V, Vector(0, 0, 0));
+		Set Global Variable(R, 0.250);
+		Set Global Variable(S, Add(2, 0));
+		Set Global Variable(G, Vector(0, -9.820, 0));
+		Set Global Variable(A, Null);
+	}
+}

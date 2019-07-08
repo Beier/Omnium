@@ -1,0 +1,18 @@
+﻿var a;
+
+rule("test status",
+	Events.Ongoing.global,
+	() => {
+		a = Event.player.hasStatus(StatusEffect.Hacked);
+		a = Event.player.hasStatus(StatusEffect.Burning);
+		a = Event.player.hasStatus(StatusEffect.KnockedDown);
+		a = Event.player.hasStatus(StatusEffect.Asleep);
+		a = Event.player.hasStatus(StatusEffect.Frozen);
+		a = Event.player.hasStatus(StatusEffect.Unkillable);
+		a = Event.player.hasStatus(StatusEffect.Invincible);
+		a = Event.player.hasStatus(StatusEffect.PhasedOut);
+		a = Event.player.hasStatus(StatusEffect.Rooted);
+		a = Event.player.hasStatus(StatusEffect.Stunned);
+	}
+);
+

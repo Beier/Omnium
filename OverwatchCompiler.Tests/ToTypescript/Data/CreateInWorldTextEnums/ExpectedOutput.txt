@@ -1,9 +1,0 @@
-﻿rule("Rule 1",
-	Events.Ongoing.global,
-	() => {
-		createInWorldText(Players.onTeam(Teams.all), "Hello".format(null, null, null), Event.player, 1, TextClipping.ClipAgainstSurfaces, InWorldTextReevaluation.VisibleToPositionAndString);
-		createInWorldText(Players.onTeam(Teams.all), "Hello".format(null, null, null), Event.player, 1, TextClipping.DoNotClip, InWorldTextReevaluation.VisibleToAndString);
-		createInWorldText(Players.onTeam(Teams.all), "Hello".format(null, null, null), Event.player, 1, TextClipping.DoNotClip, InWorldTextReevaluation.String);
-	}
-);
-
