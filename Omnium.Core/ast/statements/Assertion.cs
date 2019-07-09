@@ -13,5 +13,10 @@ namespace Omnium.Core.ast.statements
         public Assertion(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
         }
+
+        public override string ToString()
+        {
+            return $"Assert({Condition}, {Message})";
+        }
     }
 }

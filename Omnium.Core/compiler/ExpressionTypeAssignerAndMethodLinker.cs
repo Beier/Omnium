@@ -640,8 +640,6 @@ namespace Omnium.Core.compiler
                 .SourceFiles
                 .SelectMany(x => x.ModuleDeclarations)
                 .Where(x => x.Name == "Rule")
-                .SelectMany(x => x.ModuleDeclarations)
-                .Where(x => x.Name == "Events")
                 .SelectMany(x => x.ClassDeclarations)
                 .Single(x => x.Name == "Event");
 
@@ -663,8 +661,6 @@ namespace Omnium.Core.compiler
                 .SourceFiles
                 .SelectMany(x => x.ModuleDeclarations)
                 .Where(x => x.Name == "Rule")
-                .SelectMany(x => x.ModuleDeclarations)
-                .Where(x => x.Name == "Events")
                 .SelectMany(x => x.ClassDeclarations)
                 .Single(x => x.Name == "Event");
             nativeTrigger.Type = new ReferenceType(nativeTrigger.Context, eventDeclaration);

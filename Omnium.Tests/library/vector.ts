@@ -19,7 +19,7 @@ export class Vector {
     public static getFirstIntersectionBetween(start: Vector,
         end: Vector,
         playersToInclude: Player | List<Player> = Players.all,
-        playersToExclude: Player | List<Player> = Rule.Triggering.player,
+        playersToExclude: Player | List<Player> = Rule.Event.player,
         includePlayerOwnedObjects: boolean = true): Vector {
         return Native.callNativeArg5Function<Vector, Vector, Player | List<Player>, Player | List<Player>, boolean, Vector>(
             "Ray cast hit position",

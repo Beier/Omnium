@@ -11,6 +11,19 @@ export class Team {
     public static get team2(): Team {
         return Native.callNativeArg1Function<TeamConst, Team>("Team", true, false, TeamConst.Team2);
     }
+
+    public set score(value: number) {
+        Native.callNativeArg2Action<Team, number>("Set team score", false, true, this, value);
+    }
+
+    public set spawnRoom(number: number) {
+        if (number == null)
+            Native.callNativeArg1Action<Team>("Stop forcing spawn room", false, true, this);
+        else
+            Native.callNativeArg2Action<Team, number>("Start forcing spawn room", false, true, this, number);
+    }
+
+    
 }
 
 export class Teams {

@@ -17,13 +17,13 @@ Native.rule("Initialize text",
 );
 
 Native.rule("Move text to shot target",
-    Rule.Events.Ongoing.eachPlayer(Rule.Events.Team.All, Rule.Events.Player.All),
-    Rule.Triggering.player.isHoldingButton(Button.PrimaryFire),
+    Rule.Events.Ongoing.eachPlayer(Rule.Events.Team.All, Rule.Events.Players.All),
+    Rule.Event.player.isHoldingButton(Button.PrimaryFire),
     () => {
         totalShots++;
         textPosition = Vector.getFirstIntersectionBetween(
-            Rule.Triggering.player.position + Vector.up,
-            Rule.Triggering.player.position + 100 * Rule.Triggering.player.facingDirection + Vector.up
+            Rule.Event.player.position + Vector.up,
+            Rule.Event.player.position + 100 * Rule.Event.player.facingDirection + Vector.up
         );
     }
 );

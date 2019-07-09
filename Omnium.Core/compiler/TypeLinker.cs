@@ -128,7 +128,7 @@ namespace Omnium.Core.compiler
             {
                 if (getterSetterDeclaration.Getter != null
                     && getterSetterDeclaration.Setter != null
-                    && getterSetterDeclaration.Getter.ReturnType != getterSetterDeclaration.Setter.Parameter.Type)
+                    && !getterSetterDeclaration.Getter.ReturnType.IsEquivalentTo(getterSetterDeclaration.Setter.Parameter.Type))
                     Errors.Add(new CompilationError(getterSetterDeclaration.Getter.Context, "Getters and setters of the same name must have the same type."));
             }
         }

@@ -1,4 +1,5 @@
 ﻿import { Rule } from "rule"
+import { HeroType } from "hero"
 import { } from "strings"
 
 //This serves as a definition of the methods and properties avalible in Overwatch, and how to map to them.
@@ -39,6 +40,13 @@ export module Native {
         return jsAction(argument1, argument2);
     }
 
+    export function callNativeArg3Action<T1, T2, T3>(
+        methodName: string, readsState: boolean, changesState: boolean,
+        argument1: T1, argument2: T2, argument3: T3,
+        jsAction: (p1: T1, p2: T2, p3: T3) => void = null): void {
+        jsAction(argument1, argument2, argument3);
+    }
+
     export function callNativeArg3Function<T1, T2, T3, TReturn>(
         methodName: string, readsState: boolean, changesState: boolean,
         argument1: T1, argument2: T2, argument3: T3, 
@@ -46,11 +54,25 @@ export module Native {
         return jsAction(argument1, argument2, argument3);
     }
 
+    export function callNativeArg4Action<T1, T2, T3, T4>(
+        methodName: string, readsState: boolean, changesState: boolean,
+        argument1: T1, argument2: T2, argument3: T3, argument4: T4,
+        jsAction: (p1: T1, p2: T2, p3: T3, p4: T4) => void = null): void {
+        jsAction(argument1, argument2, argument3, argument4);
+    }
+
     export function callNativeArg4Function<T1, T2, T3, T4, TReturn>(
         methodName: string, readsState: boolean, changesState: boolean,
         argument1: T1, argument2: T2, argument3: T3, argument4: T4, 
         jsAction: (p1: T1, p2: T2, p3: T3, p4: T4) => TReturn = null): TReturn {
         return jsAction(argument1, argument2, argument3, argument4);
+    }
+
+    export function callNativeArg5Action<T1, T2, T3, T4, T5>(
+        methodName: string, readsState: boolean, changesState: boolean,
+        argument1: T1, argument2: T2, argument3: T3, argument4: T4, argument5: T5,
+        jsAction: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5) => void = null): void {
+        jsAction(argument1, argument2, argument3, argument4, argument5);
     }
 
     export function callNativeArg5Function<T1, T2, T3, T4, T5, TReturn>(
@@ -65,6 +87,13 @@ export module Native {
         argument1: T1, argument2: T2, argument3: T3, argument4: T4, argument5: T5, argument6: T6,
         jsAction: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5, p6: T6) => void = null): void {
         jsAction(argument1, argument2, argument3, argument4, argument5, argument6);
+    }
+
+    export function callNativeArg7Action<T1, T2, T3, T4, T5, T6, T7>(
+        methodName: string, readsState: boolean, changesState: boolean,
+        argument1: T1, argument2: T2, argument3: T3, argument4: T4, argument5: T5, argument6: T6, argument7: T7,
+        jsAction: (p1: T1, p2: T2, p3: T3, p4: T4, p5: T5, p6: T6, p7: T7) => void = null): void {
+        jsAction(argument1, argument2, argument3, argument4, argument5, argument6, argument7);
     }
 
     export function callNativeArg10Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
@@ -89,16 +118,16 @@ export module Native {
 
 
 
-    export function trigger(name: string): Rule.Events.Event {
-        return new Rule.Events.Event();
+    export function trigger(name: string): Rule.Event {
+        return new Rule.Event();
     }
 
-    export function playerTrigger(name: string, team: Rule.Events.Team, player: Rule.Events.Player): Rule.Events.Event {
-        return new Rule.Events.Event();
+    export function playerTrigger(name: string, team: Rule.Events.Team, player: Rule.Events.Players | Rule.Events.Slot | HeroType): Rule.Event {
+        return new Rule.Event();
     }
 
     //This is used to define new rules
-    export function rule(ruleName: string, event: Rule.Events.Event, conditionOrAction: boolean | (() => void), action: () => void = null): void {
+    export function rule(ruleName: string, event: Rule.Event, conditionOrAction: boolean | (() => void), action: () => void = null): void {
 
     }
 

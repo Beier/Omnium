@@ -1,7 +1,7 @@
 ﻿import { Native } from "Native"
 import { List } from "List"
 import { Vector } from "Vector"
-import { Player } from "Player"
+import { Player, Players } from "Player"
 
 export module Message {
 
@@ -20,28 +20,49 @@ export module Message {
     }
 
     export module Hud {
-        export function create(
-            players: Player | List<Player>,
-            header: string = null,
-            subHeader: string = null,
-            text: string = null,
-            location: Location = Location.Left,
-            sortOrder: number = 0,
-            headerColor: TextColor = TextColor.White,
-            subHeaderColor: TextColor = TextColor.White,
-            textColor: TextColor = TextColor.White,
-            reevaluation: Reevaluation = Reevaluation.VisibleToAndString): void {
-            Native.callNativeArg10Action<
-                Player | List<Player>,
-                string,
-                string,
-                string,
-                Location,
-                number,
-                TextColor,
-                TextColor,
-                TextColor,
-                Reevaluation>(
+        export module Objective {
+
+            export function setDescription(description: string, players : Player | List<Player> = Players.all, reevaluation : Reevaluation = Reevaluation.String): void {
+                Native.callNativeArg3Action
+                    <Player | List<Player>, string, Reevaluation>(
+                        "Set Objective description", false, true, players, description, reevaluation);
+            }
+
+            export enum Reevaluation {
+                VisibleToAndString = "Visible to and string",
+                String = "String"
+            }
+        }
+
+        export module Text {
+            export class HudText {
+                public destroy(): void {
+                    Native.callNativeArg1Action<HudText>("Destroy hud text", false, true, this);
+                }
+            }
+
+            export function create(
+                players: Player | List<Player>,
+                header: string = null,
+                subHeader: string = null,
+                text: string = null,
+                location: Location = Location.Left,
+                sortOrder: number = 0,
+                headerColor: TextColor = TextColor.White,
+                subHeaderColor: TextColor = TextColor.White,
+                textColor: TextColor = TextColor.White,
+                reevaluation: Reevaluation = Reevaluation.VisibleToAndString): void {
+                Native.callNativeArg10Action<
+                    Player | List<Player>,
+                    string,
+                    string,
+                    string,
+                    Location,
+                    number,
+                    TextColor,
+                    TextColor,
+                    TextColor,
+                    Reevaluation>(
                     "Create HUD Text",
                     false,
                     true,
@@ -55,21 +76,32 @@ export module Message {
                     subHeaderColor,
                     textColor,
                     reevaluation);
-        }
+            }
 
-        enum Location {
-            Left = "Left",
-            Top = "Top",
-            Right = "Right"
-        }
-        
-        enum Reevaluation {
-            String = "String",
-            VisibleToAndString = "Visible To and String"
+            export function destroyAll(): void {
+                Native.callNativeArg0Action("Destroy all hud text", false, true);
+            }
+
+            enum Location {
+                Left = "Left",
+                Top = "Top",
+                Right = "Right"
+            }
+
+            enum Reevaluation {
+                String = "String",
+                VisibleToAndString = "Visible To and String"
+            }
         }
     }
 
     export module InWorld {
+        export class InWorldText {
+            public destroy(): void {
+                Native.callNativeArg1Action<InWorldText>("Destroy in-world text", false, true, this);
+            }
+        }
+
         export function createText(
             visibleTo: Player | List<Player>,
             header: string,
@@ -80,6 +112,10 @@ export module Message {
             Native.callNativeArg6Action
                 <Player | List<Player>, string, Vector, number, Clipping, Reevaluation>(
                     "Create in-world text", false, true, visibleTo, header, position, scale, clipping, reevaluation);
+        }
+
+        export function destroyAll(): void {
+            Native.callNativeArg0Action("Destroy all in-world text", false, true);
         }
         
         export enum Clipping {

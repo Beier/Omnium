@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime.Tree;
+﻿using System.Globalization;
+using Antlr4.Runtime.Tree;
 using Omnium.Core.ast.types;
 
 namespace Omnium.Core.ast.expressions.literals
@@ -6,7 +7,7 @@ namespace Omnium.Core.ast.expressions.literals
     public class NumberLiteral : Token, ILiteral
     {
         public IType Type { get; set; }
-        public double Value => double.Parse(Text.Replace('.', ','));
+        public double Value => double.Parse(Text, NumberStyles.Any, CultureInfo.InvariantCulture);
 
         public NumberLiteral(IParseTree context, string text) : base(context, text)
         {

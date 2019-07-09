@@ -5,9 +5,9 @@ import { Button } from "../../../library/Player";
 
 
 Native.rule("Hello World",
-    Rule.Events.Ongoing.eachPlayer(Rule.Events.Team.All, Rule.Events.Player.All),
-    Rule.Triggering.player.isHoldingButton(Button.PrimaryFire),
+    Rule.Events.Ongoing.eachPlayer(Rule.Events.Team.All, Rule.Events.Players.All),
+    Rule.Event.player.isHoldingButton(Button.PrimaryFire),
     () => {
-        Message.send(Rule.Triggering.player, "Hello " + Rule.Triggering.player + "!");
+        Message.send(Rule.Event.player, "Hello " + Rule.Event.player + "!");
     }
 );

@@ -22,7 +22,7 @@ namespace Omnium.Core.compiler
                 .Single(x => x.Name == "Team");
             var playerEnum = eventModules
                 .SelectMany(x => x.EnumDeclarations)
-                .Single(x => x.Name == "Player");
+                .Single(x => x.Name == "Players");
             root.AddChildFirst(
                 new RuleDeclaration(root.Context,
                     "Initialize player variables",

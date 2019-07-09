@@ -1,17 +1,44 @@
 ﻿import { Native } from "native"
 import { Player } from "player"
+import { HeroType } from "hero"
 
 export module Rule {
-    export module Events {
-        export class Event { }
+    export class Event {
+        public static get player(): Player {
+            return Native.callNativeArg0Function<Player>("Event Player", false, false);
+        }
+    }
 
+    export module Events {
         export class Ongoing {
             public static get global(): Event {
                 return Native.trigger("Ongoing - Global");
             }
 
-            public static eachPlayer(team: Team = Team.All, player: Player = Player.All): Event {
-                return Native.playerTrigger("Ongoing - Each Player", team, player);
+            public static eachPlayer(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+                return Native.playerTrigger("Ongoing - Each Player", team, players);
+            }
+        }
+
+        export class Player {
+            public static earnedElimination(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+                return Native.playerTrigger("Player earned elimination", team, players);
+            }
+
+            public static dealtFinalBlow(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+                return Native.playerTrigger("Player dealt final blow", team, players);
+            }
+
+            public static dealtDamage(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+                return Native.playerTrigger("Player dealt damage", team, players);
+            }
+
+            public static tookDamage(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+                return Native.playerTrigger("Player took damage", team, players);
+            }
+
+            public static died(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+                return Native.playerTrigger("Player died", team, players);
             }
         }
 
@@ -21,8 +48,11 @@ export module Rule {
             Team2 = "Team 2"
         }
 
-        export enum Player {
-            All = "All",
+        export enum Players {
+            All = "All"
+        }
+
+        export enum Slot {
             Slot0 = "Slot 0",
             Slot1 = "Slot 1",
             Slot2 = "Slot 2",
@@ -34,13 +64,7 @@ export module Rule {
             Slot8 = "Slot 8",
             Slot9 = "Slot 9",
             Slot10 = "Slot 10",
-            Slot11 = "Slot 11"//Todo: Heroes
-        }
-    }
-
-    export class Triggering {
-        public static get player(): Player {
-            return Native.callNativeArg0Function<Player>("Event Player", false, false);
+            Slot11 = "Slot 11"
         }
     }
 }
