@@ -57,24 +57,32 @@ export module Motion {
 
 export module Effect {
     export module Static {
-
-
         export class Effect {
             public destroy(): void {
                 Native.callNativeArg1Action<Effect>("Destroy effect", false, true, this);
             }
+
+            public get exists(): boolean {
+                return Native.callNativeArg1Function<Effect, boolean>("Entity exists", false, false, this);
+            }
         }
 
-        export function create(visibleTo: Player | List<Player>, type: Type, color: Color, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None): void {
+        export function create(visibleTo: Player | List<Player>, type: Type, color: Color, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None): Effect {
             Native.callNativeArg6Action
                 <Player | List<Player>, Type, Color, Vector, number, Reevaluation>(
                     "Create effect", false, true, visibleTo, type, color, position, radius, reevaluation);
+            return getLastCreatedEffect();
         }
 
-        export function createSound(visibleTo: Player | List<Player>, sound: Sound, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None): void {
+        export function createSound(visibleTo: Player | List<Player>, sound: Sound, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None): Effect {
             Native.callNativeArg6Action
                 <Player | List<Player>, Sound, Color, Vector, number, Reevaluation>(
                     "Create effect", false, true, visibleTo, sound, Color.White, position, radius, reevaluation);
+            return getLastCreatedEffect();
+        }
+
+        export function getLastCreatedEffect(): Effect {
+            return Native.callNativeArg0Function<Effect>("Last created entity", true, false);
         }
 
         export function destroyAll(): void {
@@ -148,12 +156,21 @@ export module Icon {
         public destroy(): void {
             Native.callNativeArg1Action<Icon>("Destroy icon", false, true, this);
         }
+
+        public get exists(): boolean {
+            return Native.callNativeArg1Function<Icon, boolean>("Entity exists", false, false, this);
+        }
     }
 
-    export function create(type: Type, color: Color, visibleTo: Player | List<Player>, position: Vector, reevaluation: Reevaluation = Reevaluation.None, showWhenOffscreen: boolean = true): void {
+    export function create(type: Type, color: Color, visibleTo: Player | List<Player>, position: Vector, reevaluation: Reevaluation = Reevaluation.None, showWhenOffscreen: boolean = true): Icon {
         Native.callNativeArg6Action
             <Player | List<Player>, Vector, Type, Reevaluation, Color, boolean>(
-                "Create icon", false, true, visibleTo, position, type, reevaluation, color, showWhenOffscreen);
+            "Create icon", false, true, visibleTo, position, type, reevaluation, color, showWhenOffscreen);
+        return getLastCreatedIcon();
+    }
+
+    export function getLastCreatedIcon(): Icon {
+        return Native.callNativeArg0Function<Icon>("Last created entity", true, false);
     }
 
     export function destroyAll(): void {
@@ -277,9 +294,33 @@ export module GameMode {
         }
     }
 
-    export module Control {
-        export function declareVictory(team: Team): void {
+    export class Control {
+        public static declareVictory(team: Team): void {
             Native.callNativeArg1Action<Team>("Declare round victory", false, true, team);
+        }
+
+        public static get teamCurrentlyInControl(): Team {
+            return Native.callNativeArg0Function<Team>("Control mode scoring team", true, false);
+        }
+
+        public static scoringPercentageFor(team: Team): number {
+            return Native.callNativeArg1Function<Team, number>("Control mode scoring percentage", true, false, team);
+        }
+
+        public static get isPointLocked(): boolean {
+            return Native.callNativeArg0Function<boolean>("Is control mode point locked", true, false);
+        }
+
+        public get objectiveIndex(): number {
+            return Native.callNativeArg0Function<number>("Objective index", true, false);
+        }
+
+        public getPositionOfObjective(index: number = this.objectiveIndex): Vector {
+            return Native.callNativeArg1Function<number, Vector>("Objective position", true, false, index);
+        }
+
+        public static get capturePercentage(): number {
+            return Native.callNativeArg0Function<number>("Point capture percentage", true, false);
         }
     }
 
@@ -288,41 +329,115 @@ export module GameMode {
             Native.callNativeArg1Action<Team>("Declare round victory", false, true, team);
         }
     }
-    export module Assault {
-        export function declareVictory(team: Team): void {
+    export class Assault {
+        public static declareVictory(team: Team): void {
             Native.callNativeArg1Action<Team>("Declare team victory", false, true, team);
         }
 
-        export function declareDraw(): void {
+        public static declareDraw(): void {
             Native.callNativeArg0Action("Declare match draw", false, true);
+        }
+
+        public static isObjectiveComplete(objectiveNumber: number): boolean {
+            return Native.callNativeArg1Function<number, boolean>("Is objective complete", true, false, objectiveNumber);
+        }
+
+        public get objectiveIndex(): number {
+            return Native.callNativeArg0Function<number>("Objective index", true, false);
+        }
+
+        public getPositionOfObjective(index: number = this.objectiveIndex): Vector {
+            return Native.callNativeArg1Function<number, Vector>("Objective position", true, false, index);
         }
     }
-    export module Escort {
-        export function declareVictory(team: Team): void {
+    export class Escort {
+        public static declareVictory(team: Team): void {
             Native.callNativeArg1Action<Team>("Declare team victory", false, true, team);
         }
 
-        export function declareDraw(): void {
+        public static declareDraw(): void {
             Native.callNativeArg0Action("Declare match draw", false, true);
+        }
+
+        public static isObjectiveComplete(objectiveNumber: number): boolean {
+            return Native.callNativeArg1Function<number, boolean>("Is objective complete", true, false, objectiveNumber);
+        }
+
+        public get objectiveIndex(): number {
+            return Native.callNativeArg0Function<number>("Objective index", true, false);
+        }
+
+        public getPositionOfObjective(index: number = this.objectiveIndex): Vector {
+            return Native.callNativeArg1Function<number, Vector>("Objective position", true, false, index);
+        }
+
+        public get payloadPosition(): Vector {
+            return Native.callNativeArg0Function<Vector>("Payload position", true, false);
+        }
+
+        public get payloadProgress(): number {
+            return Native.callNativeArg0Function<number>("Payload progress percentage", true, false);
         }
     }
-    export module AssaultEscort {
-        export function declareVictory(team: Team): void {
+    export class AssaultEscort {
+        public static declareVictory(team: Team): void {
             Native.callNativeArg1Action<Team>("Declare team victory", false, true, team);
         }
 
-        export function declareDraw(): void {
+        public static declareDraw(): void {
             Native.callNativeArg0Action("Declare match draw", false, true);
+        }
+
+        public static isObjectiveComplete(objectiveNumber: number): boolean {
+            return Native.callNativeArg1Function<number, boolean>("Is objective complete", true, false, objectiveNumber);
+        }
+
+        public get objectiveIndex(): number {
+            return Native.callNativeArg0Function<number>("Objective index", true, false);
+        }
+
+        public getPositionOfObjective(index: number = this.objectiveIndex): Vector {
+            return Native.callNativeArg1Function<number, Vector>("Objective position", true, false, index);
+        }
+
+        public get payloadPosition(): Vector {
+            return Native.callNativeArg0Function<Vector>("Payload position", true, false);
+        }
+
+        public get payloadProgress(): number {
+            return Native.callNativeArg0Function<number>("Payload progress percentage", true, false);
         }
     }
-    export module CaptureTheFlag {
-        export function declareVictory(team: Team): void {
+    export class CaptureTheFlag {
+        public static declareVictory(team: Team): void {
             Native.callNativeArg1Action<Team>("Declare team victory", false, true, team);
         }
 
-        export function declareDraw(): void {
+        public static declareDraw(): void {
             Native.callNativeArg0Action("Declare match draw", false, true);
         }
+
+        public static positionOfFlag(team: Team): Vector {
+            return Native.callNativeArg1Function<Team, Vector>("Flag position", true, false, team);
+        }
+
+        public static isFlagAtBase(team: Team): boolean {
+            return Native.callNativeArg1Function<Team, boolean>("Is flag at base", true, false, team);
+        }
+
+        public static isFlagBeingCarried(team: Team): boolean {
+            return Native.callNativeArg1Function<Team, boolean>("Is flag being carried", true, false, team);
+        }
+
+        public static playerCarryingFlag(team: Team): Player {
+            return Native.callNativeArg1Function<Team, Player>("Player carrying flag", true, false, team);
+        }
+
+        public static get isSuddenDeath(): boolean {
+            return Native.callNativeArg0Function<boolean>("Is CTF mode in sudden death", true, false);
+        }
+
+
     }
     export module TeamDeathmatch {
         export function declareVictory(team: Team): void {
@@ -332,6 +447,40 @@ export module GameMode {
         export function declareDraw(): void {
             Native.callNativeArg0Action("Declare match draw", false, true);
         }
+    }
+}
+
+export class Game {
+    public static get isAssemblingHeroes(): boolean {
+        return Native.callNativeArg0Function<boolean>("Is assembling heroes", true, false);
+    }
+
+    public static get isBetweenRounds(): boolean {
+        return Native.callNativeArg0Function<boolean>("Is between rounds", true, false);
+    }
+
+    public static get isInProgress(): boolean {
+        return Native.callNativeArg0Function<boolean>("Is game in progress", true, false);
+    }
+
+    public static get isInSetup(): boolean {
+        return Native.callNativeArg0Function<boolean>("Is in setup", true, false);
+    }
+
+    public static get isComplete(): boolean {
+        return Native.callNativeArg0Function<boolean>("Is match complete", true, false);
+    }
+
+    public static get isWaitingForPlayers(): boolean {
+        return Native.callNativeArg0Function<boolean>("Is waiting for players", true, false);
+    }
+    
+    public static get round(): number {
+        return Native.callNativeArg0Function<number>("Match round", true, false);
+    }
+    
+    public static get totalSecondsElapsed(): number {
+        return Native.callNativeArg0Function<number>("Total time elapsed", true, false);
     }
 }
 
@@ -357,6 +506,7 @@ export module Game {
     }
 
 
+
     export class MatchTime {
         public static pause(): void {
             Native.callNativeArg0Action("Pause match time", false, true);
@@ -366,6 +516,10 @@ export module Game {
             Native.callNativeArg0Action("Unpause match time", false, true);
         }
 
+        public get seconds(): number {
+            return Native.callNativeArg0Function<number>("Match time", true, false);
+        }
+
         public set seconds(value: number) {
             Native.callNativeArg1Action<number>("Set match time", false, true, value);
         }
@@ -373,4 +527,4 @@ export module Game {
 }
 //Todo: Chase
 //Todo: Methods with re-evaluation continues to read variable
-//TOdo: Start facing
+//Todo: Current array element

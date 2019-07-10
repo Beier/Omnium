@@ -7,6 +7,22 @@ export module Rule {
         public static get player(): Player {
             return Native.callNativeArg0Function<Player>("Event Player", false, false);
         }
+
+        public static get attacker(): Player {
+            return Native.callNativeArg0Function<Player>("Attacker", false, false);
+        }
+
+        public static get damage(): number {
+            return Native.callNativeArg0Function<number>("Event damage", false, false);
+        }
+
+        public static get wasCriticalHit(): boolean {
+            return Native.callNativeArg0Function<boolean>("Event was critical hit", false, false);
+        }
+
+        public static get victim(): Player {
+            return Native.callNativeArg0Function<Player>("Victim", false, false);
+        }
     }
 
     export module Events {

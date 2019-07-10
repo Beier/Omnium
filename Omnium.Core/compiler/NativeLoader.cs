@@ -72,7 +72,7 @@ namespace Omnium.Core.compiler
             var expectedNumberOfGenericArguments = numberOfArguments + (hasReturnType ? 1 : 0);
 
             if (hasReturnType
-                    ? !ValidateSignature<IStatement>(methodInvocationExpression, expectedNumberOfGenericArguments, numberOfArguments + 3, numberOfArguments + 4)
+                    ? !ValidateSignature<IStatement, IExpression>(methodInvocationExpression, expectedNumberOfGenericArguments, numberOfArguments + 3, numberOfArguments + 4)
                     : !ValidateSignature<ExpressionStatement>(methodInvocationExpression, expectedNumberOfGenericArguments, numberOfArguments + 3, numberOfArguments + 4))
                 return;
 

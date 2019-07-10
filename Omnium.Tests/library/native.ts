@@ -107,6 +107,10 @@ export module Native {
     export function defineTypescriptNativeArg1Function<T1, TReturn>(methodName: string, readsState: boolean, changesState: boolean, jsAction: (p1: T1) => TReturn): void {
     }
 
+    export function defineTypescriptNativeArg2Function<T1, T2, TReturn>(methodName: string, readsState: boolean, changesState: boolean,
+        jsAction: (p1: T1, p2: T2) => TReturn): void {
+    }
+
     //Used to list the strings available in overwatch
     export function registerString(s: string): void {
 
@@ -142,3 +146,32 @@ export module Native {
 }
 
 Native.defineTypescriptNativeArg1Function<number, number>("Absolute Value", false, false, Math.abs);
+Native.defineTypescriptNativeArg1Function<number, number>("Arccosine in radians", false, false, Math.acos);
+Native.defineTypescriptNativeArg1Function<number, number>("Arcsine in radians", false, false, Math.asin);
+Native.defineTypescriptNativeArg2Function<number, number, number>("Arctangent in radians", false, false, Math.atan2);
+Native.defineTypescriptNativeArg1Function<number, number>("Cosine from radians", false, false, Math.cos);
+Native.defineTypescriptNativeArg1Function<number, number>("Sine from radians", false, false, Math.sin);
+Native.defineTypescriptNativeArg2Function<number, number, number>("Max", false, false, Math.max);
+Native.defineTypescriptNativeArg2Function<number, number, number>("Min", false, false, Math.min);
+Native.defineTypescriptNativeArg2Function<number, number, number>("Raise to power", false, false, Math.pow);
+Native.defineTypescriptNativeArg1Function<number, number>("Square root", false, false, Math.sqrt);
+Native.defineTypescriptNativeArg1Function<number, number>("Tangent from radians", false, false, Math.tan);
+
+export module Random {
+    export function integer(min: number, max: number): number {
+        return Native.callNativeArg2Function<number, number, number>("Random integer", false, false, min, max);
+    }
+    export function real(min: number, max: number): number {
+        return Native.callNativeArg2Function<number, number, number>("Random real", false, false, min, max);
+    }
+}
+
+export function round(number: number, type: RoundType = RoundType.ToNearest): number {
+    return Native.callNativeArg2Function<number, RoundType, number>("Round to integer", false, false, number, type);
+}
+
+export enum RoundType {
+    Up = "Up",
+    Down = "Down",
+    ToNearest = "To nearest"
+}

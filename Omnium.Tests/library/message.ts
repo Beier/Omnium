@@ -51,7 +51,7 @@ export module Message {
                 headerColor: TextColor = TextColor.White,
                 subHeaderColor: TextColor = TextColor.White,
                 textColor: TextColor = TextColor.White,
-                reevaluation: Reevaluation = Reevaluation.VisibleToAndString): void {
+                reevaluation: Reevaluation = Reevaluation.VisibleToAndString): HudText {
                 Native.callNativeArg10Action<
                     Player | List<Player>,
                     string,
@@ -76,6 +76,12 @@ export module Message {
                     subHeaderColor,
                     textColor,
                     reevaluation);
+
+                return getLastCreated();
+            }
+            
+            export function getLastCreated(): HudText {
+                return Native.callNativeArg0Function<HudText>("Last text id", true, false);
             }
 
             export function destroyAll(): void {
@@ -108,10 +114,16 @@ export module Message {
             position: Vector,
             scale: number = 1,
             clipping: Clipping = Clipping.BlockedByWalls,
-            reevaluation: Reevaluation = Reevaluation.VisibleToPositionAndString): void {
+            reevaluation: Reevaluation = Reevaluation.VisibleToPositionAndString): InWorldText {
             Native.callNativeArg6Action
                 <Player | List<Player>, string, Vector, number, Clipping, Reevaluation>(
-                    "Create in-world text", false, true, visibleTo, header, position, scale, clipping, reevaluation);
+                "Create in-world text", false, true, visibleTo, header, position, scale, clipping, reevaluation);
+
+            return getLastCreated();
+        }
+
+        export function getLastCreated(): InWorldText {
+            return Native.callNativeArg0Function<InWorldText>("Last text id", true, false);
         }
 
         export function destroyAll(): void {

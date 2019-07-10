@@ -1,5 +1,6 @@
 ﻿import { Native } from "Native"
 import { List } from "List"
+import { Player } from "Player"
 
 export class Team {
     private constructor() { }
@@ -10,6 +11,10 @@ export class Team {
 
     public static get team2(): Team {
         return Native.callNativeArg1Function<TeamConst, Team>("Team", true, false, TeamConst.Team2);
+    }
+
+    public get score(): number {
+        return Native.callNativeArg1Function<Team, number>("Team score", true, false, this);
     }
 
     public set score(value: number) {
@@ -23,7 +28,46 @@ export class Team {
             Native.callNativeArg2Action<Team, number>("Start forcing spawn room", false, true, this, number);
     }
 
-    
+    public get isOnDefense(): boolean {
+        return Native.callNativeArg1Function<Team, boolean>("Is team on defense", false, true, this);
+    }
+
+    public get isOnOffense(): boolean {
+        return Native.callNativeArg1Function<Team, boolean>("Is team on offense", false, true, this);
+    }
+
+    public get numberOfDeadPlayers(): number {
+        return Native.callNativeArg1Function<Team, number>("Number of dead players", true, false, this);
+    }
+
+    public get deadPlayers(): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All Dead Players", true, false, this);
+    }
+
+    public get numberOfLivingPlayers(): number {
+        return Native.callNativeArg1Function<Team, number>("Number of living players", true, false, this);
+    }
+
+    public get livingPlayers(): List<Player> {
+        return Native.callNativeArg1Function<Team | List<Team>, List<Player>>("All living Players", true, false, this);
+    }
+
+    public get numberOfPlayers(): number {
+        return Native.callNativeArg1Function<Team, number>("Number of players", true, false, this);
+    }
+
+    public get numberOfPlayersOnObjective(): number {
+        return Native.callNativeArg1Function<Team, number>("Number of players on objective", true, false, this);
+    }
+
+    public get oppositeTeam(): Team {
+        return Native.callNativeArg1Function<Team, Team>("Opposite team of", true, false, this);
+    }
+
+    public playerInSlot(slot: number): Player {
+        //Todo: Can this return multiple players?
+        return Native.callNativeArg2Function<number, Team, Player>("Players in slot", true, false, slot, this);
+    }
 }
 
 export class Teams {
