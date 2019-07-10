@@ -47,7 +47,9 @@ namespace Omnium.Core.ast.types
                 case ReferenceType _:
                     return ((ReferenceType)type1).Declaration == ((ReferenceType)type2).Declaration;
                 case StaticReference _:
-                    return ((StaticReference)type1).Declaration == ((StaticReference)type2).Declaration;
+                    var declarations1 = ((StaticReference)type1).Declarations;
+                    var declarations2 = ((StaticReference)type2).Declarations;
+                    return declarations1.Any(declarations2.Contains);
                 case TypeList _:
                     var list1 = ((TypeList)type1).SubTypes.ToList();
                     var list2 = ((TypeList)type2).SubTypes.ToList();

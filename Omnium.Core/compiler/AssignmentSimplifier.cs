@@ -106,7 +106,6 @@ namespace Omnium.Core.compiler
 
         public override void ExitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
-            var parent = assignmentExpression.Parent;
             if (assignmentExpression.Operator.Value != "=")
             {
                 var rightSide = assignmentExpression.Right;

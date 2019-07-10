@@ -1,0 +1,18 @@
+﻿rule("Hello World")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+	
+	conditions
+	{
+		Is game in progress == true;
+	}
+	
+	actions
+	{
+		Big Message(All Players(Team(All)), Match time);
+	}
+}
+

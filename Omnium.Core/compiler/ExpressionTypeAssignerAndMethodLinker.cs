@@ -28,20 +28,20 @@ namespace Omnium.Core.compiler
                 var declarations = GetMatchingDeclarations(ancestor, simpleNameExpression, simpleNameExpression.Name);
                 if (!declarations.Any())
                     continue;
-                if (declarations.Count > 1)
+                if (declarations.Count > 1 && declarations.NotOfType(typeof(ITypeDeclaration)).Any())
                     Errors.Add(new CompilationError(simpleNameExpression.Context, $"Found multiple declarations matching '{simpleNameExpression.Name}'"));
 
-                simpleNameExpression.Declaration = declarations.First();
-                simpleNameExpression.Type = GetType(simpleNameExpression.Declaration);
+                simpleNameExpression.Declarations = declarations.ToList();
+                simpleNameExpression.Type = GetType(simpleNameExpression.Declarations);
 
-                if (simpleNameExpression.Declaration is GetterSetterDeclaration getterSetterDeclaration)
+                if (declarations.Count == 1 && declarations[0] is GetterSetterDeclaration getterSetterDeclaration)
                 {
                     if (simpleNameExpression.Parent is AssignmentExpression assignmentExpression && simpleNameExpression == assignmentExpression.Left)
                     {
                         if (getterSetterDeclaration.Setter == null)
                             Errors.Add(new CompilationError(simpleNameExpression.Context, $"{getterSetterDeclaration.Name} has no setter."));
                         else
-                            simpleNameExpression.Declaration = getterSetterDeclaration.Setter;
+                            simpleNameExpression.Declarations = new List<INamedDeclaration>{getterSetterDeclaration.Setter};
                         if (assignmentExpression.Operator.Value != "=" && getterSetterDeclaration.Getter == null)
                             Errors.Add(new CompilationError(simpleNameExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                     }
@@ -50,7 +50,7 @@ namespace Omnium.Core.compiler
                         if (getterSetterDeclaration.Getter == null)
                             Errors.Add(new CompilationError(simpleNameExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                         else
-                            simpleNameExpression.Declaration = getterSetterDeclaration.Getter;
+                            simpleNameExpression.Declarations = new List<INamedDeclaration> { getterSetterDeclaration.Getter };
                     }
                 }
                 return;
@@ -117,15 +117,19 @@ namespace Omnium.Core.compiler
                 case ModuleDeclaration _:
                 case ClassDeclaration _:
                 case EnumDeclaration _:
+                case EnumValue _:
                     return true;
                 default:
                     throw new Exception("Unexpected declaration: " + declaration?.GetType().FullName);
             }
         }
 
-        private static IType GetType(INamedDeclaration declaration)
+        private static IType GetType(List<INamedDeclaration> declarations)
         {
-            switch (declaration)
+            if (declarations.All(x => x is ITypeDeclaration))
+                return new StaticReference(declarations.Cast<INode>().ToList());
+
+            switch (declarations.Single())
             {
                 case VariableDeclaration variableDeclaration:
                     return variableDeclaration.Type;
@@ -133,14 +137,8 @@ namespace Omnium.Core.compiler
                     return getterSetterDeclaration.Type;
                 case MethodDeclaration methodDeclaration:
                     return new MethodReferenceType(methodDeclaration);
-                case ModuleDeclaration moduleDeclaration:
-                    return new StaticReference(moduleDeclaration);
-                case ClassDeclaration classDeclaration:
-                    return new StaticReference(classDeclaration);
-                case EnumDeclaration enumDeclaration:
-                    return new StaticReference(enumDeclaration);
                 default:
-                    throw new Exception("Unexpected declaration: " + declaration?.GetType().FullName);
+                    throw new Exception("Unexpected declaration: " + declarations.Single().GetType().FullName);
             }
         }
 
@@ -316,45 +314,43 @@ namespace Omnium.Core.compiler
             switch (baseType)
             {
                 case StaticReference staticReference:
-                    if (staticReference.Declaration is EnumDeclaration enumDeclaration)
+                    var matchingEnumValues = staticReference.Declarations.OfType<EnumDeclaration>().SelectMany(x => x.Values).Where(x => x.Name == memberExpression.Name);
+                    var matchingDeclarations = staticReference.Declarations.NotOfType(typeof(EnumDeclaration))
+                        .SelectMany(x => GetMatchingDeclarations(x, memberExpression, memberExpression.Name))
+                        .Concat(matchingEnumValues)
+                        .ToList();
+
+                    if (!matchingDeclarations.Any())
+                        throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
+
+                    matchingDeclarations = matchingDeclarations.Where(IsStatic).ToList();
+                    if (!matchingDeclarations.Any())
+                        throw new CompilationError(memberExpression.Context, $"{memberExpression.Name} on {memberExpression.Base.Type} is not static.");
+
+                    if (matchingDeclarations.Count > 1 &&
+                        matchingDeclarations.NotOfType(typeof(ITypeDeclaration)).Any())
+                        Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
+                    
+
+                    if (matchingDeclarations.Count == 1 && matchingDeclarations[0] is EnumValue enumValue)
                     {
-                        memberExpression.Declaration = enumDeclaration.Values.SingleOrDefault(x => x.Name == memberExpression.Name);
+                        var enumDeclaration = enumValue.Parent;
+                        memberExpression.Declarations = new List<INamedDeclaration>{enumValue};
                         memberExpression.Type = new ReferenceType(memberExpression.Context, enumDeclaration);
-                        if (memberExpression.Declaration == null)
-                            Errors.Add(new CompilationError(memberExpression.Context, $"Enum {enumDeclaration.Name} does not contain a member called {memberExpression.Name}"));
                         return;
                     }
-                    var matchingDeclarations = GetMatchingDeclarations(staticReference.Declaration, memberExpression, memberExpression.Name);
-                    if (matchingDeclarations.Count() > 1)
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
-                    if (!matchingDeclarations.Any())
-                    {
-                        throw new CompilationError(memberExpression.Context, $"Found no on {memberExpression.Base.Type} declarations matching {memberExpression.Name}");
-                    }
-                    if (!IsStatic(matchingDeclarations[0]))
-                        Errors.Add(new CompilationError(memberExpression.Context, "Non-static declaration referenced in static context."));
-                    memberExpression.Type = GetType(matchingDeclarations[0]);
-                    memberExpression.Declaration = matchingDeclarations[0];
+                    memberExpression.Type = GetType(matchingDeclarations);
+                    memberExpression.Declarations = matchingDeclarations;
 
                     break;
                 case GenericType genericType:
-                    if (genericType.IsList(memberExpression.NearestAncestorOfType<Root>()) && memberExpression.Name == "length")
-                    {
-                        var nativeArrayCount = NativeMethods.ArrayCount(memberExpression.Context, memberExpression.Base);
-                        memberExpression.ReplaceWith(nativeArrayCount);
-                        break;
-                    }
                     ExitMemberExpression(memberExpression, genericType.Base);
                     return;
                 case ReferenceType referenceType:
                     if (referenceType.Declaration is EnumDeclaration)
-                    {
-                        Errors.Add(new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
-                        memberExpression.Type = new NullType();
-                        return;
-                    }
+                        throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
                     matchingDeclarations = GetMatchingDeclarations(referenceType.Declaration, memberExpression, memberExpression.Name);
-                    if (matchingDeclarations.Count() > 1)
+                    if (matchingDeclarations.Count > 1)
                         Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
                     if (matchingDeclarations.Count == 0)
                     {
@@ -362,21 +358,21 @@ namespace Omnium.Core.compiler
                     }
                     if (IsStatic(matchingDeclarations[0]))
                         Errors.Add(new CompilationError(memberExpression.Context, "Static declaration referenced in non-static context."));
-                    memberExpression.Type = GetType(matchingDeclarations[0]);
-                    memberExpression.Declaration = matchingDeclarations[0];
+                    memberExpression.Type = GetType(matchingDeclarations);
+                    memberExpression.Declarations = matchingDeclarations;
                     break;
                 default:
                     throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
             }
 
-            if (memberExpression.Declaration is GetterSetterDeclaration getterSetterDeclaration)
+            if (memberExpression.Declarations.Count == 1 && memberExpression.Declarations[0] is GetterSetterDeclaration getterSetterDeclaration)
             {
                 if (memberExpression.Parent is AssignmentExpression assignmentExpression && memberExpression == assignmentExpression.Left)
                 {
                     if (getterSetterDeclaration.Setter == null)
                         Errors.Add(new CompilationError(memberExpression.Context, $"{getterSetterDeclaration.Name} has no setter."));
                     else
-                        memberExpression.Declaration = getterSetterDeclaration.Setter;
+                        memberExpression.Declarations = new List<INamedDeclaration>{getterSetterDeclaration.Setter};
                     if (assignmentExpression.Operator.Value != "=" && getterSetterDeclaration.Getter == null)
                         Errors.Add(new CompilationError(memberExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                 }
@@ -385,7 +381,7 @@ namespace Omnium.Core.compiler
                     if (getterSetterDeclaration.Getter == null)
                         Errors.Add(new CompilationError(memberExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                     else
-                        memberExpression.Declaration = getterSetterDeclaration.Getter;
+                        memberExpression.Declarations = new List<INamedDeclaration>{getterSetterDeclaration.Getter};
                 }
             }
         }

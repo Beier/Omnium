@@ -94,7 +94,7 @@ exports.Game = Game;
         MatchTime.unpause = function () {
             native_1.Native.callNativeArg0Action("Unpause match time", false, true);
         };
-        Object.defineProperty(MatchTime.prototype, "seconds", {
+        Object.defineProperty(MatchTime, "seconds", {
             get: function () {
                 return native_1.Native.callNativeArg0Function("Match time", true, false);
             },

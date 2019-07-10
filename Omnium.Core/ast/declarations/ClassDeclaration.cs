@@ -6,7 +6,7 @@ using Omnium.Core.compiler;
 
 namespace Omnium.Core.ast.declarations
 {
-    public class ClassDeclaration : Node, IHasVariables, INamedDeclaration
+    public class ClassDeclaration : Node, IHasVariables, INamedDeclaration, ITypeDeclaration
     {
         public string Name { get; set; }
         public IEnumerable<ConstructorDeclaration> Constructors => Children.OfType<ConstructorDeclaration>();

@@ -14,6 +14,7 @@ namespace Omnium.Tests.ToWorkshop
         [TestCase("ConstantLoopUnrolling")]
         [TestCase("NonConstantLoopUnrolling")]
         [TestCase("TestArraySize")]
+        [TestCase("ModuleAndClassOfSameName")]
         public void RunTest(string testName)
         {
             var compiler = new TypescriptToOverwatchCompiler(new Parser());

@@ -3,7 +3,7 @@ using Antlr4.Runtime.Tree;
 
 namespace Omnium.Core.ast.declarations
 {
-    public class ModuleDeclaration : AbstractTopLevelNode, INamedDeclaration
+    public class ModuleDeclaration : AbstractTopLevelNode, INamedDeclaration, ITypeDeclaration
     {
         public string Name { get; set; }
         public List<MemberModifier> Modifiers = new List<MemberModifier>();

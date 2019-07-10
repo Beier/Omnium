@@ -60,6 +60,7 @@
     <Compile Include="ast\declarations\IHasVariables.cs" />
     <Compile Include="ast\declarations\ImportDeclaration.cs" />
     <Compile Include="ast\declarations\INamedDeclaration.cs" />
+    <Compile Include="ast\declarations\ITypeDeclaration.cs" />
     <Compile Include="ast\declarations\MemberModifier.cs" />
     <Compile Include="ast\declarations\MethodDeclaration.cs" />
     <Compile Include="ast\declarations\ModuleDeclaration.cs" />

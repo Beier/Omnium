@@ -69,11 +69,11 @@ export module Game {
             Native.callNativeArg0Action("Unpause match time", false, true);
         }
 
-        public get seconds(): number {
+        public static get seconds(): number {
             return Native.callNativeArg0Function<number>("Match time", true, false);
         }
 
-        public set seconds(value: number) {
+        public static set seconds(value: number) {
             Native.callNativeArg1Action<number>("Set match time", false, true, value);
         }
     }

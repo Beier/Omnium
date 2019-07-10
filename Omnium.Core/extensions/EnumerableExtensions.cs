@@ -48,6 +48,20 @@ namespace Omnium.Core.extensions
             });
         }
 
+        public static IEnumerable<TRet> Collect<TIn, TRet, T1, T2>(this IEnumerable<TIn> items, Func<T1, TRet> f1, Func<T2, TRet> f2) where T1 : TIn where T2 : TIn
+        {
+            return items.SelectMany(item =>
+            {
+
+
+                if (item is T1 t1)
+                    return f1(t1).Yield();
+                if (item is T2 t2)
+                    return f2(t2).Yield();
+                return Enumerable.Empty<TRet>();
+            });
+        }
+
         public static int IndexOf<T>(this IEnumerable<T> enumerable, T item)
         {
             var index = 0;

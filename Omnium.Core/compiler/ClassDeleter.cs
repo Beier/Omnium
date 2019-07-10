@@ -260,9 +260,10 @@ namespace Omnium.Core.compiler
         //Update references to non-static methods and getters
         public override void ExitSimpleNameExpression(SimpleNameExpression simpleNameExpression)
         {
-            var targetMethod = simpleNameExpression.Declaration is GetterDeclaration getterDeclaration ? replacedGetters[getterDeclaration]
-                : simpleNameExpression.Declaration is SetterDeclaration setterDeclaration ? replacedSetters[setterDeclaration]
-                : null;
+            var targetMethod = simpleNameExpression.Declarations.Collect(
+                (GetterDeclaration x) => replacedGetters[x],
+                (SetterDeclaration x) => replacedSetters[x])
+                .SingleOrDefault();
             if (targetMethod == null)
                 return;
             var @base = new SimpleNameExpression(simpleNameExpression.Context, targetMethod.Name)

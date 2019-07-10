@@ -9,7 +9,13 @@ namespace Omnium.Core.ast.expressions
     {
         public IExpression Base => Children.OfType<IExpression>().SingleOrDefault();
         public string Name { get; }
-        public INamedDeclaration Declaration { get; set; }
+
+        public INamedDeclaration Declaration
+        {
+            get => Declarations.Single();
+            set => Declarations = new List<INamedDeclaration> { value };
+        }
+        public List<INamedDeclaration> Declarations { get; set; } = new List<INamedDeclaration>();
 
         public MemberExpression(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)
         {

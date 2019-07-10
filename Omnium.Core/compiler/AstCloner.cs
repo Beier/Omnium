@@ -40,7 +40,7 @@ namespace Omnium.Core.compiler
                         methodReferenceType.Declaration = GetClone(methodReferenceType.Declaration);
                         break;
                     case StaticReference staticReference:
-                        staticReference.Declaration = GetClone(staticReference.Declaration);
+                        staticReference.Declarations = staticReference.Declarations.Select(GetClone).ToList();
                         break;
                 }
             }
@@ -48,10 +48,10 @@ namespace Omnium.Core.compiler
             switch (node)
             {
                 case SimpleNameExpression simpleNameExpression:
-                    simpleNameExpression.Declaration = GetClone(simpleNameExpression.Declaration);
+                    simpleNameExpression.Declarations = simpleNameExpression.Declarations.Select(GetClone).ToList();
                     break;
                 case MemberExpression memberExpression:
-                    memberExpression.Declaration = GetClone(memberExpression.Declaration);
+                    memberExpression.Declarations = memberExpression.Declarations.Select(GetClone).ToList();
                     break;
                 case ReferenceType referenceType:
                     referenceType.Declaration = GetClone(referenceType.Declaration);

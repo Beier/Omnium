@@ -42,6 +42,10 @@ export class List<T> extends Array<T> {
         return Native.callNativeArg2Function<List<T>, T, List<T>>("Sorted array", false, false, this, Native.callNativeArg0Function<T>("Current array element", false, false));
     }
 
+    public get length(): number {
+        return Native.callNativeArg1Function<List<T>, number>("Count Of", false, false, this);
+    }
+
     public indexOf(element: T): number {
         return Native.callNativeArg2Function<List<T>, T, number>("Index of array value", false, false, this, element);
     }

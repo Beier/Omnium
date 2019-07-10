@@ -5,7 +5,7 @@ using Omnium.Core.ast.expressions.literals;
 
 namespace Omnium.Core.ast.declarations
 {
-    public class EnumDeclaration : Node, INamedDeclaration
+    public class EnumDeclaration : Node, INamedDeclaration, ITypeDeclaration
     {
         public string Name { get; set; }
         public IEnumerable<EnumValue> Values => Children.Cast<EnumValue>();
