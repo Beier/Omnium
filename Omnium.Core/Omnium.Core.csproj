@@ -163,9 +163,22 @@
     <None Include="antlr\TypescriptParser.g4" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <Content Include="..\Omnium.Tests\library\effect.ts">
+      <Link>library\effect.ts</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Omnium.Tests\library\game.ts">
+      <Link>library\game.ts</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\Omnium.Tests\library\hero.ts">
       <Link>library\hero.ts</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Omnium.Tests\library\icon.ts">
+      <Link>library\icon.ts</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Omnium.Tests\library\list.ts">
@@ -174,6 +187,10 @@
     </Content>
     <Content Include="..\Omnium.Tests\library\message.ts">
       <Link>library\message.ts</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Omnium.Tests\library\motion.ts">
+      <Link>library\motion.ts</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Omnium.Tests\library\native.ts">
@@ -198,12 +215,6 @@
     </Content>
     <Content Include="..\Omnium.Tests\library\vector.ts">
       <Link>library\vector.ts</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Omnium.Tests\library\other.ts">
-      <Link>library\other.ts</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

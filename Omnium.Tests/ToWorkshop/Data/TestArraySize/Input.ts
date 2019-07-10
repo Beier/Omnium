@@ -1,10 +1,10 @@
-﻿import { Native } from "../../../library/native";
+﻿import { Native, wait } from "../../../library/native";
 import { Rule } from "../../../library/rule";
 import { List } from "../../../library/list";
 import { Message } from "../../../library/Message";
 import { Players } from "../../../library/Player";
-import { wait } from "../../../library/other";
 
+//Max size is 1000
 Native.rule("Hello World",
     Rule.Events.Ongoing.global,
     () => {

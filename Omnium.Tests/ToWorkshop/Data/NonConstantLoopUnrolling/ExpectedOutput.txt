@@ -29,13 +29,13 @@ rule("Hello World")
 		Skip If(Compare(Global Variable(B), >=, Count Of(Global Variable(C))), 5);
 		Set Global Variable(C, Value In Array(Global Variable(C), Global Variable(B)));
 		Small Message(Global Variable(C), String("{0} {1}", String("Hello", Null, Null, Null), Global Variable(C), Null));
-		Wait(0.3);
+		Wait(0.3, Ignore condition);
 		Set Global Variable(B, Add(Global Variable(B), 1));
 		Loop;
 		Set Global Variable(A, 0);
 		Set Global Variable(D, true);
 		Set Global Variable(A, 2);
-		Wait(1);
+		Wait(1, Ignore condition);
 		Skip If(Global Variable(D), 2);
 		Small Message(All Players(Team(All)), String("Tock", Null, Null, Null));
 		Skip(1);

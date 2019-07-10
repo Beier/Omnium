@@ -1,8 +1,7 @@
-﻿import { Native } from "../../../library/native";
+﻿import { Native, wait } from "../../../library/native";
 import { Rule } from "../../../library/rule";
 import { Message } from "../../../library/Message";
 import { Players } from "../../../library/Player";
-import { wait } from "../../../library/other";
 
 Native.registerString("Tick");
 Native.registerString("Tock");

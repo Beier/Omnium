@@ -28,14 +28,17 @@ namespace Omnium.Core.compiler.parsing
                     continue;
 
                 var sourceFile = LoadFile(filename, ref errors);
-                loadedFiles.Add(filename, sourceFile);
-
-                foreach (var importDeclaration in sourceFile.importDeclaration())
+                if (sourceFile != null)
                 {
-                    var targetPath = importDeclaration.TargetPath.ToLower();
-                    if (!targetPath.EndsWith(".ts"))
-                        targetPath += ".ts";
-                    queue.Enqueue(targetPath);
+                    loadedFiles.Add(filename, sourceFile);
+
+                    foreach (var importDeclaration in sourceFile.importDeclaration())
+                    {
+                        var targetPath = importDeclaration.TargetPath.ToLower();
+                        if (!targetPath.EndsWith(".ts"))
+                            targetPath += ".ts";
+                        queue.Enqueue(targetPath);
+                    }
                 }
             }
 
@@ -69,6 +72,12 @@ namespace Omnium.Core.compiler.parsing
 
         private TypescriptParser.SourceFileContext LoadFile(string filename, ref List<string> errors)
         {
+            if (!File.Exists(filename))
+            {
+                errors.Add($"File '{filename}' was not found");
+                return null;
+            }
+
             var antlrStream = new AntlrFileStream(filename);
             var lexer = new TypescriptLexer(antlrStream);
             var tokens = new CommonTokenStream(lexer);

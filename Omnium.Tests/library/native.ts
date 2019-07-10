@@ -145,6 +145,16 @@ export module Native {
     }
 }
 
+
+export function wait(seconds: number): void {
+    Native.callNativeArg2Action<number, WaitType>("Wait", false, false, seconds, WaitType.IgnoreCondition);
+}
+
+enum WaitType {
+    //The other wait types modify control flow, and are not currently supported
+    IgnoreCondition = "Ignore condition"
+}
+
 Native.defineTypescriptNativeArg1Function<number, number>("Absolute Value", false, false, Math.abs);
 Native.defineTypescriptNativeArg1Function<number, number>("Arccosine in radians", false, false, Math.acos);
 Native.defineTypescriptNativeArg1Function<number, number>("Arcsine in radians", false, false, Math.asin);

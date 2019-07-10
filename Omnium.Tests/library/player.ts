@@ -1,9 +1,9 @@
-﻿import { Native } from "Native"
-import { Vector } from "Vector"
-import { List } from "List"
-import { Team, Teams } from "Team"
-import { Hero } from "Hero"
-import { Motion } from "other"
+﻿import { Native } from "./Native"
+import { Vector } from "./Vector"
+import { List } from "./List"
+import { Team, Teams } from "./Team"
+import { Hero } from "./Hero"
+import { Motion } from "./motion"
 
 export class Player {
     private constructor() { }
