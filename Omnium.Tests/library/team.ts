@@ -1,6 +1,6 @@
 ﻿import { Native } from "Native"
 import { List } from "List"
-import { Player } from "Player"
+import { Player, Players } from "Player"
 
 export class Team {
     private constructor() { }
@@ -67,6 +67,10 @@ export class Team {
     public playerInSlot(slot: number): Player {
         //Todo: Can this return multiple players?
         return Native.callNativeArg2Function<number, Team, Player>("Players in slot", true, false, slot, this);
+    }
+
+    public get players(): List<Player> {
+        return Players.onTeam(this);
     }
 }
 

@@ -629,7 +629,20 @@ namespace Omnium.Core.compiler.parsing
 
         public override IEnumerable<INode> VisitFunctionType(TypescriptParser.FunctionTypeContext context)
         {
-            yield return new FunctionType(context, VisitChildren(context));
+            var children = VisitChildren(context);
+
+            children = children.Select(child =>
+            {
+                switch (child)
+                {
+                    case VariableDeclaration variableDeclaration:
+                        return new FunctionParameter(variableDeclaration.Context, variableDeclaration.Children);
+                    default:
+                        return child;
+                }
+            });
+
+            yield return new FunctionType(context, children);
         }
     }
 }

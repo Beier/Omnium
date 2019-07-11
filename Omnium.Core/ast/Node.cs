@@ -57,6 +57,15 @@ namespace Omnium.Core.ast
             return node.Parent.NearestAncestorOfType<T>();
         }
 
+        public static IEnumerable<T> FirstDescendantsOfType<T>(this INode node) where T : class, INode
+        {
+            if (node == null)
+                return null;
+            if (node is T variable)
+                return variable.Yield();
+            return node.Children.SelectMany(x => x.FirstDescendantsOfType<T>());
+        }
+
         public static bool IsDescendantOf(this INode child, INode parent)
         {
             if (child == null)

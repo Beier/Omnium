@@ -77,6 +77,7 @@
     <Compile Include="ast\expressions\IExpression.cs" />
     <Compile Include="ast\expressions\INameExpression.cs" />
     <Compile Include="ast\expressions\LambdaExpression.cs" />
+    <Compile Include="ast\expressions\ListLambdaExpression.cs" />
     <Compile Include="ast\expressions\literals\BooleanLiteral.cs" />
     <Compile Include="ast\expressions\literals\ILiteral.cs" />
     <Compile Include="ast\expressions\literals\NullLiteral.cs" />

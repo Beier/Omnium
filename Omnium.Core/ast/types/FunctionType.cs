@@ -8,7 +8,7 @@ namespace Omnium.Core.ast.types
 {
     public class FunctionType : Node, ITypeNode
     {
-        public IEnumerable<VariableDeclaration> Parameters => Children.OfType<VariableDeclaration>();
+        public IEnumerable<FunctionParameter> Parameters => Children.OfType<FunctionParameter>();
         public ITypeNode ReturnType => Children.OfType<ITypeNode>().SingleOrDefault();
 
         public FunctionType(IParseTree context, IEnumerable<INode> children) : base(context, children)
@@ -18,6 +18,16 @@ namespace Omnium.Core.ast.types
         public override string ToString()
         {
             return "(" + Parameters.Select(x => x.Type).MkString(", ") + ") => " + ReturnType;
+        }
+    }
+
+    public class FunctionParameter : Node
+    {
+        public string Name { get; set; }
+        public ITypeNode Type => Children.OfType<ITypeNode>().SingleOrDefault();
+
+        public FunctionParameter(IParseTree context, IEnumerable<INode> children) : base(context, children)
+        {
         }
     }
 }

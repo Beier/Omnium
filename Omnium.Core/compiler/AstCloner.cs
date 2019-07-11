@@ -101,10 +101,19 @@ namespace Omnium.Core.compiler
             return new GenericType(genericType.Context, genericType.Children.Select(Visit));
         }
 
+        public override INode VisitListFilterExpression(ListLambdaExpression listLambdaExpression)
+        {
+            return new ListLambdaExpression(listLambdaExpression.Context, listLambdaExpression.Name, listLambdaExpression.Children.Select(Visit));
+        }
 
         public override INode GetDefault(INode node)
         {
             throw new Exception("AstCloner is missing implementation for " + node.GetType().Name);
+        }
+
+        public override INode VisitTypeNodeWrapper(TypeNodeWrapper typeNodeWrapper)
+        {
+            return new TypeNodeWrapper(typeNodeWrapper.Context, typeNodeWrapper.Type);
         }
 
         public override INode Combine(INode v1, INode v2)
@@ -289,7 +298,7 @@ namespace Omnium.Core.compiler
             return new MemberExpression(memberExpression.Context, memberExpression.Name, memberExpression.Children.Select(Visit))
             {
                 Type = memberExpression.Type,
-                Declaration = memberExpression.Declaration
+                Declarations = memberExpression.Declarations
             };
         }
 
@@ -327,7 +336,7 @@ namespace Omnium.Core.compiler
             return new SimpleNameExpression(simpleNameExpression.Context, simpleNameExpression.Name)
             {
                 Type = simpleNameExpression.Type,
-                Declaration = simpleNameExpression.Declaration
+                Declarations = simpleNameExpression.Declarations
             };
         }
 
@@ -429,6 +438,11 @@ namespace Omnium.Core.compiler
         public override INode VisitFunctionType(FunctionType functionType)
         {
             return new FunctionType(functionType.Context, functionType.Children.Select(Visit));
+        }
+
+        public override INode VisitFunctionParameter(FunctionParameter functionParameter)
+        {
+            return new FunctionParameter(functionParameter.Context, functionParameter.Children.Select(Visit));
         }
 
         public override INode VisitNumberType(NumberType numberType)

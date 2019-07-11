@@ -16,6 +16,7 @@ Native.rule("Hello World",
             wait(0.3);
         }
         var isTick: boolean = true;
+        
         while (true) {
             wait(1);
             if (isTick)

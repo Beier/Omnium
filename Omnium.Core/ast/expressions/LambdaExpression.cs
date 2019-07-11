@@ -3,6 +3,7 @@ using System.Linq;
 using Antlr4.Runtime.Tree;
 using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.statements;
+using Omnium.Core.extensions;
 
 namespace Omnium.Core.ast.expressions
 {
@@ -13,6 +14,11 @@ namespace Omnium.Core.ast.expressions
 
         public LambdaExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"({Variables.MkString(",")}) => {Block}";
         }
     }
 }

@@ -2,11 +2,11 @@
 import { Native } from "Native"
 
 export class List<T> extends Array<T> {
-    public static empty<T>() : List<T> {
+    public static empty<T>(): List<T> {
         return Native.callNativeArg0Function<List<T>>("Empty Array", false, false);
     }
 
-    public append(item: T) : List<T> {
+    public append(item: T): List<T> {
         return Native.callNativeArg2Function<List<T>, T, List<T>>("Append To Array", false, false, this, item);
     }
 
@@ -50,8 +50,32 @@ export class List<T> extends Array<T> {
         return Native.callNativeArg2Function<List<T>, T, number>("Index of array value", false, false, this, element);
     }
 
-    //Todo: Filtered array
-    //Todo: Is true for all
-    //Todo: Is true for any
+    public filter(condition: (item: T) => boolean): List<T> {
+        return Native.listLambda<T, boolean, List<T>>("Filtered array", this, condition);
+    }
+
+    public where(condition: (item: T) => boolean): List<T> {
+        return Native.listLambda<T, boolean, List<T>>("Filtered array", this, condition);
+    }
+
+    public any(condition: (item: T) => boolean = null): boolean {
+        if (condition == null)
+            return this.length > 0;
+        else
+            return Native.listLambda<T, boolean, boolean>("Is true for any", this, condition);
+    }
+
+    public all(condition: (item: T) => boolean = null): boolean {
+        return Native.listLambda<T, boolean, boolean>("Is true for all", this, condition);
+    }
+
+    public sortedBy<TKey>(sortKey: (item: T) => TKey): List<T> {
+        return Native.listLambda<T, TKey, List<T>>("Sorted array", this, sortKey);
+    }
+
+    public isEmpty(): boolean {
+        return this.length == 0;
+    }
+
     //Todo: Sort by
 }

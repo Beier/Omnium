@@ -2,12 +2,35 @@
 using Omnium.Core.ast;
 using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
+using Omnium.Core.ast.statements;
 using Omnium.Core.ast.types;
 
 namespace Omnium.Core.compiler
 {
     public class Debug
     {
+        public static void CheckForInvalidExpressionParents(INode node)
+        {
+            foreach (var child in node.Children)
+            {
+                if (child is Expression && !(child.Parent is ExpressionStatement || child.Parent is ReturnStatement || child.Parent is SourceFile
+                                             || child.Parent is IExpression || child.Parent is VariableDeclaration || child.Parent is IfStatement || child.Parent is RuleDeclaration)
+                    )
+                    throw new Exception(child.Parent.GetType().ToString());
+                CheckForInvalidExpressionParents(child);
+            }
+        }
+
+        public static void CheckForTypeWrappersInAsta(INode node)
+        {
+            foreach (var child in node.Children)
+            {
+                if (child is TypeNodeWrapper)
+                    throw new Exception(child.Parent.GetType().ToString());
+                CheckForTypeWrappersInAsta(child);
+            }
+        }
+
         public static void CheckForErrorsInParentChildRelationShips(INode node)
         {
             foreach (var child in node.Children)

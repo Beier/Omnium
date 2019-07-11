@@ -321,7 +321,7 @@ export class Player {
         Native.callNativeArg2Action<Player, number>("Set player score", false, true, this, value);
     }
 
-    public set makeInvisibleTo(invisibleTo: InvisibleTo) {
+    public makeInvisibleTo(invisibleTo: InvisibleTo): void {
         Native.callNativeArg2Action<Player, InvisibleTo>("Set invisible", false, true, this, invisibleTo);
     }
 
@@ -516,6 +516,197 @@ export class Players {
 
     public static withinRadius(position: Vector, radius: number, team: Team | List<Team> = Teams.all, lineOfSightCheck: LineOfSightCheck = LineOfSightCheck.Off): List<Player> {
         return Native.callNativeArg4Function<Vector, number, Team | List<Team>, LineOfSightCheck, List<Player>>("Players within radius", true, false, position, radius, team, lineOfSightCheck);
+    }
+
+
+
+
+
+
+    public static setFacingDirectionForAll(players: List<Player>, direction: Vector): void {
+        Facing.set(players, direction);
+    }
+
+    public static setFacingDirectionForAllAtRate(players: List<Player>, direction: Vector, turnRate: number): void {
+        Facing.setAtRate(players, direction, turnRate);
+    }
+
+    public static stopEnforcingFacingDirectionForAll(players: List<Player>): void {
+        Facing.stop(players);
+    }
+
+    public static setButtonEnabledForAll(players: List<Player>, button: Button, isEnabled: boolean): void {
+        if (isEnabled)
+            Players.allowButtonForAll(players, button);
+        else
+            Players.disallowButtonForAll(players, button);
+    }
+
+    public static holdButtonForAll(players: List<Player>, button: Button): void {
+        Native.callNativeArg2Action<List<Player>, Button>("Start holding button", false, true, players, button);
+    }
+
+    public static stopHoldingButtonForAll(players: List<Player>, button: Button): void {
+        Native.callNativeArg2Action<List<Player>, Button>("Stop holding button", false, true, players, button);
+    }
+
+    public static setPrimaryFireEnabledForAll(players: List<Player>, isEnabled: boolean): void {
+        Native.callNativeArg2Action<List<Player>, boolean>("Set primary fire enabled", false, true, players, isEnabled);
+    }
+
+    public static setSecondaryFireEnabledForAll(players: List<Player>, isEnabled: boolean): void {
+        Native.callNativeArg2Action<List<Player>, boolean>("Set secondary fire enabled", false, true, players, isEnabled);
+    }
+
+    public static setAbility1EnabledForAll(players: List<Player>, isEnabled: boolean): void {
+        Native.callNativeArg2Action<List<Player>, boolean>("Set ability 1 enabled", false, true, players, isEnabled);
+    }
+
+    public static setAbility2EnabledForAll(players: List<Player>, isEnabled: boolean): void {
+        Native.callNativeArg2Action<List<Player>, boolean>("Set ability 2 enabled", false, true, players, isEnabled);
+    }
+
+    public static setUltimateEnabledForAll(players: List<Player>, isEnabled: boolean): void {
+        Native.callNativeArg2Action<List<Player>, boolean>("Set ultimate ability enabled", false, true, players, isEnabled);
+    }
+
+    public static allowButtonForAll(players: List<Player>, button: Button): void {
+        Native.callNativeArg2Action<List<Player>, Button>("Allow button", false, true, players, button);
+    }
+
+    public static disallowButtonForAll(players: List<Player>, button: Button): void {
+        Native.callNativeArg2Action<List<Player>, Button>("Disallow button", false, true, players, button);
+    }
+
+    public static pressButtonForAll(players: List<Player>, button: Button): void {
+        Native.callNativeArg2Action<List<Player>, Button>("Press button", false, true, players, button);
+    }
+
+    public static setStatusForAll(players: List<Player>, statusEffect: StatusEffect, seconds: number, assister: Player = null): void {
+        Native.callNativeArg4Action<List<Player>, Player, StatusEffect, number>("Set status", false, true, players, assister, statusEffect, seconds);
+    }
+
+    public static clearStatusForAll(players: List<Player>, statusEffect: StatusEffect): void {
+        Native.callNativeArg2Action<List<Player>, StatusEffect>("Clear status", false, true, players, statusEffect);
+    }
+   
+    public static useEmoteForAll(players: List<Player>, emote: Emote): void {
+        Native.callNativeArg2Action<List<Player>, Emote>("Communicate", false, true, players, emote);
+    }
+
+    public static damageAll(players: List<Player>, amount: number, damager: Player = null): void {
+        Native.callNativeArg3Action<List<Player>, Player, number>("Damage", false, true, players, damager, amount);
+    }
+
+    public static healAll(players: List<Player>, amount: number, healer: Player = null): void {
+        Native.callNativeArg3Action<List<Player>, Player, number>("Heal", false, true, players, healer, amount);
+    }
+
+    public static killAll(players: List<Player>, killer: Player = null): void {
+        Native.callNativeArg2Action<List<Player>, Player>("Kill", false, true, players, killer);
+    }
+
+    public static respawnAll(players: List<Player>): void {
+        Native.callNativeArg1Action<List<Player>>("Respawn", false, true, players);
+    }
+
+    public static resurrectAll(players: List<Player>): void {
+        Native.callNativeArg1Action<List<Player>>("Resurrect", false, true, players);
+    }
+
+    public static setAimSpeedPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set aim speed", false, true, players, value);
+    }
+
+    public static setDamageDealtPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set damage dealt", false, true, players, value);
+    }
+
+    public static setDamageReceivedPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set damage received", false, true, players, value);
+    }
+
+    public static setHealingDealtPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set healing dealt", false, true, players, value);
+    }
+
+    public static setHealingReceivedPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set healing received", false, true, players, value);
+    }
+
+    public static setMaxHealthPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set max health", false, true, players, value);
+    }
+
+    public static setMovementSpeedPercentageForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set move speed", false, true, players, value);
+    }
+
+    public static setScoreForAll(players: List<Player>, value: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set player score", false, true, players, value);
+    }
+
+    public static makeAllInvisibleTo(players: List<Player>, invisibleTo: InvisibleTo): void {
+        Native.callNativeArg2Action<List<Player>, InvisibleTo>("Set invisible", false, true, players, invisibleTo);
+    }
+
+    public static setAllowedHeroesForAll(players: List<Player>, heroes: List<Hero>): void {
+        Native.callNativeArg2Action<List<Player>, List<Hero>>("Set player allowed heroes", false, true, players, heroes);
+    }
+
+    public static setHeroForAll(players: List<Player>, hero: Hero): void {
+        if (hero == null)
+            Native.callNativeArg1Action<List<Player>>("Stop forcing player to be hero", false, true, players);
+        else
+            Native.callNativeArg2Action<List<Player>, Hero>("Start forcing player to be hero", false, true, players, hero);
+    }
+
+    public static setUltimateChargeForAll(players: List<Player>, percentage: number): void {
+        Native.callNativeArg2Action<List<Player>, number>("Set ultimate charge", false, true, players, percentage);
+    }
+
+    public static startCameraForAll(players: List<Player>, eyePosition: Vector, lookAtPosition: Vector, blendSpeed: number): void {
+        Native.callNativeArg4Action<List<Player>, Vector, Vector, number>("Start camera", false, true, players, eyePosition, lookAtPosition, blendSpeed);
+    }
+
+    public static stopCameraForAll(players: List<Player>): void {
+        Native.callNativeArg1Action<List<Player>>("Stop camera", false, true, players);
+    }
+
+    public static damageAllOverTime(players: List<Player>, damagePerSecond: number, seconds: number, damagers: Player | List<Player> = null): DamageOverTime.DamageOverTime {
+        return DamageOverTime.start(damagePerSecond, seconds, players, damagers);
+    }
+
+    public static healAllOverTime(players: List<Player>, healingPerSecond: number, seconds: number, damagers: Player | List<Player> = null): HealOverTime.HealOverTime {
+        return HealOverTime.start(healingPerSecond, seconds, players, damagers);
+    }
+    
+    public static forceThrottleForAll(players: List<Player>,
+        minForward: number,
+        maxForward: number,
+        minBackward: number,
+        maxBackward: number,
+        minSideways: number,
+        maxSideways: number): void {
+        Native.callNativeArg7Action
+            <List<Player>, number, number, number, number, number, number>(
+                "Start forcing throttle", false, true, players, minForward, maxForward, minBackward, maxBackward, minSideways, maxSideways);
+    }
+
+    public static stopForcingThrottleForAll(players: List<Player>): void {
+        Native.callNativeArg1Action<List<Player>>("Stop forcing throttle", false, true, players);
+    }
+
+    public static startAcceleratingForAll(players: List<Player>, direction: Vector, rate: number, maxSpeed: number): void {
+        Motion.startAccelerating(players, direction, rate, maxSpeed);
+    }
+
+    public static stopAcceleratingForAll(players: List<Player>): void {
+        Motion.stopAccelerating(players);
+    }
+
+    public static teleportAll(players: List<Player>, position: Vector): void {
+        Native.callNativeArg2Action<List<Player>, Vector>("Teleport", false, true, players, position);
     }
 }
 

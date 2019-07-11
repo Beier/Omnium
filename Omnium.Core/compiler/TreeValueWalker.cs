@@ -55,6 +55,8 @@ namespace Omnium.Core.compiler
                 return VisitMethodInvocationExpression((MethodInvocationExpression)node);
             if (node is MemberExpression)
                 return VisitMemberExpression((MemberExpression)node);
+            if (node is ListLambdaExpression)
+                return VisitListFilterExpression((ListLambdaExpression)node);
             if (node is LambdaExpression)
                 return VisitLambdaExpression((LambdaExpression)node);
             if (node is CastExpression)
@@ -145,6 +147,8 @@ namespace Omnium.Core.compiler
                 return VisitReferenceType((ReferenceType)node);
             if (node is GenericType)
                 return VisitGenericType((GenericType)node);
+            if (node is FunctionParameter)
+                return VisitFunctionParameter((FunctionParameter)node);
             if (node is FunctionType)
                 return VisitFunctionType((FunctionType)node);
             if (node is ArrayType)
@@ -222,6 +226,11 @@ namespace Omnium.Core.compiler
         public virtual T VisitMemberExpression(MemberExpression memberExpression)
         {
             return VisitChildren(memberExpression);
+        }
+
+        public virtual T VisitListFilterExpression(ListLambdaExpression listLambdaExpression)
+        {
+            return VisitChildren(listLambdaExpression);
         }
 
         public virtual T VisitLambdaExpression(LambdaExpression lambdaExpression)
@@ -447,6 +456,11 @@ namespace Omnium.Core.compiler
         public virtual T VisitGenericType(GenericType genericType)
         {
             return VisitChildren(genericType);
+        }
+
+        public virtual T VisitFunctionParameter(FunctionParameter functionParameter)
+        {
+            return VisitChildren(functionParameter);
         }
 
         public virtual T VisitFunctionType(FunctionType functionType)

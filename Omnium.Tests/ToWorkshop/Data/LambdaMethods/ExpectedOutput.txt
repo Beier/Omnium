@@ -1,0 +1,51 @@
+﻿rule("No fly zone")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+	
+	conditions
+	{
+		Is true for any(All Players(Team(All)), Is in air(Current array element)) == true;
+	}
+	
+	actions
+	{
+		Kill(Filtered array(All Players(Team(All)), Is in air(Current array element)), Null);
+	}
+}
+
+rule("Sort")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	conditions
+	{
+		Is firing primary(Event Player) == true;
+	}
+	
+	actions
+	{
+		Set Player Variable(Event player, A, Append To Array(Append To Array(Append To Array(Append To Array(Append To Array(Append To Array(Append To Array(Append To Array(Append To Array(Append To Array(Empty Array, 0), 1), 2), 3), 4), 5), 6), 7), 8), 9));
+		Set Player Variable(Event player, B, Player Variable(Event Player, A));
+		Big Message(All Players(Team(All)), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 0), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 1), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 2), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 3), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 4), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 5), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 6), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 7), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 8), Value In Array(Player Variable(Event Player, B), 9), Null), Null), Null), Null), Null), Null), Null), Null), Null));
+		Wait(3, Ignore condition);
+		Set Player Variable(Event player, A, Randomized array(Player Variable(Event Player, A)));
+		Set Player Variable(Event player, B, Player Variable(Event Player, A));
+		Big Message(All Players(Team(All)), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 0), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 1), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 2), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 3), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 4), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 5), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 6), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 7), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 8), Value In Array(Player Variable(Event Player, B), 9), Null), Null), Null), Null), Null), Null), Null), Null), Null));
+		Wait(3, Ignore condition);
+		Set Player Variable(Event player, A, Sorted array(Player Variable(Event Player, A), Multiply(Subtract(Multiply(Modulo(Current array element, 2), 2), 1), Current array element)));
+		Set Player Variable(Event player, B, Player Variable(Event Player, A));
+		Big Message(All Players(Team(All)), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 0), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 1), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 2), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 3), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 4), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 5), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 6), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 7), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 8), Value In Array(Player Variable(Event Player, B), 9), Null), Null), Null), Null), Null), Null), Null), Null), Null));
+		Wait(3, Ignore condition);
+		Set Player Variable(Event player, B, Sorted array(Player Variable(Event Player, A), Current array element));
+		Big Message(All Players(Team(All)), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 0), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 1), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 2), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 3), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 4), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 5), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 6), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 7), String("{0}, {1}", Value In Array(Player Variable(Event Player, B), 8), Value In Array(Player Variable(Event Player, B), 9), Null), Null), Null), Null), Null), Null), Null), Null), Null));
+	}
+}
+

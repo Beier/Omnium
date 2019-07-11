@@ -2,6 +2,7 @@
 using System.Linq;
 using Antlr4.Runtime.Tree;
 using Omnium.Core.ast.declarations;
+using Omnium.Core.extensions;
 
 namespace Omnium.Core.ast.statements
 {
@@ -15,5 +16,10 @@ namespace Omnium.Core.ast.statements
         }
         
         public IEnumerable<VariableDeclaration> Variables => VariableDeclarations;
+
+        public override string ToString()
+        {
+            return $"{{{Statements.MkString(" ")}}}";
+        }
     }
 }

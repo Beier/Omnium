@@ -25,7 +25,7 @@ namespace Omnium.Core.compiler
 
             foreach (var ancestor in ancestors)
             {
-                var declarations = GetMatchingDeclarations(ancestor, simpleNameExpression, simpleNameExpression.Name);
+                var declarations = GetMatchingDeclarations(ancestor, simpleNameExpression, simpleNameExpression.Name, true);
                 if (!declarations.Any())
                     continue;
                 if (declarations.Count > 1 && declarations.NotOfType(typeof(ITypeDeclaration)).Any())
@@ -58,13 +58,13 @@ namespace Omnium.Core.compiler
             throw new CompilationError(simpleNameExpression.Context, $"Found no declarations matching '{simpleNameExpression.Name}'");
         }
 
-        private static List<INamedDeclaration> GetMatchingDeclarations(INode ancestor, INode source, string name)
+        private static List<INamedDeclaration> GetMatchingDeclarations(INode ancestor, INode source, string name, bool checkVisibility)
         {
             var matchingDeclarations = new List<INamedDeclaration>();
 
             if (ancestor is ClassDeclaration classDeclaration)
             {
-                var visibleClasses = classDeclaration.EquivalentClassDeclarations.Where(x => x.IsVisibleFrom(source)).ToList();
+                var visibleClasses = classDeclaration.EquivalentClassDeclarations.Where(x => !checkVisibility || x.IsVisibleFrom(source)).ToList();
                 matchingDeclarations.AddRange(visibleClasses.SelectMany(x => x.GettersAndSetters).Where(x => x.Name == name));
                 matchingDeclarations.AddRange(visibleClasses.SelectMany(x => x.MethodDeclarations).Where(x => x.Name == name));
                 matchingDeclarations.AddRange(visibleClasses.SelectMany(x => x.Variables).Where(x => x.Name == name));
@@ -129,17 +129,23 @@ namespace Omnium.Core.compiler
             if (declarations.All(x => x is ITypeDeclaration))
                 return new StaticReference(declarations.Cast<INode>().ToList());
 
+            IType type = null;
             switch (declarations.Single())
             {
                 case VariableDeclaration variableDeclaration:
-                    return variableDeclaration.Type;
+                    type = variableDeclaration.Type;
+                    break;
                 case GetterSetterDeclaration getterSetterDeclaration:
-                    return getterSetterDeclaration.Type;
+                    type = getterSetterDeclaration.Type;
+                    break;
                 case MethodDeclaration methodDeclaration:
-                    return new MethodReferenceType(methodDeclaration);
+                    type = new MethodReferenceType(methodDeclaration);
+                    break;
                 default:
                     throw new Exception("Unexpected declaration: " + declarations.Single().GetType().FullName);
             }
+
+            return type;
         }
 
         public override void ExitBooleanLiteral(BooleanLiteral booleanLiteral)
@@ -311,12 +317,12 @@ namespace Omnium.Core.compiler
         }
         public void ExitMemberExpression(MemberExpression memberExpression, IType baseType)
         {
-            switch (baseType)
+            switch (baseType.Unwrap())
             {
                 case StaticReference staticReference:
                     var matchingEnumValues = staticReference.Declarations.OfType<EnumDeclaration>().SelectMany(x => x.Values).Where(x => x.Name == memberExpression.Name);
                     var matchingDeclarations = staticReference.Declarations.NotOfType(typeof(EnumDeclaration))
-                        .SelectMany(x => GetMatchingDeclarations(x, memberExpression, memberExpression.Name))
+                        .SelectMany(x => GetMatchingDeclarations(x, memberExpression, memberExpression.Name, true))
                         .Concat(matchingEnumValues)
                         .ToList();
 
@@ -341,7 +347,6 @@ namespace Omnium.Core.compiler
                     }
                     memberExpression.Type = GetType(matchingDeclarations);
                     memberExpression.Declarations = matchingDeclarations;
-
                     break;
                 case GenericType genericType:
                     ExitMemberExpression(memberExpression, genericType.Base);
@@ -349,7 +354,7 @@ namespace Omnium.Core.compiler
                 case ReferenceType referenceType:
                     if (referenceType.Declaration is EnumDeclaration)
                         throw new CompilationError(memberExpression.Context, $"Found no declarations on {memberExpression.Base.Type} matching {memberExpression.Name}");
-                    matchingDeclarations = GetMatchingDeclarations(referenceType.Declaration, memberExpression, memberExpression.Name);
+                    matchingDeclarations = GetMatchingDeclarations(referenceType.Declaration, memberExpression, memberExpression.Name, false);
                     if (matchingDeclarations.Count > 1)
                         Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
                     if (matchingDeclarations.Count == 0)
@@ -358,7 +363,8 @@ namespace Omnium.Core.compiler
                     }
                     if (IsStatic(matchingDeclarations[0]))
                         Errors.Add(new CompilationError(memberExpression.Context, "Static declaration referenced in non-static context."));
-                    memberExpression.Type = GetType(matchingDeclarations);
+
+                    memberExpression.Type = ReplaceGenerics(memberExpression, GetType(matchingDeclarations).Wrap(memberExpression.Context));
                     memberExpression.Declarations = matchingDeclarations;
                     break;
                 default:
@@ -385,7 +391,7 @@ namespace Omnium.Core.compiler
                 }
             }
         }
-
+        
         public override void EnterForeachStatement(ForeachStatement foreachStatement)
         {
             Visit(foreachStatement.List);
@@ -434,7 +440,7 @@ namespace Omnium.Core.compiler
         {
             if (methodInvocationExpression.Parent == null)
                 return;
-            switch (methodInvocationExpression.Base.Type)
+            switch (methodInvocationExpression.Base.Type.Unwrap())
             {
                 case MethodReferenceType methodReference:
                     if (methodInvocationExpression.GenericTypes.Count() != methodReference.Declaration.GenericTypeDeclarations.Count())
@@ -472,14 +478,19 @@ namespace Omnium.Core.compiler
             }
         }
 
-        private ITypeNode ReplaceGenerics(MethodInvocationExpression methodInvocationExpression, ITypeNode type)
+        public override void ExitListLambdaExpression(ListLambdaExpression listLambdaExpression)
+        {
+            listLambdaExpression.Type = listLambdaExpression.ReturnType;
+        }
+
+        private ITypeNode ReplaceGenerics(INode methodInvocationOrMemberExpression, ITypeNode type)
         {
             var clone = AstCloner.Clone(type);
             foreach (var referenceType in clone.AllDescendantsAndSelf().OfType<ReferenceType>().ToList())
             {
                 if (!(referenceType.Declaration is GenericTypeDeclaration genericTargetDeclaration))
                     continue;
-                if (methodInvocationExpression.IsDescendantOf(genericTargetDeclaration.Parent))
+                if (methodInvocationOrMemberExpression.IsDescendantOf(genericTargetDeclaration.Parent))
                     continue;
                 List<GenericTypeDeclaration> genericList;
                 List<ITypeNode> typeList;
@@ -487,13 +498,15 @@ namespace Omnium.Core.compiler
                 {
                     case MethodDeclaration method:
                         genericList = method.GenericTypeDeclarations.ToList();
-                        typeList = methodInvocationExpression.GenericTypes.ToList();
+                        typeList = ((MethodInvocationExpression)methodInvocationOrMemberExpression).GenericTypes.ToList();
                         break;
                     case ClassDeclaration classDeclaration:
                         genericList = classDeclaration.GenericTypeDeclarations.ToList();
-                        if (!(methodInvocationExpression.Base is MemberExpression memberExpression
-                              && memberExpression.Base.Type is GenericType genericType))
-                            throw new CompilationError(methodInvocationExpression.Context, "Expected generic type parameters");
+                        var baseMember = methodInvocationOrMemberExpression is MethodInvocationExpression
+                            ? (((MethodInvocationExpression) methodInvocationOrMemberExpression).Base as MemberExpression)?.Base
+                            : ((MemberExpression) methodInvocationOrMemberExpression).Base;
+                        if (baseMember == null || !(baseMember.Type is GenericType genericType))
+                            throw new CompilationError(methodInvocationOrMemberExpression.Context, "Expected generic type parameters");
                         typeList = genericType.GenericTypes.ToList();
                         break;
                     default:
@@ -501,7 +514,7 @@ namespace Omnium.Core.compiler
                 }
 
                 if (genericList.Count != typeList.Count)
-                    throw new CompilationError(methodInvocationExpression.Context, $"Expected {genericList.Count} generic type parameters, but got {typeList}");
+                    throw new CompilationError(methodInvocationOrMemberExpression.Context, $"Expected {genericList.Count} generic type parameters, but got {typeList}");
                 var index = genericList.IndexOf(genericTargetDeclaration);
                 var replacement = AstCloner.Clone(typeList[index]);
                 if (referenceType.Parent == null)

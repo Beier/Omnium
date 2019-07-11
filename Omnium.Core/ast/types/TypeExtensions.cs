@@ -8,6 +8,13 @@ namespace Omnium.Core.ast.types
 {
     public static class TypeExtensions
     {
+        public static IType Unwrap(this IType type)
+        {
+            if (type is TypeNodeWrapper wrapper)
+                return wrapper.Type;
+            return type;
+        }
+
         public static bool IsList(this IType type, Root root)
         {
             if (!(type is GenericType genericType))
@@ -37,7 +44,12 @@ namespace Omnium.Core.ast.types
             switch (type1)
             {
                 case FunctionType _:
-                    return type1 == type2;
+                    var functionType1 = (FunctionType) type1;
+                    var functionType2 = (FunctionType) type2;
+
+                    return functionType1.Parameters.Count() == functionType2.Parameters.Count()
+                               && functionType1.Parameters.Zip(functionType2.Parameters, (parameter1, parameter2) => parameter1.Type.IsEquivalentTo(parameter2.Type)).All(x => x)
+                               && functionType1.ReturnType.IsEquivalentTo(functionType2.ReturnType);
                 case MethodReferenceType _:
                     return ((MethodReferenceType)type1).Declaration == ((MethodReferenceType)type2).Declaration;
                 case AnonymousMethodType _:

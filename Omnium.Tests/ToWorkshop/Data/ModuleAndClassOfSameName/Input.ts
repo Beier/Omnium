@@ -4,8 +4,6 @@ import { Message } from "../../../library/Message";
 import { Players } from "../../../library/Player";
 import { Game } from "../../../library/Game";
 
-
-//Max size is 1000
 Native.rule("Hello World",
     Rule.Events.Ongoing.global,
     Game.isInProgress,

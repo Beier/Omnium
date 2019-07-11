@@ -220,7 +220,11 @@ namespace Omnium.Core.compiler
             left.AddRange(parts.Take(partIndex));
 
             var partToSplit = (StringLiteral) parts[partIndex];
-            if (stringIndex == 0)
+            if (stringIndex == 0 && removeLength == partToSplit.UnquotedText.Length)
+            {
+                //Do nothing
+            }
+            else if (stringIndex == 0)
                 right.Add(new StringLiteral(partToSplit.Context, "\"" + partToSplit.UnquotedText.Substring(removeLength) + "\""));
             else if (stringIndex + removeLength == partToSplit.UnquotedText.Length)
                 left.Add(new StringLiteral(partToSplit.Context, "\"" + partToSplit.UnquotedText.Substring(0, stringIndex) + "\""));

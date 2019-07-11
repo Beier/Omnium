@@ -3,6 +3,7 @@ using Omnium.Core.ast;
 using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
 using Omnium.Core.ast.expressions.literals;
+using Omnium.Core.ast.types;
 using Omnium.Core.extensions;
 
 namespace Omnium.Core.compiler
@@ -64,6 +65,28 @@ namespace Omnium.Core.compiler
                             binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftEnum == rightEnum));
                             madeChanges = true;
                         }
+                        if (binaryExpression.Left is NullLiteral && binaryExpression.Right is NullLiteral)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, true));
+                            madeChanges = true;
+                            break;
+                        }
+                        if (binaryExpression.Left is NullLiteral || binaryExpression.Right is NullLiteral)
+                        {
+                            var notNullExpression = binaryExpression.Left is NullLiteral
+                                ? binaryExpression.Right
+                                : binaryExpression.Left;
+
+                            switch (notNullExpression)
+                            {
+                                case BooleanLiteral _:
+                                case NumberLiteral _:
+                                case LambdaExpression _:
+                                    binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, false));
+                                    madeChanges = true;
+                                    break;
+                            }
+                        }
                         break;
                     }
                 case "!=":
@@ -77,6 +100,28 @@ namespace Omnium.Core.compiler
                         {
                             binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, leftNumber.Value != rightNumber.Value));
                             madeChanges = true;
+                        }
+                        if (binaryExpression.Left is NullLiteral && binaryExpression.Right is NullLiteral)
+                        {
+                            binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, false));
+                            madeChanges = true;
+                            break;
+                        }
+                        if (binaryExpression.Left is NullLiteral || binaryExpression.Right is NullLiteral)
+                        {
+                            var notNullExpression = binaryExpression.Left is NullLiteral
+                                ? binaryExpression.Right
+                                : binaryExpression.Left;
+
+                            switch (notNullExpression)
+                            {
+                                case BooleanLiteral _:
+                                case NumberLiteral _:
+                                case LambdaExpression _:
+                                    binaryExpression.ReplaceWith(new BooleanLiteral(binaryExpression.Context, true));
+                                    madeChanges = true;
+                                    break;
+                            }
                         }
                         break;
                     }
@@ -123,9 +168,30 @@ namespace Omnium.Core.compiler
                             binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value + rightNumber.Value));
                             madeChanges = true;
                         }
+                        else if (binaryExpression.Left is NumberLiteral leftNumber2 && leftNumber2.Value == 0 && binaryExpression.Type is NumberType)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Right);
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Right is NumberLiteral rightNumber2 && rightNumber2.Value == 0 && binaryExpression.Type is NumberType)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Left);
+                            madeChanges = true;
+                        }
                         if (binaryExpression.Left is StringLiteral leftString && binaryExpression.Right is StringLiteral rightString)
                         {
                             binaryExpression.ReplaceWith(new StringLiteral(binaryExpression.Context, "\"" + leftString.UnquotedText + rightString.UnquotedText + "\""));
+                            madeChanges = true;
+                        }
+                        //x + "" => x
+                        else if (binaryExpression.Left is StringLiteral leftString2 && leftString2.UnquotedText == "")
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Right);
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Right is StringLiteral rightString2 && rightString2.UnquotedText == "")
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Left);
                             madeChanges = true;
                         }
                         break;
@@ -137,6 +203,16 @@ namespace Omnium.Core.compiler
                             binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value - rightNumber.Value));
                             madeChanges = true;
                         }
+                        else if (binaryExpression.Left is NumberLiteral leftNumber2 && leftNumber2.Value == 0)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Right);
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Right is NumberLiteral rightNumber2 && rightNumber2.Value == 0)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Left);
+                            madeChanges = true;
+                        }
                         break;
                     }
                 case "*":
@@ -146,6 +222,26 @@ namespace Omnium.Core.compiler
                             binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value * rightNumber.Value));
                             madeChanges = true;
                         }
+                        else if (binaryExpression.Left is NumberLiteral leftNumber2 && leftNumber2.Value == 1)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Right);
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Right is NumberLiteral rightNumber2 && rightNumber2.Value == 1)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Left);
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Left is NumberLiteral leftNumber3 && leftNumber3.Value == 0)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Left);
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Right is NumberLiteral rightNumber3 && rightNumber3.Value == 0)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Right);
+                            madeChanges = true;
+                        }
                         break;
                     }
                 case "/":
@@ -153,6 +249,11 @@ namespace Omnium.Core.compiler
                         if (binaryExpression.Left is NumberLiteral leftNumber && binaryExpression.Right is NumberLiteral rightNumber && rightNumber.Value != 0)
                         {
                             binaryExpression.ReplaceWith(new NumberLiteral(binaryExpression.Context, leftNumber.Value / rightNumber.Value));
+                            madeChanges = true;
+                        }
+                        else if (binaryExpression.Right is NumberLiteral rightNumber2 && rightNumber2.Value == 1)
+                        {
+                            binaryExpression.ReplaceWith(binaryExpression.Left);
                             madeChanges = true;
                         }
                         break;

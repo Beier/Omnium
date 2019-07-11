@@ -77,6 +77,42 @@ namespace Omnium.Core.compiler
                     children: new INode[0]);
         }
 
+        public static NativeMethodInvocationExpression CurrentArrayElement(IParseTree context)
+        {
+            return new NativeMethodInvocationExpression(
+                    context,
+                    nativeMethodName: "Current array element",
+                    returnType: new NullType(),
+                    readsState: false,
+                    changesState: false,
+                    modifiesControlFlow: false,
+                    children: new INode[0]);
+        }
+
+        public static NativeMethodInvocationExpression FilteredArray(IParseTree context, IExpression list, IExpression condition)
+        {
+            return new NativeMethodInvocationExpression(
+                    context,
+                    nativeMethodName: "Filtered array",
+                    returnType: new NullType(),
+                    readsState: false,
+                    changesState: false,
+                    modifiesControlFlow: false,
+                    children: new []{list, condition});
+        }
+
+        public static NativeMethodInvocationExpression ListLambda(IParseTree context, string name, IExpression list, IExpression condition)
+        {
+            return new NativeMethodInvocationExpression(
+                    context,
+                    nativeMethodName: name,
+                    returnType: new NullType(),
+                    readsState: false,
+                    changesState: false,
+                    modifiesControlFlow: false,
+                    children: new []{list, condition});
+        }
+
         public static NativeMethodInvocationExpression EmptyArray(IParseTree context, Root root, ITypeNode type)
         {
             return new NativeMethodInvocationExpression(

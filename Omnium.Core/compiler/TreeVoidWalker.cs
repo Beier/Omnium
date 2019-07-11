@@ -38,6 +38,8 @@ namespace Omnium.Core.compiler
                 EnterArrayType((ArrayType)node);
             if (node is FunctionType)
                 EnterFunctionType((FunctionType)node);
+            if (node is FunctionParameter)
+                EnterFunctionParameter((FunctionParameter)node);
             if (node is GenericType)
                 EnterGenericType((GenericType)node);
             if (node is ReferenceType)
@@ -136,6 +138,8 @@ namespace Omnium.Core.compiler
                 EnterCastExpression((CastExpression)node);
             if (node is LambdaExpression)
                 EnterLambdaExpression((LambdaExpression)node);
+            if (node is ListLambdaExpression)
+                EnterListFilterExpression((ListLambdaExpression)node);
             if (node is MemberExpression)
                 EnterMemberExpression((MemberExpression)node);
             if (node is MethodInvocationExpression)
@@ -189,6 +193,8 @@ namespace Omnium.Core.compiler
                 ExitArrayType((ArrayType)node);
             if (node is FunctionType)
                 ExitFunctionType((FunctionType)node);
+            if (node is FunctionParameter)
+                ExitFunctionParameter((FunctionParameter)node);
             if (node is GenericType)
                 ExitGenericType((GenericType)node);
             if (node is ReferenceType)
@@ -287,6 +293,8 @@ namespace Omnium.Core.compiler
                 ExitCastExpression((CastExpression)node);
             if (node is LambdaExpression)
                 ExitLambdaExpression((LambdaExpression)node);
+            if (node is ListLambdaExpression)
+                ExitListLambdaExpression((ListLambdaExpression)node);
             if (node is MemberExpression)
                 ExitMemberExpression((MemberExpression)node);
             if (node is MethodInvocationExpression)
@@ -337,6 +345,8 @@ namespace Omnium.Core.compiler
         public virtual void ExitArrayType(ArrayType arrayType) { }
         public virtual void EnterFunctionType(FunctionType functionType) { }
         public virtual void ExitFunctionType(FunctionType functionType) { }
+        public virtual void EnterFunctionParameter(FunctionParameter functionParameter) { }
+        public virtual void ExitFunctionParameter(FunctionParameter functionParameter) { }
         public virtual void EnterGenericType(GenericType genericType) { }
         public virtual void ExitGenericType(GenericType genericType) { }
         public virtual void EnterReferenceType(ReferenceType referenceType) { }
@@ -435,6 +445,8 @@ namespace Omnium.Core.compiler
         public virtual void ExitCastExpression(CastExpression castExpression) { }
         public virtual void EnterLambdaExpression(LambdaExpression lambdaExpression) { }
         public virtual void ExitLambdaExpression(LambdaExpression lambdaExpression) { }
+        public virtual void EnterListFilterExpression(ListLambdaExpression listLambdaExpression) { }
+        public virtual void ExitListLambdaExpression(ListLambdaExpression listLambdaExpression) { }
         public virtual void EnterMemberExpression(MemberExpression memberExpression) { }
         public virtual void ExitMemberExpression(MemberExpression memberExpression) { }
         public virtual void EnterMethodInvocationExpression(MethodInvocationExpression methodInvocationExpression) { }

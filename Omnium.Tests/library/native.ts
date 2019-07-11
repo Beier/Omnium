@@ -1,5 +1,6 @@
 ﻿import { Rule } from "rule"
 import { HeroType } from "hero"
+import { List } from "list"
 import { } from "strings"
 
 //This serves as a definition of the methods and properties avalible in Overwatch, and how to map to them.
@@ -142,6 +143,10 @@ export module Native {
 
     export function assert(condition: boolean, message: string = null): void {
 
+    }
+
+    export function listLambda<T, TLambdaReturn, TReturn>(name: string, list: List<T>, condition: (item: T) => TLambdaReturn): TReturn {
+        return null;
     }
 }
 

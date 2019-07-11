@@ -49,6 +49,9 @@ namespace Omnium.Core.compiler
                 case "assert":
                     ConvertToAssersion(methodInvocationExpression);
                     break;
+                case "listLambda":
+                    ConvertToListLambda(methodInvocationExpression);
+                    break;
             }
         }
 
@@ -302,6 +305,24 @@ namespace Omnium.Core.compiler
             }
 
             methodInvocationExpression.Parent.ReplaceWith(new Assertion(context, methodInvocationExpression.Arguments));
+        }
+
+        private void ConvertToListLambda(MethodInvocationExpression methodInvocationExpression)
+        {
+            var context = methodInvocationExpression.Context;
+            if (!ValidateSignature<IStatement, IExpression>(methodInvocationExpression, 3, 3))
+                return;
+
+
+            if (!(methodInvocationExpression.Arguments.First() is StringLiteral name))
+            {
+                Errors.Add(new CompilationError(context, "The first argument must be a string literal."));
+                return;
+            }
+
+            var returnType = methodInvocationExpression.GenericTypes.Last();
+
+            methodInvocationExpression.ReplaceWith(new ListLambdaExpression(context, name.UnquotedText, methodInvocationExpression.Arguments.Skip(1).Concat<INode>(returnType.Yield())));
         }
         
         private bool ValidateSignature<T1>(MethodInvocationExpression methodInvocationExpression, int numberOfGenerics, int numberOfArguments)

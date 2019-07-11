@@ -41,8 +41,10 @@ namespace Omnium.Core.compiler
                 hadChanges |= ConstantEvaluator.EvaluateConstants(root);
                 hadChanges |= MoveLocalAssignments(root);
                 hadChanges |= RemoveReadVariables();
+                hadChanges |= RemoveIdentityAssignments();
             }
 
+            SimplifyLambdaMethods(root);
             SimplifyRuleTriggers(root);
             SimplifyRuleCondition(root);
             MoveStateVariablesToInitializationRules(root);
@@ -58,17 +60,19 @@ namespace Omnium.Core.compiler
                 hadChanges |= MoveLocalAssignments(root);
                 hadChanges |= RemoveReadVariables();
                 hadChanges |= RemoveGlobalConstants(root);
+                hadChanges |= RemoveIdentityAssignments();
             }
 
             RemoveLocalVariables(root);
+            RemoveIdentityAssignments();
 
             skipChildren = true;
         }
 
-        private Dictionary<IStatement, List<IStatement>> BuildSuccessorGraph(Root root)
+        private Dictionary<IStatement, List<IStatement>> BuildSuccessorGraph(INode node)
         {
             var successors = new Dictionary<IStatement, List<IStatement>>();
-            var statements = root.AllDescendantsAndSelf().OfType<IStatement>().ToList();
+            var statements = node.AllDescendantsAndSelf().OfType<IStatement>().ToList();
 
             foreach (var statement in statements)
             {
@@ -112,7 +116,7 @@ namespace Omnium.Core.compiler
         }
 
 
-        private void ValidateVariableReadsWritesGrapha(INode node)
+        private void ValidateVariableReadsWritesGraph(INode node)
         {
             var (reads, writes) = BuildVariableReadsWritesGraph2(node);
             foreach (var read in reads)
@@ -355,7 +359,6 @@ namespace Omnium.Core.compiler
 
         public void MoveLocalVariableInitializationsToAssignments(Root root)
         {
-            ValidateVariableReadsWritesGrapha(root);
             var variableDeclarations = root.AllDescendantsAndSelf().OfType<VariableDeclaration>().ToList();
             foreach (var variableDeclaration in variableDeclarations)
             {
@@ -390,9 +393,24 @@ namespace Omnium.Core.compiler
                         predecessors[successor].Remove(declarationStatement);
                         predecessors[successor].Add(assignmentStatement);
                     }
-                    ValidateVariableReadsWritesGrapha(root);
                 }
             }
+        }
+
+        private bool RemoveIdentityAssignments()
+        {
+            bool madeChanges = false;
+            foreach (var assignment in variableWrites.Values.SelectMany(x => x.Select(y => (AssignmentExpression)y.Parent)).ToList())
+            {
+                if (assignment.Left is INameExpression nameExpression1 && assignment.Right is INameExpression nameExpression2 
+                    && nameExpression1.Declaration == nameExpression2.Declaration)
+                { 
+                    RemoveStatement((IStatement) assignment.Parent);
+                    madeChanges = true;
+                }
+            }
+
+            return madeChanges;
         }
 
         private bool MoveLocalAssignments(Root root)
@@ -423,6 +441,9 @@ namespace Omnium.Core.compiler
 
             foreach (var (assignment, variableDeclaration, readsAndPredecessors) in readsAndPredecessorsForAssignments)
             {
+                if (assignment.NearestAncestorOfType<Root>() == null)
+                    continue;
+
                 if (readsAndPredecessors.Count == 0)
                 {
                     RemoveStatement((ExpressionStatement)assignment.Parent);
@@ -436,11 +457,24 @@ namespace Omnium.Core.compiler
                     if (readsAndPredecessors.All(x => assignmentsForRead[x.Item1].Count == 1 && IsSafeToMoveExpressionAlongPath(assignmentRight, x.Item2, x.Item1)))
                     {
                         assignmentRight.Remove();
-                        foreach (var read in readsAndPredecessors.Select(x => x.Item1).Distinct())
+                        if (readsAndPredecessors.Count == 1)
                         {
+                            var read = readsAndPredecessors.Single().Item1;
                             variableReads[variableDeclaration].Remove(read);
-                            read.ReplaceWith(AstCloner.Clone(assignmentRight));
+                            read.ReplaceWith(assignmentRight);
                         }
+                        else
+                        {
+                            ProcessRemovedLambdaStatements(assignmentRight);
+                            foreach (var read in readsAndPredecessors.Select(x => x.Item1).Distinct())
+                            {
+                                variableReads[variableDeclaration].Remove(read);
+                                var clone = AstCloner.Clone(assignmentRight);
+                                read.ReplaceWith(clone);
+                                ProcessAddedLambdaStatements(clone);
+                            }
+                        }
+
                         RemoveStatement((ExpressionStatement)assignment.Parent);
                         madeChanges = true;
                         continue;
@@ -449,6 +483,55 @@ namespace Omnium.Core.compiler
             }
 
             return madeChanges;
+        }
+        
+        private void ProcessAddedLambdaStatements(INode node)
+        {
+            foreach (var lambdaExpression in node.FirstDescendantsOfType<LambdaExpression>())
+            {
+                var newSuccessors = BuildSuccessorGraph(lambdaExpression);
+                var newPredecessors = BuildPredecessorGraph(newSuccessors);
+                var (newReads, newWrites) = BuildVariableReadsWritesGraph2(lambdaExpression);
+
+                foreach (var newSuccessor in newSuccessors)
+                {
+                    successors.Add(newSuccessor.Key, newSuccessor.Value);
+                }
+                foreach (var newPredecessor in newPredecessors)
+                {
+                    predecessors.Add(newPredecessor.Key, newPredecessor.Value);
+                }
+
+                foreach (var newRead in newReads)
+                {
+                    variableReads.Add(newRead.Key, newRead.Value);
+                }
+                foreach (var newWrite in newWrites)
+                {
+                    variableWrites.Add(newWrite.Key, newWrite.Value);
+                }
+            }
+        }
+
+        private void ProcessRemovedLambdaStatements(INode node)
+        {
+            foreach (var lambdaExpression in node.FirstDescendantsOfType<LambdaExpression>())
+            {
+                foreach (var descendant in lambdaExpression.AllDescendantsAndSelf().OfAnyType(typeof(IStatement), typeof(VariableDeclaration)))
+                {
+                    switch (descendant)
+                    {
+                        case IStatement statement:
+                            predecessors.Remove(statement);
+                            successors.Remove(statement);
+                            break;
+                        case VariableDeclaration variableDeclaration:
+                            variableReads.Remove(variableDeclaration);
+                            variableWrites.Remove(variableDeclaration);
+                            break;
+                    }
+                }
+            }
         }
 
         private List<(IExpression, HashSet<IStatement>)> FindReadsAndStatementsTowardsRead(VariableDeclaration variableDeclaration, AssignmentExpression assignment)
@@ -589,13 +672,15 @@ namespace Omnium.Core.compiler
                 case BinaryExpression binaryExpression:
                     return IsConstant(binaryExpression.Left) && IsConstant(binaryExpression.Right);
                 case NativeMethodInvocationExpression nativeMethod:
-                    return !nativeMethod.ChangesState && !nativeMethod.ReadsState && !nativeMethod.ModifiesControlFlow && nativeMethod.Arguments.All(IsConstant);
+                    //Todo: Add isConstant to all natives
+                    return false;// !nativeMethod.ChangesState && !nativeMethod.ReadsState && !nativeMethod.ModifiesControlFlow && nativeMethod.Arguments.All(IsConstant);
                 case SimpleNameExpression simpleNameExpression:
                     return simpleNameExpression.Declaration is EnumValue;
                 case MemberExpression memberExpression:
                     return memberExpression.Declaration is EnumValue;
                 case NativeTrigger _:
                 case ILiteral _:
+                case LambdaExpression _:
                     return true;
                 default:
                     return false;
@@ -721,6 +806,53 @@ namespace Omnium.Core.compiler
             }
 
             return removedVariable;
+        }
+
+        private void SimplifyLambdaMethods(Root root)
+        {
+            var lambdaExpressions = root.AllDescendantsAndSelf().OfType<LambdaExpression>().Where(x => !(x.Parent is RuleDeclaration)).ToList();
+            lambdaExpressions.Reverse();
+            foreach (var lambdaExpression in lambdaExpressions)
+            {
+                var variable = lambdaExpression.Variables.Single();
+                if (!(lambdaExpression.Parent is ListLambdaExpression))
+                {
+                    Errors.Add(new CompilationError(lambdaExpression.Context, "Lambda expressions can only be used in combination with Native.listLambda"));
+                }
+                if (lambdaExpression.Block.Statements.Count() != 1)
+                {
+                    Errors.Add(new CompilationError(lambdaExpression.Context, "Unable to simplify lambda expression to a single return statement."));
+                    continue;
+                }
+                if (!(lambdaExpression.Block.Statements.Single() is ReturnStatement returnStatement))
+                {
+                    Errors.Add(new CompilationError(lambdaExpression.Context, "Missing return statement in lambda function"));
+                    continue;
+                }
+
+                foreach (var expression in variableWrites[variable])
+                {
+                    Errors.Add(new CompilationError(expression.Context, "Can not write to the lambda parameter variable"));
+                }
+
+                foreach (var variableReference in variableReads[variable].Cast<INameExpression>())
+                {
+                    if (!variableReference.Declarations.Contains(variable))
+                        continue;
+                    variableReference.ReplaceWith(NativeMethods.CurrentArrayElement(variableReference.Context));
+                }
+
+                RemoveStatement(returnStatement);
+                variableReads.Remove(variable);
+                variableWrites.Remove(variable);
+
+                switch (lambdaExpression.Parent)
+                {
+                    case ListLambdaExpression listLambda:
+                        listLambda.ReplaceWith(NativeMethods.ListLambda(listLambda.Context, listLambda.Name, listLambda.List, returnStatement.Value));
+                        break;
+                }
+            }
         }
 
         private void SimplifyRuleTriggers(INode node)
@@ -1152,7 +1284,7 @@ namespace Omnium.Core.compiler
 
 
 
-        private void ValidateSuccessorsAndPredecessors(Root root)
+        private void ValidateSuccessorsAndPredecessorsa(Root root)
         {
             var currentSuccessors = BuildSuccessorGraph(root);
             var currentPredecessors = BuildPredecessorGraph(successors);
