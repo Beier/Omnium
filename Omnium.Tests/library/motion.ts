@@ -47,7 +47,3 @@ export module Motion {
         None = "None"
     }
 }
-
-//Todo: Chase
-//Todo: Methods with re-evaluation continues to read variable
-//Todo: Current array element

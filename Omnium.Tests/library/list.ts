@@ -76,6 +76,4 @@ export class List<T> extends Array<T> {
     public isEmpty(): boolean {
         return this.length == 0;
     }
-
-    //Todo: Sort by
 }

@@ -86,7 +86,3 @@ export enum Color {
     OfTeam1 = "Team 1",
     OfTeam2 = "Team 2",
 }
-
-//Todo: Chase
-//Todo: Methods with re-evaluation continues to read variable
-//Todo: Current array element
