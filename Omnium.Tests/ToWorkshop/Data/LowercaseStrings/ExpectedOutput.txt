@@ -1,0 +1,20 @@
+﻿rule("Hello World")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	conditions
+	{
+		Is Button Held(Event Player, Primary Fire) == true;
+	}
+	
+	actions
+	{
+		Big Message(Event Player, String("{0} {1} {2}", String("{0}, {1}", String("Wow", Null, Null, Null), String("you win", Null, Null, Null), Null), String("current", Null, Null, Null), String("{0}!", String("round", Null, Null, Null), Null, Null)));
+	}
+}
+

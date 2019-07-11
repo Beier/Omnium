@@ -605,16 +605,3 @@ Native.registerString("Zone");
 Native.registerString("Zones");
 Native.registerString("¡{0}!");
 Native.registerString("¿{0}?");
-Native.registerString("");
-Native.registerString("");
-Native.registerString("");
-Native.registerString("");
-Native.registerString("");
-Native.registerString("Mone");
-
-
-
-
-//Todo: add all strings
-Native.registerString("Hello");
-Native.registerString("Total");

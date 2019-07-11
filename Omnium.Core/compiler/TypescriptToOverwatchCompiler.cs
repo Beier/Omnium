@@ -50,13 +50,29 @@ namespace Omnium.Core.compiler
                 }
                 foreach (var error in step.Errors)
                 {
-                    Console.WriteLine(error.Message);
+                    Console.WriteLine("ERROR " + error.Message);
+                }
+                foreach (var warning in step.Warnings)
+                {
+                    Console.WriteLine("WARNING " + warning.Message);
                 }
                 if (step.Errors.Any())
                 {
                     throw new Exception("Compilation failed.");
                 }
             }
+
+            /*
+             *  Todo:
+             *  - Lowercase string match warning
+             *  - Chase: Single global variable
+             *  - Constant native methods
+             *  - Use arrays for global variables if we have too many.
+             *  - Refactor: Split into folders
+             *  - Optional types
+             *
+             *
+             */
 
 
             var result = new CodeGenerator().Visit(root).ToString();
