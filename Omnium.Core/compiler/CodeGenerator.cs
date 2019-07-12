@@ -20,52 +20,54 @@ namespace Omnium.Core.compiler
             var letters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(x => ((char)x).ToString()).ToList();
             var playerVariables = root.PlayerVariableDeclarations.ToList();
             var globalVariables = root.SourceFiles.SelectMany(x => x.AllDescendantsAndSelf()).OfType<VariableDeclaration>().ToList();
-            if (playerVariables.Count(x => x.Type.IsList(root)) + playerVariables.Count(x => !x.Type.IsList(root))/1000 > letters.Count)
+            if (playerVariables.Count(x => x.Type.IsList(root) || x.IsChased) + playerVariables.Count(x => !x.Type.IsList(root) && !x.IsChased)/1000 > letters.Count)
                 throw new CompilationError(null, "Number of player variables exceeds supported number.");
-            if (globalVariables.Count(x => x.Type.IsList(root)) + globalVariables.Count(x => !x.Type.IsList(root)) / 1000 > letters.Count)
+            if (globalVariables.Count(x => x.Type.IsList(root) || x.IsChased) + globalVariables.Count(x => !x.Type.IsList(root) && !x.IsChased) / 1000 > letters.Count)
                 throw new CompilationError(null, "Number of global variables exceeds supported number.");
-            int usedVariables = 1;
+            int usedVariables = 0;
             int variableUsedForSingleValues = 0;
-            int numberOfVariablesInArray = 0;
+            int numberOfVariablesInArray = 1000;
+            var useArrays = playerVariables.Count > letters.Count;
             foreach (var playerVariable in playerVariables)
             {
-                if (playerVariable.Type.IsList(root))
+                if (!useArrays || playerVariable.IsChased || playerVariable.Type.IsList(root))
                 {
                     variableAssignments.Add(playerVariable, (letters[usedVariables], null));
                     usedVariables++;
                 }
                 else
                 {
-                    variableAssignments.Add(playerVariable, (letters[variableUsedForSingleValues], numberOfVariablesInArray));
-                    numberOfVariablesInArray++;
                     if (numberOfVariablesInArray >= 1000)
                     {
                         variableUsedForSingleValues = usedVariables;
                         numberOfVariablesInArray = 0;
                         usedVariables++;
                     }
+                    variableAssignments.Add(playerVariable, (letters[variableUsedForSingleValues], numberOfVariablesInArray));
+                    numberOfVariablesInArray++;
                 }
             }
-            usedVariables = 1;
+            usedVariables = 0;
             variableUsedForSingleValues = 0;
-            numberOfVariablesInArray = 0;
+            numberOfVariablesInArray = 1000;
+            useArrays = globalVariables.Count > letters.Count;
             foreach (var globalVariable in globalVariables)
             {
-                if (globalVariable.Type.IsList(root))
+                if (!useArrays || globalVariable.IsChased || globalVariable.Type.IsList(root))
                 {
                     variableAssignments.Add(globalVariable, (letters[usedVariables], null));
                     usedVariables++;
                 }
                 else
                 {
-                    variableAssignments.Add(globalVariable, (letters[variableUsedForSingleValues], numberOfVariablesInArray));
-                    numberOfVariablesInArray++;
                     if (numberOfVariablesInArray >= 1000)
                     {
                         variableUsedForSingleValues = usedVariables;
                         numberOfVariablesInArray = 0;
                         usedVariables++;
                     }
+                    variableAssignments.Add(globalVariable, (letters[variableUsedForSingleValues], numberOfVariablesInArray));
+                    numberOfVariablesInArray++;
                 }
             }
 
@@ -286,6 +288,9 @@ namespace Omnium.Core.compiler
                 case VariableDeclaration variableDeclaration:
                 {
                     var builder = new StringBuilder();
+                    var (letter, index) = variableAssignments[variableDeclaration];
+                    if (index != null)
+                        builder.Append("Value in Array(");
                     if (IsPlayerVariable(variableDeclaration))
                     {
                         builder.Append("Player Variable(");
@@ -294,9 +299,15 @@ namespace Omnium.Core.compiler
                     }
                     else
                         builder.Append("Global Variable(");
-                    builder.Append(variableAssignments[variableDeclaration]);
+                    builder.Append(letter);
                     builder.Append(")");
-                    return builder;
+                    if (index != null)
+                    {
+                        builder.Append(", ");
+                        builder.Append(index.Value);
+                        builder.Append(")");
+                    }
+                        return builder;
                 }
                 default:
                     throw new Exception();
@@ -516,6 +527,84 @@ namespace Omnium.Core.compiler
             return new StringBuilder();
         }
 
+        public override StringBuilder VisitChaseExpression(ChaseExpression chaseExpression)
+        {
+            var builder = new StringBuilder();
+            var variableDeclaration = (VariableDeclaration) chaseExpression.VariableReference.Declaration;
+            var arguments = new List<StringBuilder>();
+            if (IsPlayerVariable(variableDeclaration))
+            {
+                builder.Append("Chase Player Variable ");
+                switch (chaseExpression.VariableReference)
+                {
+                    case SimpleNameExpression _:
+                        arguments.Add(new StringBuilder("Event Player"));
+                        break;
+                    case MemberExpression memberExpression:
+                        arguments.Add(Visit(memberExpression.Base));
+                        break;
+                    default:
+                        throw new Exception("Unexpected name expression: " + chaseExpression.VariableReference?.GetType().FullName);
+                }
+            }
+            else
+            {
+                builder.Append("Chase Global Variable");
+            }
+
+            if (chaseExpression.IsOverTime)
+                builder.Append("over Time(");
+            else
+                builder.Append("at Rate(");
+
+            var (letter, _) = variableAssignments[variableDeclaration];
+            arguments.Add(new StringBuilder(letter));
+            arguments.Add(Visit(chaseExpression.Destination));
+            arguments.Add(Visit(chaseExpression.DurationOrRate));
+            arguments.Add(Visit(chaseExpression.Reevaluation));
+
+            for (int i = 0; i < arguments.Count; i++)
+            {
+                if (i > 0)
+                    builder.Append(", ");
+                builder.Append(arguments[i]);
+            }
+
+            builder.Append(")");
+            return builder;
+        }
+
+        public override StringBuilder VisitStopChaseExpression(StopChaseExpression stopChaseExpression)
+        {
+            var builder = new StringBuilder();
+            var variableDeclaration = (VariableDeclaration)stopChaseExpression.VariableReference.Declaration;
+            if (IsPlayerVariable(variableDeclaration))
+            {
+                builder.Append("Stop Chasing Player Variable(");
+                switch (stopChaseExpression.VariableReference)
+                {
+                    case SimpleNameExpression _:
+                        builder.Append(new StringBuilder("Event Player"));
+                        break;
+                    case MemberExpression memberExpression:
+                        builder.Append(Visit(memberExpression.Base));
+                        break;
+                    default:
+                        throw new Exception("Unexpected name expression: " + stopChaseExpression.VariableReference?.GetType().FullName);
+                }
+
+                builder.Append(", ");
+            }
+            else
+            {
+                builder.Append("Stop Chasing Global Variable(");
+            }
+            
+            var (letter, _) = variableAssignments[variableDeclaration];
+            builder.Append(letter);
+            builder.Append(")");
+            return builder;
+        }
 
         private int indents = 0;
 

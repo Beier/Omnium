@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -78,7 +79,13 @@ namespace Omnium.Tools
             builder.AppendLine("}");
 
             var result = builder.ToString();
-            Console.WriteLine(result);
+
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\Omnium.Core\\Compiler\\TreeValueWalker.cs");
+            using (var fileStream = new StreamWriter(File.Create(filePath)))
+            {
+                fileStream.Write(result);
+            }
         }
     }
 }

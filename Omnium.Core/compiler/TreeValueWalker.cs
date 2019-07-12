@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Omnium.Core.ast;
@@ -28,133 +28,141 @@ namespace Omnium.Core.compiler
         public virtual T Visit(INode node)
         {
             if (node is SourceFile)
-                return VisitSourceFile((SourceFile)node);
+                return VisitSourceFile((SourceFile) node);
             if (node is ModuleDeclaration)
-                return VisitModuleDeclaration((ModuleDeclaration)node);
+                return VisitModuleDeclaration((ModuleDeclaration) node);
             if (node is StringLiteral)
-                return VisitStringLiteral((StringLiteral)node);
+                return VisitStringLiteral((StringLiteral) node);
             if (node is NumberLiteral)
-                return VisitNumberLiteral((NumberLiteral)node);
+                return VisitNumberLiteral((NumberLiteral) node);
             if (node is NullLiteral)
-                return VisitNullLiteral((NullLiteral)node);
+                return VisitNullLiteral((NullLiteral) node);
             if (node is BooleanLiteral)
-                return VisitBooleanLiteral((BooleanLiteral)node);
+                return VisitBooleanLiteral((BooleanLiteral) node);
             if (node is UnaryExpression)
-                return VisitUnaryExpression((UnaryExpression)node);
+                return VisitUnaryExpression((UnaryExpression) node);
             if (node is ThisExpression)
-                return VisitThisExpression((ThisExpression)node);
+                return VisitThisExpression((ThisExpression) node);
             if (node is SimpleNameExpression)
-                return VisitSimpleNameExpression((SimpleNameExpression)node);
+                return VisitSimpleNameExpression((SimpleNameExpression) node);
             if (node is PosfixOperationExpression)
-                return VisitPosfixOperationExpression((PosfixOperationExpression)node);
+                return VisitPosfixOperationExpression((PosfixOperationExpression) node);
+            if (node is PlayerVarsPlayerExpression)
+                return VisitPlayerVarsPlayerExpression((PlayerVarsPlayerExpression) node);
+            if (node is PlayerVarsExpression)
+                return VisitPlayerVarsExpression((PlayerVarsExpression) node);
             if (node is ObjectCreationExpression)
-                return VisitObjectCreationExpression((ObjectCreationExpression)node);
+                return VisitObjectCreationExpression((ObjectCreationExpression) node);
             if (node is NativeTrigger)
-                return VisitNativeTrigger((NativeTrigger)node);
+                return VisitNativeTrigger((NativeTrigger) node);
             if (node is MethodInvocationExpression)
-                return VisitMethodInvocationExpression((MethodInvocationExpression)node);
+                return VisitMethodInvocationExpression((MethodInvocationExpression) node);
             if (node is MemberExpression)
-                return VisitMemberExpression((MemberExpression)node);
+                return VisitMemberExpression((MemberExpression) node);
             if (node is ListLambdaExpression)
-                return VisitListFilterExpression((ListLambdaExpression)node);
+                return VisitListLambdaExpression((ListLambdaExpression) node);
             if (node is LambdaExpression)
-                return VisitLambdaExpression((LambdaExpression)node);
+                return VisitLambdaExpression((LambdaExpression) node);
+            if (node is StopChaseExpression)
+                return VisitStopChaseExpression((StopChaseExpression) node);
+            if (node is ChaseExpression)
+                return VisitChaseExpression((ChaseExpression) node);
             if (node is CastExpression)
-                return VisitCastExpression((CastExpression)node);
+                return VisitCastExpression((CastExpression) node);
             if (node is BinaryExpression)
-                return VisitBinaryExpression((BinaryExpression)node);
+                return VisitBinaryExpression((BinaryExpression) node);
             if (node is AssignmentOperator)
-                return VisitAssignmentOperator((AssignmentOperator)node);
+                return VisitAssignmentOperator((AssignmentOperator) node);
             if (node is AssignmentExpression)
-                return VisitAssignmentExpression((AssignmentExpression)node);
+                return VisitAssignmentExpression((AssignmentExpression) node);
             if (node is ArrayIndexExpression)
-                return VisitArrayIndexExpression((ArrayIndexExpression)node);
+                return VisitArrayIndexExpression((ArrayIndexExpression) node);
             if (node is ArrayCreationExpression)
-                return VisitArrayCreationExpression((ArrayCreationExpression)node);
+                return VisitArrayCreationExpression((ArrayCreationExpression) node);
             if (node is VoidType)
-                return VisitVoidType((VoidType)node);
+                return VisitVoidType((VoidType) node);
             if (node is StringType)
-                return VisitStringType((StringType)node);
+                return VisitStringType((StringType) node);
             if (node is NumberType)
-                return VisitNumberType((NumberType)node);
+                return VisitNumberType((NumberType) node);
             if (node is BoolType)
-                return VisitBoolType((BoolType)node);
+                return VisitBoolType((BoolType) node);
             if (node is VariableDeclaration)
-                return VisitVariableDeclaration((VariableDeclaration)node);
+                return VisitVariableDeclaration((VariableDeclaration) node);
             if (node is SetterDeclaration)
-                return VisitSetterDeclaration((SetterDeclaration)node);
+                return VisitSetterDeclaration((SetterDeclaration) node);
             if (node is RuleDeclaration)
-                return VisitRuleDeclaration((RuleDeclaration)node);
+                return VisitRuleDeclaration((RuleDeclaration) node);
             if (node is Root)
-                return VisitRoot((Root)node);
+                return VisitRoot((Root) node);
             if (node is MethodDeclaration)
-                return VisitMethodDeclaration((MethodDeclaration)node);
+                return VisitMethodDeclaration((MethodDeclaration) node);
             if (node is ImportDeclaration)
-                return VisitImportDeclaration((ImportDeclaration)node);
+                return VisitImportDeclaration((ImportDeclaration) node);
             if (node is GetterSetterDeclaration)
-                return VisitGetterSetterDeclaration((GetterSetterDeclaration)node);
+                return VisitGetterSetterDeclaration((GetterSetterDeclaration) node);
             if (node is GetterDeclaration)
-                return VisitGetterDeclaration((GetterDeclaration)node);
+                return VisitGetterDeclaration((GetterDeclaration) node);
             if (node is GenericTypeDeclaration)
-                return VisitGenericTypeDeclaration((GenericTypeDeclaration)node);
+                return VisitGenericTypeDeclaration((GenericTypeDeclaration) node);
             if (node is EnumValue)
-                return VisitEnumValue((EnumValue)node);
+                return VisitEnumValue((EnumValue) node);
             if (node is EnumDeclaration)
-                return VisitEnumDeclaration((EnumDeclaration)node);
+                return VisitEnumDeclaration((EnumDeclaration) node);
             if (node is ConstructorDeclaration)
-                return VisitConstructorDeclaration((ConstructorDeclaration)node);
+                return VisitConstructorDeclaration((ConstructorDeclaration) node);
             if (node is ClassDeclaration)
-                return VisitClassDeclaration((ClassDeclaration)node);
+                return VisitClassDeclaration((ClassDeclaration) node);
             if (node is NativeMethodInvocationExpression)
-                return VisitNativeMethodInvocationExpression((NativeMethodInvocationExpression)node);
+                return VisitNativeMethodInvocationExpression((NativeMethodInvocationExpression) node);
             if (node is WhileStatement)
-                return VisitWhileStatement((WhileStatement)node);
+                return VisitWhileStatement((WhileStatement) node);
             if (node is VariableDeclarationStatement)
-                return VisitVariableDeclarationStatement((VariableDeclarationStatement)node);
+                return VisitVariableDeclarationStatement((VariableDeclarationStatement) node);
             if (node is SwitchLabel)
-                return VisitSwitchLabel((SwitchLabel)node);
+                return VisitSwitchLabel((SwitchLabel) node);
             if (node is SwitchGroup)
-                return VisitSwitchGroup((SwitchGroup)node);
+                return VisitSwitchGroup((SwitchGroup) node);
             if (node is SwitchStatement)
-                return VisitSwitchStatement((SwitchStatement)node);
+                return VisitSwitchStatement((SwitchStatement) node);
             if (node is ReturnStatement)
-                return VisitReturnStatement((ReturnStatement)node);
+                return VisitReturnStatement((ReturnStatement) node);
             if (node is IfStatement)
-                return VisitIfStatement((IfStatement)node);
+                return VisitIfStatement((IfStatement) node);
             if (node is GotoTargetStatement)
-                return VisitGotoTargetStatement((GotoTargetStatement)node);
+                return VisitGotoTargetStatement((GotoTargetStatement) node);
             if (node is GotoStatement)
-                return VisitGotoStatement((GotoStatement)node);
+                return VisitGotoStatement((GotoStatement) node);
             if (node is ForStatement)
-                return VisitForStatement((ForStatement)node);
+                return VisitForStatement((ForStatement) node);
             if (node is ForeachStatement)
-                return VisitForeachStatement((ForeachStatement)node);
+                return VisitForeachStatement((ForeachStatement) node);
             if (node is ExpressionStatement)
-                return VisitExpressionStatement((ExpressionStatement)node);
+                return VisitExpressionStatement((ExpressionStatement) node);
             if (node is ContinueStatement)
-                return VisitContinueStatement((ContinueStatement)node);
+                return VisitContinueStatement((ContinueStatement) node);
             if (node is BreakStatement)
-                return VisitBreakStatement((BreakStatement)node);
+                return VisitBreakStatement((BreakStatement) node);
             if (node is BlockStatement)
-                return VisitBlockStatement((BlockStatement)node);
+                return VisitBlockStatement((BlockStatement) node);
             if (node is Assertion)
-                return VisitAssertion((Assertion)node);
+                return VisitAssertion((Assertion) node);
             if (node is TypeNodeWrapper)
-                return VisitTypeNodeWrapper((TypeNodeWrapper)node);
+                return VisitTypeNodeWrapper((TypeNodeWrapper) node);
             if (node is TypeList)
-                return VisitTypeList((TypeList)node);
+                return VisitTypeList((TypeList) node);
             if (node is ReferenceType)
-                return VisitReferenceType((ReferenceType)node);
+                return VisitReferenceType((ReferenceType) node);
             if (node is GenericType)
-                return VisitGenericType((GenericType)node);
+                return VisitGenericType((GenericType) node);
             if (node is FunctionParameter)
-                return VisitFunctionParameter((FunctionParameter)node);
+                return VisitFunctionParameter((FunctionParameter) node);
             if (node is FunctionType)
-                return VisitFunctionType((FunctionType)node);
+                return VisitFunctionType((FunctionType) node);
             if (node is ArrayType)
-                return VisitArrayType((ArrayType)node);
+                return VisitArrayType((ArrayType) node);
             if (node is Token)
-                return VisitToken((Token)node);
+                return VisitToken((Token) node);
             throw new Exception("Unexpected node type: " + node?.GetType().FullName);
         }
 
@@ -208,6 +216,16 @@ namespace Omnium.Core.compiler
             return VisitChildren(posfixOperationExpression);
         }
 
+        public virtual T VisitPlayerVarsPlayerExpression(PlayerVarsPlayerExpression playerVarsPlayerExpression)
+        {
+            return VisitChildren(playerVarsPlayerExpression);
+        }
+
+        public virtual T VisitPlayerVarsExpression(PlayerVarsExpression playerVarsExpression)
+        {
+            return VisitChildren(playerVarsExpression);
+        }
+
         public virtual T VisitObjectCreationExpression(ObjectCreationExpression objectCreationExpression)
         {
             return VisitChildren(objectCreationExpression);
@@ -228,7 +246,7 @@ namespace Omnium.Core.compiler
             return VisitChildren(memberExpression);
         }
 
-        public virtual T VisitListFilterExpression(ListLambdaExpression listLambdaExpression)
+        public virtual T VisitListLambdaExpression(ListLambdaExpression listLambdaExpression)
         {
             return VisitChildren(listLambdaExpression);
         }
@@ -236,6 +254,16 @@ namespace Omnium.Core.compiler
         public virtual T VisitLambdaExpression(LambdaExpression lambdaExpression)
         {
             return VisitChildren(lambdaExpression);
+        }
+
+        public virtual T VisitStopChaseExpression(StopChaseExpression stopChaseExpression)
+        {
+            return VisitChildren(stopChaseExpression);
+        }
+
+        public virtual T VisitChaseExpression(ChaseExpression chaseExpression)
+        {
+            return VisitChildren(chaseExpression);
         }
 
         public virtual T VisitCastExpression(CastExpression castExpression)

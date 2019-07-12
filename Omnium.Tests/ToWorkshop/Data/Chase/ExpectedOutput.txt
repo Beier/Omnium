@@ -1,0 +1,44 @@
+﻿rule("Initialize player variables")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	actions
+	{
+		Set Player Variable At Index(Event player, A, 0, 0);
+	}
+}
+
+rule("Hurt all aggressive players")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	conditions
+	{
+		Is firing primary(Event Player) == true;
+	}
+	
+	actions
+	{
+		Skip If(Compare(Value in Array(Player Variable(Event Player, A), 0), ==, 1), 3);
+		Set Player Variable(Event player, B, 0);
+		Chase Player Variable at Rate(Event Player, B, Add(Player Variable(Event Player, B), 1), 10, Destination and Rate);
+		Set Player Variable At Index(Event player, A, 0, 1);
+		Skip If(Not(Is firing primary(Event Player)), 3);
+		Damage(Event Player, Null, Player Variable(Event Player, B));
+		Wait(1, Ignore condition);
+		Loop;
+		Set Player Variable At Index(Event player, A, 0, 0);
+		Stop Chasing Player Variable(Event Player, B);
+	}
+}
+

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Omnium.Core.ast;
 using Omnium.Core.ast.declarations;
@@ -20,310 +20,326 @@ namespace Omnium.Core.compiler
             if (node == null)
                 return;
             if (node is INode)
-                EnterINode((INode)node);
+                EnterINode((INode) node);
             if (node is Node)
-                EnterNode((Node)node);
+                EnterNode((Node) node);
             if (node is ITypeNode)
-                EnterITypeNode((ITypeNode)node);
+                EnterITypeNode((ITypeNode) node);
             if (node is IStatement)
-                EnterIStatement((IStatement)node);
+                EnterIStatement((IStatement) node);
             if (node is IExpression)
-                EnterIExpression((IExpression)node);
+                EnterIExpression((IExpression) node);
             if (node is IHasVariables)
-                EnterIHasVariables((IHasVariables)node);
+                EnterIHasVariables((IHasVariables) node);
             if (node is INamedDeclaration)
-                EnterINamedDeclaration((INamedDeclaration)node);
+                EnterINamedDeclaration((INamedDeclaration) node);
             if (node is Token)
-                EnterToken((Token)node);
+                EnterToken((Token) node);
             if (node is ArrayType)
-                EnterArrayType((ArrayType)node);
+                EnterArrayType((ArrayType) node);
             if (node is FunctionType)
-                EnterFunctionType((FunctionType)node);
+                EnterFunctionType((FunctionType) node);
             if (node is FunctionParameter)
-                EnterFunctionParameter((FunctionParameter)node);
+                EnterFunctionParameter((FunctionParameter) node);
             if (node is GenericType)
-                EnterGenericType((GenericType)node);
+                EnterGenericType((GenericType) node);
             if (node is ReferenceType)
-                EnterReferenceType((ReferenceType)node);
+                EnterReferenceType((ReferenceType) node);
             if (node is TypeList)
-                EnterTypeList((TypeList)node);
+                EnterTypeList((TypeList) node);
             if (node is TypeNodeWrapper)
-                EnterTypeNodeWrapper((TypeNodeWrapper)node);
+                EnterTypeNodeWrapper((TypeNodeWrapper) node);
             if (node is Assertion)
-                EnterAssertion((Assertion)node);
+                EnterAssertion((Assertion) node);
             if (node is BlockStatement)
-                EnterBlockStatement((BlockStatement)node);
+                EnterBlockStatement((BlockStatement) node);
             if (node is BreakStatement)
-                EnterBreakStatement((BreakStatement)node);
+                EnterBreakStatement((BreakStatement) node);
             if (node is ContinueStatement)
-                EnterContinueStatement((ContinueStatement)node);
+                EnterContinueStatement((ContinueStatement) node);
             if (node is ExpressionStatement)
-                EnterExpressionStatement((ExpressionStatement)node);
+                EnterExpressionStatement((ExpressionStatement) node);
             if (node is ForeachStatement)
-                EnterForeachStatement((ForeachStatement)node);
+                EnterForeachStatement((ForeachStatement) node);
             if (node is ForStatement)
-                EnterForStatement((ForStatement)node);
+                EnterForStatement((ForStatement) node);
             if (node is GotoStatement)
-                EnterGotoStatement((GotoStatement)node);
+                EnterGotoStatement((GotoStatement) node);
             if (node is GotoTargetStatement)
-                EnterGotoTargetStatement((GotoTargetStatement)node);
+                EnterGotoTargetStatement((GotoTargetStatement) node);
             if (node is IfStatement)
-                EnterIfStatement((IfStatement)node);
+                EnterIfStatement((IfStatement) node);
             if (node is ReturnStatement)
-                EnterReturnStatement((ReturnStatement)node);
+                EnterReturnStatement((ReturnStatement) node);
             if (node is SwitchStatement)
-                EnterSwitchStatement((SwitchStatement)node);
+                EnterSwitchStatement((SwitchStatement) node);
             if (node is SwitchGroup)
-                EnterSwitchGroup((SwitchGroup)node);
+                EnterSwitchGroup((SwitchGroup) node);
             if (node is SwitchLabel)
-                EnterSwitchLabel((SwitchLabel)node);
+                EnterSwitchLabel((SwitchLabel) node);
             if (node is VariableDeclarationStatement)
-                EnterVariableDeclarationStatement((VariableDeclarationStatement)node);
+                EnterVariableDeclarationStatement((VariableDeclarationStatement) node);
             if (node is WhileStatement)
-                EnterWhileStatement((WhileStatement)node);
+                EnterWhileStatement((WhileStatement) node);
             if (node is Expression)
-                EnterExpression((Expression)node);
+                EnterExpression((Expression) node);
             if (node is INameExpression)
-                EnterINameExpression((INameExpression)node);
+                EnterINameExpression((INameExpression) node);
             if (node is NativeMethodInvocationExpression)
-                EnterNativeMethodInvocationExpression((NativeMethodInvocationExpression)node);
+                EnterNativeMethodInvocationExpression((NativeMethodInvocationExpression) node);
             if (node is ILiteral)
-                EnterILiteral((ILiteral)node);
+                EnterILiteral((ILiteral) node);
             if (node is AbstractTopLevelNode)
-                EnterAbstractTopLevelNode((AbstractTopLevelNode)node);
+                EnterAbstractTopLevelNode((AbstractTopLevelNode) node);
             if (node is ClassDeclaration)
-                EnterClassDeclaration((ClassDeclaration)node);
+                EnterClassDeclaration((ClassDeclaration) node);
             if (node is ConstructorDeclaration)
-                EnterConstructorDeclaration((ConstructorDeclaration)node);
+                EnterConstructorDeclaration((ConstructorDeclaration) node);
             if (node is EnumDeclaration)
-                EnterEnumDeclaration((EnumDeclaration)node);
+                EnterEnumDeclaration((EnumDeclaration) node);
             if (node is EnumValue)
-                EnterEnumValue((EnumValue)node);
+                EnterEnumValue((EnumValue) node);
             if (node is GenericTypeDeclaration)
-                EnterGenericTypeDeclaration((GenericTypeDeclaration)node);
+                EnterGenericTypeDeclaration((GenericTypeDeclaration) node);
             if (node is GetterDeclaration)
-                EnterGetterDeclaration((GetterDeclaration)node);
+                EnterGetterDeclaration((GetterDeclaration) node);
             if (node is GetterSetterDeclaration)
-                EnterGetterSetterDeclaration((GetterSetterDeclaration)node);
+                EnterGetterSetterDeclaration((GetterSetterDeclaration) node);
             if (node is ImportDeclaration)
-                EnterImportDeclaration((ImportDeclaration)node);
+                EnterImportDeclaration((ImportDeclaration) node);
             if (node is MethodDeclaration)
-                EnterMethodDeclaration((MethodDeclaration)node);
+                EnterMethodDeclaration((MethodDeclaration) node);
             if (node is Root)
-                EnterRoot((Root)node);
+                EnterRoot((Root) node);
             if (node is RuleDeclaration)
-                EnterRuleDeclaration((RuleDeclaration)node);
+                EnterRuleDeclaration((RuleDeclaration) node);
             if (node is SetterDeclaration)
-                EnterSetterDeclaration((SetterDeclaration)node);
+                EnterSetterDeclaration((SetterDeclaration) node);
             if (node is VariableDeclaration)
-                EnterVariableDeclaration((VariableDeclaration)node);
+                EnterVariableDeclaration((VariableDeclaration) node);
             if (node is BoolType)
-                EnterBoolType((BoolType)node);
+                EnterBoolType((BoolType) node);
             if (node is NumberType)
-                EnterNumberType((NumberType)node);
+                EnterNumberType((NumberType) node);
             if (node is StringType)
-                EnterStringType((StringType)node);
+                EnterStringType((StringType) node);
             if (node is VoidType)
-                EnterVoidType((VoidType)node);
+                EnterVoidType((VoidType) node);
             if (node is ArrayCreationExpression)
-                EnterArrayCreationExpression((ArrayCreationExpression)node);
+                EnterArrayCreationExpression((ArrayCreationExpression) node);
             if (node is ArrayIndexExpression)
-                EnterArrayIndexExpression((ArrayIndexExpression)node);
+                EnterArrayIndexExpression((ArrayIndexExpression) node);
             if (node is AssignmentExpression)
-                EnterAssignmentExpression((AssignmentExpression)node);
+                EnterAssignmentExpression((AssignmentExpression) node);
             if (node is AssignmentOperator)
-                EnterAssignmentOperator((AssignmentOperator)node);
+                EnterAssignmentOperator((AssignmentOperator) node);
             if (node is BinaryExpression)
-                EnterBinaryExpression((BinaryExpression)node);
+                EnterBinaryExpression((BinaryExpression) node);
             if (node is CastExpression)
-                EnterCastExpression((CastExpression)node);
+                EnterCastExpression((CastExpression) node);
+            if (node is ChaseExpression)
+                EnterChaseExpression((ChaseExpression) node);
+            if (node is StopChaseExpression)
+                EnterStopChaseExpression((StopChaseExpression) node);
             if (node is LambdaExpression)
-                EnterLambdaExpression((LambdaExpression)node);
+                EnterLambdaExpression((LambdaExpression) node);
             if (node is ListLambdaExpression)
-                EnterListFilterExpression((ListLambdaExpression)node);
+                EnterListLambdaExpression((ListLambdaExpression) node);
             if (node is MemberExpression)
-                EnterMemberExpression((MemberExpression)node);
+                EnterMemberExpression((MemberExpression) node);
             if (node is MethodInvocationExpression)
-                EnterMethodInvocationExpression((MethodInvocationExpression)node);
+                EnterMethodInvocationExpression((MethodInvocationExpression) node);
             if (node is NativeTrigger)
-                EnterNativeTrigger((NativeTrigger)node);
+                EnterNativeTrigger((NativeTrigger) node);
             if (node is ObjectCreationExpression)
-                EnterObjectCreationExpression((ObjectCreationExpression)node);
+                EnterObjectCreationExpression((ObjectCreationExpression) node);
+            if (node is PlayerVarsExpression)
+                EnterPlayerVarsExpression((PlayerVarsExpression) node);
+            if (node is PlayerVarsPlayerExpression)
+                EnterPlayerVarsPlayerExpression((PlayerVarsPlayerExpression) node);
             if (node is PosfixOperationExpression)
-                EnterPosfixOperationExpression((PosfixOperationExpression)node);
+                EnterPosfixOperationExpression((PosfixOperationExpression) node);
             if (node is SimpleNameExpression)
-                EnterSimpleNameExpression((SimpleNameExpression)node);
+                EnterSimpleNameExpression((SimpleNameExpression) node);
             if (node is ThisExpression)
-                EnterThisExpression((ThisExpression)node);
+                EnterThisExpression((ThisExpression) node);
             if (node is UnaryExpression)
-                EnterUnaryExpression((UnaryExpression)node);
+                EnterUnaryExpression((UnaryExpression) node);
             if (node is BooleanLiteral)
-                EnterBooleanLiteral((BooleanLiteral)node);
+                EnterBooleanLiteral((BooleanLiteral) node);
             if (node is NullLiteral)
-                EnterNullLiteral((NullLiteral)node);
+                EnterNullLiteral((NullLiteral) node);
             if (node is NumberLiteral)
-                EnterNumberLiteral((NumberLiteral)node);
+                EnterNumberLiteral((NumberLiteral) node);
             if (node is StringLiteral)
-                EnterStringLiteral((StringLiteral)node);
+                EnterStringLiteral((StringLiteral) node);
             if (node is ModuleDeclaration)
-                EnterModuleDeclaration((ModuleDeclaration)node);
+                EnterModuleDeclaration((ModuleDeclaration) node);
             if (node is SourceFile)
-                EnterSourceFile((SourceFile)node);
+                EnterSourceFile((SourceFile) node);
             if (skipChildren)
                 skipChildren = false;
             else
                 foreach (var child in node.Children.ToList())
                     Visit(child);
             if (node is INode)
-                ExitINode((INode)node);
+                ExitINode((INode) node);
             if (node is Node)
-                ExitNode((Node)node);
+                ExitNode((Node) node);
             if (node is ITypeNode)
-                ExitITypeNode((ITypeNode)node);
+                ExitITypeNode((ITypeNode) node);
             if (node is IStatement)
-                ExitIStatement((IStatement)node);
+                ExitIStatement((IStatement) node);
             if (node is IExpression)
-                ExitIExpression((IExpression)node);
+                ExitIExpression((IExpression) node);
             if (node is IHasVariables)
-                ExitIHasVariables((IHasVariables)node);
+                ExitIHasVariables((IHasVariables) node);
             if (node is INamedDeclaration)
-                ExitINamedDeclaration((INamedDeclaration)node);
+                ExitINamedDeclaration((INamedDeclaration) node);
             if (node is Token)
-                ExitToken((Token)node);
+                ExitToken((Token) node);
             if (node is ArrayType)
-                ExitArrayType((ArrayType)node);
+                ExitArrayType((ArrayType) node);
             if (node is FunctionType)
-                ExitFunctionType((FunctionType)node);
+                ExitFunctionType((FunctionType) node);
             if (node is FunctionParameter)
-                ExitFunctionParameter((FunctionParameter)node);
+                ExitFunctionParameter((FunctionParameter) node);
             if (node is GenericType)
-                ExitGenericType((GenericType)node);
+                ExitGenericType((GenericType) node);
             if (node is ReferenceType)
-                ExitReferenceType((ReferenceType)node);
+                ExitReferenceType((ReferenceType) node);
             if (node is TypeList)
-                ExitTypeList((TypeList)node);
+                ExitTypeList((TypeList) node);
             if (node is TypeNodeWrapper)
-                ExitTypeNodeWrapper((TypeNodeWrapper)node);
+                ExitTypeNodeWrapper((TypeNodeWrapper) node);
             if (node is Assertion)
-                ExitAssertion((Assertion)node);
+                ExitAssertion((Assertion) node);
             if (node is BlockStatement)
-                ExitBlockStatement((BlockStatement)node);
+                ExitBlockStatement((BlockStatement) node);
             if (node is BreakStatement)
-                ExitBreakStatement((BreakStatement)node);
+                ExitBreakStatement((BreakStatement) node);
             if (node is ContinueStatement)
-                ExitContinueStatement((ContinueStatement)node);
+                ExitContinueStatement((ContinueStatement) node);
             if (node is ExpressionStatement)
-                ExitExpressionStatement((ExpressionStatement)node);
+                ExitExpressionStatement((ExpressionStatement) node);
             if (node is ForeachStatement)
-                ExitForeachStatement((ForeachStatement)node);
+                ExitForeachStatement((ForeachStatement) node);
             if (node is ForStatement)
-                ExitForStatement((ForStatement)node);
+                ExitForStatement((ForStatement) node);
             if (node is GotoStatement)
-                ExitGotoStatement((GotoStatement)node);
+                ExitGotoStatement((GotoStatement) node);
             if (node is GotoTargetStatement)
-                ExitGotoTargetStatement((GotoTargetStatement)node);
+                ExitGotoTargetStatement((GotoTargetStatement) node);
             if (node is IfStatement)
-                ExitIfStatement((IfStatement)node);
+                ExitIfStatement((IfStatement) node);
             if (node is ReturnStatement)
-                ExitReturnStatement((ReturnStatement)node);
+                ExitReturnStatement((ReturnStatement) node);
             if (node is SwitchStatement)
-                ExitSwitchStatement((SwitchStatement)node);
+                ExitSwitchStatement((SwitchStatement) node);
             if (node is SwitchGroup)
-                ExitSwitchGroup((SwitchGroup)node);
+                ExitSwitchGroup((SwitchGroup) node);
             if (node is SwitchLabel)
-                ExitSwitchLabel((SwitchLabel)node);
+                ExitSwitchLabel((SwitchLabel) node);
             if (node is VariableDeclarationStatement)
-                ExitVariableDeclarationStatement((VariableDeclarationStatement)node);
+                ExitVariableDeclarationStatement((VariableDeclarationStatement) node);
             if (node is WhileStatement)
-                ExitWhileStatement((WhileStatement)node);
+                ExitWhileStatement((WhileStatement) node);
             if (node is Expression)
-                ExitExpression((Expression)node);
+                ExitExpression((Expression) node);
             if (node is INameExpression)
-                ExitINameExpression((INameExpression)node);
+                ExitINameExpression((INameExpression) node);
             if (node is NativeMethodInvocationExpression)
-                ExitNativeMethodInvocationExpression((NativeMethodInvocationExpression)node);
+                ExitNativeMethodInvocationExpression((NativeMethodInvocationExpression) node);
             if (node is ILiteral)
-                ExitILiteral((ILiteral)node);
+                ExitILiteral((ILiteral) node);
             if (node is AbstractTopLevelNode)
-                ExitAbstractTopLevelNode((AbstractTopLevelNode)node);
+                ExitAbstractTopLevelNode((AbstractTopLevelNode) node);
             if (node is ClassDeclaration)
-                ExitClassDeclaration((ClassDeclaration)node);
+                ExitClassDeclaration((ClassDeclaration) node);
             if (node is ConstructorDeclaration)
-                ExitConstructorDeclaration((ConstructorDeclaration)node);
+                ExitConstructorDeclaration((ConstructorDeclaration) node);
             if (node is EnumDeclaration)
-                ExitEnumDeclaration((EnumDeclaration)node);
+                ExitEnumDeclaration((EnumDeclaration) node);
             if (node is EnumValue)
-                ExitEnumValue((EnumValue)node);
+                ExitEnumValue((EnumValue) node);
             if (node is GenericTypeDeclaration)
-                ExitGenericTypeDeclaration((GenericTypeDeclaration)node);
+                ExitGenericTypeDeclaration((GenericTypeDeclaration) node);
             if (node is GetterDeclaration)
-                ExitGetterDeclaration((GetterDeclaration)node);
+                ExitGetterDeclaration((GetterDeclaration) node);
             if (node is GetterSetterDeclaration)
-                ExitGetterSetterDeclaration((GetterSetterDeclaration)node);
+                ExitGetterSetterDeclaration((GetterSetterDeclaration) node);
             if (node is ImportDeclaration)
-                ExitImportDeclaration((ImportDeclaration)node);
+                ExitImportDeclaration((ImportDeclaration) node);
             if (node is MethodDeclaration)
-                ExitMethodDeclaration((MethodDeclaration)node);
+                ExitMethodDeclaration((MethodDeclaration) node);
             if (node is Root)
-                ExitRoot((Root)node);
+                ExitRoot((Root) node);
             if (node is RuleDeclaration)
-                ExitRuleDeclaration((RuleDeclaration)node);
+                ExitRuleDeclaration((RuleDeclaration) node);
             if (node is SetterDeclaration)
-                ExitSetterDeclaration((SetterDeclaration)node);
+                ExitSetterDeclaration((SetterDeclaration) node);
             if (node is VariableDeclaration)
-                ExitVariableDeclaration((VariableDeclaration)node);
+                ExitVariableDeclaration((VariableDeclaration) node);
             if (node is BoolType)
-                ExitBoolType((BoolType)node);
+                ExitBoolType((BoolType) node);
             if (node is NumberType)
-                ExitNumberType((NumberType)node);
+                ExitNumberType((NumberType) node);
             if (node is StringType)
-                ExitStringType((StringType)node);
+                ExitStringType((StringType) node);
             if (node is VoidType)
-                ExitVoidType((VoidType)node);
+                ExitVoidType((VoidType) node);
             if (node is ArrayCreationExpression)
-                ExitArrayCreationExpression((ArrayCreationExpression)node);
+                ExitArrayCreationExpression((ArrayCreationExpression) node);
             if (node is ArrayIndexExpression)
-                ExitArrayIndexExpression((ArrayIndexExpression)node);
+                ExitArrayIndexExpression((ArrayIndexExpression) node);
             if (node is AssignmentExpression)
-                ExitAssignmentExpression((AssignmentExpression)node);
+                ExitAssignmentExpression((AssignmentExpression) node);
             if (node is AssignmentOperator)
-                ExitAssignmentOperator((AssignmentOperator)node);
+                ExitAssignmentOperator((AssignmentOperator) node);
             if (node is BinaryExpression)
-                ExitBinaryExpression((BinaryExpression)node);
+                ExitBinaryExpression((BinaryExpression) node);
             if (node is CastExpression)
-                ExitCastExpression((CastExpression)node);
+                ExitCastExpression((CastExpression) node);
+            if (node is ChaseExpression)
+                ExitChaseExpression((ChaseExpression) node);
+            if (node is StopChaseExpression)
+                ExitStopChaseExpression((StopChaseExpression) node);
             if (node is LambdaExpression)
-                ExitLambdaExpression((LambdaExpression)node);
+                ExitLambdaExpression((LambdaExpression) node);
             if (node is ListLambdaExpression)
-                ExitListLambdaExpression((ListLambdaExpression)node);
+                ExitListLambdaExpression((ListLambdaExpression) node);
             if (node is MemberExpression)
-                ExitMemberExpression((MemberExpression)node);
+                ExitMemberExpression((MemberExpression) node);
             if (node is MethodInvocationExpression)
-                ExitMethodInvocationExpression((MethodInvocationExpression)node);
+                ExitMethodInvocationExpression((MethodInvocationExpression) node);
             if (node is NativeTrigger)
-                ExitNativeTrigger((NativeTrigger)node);
+                ExitNativeTrigger((NativeTrigger) node);
             if (node is ObjectCreationExpression)
-                ExitObjectCreationExpression((ObjectCreationExpression)node);
+                ExitObjectCreationExpression((ObjectCreationExpression) node);
+            if (node is PlayerVarsExpression)
+                ExitPlayerVarsExpression((PlayerVarsExpression) node);
+            if (node is PlayerVarsPlayerExpression)
+                ExitPlayerVarsPlayerExpression((PlayerVarsPlayerExpression) node);
             if (node is PosfixOperationExpression)
-                ExitPosfixOperationExpression((PosfixOperationExpression)node);
+                ExitPosfixOperationExpression((PosfixOperationExpression) node);
             if (node is SimpleNameExpression)
-                ExitSimpleNameExpression((SimpleNameExpression)node);
+                ExitSimpleNameExpression((SimpleNameExpression) node);
             if (node is ThisExpression)
-                ExitThisExpression((ThisExpression)node);
+                ExitThisExpression((ThisExpression) node);
             if (node is UnaryExpression)
-                ExitUnaryExpression((UnaryExpression)node);
+                ExitUnaryExpression((UnaryExpression) node);
             if (node is BooleanLiteral)
-                ExitBooleanLiteral((BooleanLiteral)node);
+                ExitBooleanLiteral((BooleanLiteral) node);
             if (node is NullLiteral)
-                ExitNullLiteral((NullLiteral)node);
+                ExitNullLiteral((NullLiteral) node);
             if (node is NumberLiteral)
-                ExitNumberLiteral((NumberLiteral)node);
+                ExitNumberLiteral((NumberLiteral) node);
             if (node is StringLiteral)
-                ExitStringLiteral((StringLiteral)node);
+                ExitStringLiteral((StringLiteral) node);
             if (node is ModuleDeclaration)
-                ExitModuleDeclaration((ModuleDeclaration)node);
+                ExitModuleDeclaration((ModuleDeclaration) node);
             if (node is SourceFile)
-                ExitSourceFile((SourceFile)node);
+                ExitSourceFile((SourceFile) node);
         }
 
         public virtual void EnterINode(INode iNode) { }
@@ -444,9 +460,13 @@ namespace Omnium.Core.compiler
         public virtual void ExitBinaryExpression(BinaryExpression binaryExpression) { }
         public virtual void EnterCastExpression(CastExpression castExpression) { }
         public virtual void ExitCastExpression(CastExpression castExpression) { }
+        public virtual void EnterChaseExpression(ChaseExpression chaseExpression) { }
+        public virtual void ExitChaseExpression(ChaseExpression chaseExpression) { }
+        public virtual void EnterStopChaseExpression(StopChaseExpression stopChaseExpression) { }
+        public virtual void ExitStopChaseExpression(StopChaseExpression stopChaseExpression) { }
         public virtual void EnterLambdaExpression(LambdaExpression lambdaExpression) { }
         public virtual void ExitLambdaExpression(LambdaExpression lambdaExpression) { }
-        public virtual void EnterListFilterExpression(ListLambdaExpression listLambdaExpression) { }
+        public virtual void EnterListLambdaExpression(ListLambdaExpression listLambdaExpression) { }
         public virtual void ExitListLambdaExpression(ListLambdaExpression listLambdaExpression) { }
         public virtual void EnterMemberExpression(MemberExpression memberExpression) { }
         public virtual void ExitMemberExpression(MemberExpression memberExpression) { }
@@ -456,6 +476,10 @@ namespace Omnium.Core.compiler
         public virtual void ExitNativeTrigger(NativeTrigger nativeTrigger) { }
         public virtual void EnterObjectCreationExpression(ObjectCreationExpression objectCreationExpression) { }
         public virtual void ExitObjectCreationExpression(ObjectCreationExpression objectCreationExpression) { }
+        public virtual void EnterPlayerVarsExpression(PlayerVarsExpression playerVarsExpression) { }
+        public virtual void ExitPlayerVarsExpression(PlayerVarsExpression playerVarsExpression) { }
+        public virtual void EnterPlayerVarsPlayerExpression(PlayerVarsPlayerExpression playerVarsPlayerExpression) { }
+        public virtual void ExitPlayerVarsPlayerExpression(PlayerVarsPlayerExpression playerVarsPlayerExpression) { }
         public virtual void EnterPosfixOperationExpression(PosfixOperationExpression posfixOperationExpression) { }
         public virtual void ExitPosfixOperationExpression(PosfixOperationExpression posfixOperationExpression) { }
         public virtual void EnterSimpleNameExpression(SimpleNameExpression simpleNameExpression) { }

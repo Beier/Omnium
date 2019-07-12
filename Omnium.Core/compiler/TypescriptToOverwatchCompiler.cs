@@ -17,17 +17,16 @@ namespace Omnium.Core.compiler
         public string Compile(string filename)
         {
             var root = parser.LoadFileAndImports(filename);
-
-            //Todo: Extract
+            
             var astTraversalSteps = new TreeVoidWalker[]
             {
-                new ImportLinker(), 
-                new ClassMerger(), 
+                new ImportLinker(),
                 new VariableAssigner(),
                 new AstValidator(),
                 new TypeLinker(),
                 new NativeLoader(), 
                 new ExpressionTypeAssignerAndMethodLinker(),
+                new ReplacePlayerVars(),
                 new AssignmentSimplifier(), 
                 new ClassDeleter(), 
                 new GlobalVariableInitializer(), 

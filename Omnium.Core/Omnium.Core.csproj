@@ -74,6 +74,7 @@
     <Compile Include="ast\expressions\AssignmentExpression.cs" />
     <Compile Include="ast\expressions\BinaryExpression.cs" />
     <Compile Include="ast\expressions\CastExpression.cs" />
+    <Compile Include="ast\expressions\ChaseExpression.cs" />
     <Compile Include="ast\expressions\IExpression.cs" />
     <Compile Include="ast\expressions\INameExpression.cs" />
     <Compile Include="ast\expressions\LambdaExpression.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="ast\expressions\NativeMethodInvocationExpression.cs" />
     <Compile Include="ast\expressions\NativeTrigger.cs" />
     <Compile Include="ast\expressions\ObjectCreationExpression.cs" />
+    <Compile Include="ast\expressions\PlayerVarsExpression.cs" />
     <Compile Include="ast\expressions\PosfixOperationExpression.cs" />
     <Compile Include="ast\expressions\SimpleNameExpression.cs" />
     <Compile Include="ast\expressions\ThisExpression.cs" />
@@ -130,7 +132,6 @@
     <Compile Include="compiler\AstValidator.cs" />
     <Compile Include="compiler\BlockFlattener.cs" />
     <Compile Include="compiler\ClassDeleter.cs" />
-    <Compile Include="compiler\ClassMerger.cs" />
     <Compile Include="compiler\CodeGenerator.cs" />
     <Compile Include="compiler\CompilationError.cs" />
     <Compile Include="compiler\ConstantEvaluator.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="compiler\parsing\ErrorListener.cs" />
     <Compile Include="compiler\parsing\Parser.cs" />
     <Compile Include="compiler\parsing\ParserValidation.cs" />
+    <Compile Include="compiler\ReplacePlayerVars.cs" />
     <Compile Include="compiler\StringProcessor.cs" />
     <Compile Include="compiler\TreeValueWalker.cs" />
     <Compile Include="compiler\TreeVoidWalker.cs" />

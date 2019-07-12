@@ -273,7 +273,7 @@ namespace Omnium.Core.compiler.parsing
 
         public override IEnumerable<INode> VisitTypeParameter(TypescriptParser.TypeParameterContext context)
         {
-            yield return new GenericTypeDeclaration(context, context.identifier().GetText());
+            yield return new GenericTypeDeclaration(context, context.identifier().GetText(), Visit(context.type()));
         }
 
         public override IEnumerable<INode> VisitBlock(TypescriptParser.BlockContext context)

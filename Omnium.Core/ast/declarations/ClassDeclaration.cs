@@ -15,7 +15,6 @@ namespace Omnium.Core.ast.declarations
         public readonly List<GetterSetterDeclaration> GettersAndSetters = new List<GetterSetterDeclaration>();
         public IEnumerable<MethodDeclaration> MethodDeclarations => Children.OfType<MethodDeclaration>();
         public IEnumerable<VariableDeclaration> Variables => Children.OfType<VariableDeclaration>();
-        public readonly List<ClassDeclaration> EquivalentClassDeclarations = new List<ClassDeclaration>();
         public IEnumerable<GenericTypeDeclaration> GenericTypeDeclarations => Children.OfType<GenericTypeDeclaration>();
         public ITypeNode BaseType => Children.OfType<ITypeNode>().SingleOrDefault();
         public List<MemberModifier> Modifiers = new List<MemberModifier>();
@@ -79,6 +78,15 @@ namespace Omnium.Core.ast.declarations
                 matchingGetterSetter.Setter = null;
             if (matchingGetterSetter.Getter == null && matchingGetterSetter.Setter == null)
                 GettersAndSetters.Remove(matchingGetterSetter);
+        }
+
+        public bool IsPlayerVariableClass()
+        {
+            return BaseType is ReferenceType baseType
+                   && baseType.Declaration is ClassDeclaration baseClass
+                   && baseClass.Parent is ModuleDeclaration baseClassModule
+                   && baseClassModule.Name == "Native"
+                   && baseClass.Name == "PlayerVars";
         }
     }
 }

@@ -8,6 +8,10 @@ import { Motion } from "./motion"
 export class Player {
     private constructor() { }
 
+    public vars<T extends Native.PlayerVars>(): T {
+        return Native.playerVars<T>(this);
+    }
+
     public get altitude() {
         return Native.callNativeArg1Function<Player, number>("Altitude Of", true, false, this);
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -35,6 +36,7 @@ namespace Omnium.Tools
             builder.AppendLine("    {");
             builder.AppendLine("        protected bool skipChildren = false;");
             builder.AppendLine("        public readonly List<CompilationError> Errors = new List<CompilationError>();");
+            builder.AppendLine("        public readonly List<CompilationError> Warnings = new List<CompilationError>();");
             builder.AppendLine();
             builder.AppendLine("        public virtual void Visit(INode node)");
             builder.AppendLine("        {");
@@ -77,7 +79,13 @@ namespace Omnium.Tools
             builder.AppendLine("}");
 
             var result = builder.ToString();
-            Console.WriteLine(result);
+
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\Omnium.Core\\Compiler\\TreeVoidWalker.cs");
+            using (var fileStream = new StreamWriter(File.Create(filePath)))
+            {
+                fileStream.Write(result);
+            }
         }
     }
 }

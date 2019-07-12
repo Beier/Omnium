@@ -87,6 +87,16 @@ namespace Omnium.Core.compiler
             return new GotoTargetStatement(gotoTargetStatement.Context);
         }
 
+        public override INode VisitPlayerVarsExpression(PlayerVarsExpression playerVarsExpression)
+        {
+            return new PlayerVarsExpression(playerVarsExpression.Context, playerVarsExpression.Children.Select(Visit));
+        }
+
+        public override INode VisitPlayerVarsPlayerExpression(PlayerVarsPlayerExpression playerVarsPlayerExpression)
+        {
+            return new PlayerVarsPlayerExpression(playerVarsPlayerExpression.Context, playerVarsPlayerExpression.Children.Select(Visit));
+        }
+
         private T GetClone<T>(T node) where T : class, INode
         {
             if (node == null)
@@ -101,7 +111,7 @@ namespace Omnium.Core.compiler
             return new GenericType(genericType.Context, genericType.Children.Select(Visit));
         }
 
-        public override INode VisitListFilterExpression(ListLambdaExpression listLambdaExpression)
+        public override INode VisitListLambdaExpression(ListLambdaExpression listLambdaExpression)
         {
             return new ListLambdaExpression(listLambdaExpression.Context, listLambdaExpression.Name, listLambdaExpression.Children.Select(Visit));
         }
@@ -164,7 +174,7 @@ namespace Omnium.Core.compiler
 
         public override INode VisitGenericTypeDeclaration(GenericTypeDeclaration genericTypeDeclaration)
         {
-            return new GenericTypeDeclaration(genericTypeDeclaration.Context, genericTypeDeclaration.Name);
+            return new GenericTypeDeclaration(genericTypeDeclaration.Context, genericTypeDeclaration.Name, genericTypeDeclaration.Children.Select(Visit));
         }
 
         public override INode VisitGetterDeclaration(GetterDeclaration getterDeclaration)
@@ -485,7 +495,7 @@ namespace Omnium.Core.compiler
 
         public override INode VisitNativeTrigger(NativeTrigger nativeTrigger)
         {
-            return new NativeTrigger(nativeTrigger.Context, nativeTrigger.Name, nativeTrigger.Arguments);
+            return new NativeTrigger(nativeTrigger.Context, nativeTrigger.Name, nativeTrigger.Arguments.Select(Visit));
         }
     }
 }

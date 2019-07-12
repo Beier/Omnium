@@ -381,7 +381,7 @@ namespace Omnium.Core.compiler
 
         private VariableDeclaration GetOrCreateStateVariable(RuleDeclaration rule)
         {
-            if (rule.StateVariable == null)
+            if (!rule.GlobalVariables.Any(x => x.Name.StartsWith("state")))
             {
                 rule.AddChild(
                     new VariableDeclaration(
@@ -393,7 +393,7 @@ namespace Omnium.Core.compiler
                         })
                     );
             }
-            return rule.StateVariable;
+            return rule.GlobalVariables.Single(x => x.Name.StartsWith("state"));
 
         }
         

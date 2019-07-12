@@ -1,5 +1,6 @@
 ﻿import { Rule } from "rule"
 import { HeroType } from "hero"
+import { Player } from "player"
 import { List } from "list"
 import { } from "strings"
 
@@ -148,6 +149,38 @@ export module Native {
     export function listLambda<T, TLambdaReturn, TReturn>(name: string, list: List<T>, condition: (item: T) => TLambdaReturn): TReturn {
         return null;
     }
+
+    export function chaseOverTime<T>(variable: T, destination: T, seconds: number, reevaluation: ChaseTimeReevaluation = ChaseTimeReevaluation.None) {
+
+    }
+
+    export function chaseAtRate<T>(variable: T, destination: T, rate: number, reevaluation: ChaseRateReevaluation = ChaseRateReevaluation.None) {
+
+    }
+
+    export function stopChasing<T>(variable: T) {
+
+    }
+
+    export function playerVars<T extends PlayerVars>(player: Player): T {
+        return null;
+    }
+
+    export class PlayerVars {
+        public get player(): Player {
+            return null;
+        }
+    }
+}
+
+export enum ChaseTimeReevaluation {
+    DestinationAndDuration = "Destination and Duration",
+    None = "None"
+}
+
+export enum ChaseRateReevaluation {
+    DestinationAndRate = "Destination and Rate",
+    None = "None"
 }
 
 

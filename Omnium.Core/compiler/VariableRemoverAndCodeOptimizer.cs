@@ -32,6 +32,7 @@ namespace Omnium.Core.compiler
             BuildVariableReadsWritesGraph(root);
 
             MoveLocalVariableInitializationsToAssignments(root);
+            MoveChasedVariablesToGlobalVariables(root);
 
             var hadChanges = true;
             while (hadChanges)
@@ -43,6 +44,8 @@ namespace Omnium.Core.compiler
                 hadChanges |= MoveLocalAssignments(root);
                 hadChanges |= RemoveReadVariables();
             }
+
+            var debug = DebugPrint(root);
 
             SimplifyLambdaMethods(root);
             SimplifyRuleTriggers(root);
@@ -61,10 +64,32 @@ namespace Omnium.Core.compiler
                 hadChanges |= RemoveReadVariables();
                 hadChanges |= RemoveGlobalConstants(root);
             }
-            
+
             RemoveLocalVariables(root);
 
             skipChildren = true;
+        }
+
+        private string[][] DebugPrint(Root root)
+        {
+            var rules = root.AllDescendantsAndSelf().OfType<RuleDeclaration>();
+            return rules.Select(rule => new[]
+            {
+                rule.Name,
+                DebugPrint(rule.Trigger),
+                DebugPrint(rule.Condition),
+                DebugPrint(rule.Action)
+            }).ToArray();
+        }
+
+        private string DebugPrint(IExpression expression)
+        {
+            if (expression is LambdaExpression lambdaExpression)
+            {
+                return lambdaExpression.Block.Statements.Select(x => x.ToString()).MkString("\n");
+            }
+
+            return expression?.ToString() ?? "";
         }
 
         private Dictionary<IStatement, List<IStatement>> BuildSuccessorGraph(INode node)
@@ -395,6 +420,28 @@ namespace Omnium.Core.compiler
             }
         }
 
+        public void MoveChasedVariablesToGlobalVariables(Root root)
+        {
+            var startAndStopChases = root.AllDescendantsAndSelf().OfAnyType(typeof(ChaseExpression), typeof(StopChaseExpression)).ToList();
+            var chasedVariables = startAndStopChases.Select(
+                (ChaseExpression x) => x.VariableReference.Declaration,
+                (StopChaseExpression x) => x.VariableReference.Declaration
+            ).Cast<VariableDeclaration>()
+                .ToList();
+
+            foreach (var variableDeclaration in chasedVariables)
+            {
+                if (variableDeclaration.Parent is VariableDeclarationStatement statement)
+                {
+                    var rule = variableDeclaration.NearestAncestorOfType<RuleDeclaration>();
+                    variableDeclaration.Remove();
+                    RemoveStatement(statement);
+                    rule.AddChild(variableDeclaration);
+                }
+                variableDeclaration.IsChased = true;
+            }
+        }
+
         private bool MoveLocalAssignments(Root root)
         {
             bool madeChanges = false;
@@ -434,7 +481,7 @@ namespace Omnium.Core.compiler
                 }
 
                 var assignmentRight = assignment.Right;
-                if (readsAndPredecessors.Count == 1 || IsConstant(assignmentRight))
+                if (readsAndPredecessors.Count == 1 || IsConstant(assignmentRight) || assignmentRight is NativeMethodInvocationExpression nativeMethodInvocation && nativeMethodInvocation.NativeMethodName.ToLower() == "event player")
                 {//Only used once, as the very next thing
                     if (readsAndPredecessors.All(x => assignmentsForRead[x.Item1].Count == 1 && IsSafeToMoveExpressionAlongPath(assignmentRight, x.Item2, x.Item1)))
                     {
@@ -463,7 +510,7 @@ namespace Omnium.Core.compiler
                     }
                 }
 
-                if (assignmentRight is SimpleNameExpression simpleRightSide 
+                if (assignmentRight is SimpleNameExpression simpleRightSide
                     && simpleRightSide.Declaration is VariableDeclaration rightSideVariableDeclaration
                     && rightSideVariableDeclaration.Parent is VariableDeclarationStatement)
                 {
@@ -934,62 +981,73 @@ namespace Omnium.Core.compiler
 
             if (node is RuleDeclaration ruleDeclaration)
             {
-                if (ruleDeclaration.StateVariable != null)
+                var sourceFile = node.NearestAncestorOfType<SourceFile>();
+                var root = sourceFile.NearestAncestorOfType<Root>();
+                foreach (var variableDeclaration in ruleDeclaration.GlobalVariables.ToList())
                 {
-                    var initExpression = ruleDeclaration.StateVariable.InitExpression;
-                    initExpression.Remove();
-                    var root = node.NearestAncestorOfType<Root>();
-                    ExpressionStatement statement;
-                    IExpression variableReference;
-                    IStatement previousStatement;
-                    if (!IsPlayerRule(ruleDeclaration))
-                    {
-                        variableReference = new SimpleNameExpression(ruleDeclaration.Context, ruleDeclaration.StateVariable.Name)
-                        {
-                            Declaration = ruleDeclaration.StateVariable
-                        };
-                        statement = new ExpressionStatement(
-                            ruleDeclaration.Context,
-                            new AssignmentExpression(ruleDeclaration.Context, new INode[]
-                            {
-                                variableReference,
-                                new AssignmentOperator(ruleDeclaration.Context, "="),
-                                initExpression
-                            }));
-                        previousStatement = root.GlobalVariableInitializer.Action.Block.Statements.LastOrDefault() ?? root.GlobalVariableInitializer.Action.Block;
-                        root.GlobalVariableInitializer.Action.Block.AddChild(statement);
-                    }
-                    else
-                    {
-                        variableReference = new MemberExpression(ruleDeclaration.Context, ruleDeclaration.StateVariable.Name, new INode[]
-                        {
-                            NativeMethods.EventPlayer(ruleDeclaration.Context)
-                        })
-                        {
-                            Declaration = ruleDeclaration.StateVariable
-                        };
-                        statement = new ExpressionStatement(
-                            ruleDeclaration.Context,
-                            new AssignmentExpression(ruleDeclaration.Context, new INode[]
-                            {
-                                variableReference,
-                                new AssignmentOperator(ruleDeclaration.Context, "="),
-                                initExpression
-                            }));
-                        previousStatement = root.PlayerVariableInitializer.Action.Block.Statements.LastOrDefault() ?? root.PlayerVariableInitializer.Action.Block;
-                        root.PlayerVariableInitializer.Action.Block.AddChild(statement);
-                    }
 
-                    successors[previousStatement].Add(statement);
-                    successors.Add(statement, new List<IStatement>());
-                    predecessors.Add(statement, new List<IStatement> { previousStatement });
-                    variableWrites[ruleDeclaration.StateVariable].Add(variableReference);
+                    variableDeclaration.Remove();
+                    if (IsPlayerRule(ruleDeclaration))
+                        root.AddChild(variableDeclaration);
+                    else
+                        sourceFile.AddChild(variableDeclaration);
+
+                    var initExpression = variableDeclaration.InitExpression;
+                    if (initExpression != null)
+                    {
+                        initExpression.Remove();
+                        ExpressionStatement statement;
+                        IExpression variableReference;
+                        IStatement previousStatement;
+                        if (!IsPlayerRule(ruleDeclaration))
+                        {
+                            variableReference = new SimpleNameExpression(ruleDeclaration.Context, variableDeclaration.Name)
+                            {
+                                Declaration = variableDeclaration
+                            };
+                            statement = new ExpressionStatement(
+                                ruleDeclaration.Context,
+                                new AssignmentExpression(ruleDeclaration.Context, new INode[]
+                                {
+                                    variableReference,
+                                    new AssignmentOperator(ruleDeclaration.Context, "="),
+                                    initExpression
+                                }));
+                            previousStatement = root.GlobalVariableInitializer.Action.Block.Statements.LastOrDefault() ?? root.GlobalVariableInitializer.Action.Block;
+                            root.GlobalVariableInitializer.Action.Block.AddChild(statement);
+                        }
+                        else
+                        {
+                            variableReference = new MemberExpression(ruleDeclaration.Context, variableDeclaration.Name, new INode[]
+                            {
+                                NativeMethods.EventPlayer(ruleDeclaration.Context)
+                            })
+                            {
+                                Declaration = variableDeclaration
+                            };
+                            statement = new ExpressionStatement(
+                                ruleDeclaration.Context,
+                                new AssignmentExpression(ruleDeclaration.Context, new INode[]
+                                {
+                                    variableReference,
+                                    new AssignmentOperator(ruleDeclaration.Context, "="),
+                                    initExpression
+                                }));
+                            previousStatement = root.PlayerVariableInitializer.Action.Block.Statements.LastOrDefault() ?? root.PlayerVariableInitializer.Action.Block;
+                            root.PlayerVariableInitializer.Action.Block.AddChild(statement);
+                        }
+
+                        successors[previousStatement].Add(statement);
+                        successors.Add(statement, new List<IStatement>());
+                        predecessors.Add(statement, new List<IStatement> { previousStatement });
+                        variableWrites[variableDeclaration].Add(variableReference);
+                    }
                 }
 
                 return;
             }
 
-            foreach (var child in node.Children)
+            foreach (var child in node.Children.ToList())
             {
                 MoveStateVariablesToInitializationRules(child);
             }

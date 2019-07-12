@@ -169,6 +169,12 @@
     <Content Include="ToTypescript\Data\StatusEffects\Input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ToWorkshop\Data\CustomPlayerVariables\ExpectedOutput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ToWorkshop\Data\Chase\ExpectedOutput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ToWorkshop\Data\LowercaseStrings\ExpectedOutput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -304,6 +310,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ToWorkshop\Data\LowercaseStrings\Input.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ToWorkshop\Data\Chase\Input.ts">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ToWorkshop\Data\CustomPlayerVariables\Input.ts">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

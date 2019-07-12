@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Omnium.Core.ast;
@@ -52,6 +53,16 @@ namespace Omnium.Core.compiler
                 case "listLambda":
                     ConvertToListLambda(methodInvocationExpression);
                     break;
+                case "chaseOverTime":
+                case "chaseAtRate":
+                    ConvertToChase(memberExpression.Name, methodInvocationExpression);
+                    break;
+                case "stopChasing":
+                    ConvertToStopChase(methodInvocationExpression);
+                    break;
+                case "playerVars":
+                    ConvertToPlayerVarsExpression(methodInvocationExpression);
+                    break;
             }
         }
 
@@ -62,6 +73,16 @@ namespace Omnium.Core.compiler
                 var root = moduleDeclaration.NearestAncestorOfType<Root>();
                 moduleDeclaration.Remove();
                 root.NativeModule = moduleDeclaration;
+            }
+        }
+
+        public override void ExitMemberExpression(MemberExpression memberExpression)
+        {
+            if (memberExpression.Base is ThisExpression
+                && memberExpression.Name == "player"
+                && memberExpression.NearestAncestorOfType<ClassDeclaration>()?.IsPlayerVariableClass() == true)
+            {
+                memberExpression.ReplaceWith(new PlayerVarsPlayerExpression(memberExpression.Context, new []{memberExpression.Base}));
             }
         }
 
@@ -324,7 +345,91 @@ namespace Omnium.Core.compiler
 
             methodInvocationExpression.ReplaceWith(new ListLambdaExpression(context, name.UnquotedText, methodInvocationExpression.Arguments.Skip(1).Concat<INode>(returnType.Yield())));
         }
-        
+
+        private void ConvertToChase(string name, MethodInvocationExpression methodInvocationExpression)
+        {
+            var context = methodInvocationExpression.Context;
+            if (!ValidateSignature<IStatement, IExpression>(methodInvocationExpression, 0, 3, 4))
+                return;
+
+            if (!(methodInvocationExpression.Arguments.First() is INameExpression))
+            {
+                Errors.Add(new CompilationError(context, "The first argument must be a variable."));
+                return;
+            }
+
+            var isChaseOverTime = name == "chaseOverTime";
+            var arguments = methodInvocationExpression.Arguments.ToList();
+            if (arguments.Count == 3)
+            {
+                var enumName = isChaseOverTime ? "ChaseTimeReevaluation" : "ChaseRateReevaluation";
+                var enumDeclaration =
+                    methodInvocationExpression
+                        .NearestAncestorOfType<Root>()
+                        .SourceFiles.SelectMany(x => x.EnumDeclarations)
+                        .Single(x => x.Name == enumName);
+                var enumValue = enumDeclaration.Values.Single(x => x.Name == "None");
+                arguments.Add(
+                    new MemberExpression(context, "None", new[]
+                    {
+                        new SimpleNameExpression(context, enumName)
+                        {
+                            Declaration = enumDeclaration,
+                            Type = new StaticReference(enumDeclaration)
+                        },
+                    })
+                    {
+                        Declaration = enumValue,
+                        Type = new StaticReference(enumValue)
+                    });
+            }
+            methodInvocationExpression.ReplaceWith(new ChaseExpression(context, isChaseOverTime, arguments));
+        }
+
+        private void ConvertToStopChase(MethodInvocationExpression methodInvocationExpression)
+        {
+            var context = methodInvocationExpression.Context;
+            if (!ValidateSignature<IStatement, IExpression>(methodInvocationExpression, 0, 1))
+                return;
+
+            if (!(methodInvocationExpression.Arguments.First() is INameExpression))
+            {
+                Errors.Add(new CompilationError(context, "The first argument must be a variable."));
+                return;
+            }
+            methodInvocationExpression.ReplaceWith(new StopChaseExpression(context, methodInvocationExpression.Arguments));
+        }
+
+        private void ConvertToPlayerVarsExpression(MethodInvocationExpression methodInvocationExpression)
+        {
+            var context = methodInvocationExpression.Context;
+            if (!ValidateSignature<IStatement, IExpression>(methodInvocationExpression, 1, 1))
+                return;
+
+            ReferenceType baseType = null;
+            var genericType = methodInvocationExpression.GenericTypes.Single();
+            switch ((genericType as ReferenceType)?.Declaration)
+            {
+                case ClassDeclaration classDeclaration:
+                    baseType = classDeclaration.BaseType as ReferenceType;
+                    break;
+                case GenericTypeDeclaration genericTypeDeclaration:
+                    baseType = genericTypeDeclaration.BaseType as ReferenceType;
+                    break;
+            }
+
+            if (!(baseType?.Declaration is ClassDeclaration baseClassDeclaration)
+                || !(baseClassDeclaration.Parent is ModuleDeclaration baseClassModule)
+                || baseClassModule.Parent != null
+                || baseClassModule.Name != "Native"
+                || baseClassDeclaration.Name != "PlayerVars")
+            {
+                Errors.Add(new CompilationError(context, "The generic type must extend Native.PlayerVars"));
+            }
+
+            methodInvocationExpression.ReplaceWith(new PlayerVarsExpression(context, genericType.Yield().Concat<INode>(methodInvocationExpression.Arguments)));
+        }
+
         private bool ValidateSignature<T1>(MethodInvocationExpression methodInvocationExpression, int numberOfGenerics, int numberOfArguments)
         {
             return ValidateSignature<T1, T1>(methodInvocationExpression, numberOfGenerics, numberOfArguments, numberOfArguments);

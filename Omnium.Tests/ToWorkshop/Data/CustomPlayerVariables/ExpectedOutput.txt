@@ -1,0 +1,75 @@
+﻿rule("Initialize player variables")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	actions
+	{
+		Set Player Variable(Event player, A, Null);
+		Set Player Variable(Event player, B, 0);
+		Set Player Variable(Event player, C, 0);
+		Set Player Variable(Event player, D, Null);
+	}
+}
+
+rule("On player took a shot")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	conditions
+	{
+		Is firing primary(Event Player) == true;
+	}
+	
+	actions
+	{
+		Set Player Variable(Event player, E, Eye position(Event Player));
+		Set Player Variable(Event player, E, Ray cast hit position(Player Variable(Event Player, E), Add(Player Variable(Event Player, E), Multiply(1000, Facing direction of(Event Player))), Null, All Players(Team(All)), false));
+		Skip If(Compare(Player Variable(Event Player, A), !=, Null), 4);
+		Set Player Variable(Event Player, A, Player Variable(Event Player, E));
+		Create icon(Event Player, Player Variable(Event Player, E), Circle, None, Red, true);
+		Set Player Variable(Event Player, D, Last created entity);
+		Abort;
+		Set Player Variable(Event player, E, Distance between(Player Variable(Event Player, E), Player Variable(Event Player, A)));
+		Set Player Variable(Event Player, B, Add(Player Variable(Event Player, B), 1));
+		Set Player Variable(Event Player, C, Add(Player Variable(Event Player, C), Player Variable(Event Player, E)));
+		Big Message(Event Player, String("{0}: {1}", String("Distance", Null, Null, Null), String("{0}: {1}", String("{0}, {1}", Player Variable(Event Player, E), String("{0} {1}", String("average", Null, Null, Null), String("distance", Null, Null, Null), Null), Null), Divide(Player Variable(Event Player, C), Player Variable(Event Player, B)), Null), Null));
+	}
+}
+
+rule("Reset")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	conditions
+	{
+		Is using ability 1(Event Player) == true;
+	}
+	
+	actions
+	{
+		Skip If(Compare(Player Variable(Event Player, A), ==, Null), 1);
+		Create icon(Event Player, Player Variable(Event Player, A), X, None, White, true);
+		Set Player Variable(Event Player, A, Null);
+		Set Player Variable(Event Player, B, 0);
+		Set Player Variable(Event Player, C, 0);
+		Skip If(Compare(Player Variable(Event Player, D), ==, Null), 2);
+		Destroy icon(Player Variable(Event Player, D));
+		Set Player Variable(Event Player, D, Null);
+	}
+}
+

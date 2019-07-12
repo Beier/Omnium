@@ -40,115 +40,6 @@ namespace Omnium.Core.compiler
             }
         }
 
-        private bool IsReferenceToGenericClass(INameExpression nameExpression)
-        {
-            return nameExpression.Declaration is ClassDeclaration classDeclaration &&
-                   classDeclaration.GenericTypeDeclarations.Any();
-        }
-
-        //private void RemoveClassGenerics(Root root)
-        //{
-        //    var replacedClassDeclarations = new Dictionary<ClassDeclaration, List<(List<ITypeNode>, ClassDeclaration)>>();
-        //    while (true)
-        //    {
-        //        var referencesToGenericClasses = root.AllDescendantsAndSelf().OfType<INameExpression>()
-        //            .Where(IsReferenceToGenericClass).ToList();
-        //        if (referencesToGenericClasses.Count == 0)
-        //            break;
-        //        foreach (var nameExpression in referencesToGenericClasses)
-        //        {
-        //            var genericClass = (ClassDeclaration)nameExpression.Declaration;
-        //            ClassDeclaration normalizedClass = null;
-        //            if (!(nameExpression.Parent is GenericType genericType) || genericType.GenericTypes.Count() != genericClass.GenericTypeDeclarations.Count())
-        //            {
-        //                Errors.Add(new CompilationError(nameExpression.Context, $"{genericClass.Name} has {genericClass.GenericTypeDeclarations.Count()} generic types."));
-        //                continue;
-        //            }
-        //            if (replacedClassDeclarations.TryGetValue(genericClass, out var replacements))
-        //            {
-        //                foreach (var (replacedTypes, classDeclaration) in replacements)
-        //                {
-        //                    if (replacedTypes.Zip(genericType.GenericTypes, (n1, n2) => n1.IsEquivalentTo(n2)).All(x => x))
-        //                    {
-        //                        normalizedClass = classDeclaration;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //            if (normalizedClass == null)
-        //            {
-        //                normalizedClass = AstCloner.Clone(genericClass);
-        //                foreach (var referenceType in normalizedClass.AllDescendantsAndSelf().OfType<ReferenceType>().ToList())
-        //                {
-        //                    var index = normalizedClass.GenericTypeDeclarations.IndexOf(referenceType.Declaration);
-        //                    if (index == -1)
-        //                        continue;
-        //                    referenceType.ReplaceWith(AstCloner.Clone(genericType.GenericTypes.ElementAt(index)));
-        //                }
-        //                normalizedClass.RemoveChildren(normalizedClass.GenericTypeDeclarations);
-        //                genericClass.Parent.AddChild(normalizedClass);
-        //            }
-
-        //            var nameExpressionClone = AstCloner.Clone(nameExpression);
-        //            nameExpressionClone.Declaration = normalizedClass;
-
-        //        }
-        //    }
-
-        //    //Todo: validate all generic types are removed
-        //    //Todo: remove all generic classes
-
-
-
-
-
-        //    var classUsages = root.AllDescendantsAndSelf().OfType<INameExpression>().GroupBy(x => x.Declaration)
-        //        .ToDictionary(x => x.Key, x => x.ToList());
-        //    foreach (var classDeclaration in GetClassDeclarations(root).ToList())
-        //    {
-        //        if (!classDeclaration.GenericTypeDeclarations.Any())
-        //            continue;
-        //        if (!classUsages.TryGetValue(classDeclaration, out var usages))
-        //            classDeclaration.Remove();
-        //        var extractedTypeCombinations = new List<(List<ITypeNode>, ClassDeclaration)>();
-        //        foreach (var nameExpression in usages)
-        //        {
-        //            if (!(nameExpression.Parent is GenericType genericType) || genericType.GenericTypes.Count() != classDeclaration.GenericTypeDeclarations.Count())
-        //            {
-        //                Errors.Add(new CompilationError(nameExpression.Context, $"{classDeclaration.Name} has {classDeclaration.GenericTypeDeclarations.Count()} generic types."));
-        //                continue;
-        //            }
-
-        //            ClassDeclaration replacedClassDeclaration = null;
-        //            foreach (var (usedTypes, c) in extractedTypeCombinations)
-        //            {
-        //                if (usedTypes.Zip(genericType.GenericTypes, (n1, n2) => n1.IsEquivalentTo(n2)).All(x => x))
-        //                {
-        //                    replacedClassDeclaration = c;
-        //                    break;
-        //                }
-        //            }
-
-        //            if (replacedClassDeclaration == null)
-        //            {
-        //                //Todo: we could
-        //                replacedClassDeclaration = AstCloner.Clone(classDeclaration);
-        //                foreach (var referenceType in replacedClassDeclaration.AllDescendantsAndSelf().OfType<ReferenceType>().ToList())
-        //                {
-        //                    var index = replacedClassDeclaration.GenericTypeDeclarations.IndexOf(referenceType.Declaration);
-        //                    if (index == -1)
-        //                        continue;
-        //                    referenceType.ReplaceWith(AstCloner.Clone(genericType.GenericTypes.ElementAt(index)));
-        //                }
-        //            }
-
-        //        }
-        //        var usageTypes = usages.Select(x =>
-        //        {
-        //        })
-        //    }
-        //}
-
         private IEnumerable<ClassDeclaration> GetClassDeclarations(INode node)
         {
             switch (node)
@@ -202,14 +93,14 @@ namespace Omnium.Core.compiler
             var classDeclaration = (ClassDeclaration)fieldDeclaration.Parent;
             if (!fieldDeclaration.Modifiers.Contains(MemberModifier.Static))
             {
-                if (classDeclaration.Name == "Player")
+                if (classDeclaration.IsPlayerVariableClass())
                 {
                     var root = fieldDeclaration.NearestAncestorOfType<Root>();
                     fieldDeclaration.Remove();
                     root.AddChild(fieldDeclaration);
                 }
                 else
-                    Errors.Add(new CompilationError(fieldDeclaration.Context, "State is only possible for the Player class."));
+                    Errors.Add(new CompilationError(fieldDeclaration.Context, "State is only possible for the classes that extends Native.PlayerVars."));
 
                 return;
             }

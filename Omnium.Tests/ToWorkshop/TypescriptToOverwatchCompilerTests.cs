@@ -17,6 +17,8 @@ namespace Omnium.Tests.ToWorkshop
         [TestCase("ModuleAndClassOfSameName")]
         [TestCase("LambdaMethods")]
         [TestCase("LowercaseStrings")]
+        [TestCase("Chase")]
+        [TestCase("CustomPlayerVariables")]
         public void RunTest(string testName)
         {
             var compiler = new TypescriptToOverwatchCompiler(new Parser());

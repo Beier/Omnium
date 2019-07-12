@@ -323,7 +323,7 @@ typeParameterList
 	;
 
 typeParameter
-	: identifier
+	: identifier (EXTENDS type)?
 	;
 
 classBody

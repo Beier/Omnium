@@ -100,6 +100,10 @@ export class Vector {
         return Native.callNativeArg2Function<Vector, Vector, number>("Distance between", false, false, this, other);
     }
 
+    public get length() {
+        return this.distanceTo(Vector.zero);
+    }
+
     public hasClearLineOfSightTo(target: Vector, barriers: LineOfSight.Barriers = LineOfSight.Barriers.DoesNotBlockLineOfSight) {
         return LineOfSight.isClearBetween(this, target, barriers);
     }

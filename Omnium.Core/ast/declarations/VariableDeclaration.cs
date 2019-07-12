@@ -19,6 +19,7 @@ namespace Omnium.Core.ast.declarations
         public readonly List<MemberModifier> Modifiers = new List<MemberModifier>();
         public VariableType? VariableType { get; set; }
         public ITypeNode Type => Children.OfType<ITypeNode>().SingleOrDefault();
+        public bool IsChased = false;
 
         public IExpression InitExpression => Children.OfType<IExpression>().SingleOrDefault();
 

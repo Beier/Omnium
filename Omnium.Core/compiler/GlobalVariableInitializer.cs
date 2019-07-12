@@ -28,7 +28,7 @@ namespace Omnium.Core.compiler
                     "Initialize player variables",
                     new INode[]
                     {
-                        new NativeTrigger(root.Context, "Ongoing - All", new INode[]
+                        new NativeTrigger(root.Context, "Ongoing - Each Player", new INode[]
                         {
                             new SimpleNameExpression(root.Context, "All")
                             {
@@ -72,9 +72,9 @@ namespace Omnium.Core.compiler
             var initExpression = variableDeclaration.InitExpression;
             initExpression.Remove();
             var root = variableDeclaration.NearestAncestorOfType<Root>();
-            if (variableDeclaration.Parent is ClassDeclaration)
+            if (variableDeclaration.Parent is Root)
             {
-                root.GlobalVariableInitializer.Action.Block.AddChild(new ExpressionStatement(
+                root.PlayerVariableInitializer.Action.Block.AddChild(new ExpressionStatement(
                     variableDeclaration.Context,
                     new AssignmentExpression(variableDeclaration.Context, new INode[]
                     {

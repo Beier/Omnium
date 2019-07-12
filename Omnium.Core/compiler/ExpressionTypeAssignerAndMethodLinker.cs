@@ -16,6 +16,8 @@ namespace Omnium.Core.compiler
     {
         public override void ExitSimpleNameExpression(SimpleNameExpression simpleNameExpression)
         {
+            if (simpleNameExpression.Declarations.Any())
+                return;
             var ancestors = simpleNameExpression.AllAncestorsAndSelf()
                 .OfAnyType(typeof(IHasVariables),
                 typeof(ClassDeclaration),
@@ -64,10 +66,9 @@ namespace Omnium.Core.compiler
 
             if (ancestor is ClassDeclaration classDeclaration)
             {
-                var visibleClasses = classDeclaration.EquivalentClassDeclarations.Where(x => !checkVisibility || x.IsVisibleFrom(source)).ToList();
-                matchingDeclarations.AddRange(visibleClasses.SelectMany(x => x.GettersAndSetters).Where(x => x.Name == name));
-                matchingDeclarations.AddRange(visibleClasses.SelectMany(x => x.MethodDeclarations).Where(x => x.Name == name));
-                matchingDeclarations.AddRange(visibleClasses.SelectMany(x => x.Variables).Where(x => x.Name == name));
+                matchingDeclarations.AddRange(classDeclaration.GettersAndSetters.Where(x => x.Name == name));
+                matchingDeclarations.AddRange(classDeclaration.MethodDeclarations.Where(x => x.Name == name));
+                matchingDeclarations.AddRange(classDeclaration.Variables.Where(x => x.Name == name));
             }
             else if (ancestor is IHasVariables variableContainer)
             {
@@ -385,6 +386,8 @@ namespace Omnium.Core.compiler
         }
         public void ExitMemberExpression(MemberExpression memberExpression, IType baseType)
         {
+            if (memberExpression.Declarations.Any())
+                return;
             switch (baseType.Unwrap())
             {
                 case StaticReference staticReference:
@@ -870,6 +873,37 @@ namespace Omnium.Core.compiler
                 .SelectMany(x => x.ClassDeclarations)
                 .Single(x => x.Name == "Event");
             nativeTrigger.Type = new ReferenceType(nativeTrigger.Context, eventDeclaration);
+        }
+
+        public override void ExitChaseExpression(ChaseExpression chaseExpression)
+        {
+            if (!(chaseExpression.VariableReference.Declaration is VariableDeclaration))
+                Errors.Add(new CompilationError(chaseExpression.Context, "The first argument must be a variable."));
+            if (!chaseExpression.VariableReference.Type.IsEquivalentTo(chaseExpression.Destination.Type))
+                Errors.Add(new CompilationError(chaseExpression.Context, "Variable and destination must be of same types"));
+            chaseExpression.Type = new VoidType(chaseExpression.Context);
+        }
+
+        public override void ExitStopChaseExpression(StopChaseExpression stopChaseExpression)
+        {
+            if (!(stopChaseExpression.VariableReference.Declaration is VariableDeclaration))
+                Errors.Add(new CompilationError(stopChaseExpression.Context, "The first argument must be a variable."));
+            stopChaseExpression.Type = new VoidType(stopChaseExpression.Context);
+        }
+
+        public override void ExitPlayerVarsExpression(PlayerVarsExpression playerVarsExpression)
+        {
+            playerVarsExpression.Type = playerVarsExpression.ReturnType;
+        }
+
+        public override void ExitPlayerVarsPlayerExpression(PlayerVarsPlayerExpression playerVarsPlayerExpression)
+        {
+            var playerClass = playerVarsPlayerExpression.NearestAncestorOfType<Root>().SourceFiles.SelectMany(x => x.ClassDeclarations)
+                .Where(x => x.Name == "Player").ToList();
+
+            if (playerClass.Count > 1)
+                throw new CompilationError(playerClass.First().Context, "The class 'Player' can not be duplicated");
+            playerVarsPlayerExpression.Type = new ReferenceType(playerVarsPlayerExpression.Context, playerClass.First());
         }
 
         public override void ExitClassDeclaration(ClassDeclaration classDeclaration)

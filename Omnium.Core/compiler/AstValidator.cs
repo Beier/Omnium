@@ -144,15 +144,16 @@ namespace Omnium.Core.compiler
 
             if (classDeclaration.BaseType != null)
             {
-                if (!(classDeclaration.BaseType is GenericType genericType
-                      && genericType.Base is ReferenceType referenceType
-                      && referenceType.Identifiers.Count() == 1
-                      && referenceType.Identifiers.Single().Text == "Array"
-                      && genericType.GenericTypes.Count() == 1))
-                    Errors.Add(new CompilationError(classDeclaration.Context, "Object inheritance is not supported."));
-                else if (classDeclaration.Name == "List")
+                if (classDeclaration.BaseType is GenericType genericType
+                    && genericType.Base is ReferenceType referenceType
+                    && referenceType.Identifiers.Count() == 1
+                    && referenceType.Identifiers.Single().Text == "Array"
+                    && genericType.GenericTypes.Count() == 1
+                    && classDeclaration.Name == "List")
+                {
                     classDeclaration.NearestAncestorOfType<Root>().ListDeclaration = classDeclaration;
-                classDeclaration.BaseType?.Remove();
+                    classDeclaration.BaseType?.Remove();
+                }
             }
         }
 

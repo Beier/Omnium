@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Omnium.Core.ast;
 using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
@@ -38,6 +39,26 @@ namespace Omnium.Core.compiler
                 if (child is VariableDeclaration vd && vd.Type == null && !(child.Parent is ForeachStatement))
                     throw new Exception();
                 CheckForVariablesWithoutTypesa(child);
+            }
+        }
+
+        public static void CheckForReferencesToLocalVariablesInOtherFunctionsa(INode node)
+        {
+            foreach (var nameExpression in node.AllDescendantsAndSelf().OfType<INameExpression>())
+            {
+                if (nameExpression.Declarations.Count != 1)
+                    continue;
+                var variableDeclaration = nameExpression.Declaration as VariableDeclaration;
+                if (variableDeclaration == null)
+                    continue;
+                var nameExpressionParent = nameExpression.NearestAncestorOfAnyType(typeof(MethodDeclaration), typeof(LambdaExpression));
+                if (nameExpression == null)
+                    continue;
+                var variableDeclarationParent = variableDeclaration.NearestAncestorOfAnyType(typeof(MethodDeclaration), typeof(LambdaExpression));
+                if (variableDeclarationParent == null)
+                    continue;
+                if (nameExpressionParent != variableDeclarationParent)
+                    throw new Exception();
             }
         }
 

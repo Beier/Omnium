@@ -121,5 +121,16 @@ namespace Omnium.Core.compiler
 
             return declarations;
         }
+
+        public override void ExitClassDeclaration(ClassDeclaration classDeclaration)
+        {
+            if (classDeclaration.BaseType != null)
+            {
+                if (!classDeclaration.IsPlayerVariableClass())
+                {
+                    Errors.Add(new CompilationError(classDeclaration.Context, "Object inheritance is not supported to other classes than Native.PlayerVars."));
+                }
+            }
+        }
     }
 }

@@ -112,7 +112,7 @@ namespace Omnium.Core.compiler
         {
             if (invocation.Parent == null)
                 return;
-            
+
             var context = invocation.Context;
             var parentStatement = invocation.NearestAncestorOfType<IStatement>();
             var discardReturnValue = invocation.Parent is ExpressionStatement;
