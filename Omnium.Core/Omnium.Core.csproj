@@ -156,6 +156,7 @@
     <Compile Include="compiler\VariableRemoverAndCodeOptimizer.cs" />
     <Compile Include="extensions\EnumerableExtensions.cs" />
     <Compile Include="extensions\RuleContextExtensions.cs" />
+    <Compile Include="NumberWheel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

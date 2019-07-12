@@ -112,6 +112,7 @@ namespace Omnium.Core.compiler
         {
             if (invocation.Parent == null)
                 return;
+            
             var context = invocation.Context;
             var parentStatement = invocation.NearestAncestorOfType<IStatement>();
             var discardReturnValue = invocation.Parent is ExpressionStatement;
@@ -123,7 +124,7 @@ namespace Omnium.Core.compiler
             {
                 returnValueVar = new VariableDeclaration(
                     context,
-                    declaration.Name + new Random().Next(),
+                    declaration.Name + NumberWheel.Next(),
                     new INode[] { AstCloner.Clone(declaration.ReturnType) });
                 var variableDeclarationStatement = new VariableDeclarationStatement(context, returnValueVar);
                 block.AddChildBefore(parentStatement, variableDeclarationStatement);
@@ -154,12 +155,21 @@ namespace Omnium.Core.compiler
                         parameters[i].AddChild(arguments[i]);
                 }
                 parameters[i].Remove();
+                parameters[i].Name += NumberWheel.Next();
                 var variableDeclarationStatement = new VariableDeclarationStatement(parameters[i].Context, parameters[i]);
                 block.AddChildBefore(parentStatement, variableDeclarationStatement);
                 block.VariableDeclarations.Add(parameters[i]);
                 addedStatements.Add(variableDeclarationStatement);
             }
 
+            foreach (var expression in clonedDeclaration.AllDescendantsAndSelf().OfType<SimpleNameExpression>())
+            {
+                var index = parameters.IndexOf(expression.Declaration);
+                if (index == -1)
+                    continue;
+                expression.Name = parameters[index].Name;
+            }
+            
             var body = clonedDeclaration.Body;
             block.AddChildBefore(parentStatement, body);
             addedStatements.Add(body);

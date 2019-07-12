@@ -146,7 +146,7 @@ namespace Omnium.Core.compiler
                 var statement = assignmentExpression.NearestAncestorOfType<IStatement>();
                 var block = (BlockStatement)statement.Parent;
                 var variable = new VariableDeclaration(assignmentExpression.Context,
-                    "var" + new Random().Next(),
+                    "var" + NumberWheel.Next(),
                     new INode[]
                     {
                         assignmentExpression.Type.Wrap(assignmentExpression.Context),

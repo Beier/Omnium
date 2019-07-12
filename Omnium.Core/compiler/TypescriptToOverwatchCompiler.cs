@@ -64,10 +64,9 @@ namespace Omnium.Core.compiler
 
             /*
              *  Todo:
-             *  - Lowercase string match warning
              *  - Chase: Single global variable
+             *  - Reevaluate: Do not merge with assignments after
              *  - Constant native methods
-             *  - Use arrays for global variables if we have too many.
              *  - Refactor: Split into folders
              *  - Optional types
              *

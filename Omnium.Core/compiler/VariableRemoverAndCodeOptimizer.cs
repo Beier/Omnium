@@ -6,6 +6,7 @@ using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
 using Omnium.Core.ast.expressions.literals;
 using Omnium.Core.ast.statements;
+using Omnium.Core.ast.types;
 using Omnium.Core.extensions;
 
 namespace Omnium.Core.compiler
@@ -41,7 +42,6 @@ namespace Omnium.Core.compiler
                 hadChanges |= ConstantEvaluator.EvaluateConstants(root);
                 hadChanges |= MoveLocalAssignments(root);
                 hadChanges |= RemoveReadVariables();
-                hadChanges |= RemoveIdentityAssignments();
             }
 
             SimplifyLambdaMethods(root);
@@ -60,11 +60,9 @@ namespace Omnium.Core.compiler
                 hadChanges |= MoveLocalAssignments(root);
                 hadChanges |= RemoveReadVariables();
                 hadChanges |= RemoveGlobalConstants(root);
-                hadChanges |= RemoveIdentityAssignments();
             }
-
+            
             RemoveLocalVariables(root);
-            RemoveIdentityAssignments();
 
             skipChildren = true;
         }
@@ -251,7 +249,7 @@ namespace Omnium.Core.compiler
             foreach (var successorPair in successors.ToList())
             {
                 var statement = successorPair.Key;
-                
+
                 switch (statement)
                 {
                     case GotoTargetStatement gotoTarget:
@@ -332,12 +330,12 @@ namespace Omnium.Core.compiler
                                     gotoStatement.TargetStatement = skippedGotoStatement.TargetStatement;
                                     successors[gotoStatement].Add(gotoStatement.TargetStatement);
                                     predecessors[gotoStatement.TargetStatement].Add(gotoStatement);
-                                    
+
                                     skippedGotoStatement.Remove();
                                     predecessors.Remove(skippedGotoStatement);
                                     successors.Remove(skippedGotoStatement);
 
-                                    var negation = new UnaryExpression(gotoStatement.Context, new []{new Token(gotoStatement.Context, "!")});
+                                    var negation = new UnaryExpression(gotoStatement.Context, new[] { new Token(gotoStatement.Context, "!") });
                                     var condition = gotoStatement.Condition;
                                     condition.ReplaceWith(negation);
                                     negation.AddChild(condition);
@@ -395,22 +393,6 @@ namespace Omnium.Core.compiler
                     }
                 }
             }
-        }
-
-        private bool RemoveIdentityAssignments()
-        {
-            bool madeChanges = false;
-            foreach (var assignment in variableWrites.Values.SelectMany(x => x.Select(y => (AssignmentExpression)y.Parent)).ToList())
-            {
-                if (assignment.Left is INameExpression nameExpression1 && assignment.Right is INameExpression nameExpression2 
-                    && nameExpression1.Declaration == nameExpression2.Declaration)
-                { 
-                    RemoveStatement((IStatement) assignment.Parent);
-                    madeChanges = true;
-                }
-            }
-
-            return madeChanges;
         }
 
         private bool MoveLocalAssignments(Root root)
@@ -480,11 +462,64 @@ namespace Omnium.Core.compiler
                         continue;
                     }
                 }
+
+                if (assignmentRight is SimpleNameExpression simpleRightSide 
+                    && simpleRightSide.Declaration is VariableDeclaration rightSideVariableDeclaration
+                    && rightSideVariableDeclaration.Parent is VariableDeclarationStatement)
+                {
+                    //In the path that this variable is used, there must be no predecessor assignment to the right side variable that does not go past this assignment.
+                    var allFutureReads = readsAndPredecessors.Select(x => x.Item1).ToList();
+                    if (!HasPredecessorPathToRightSideVariableAssignment(assignment, rightSideVariableDeclaration, allFutureReads))
+                    {
+                        foreach (SimpleNameExpression futureRead in allFutureReads)
+                        {
+                            variableReads[variableDeclaration].Remove(futureRead);
+                            futureRead.Name = rightSideVariableDeclaration.Name;
+                            futureRead.Declaration = rightSideVariableDeclaration;
+                            variableReads[rightSideVariableDeclaration].Add(futureRead);
+                        }
+                        RemoveStatement((IStatement)assignment.Parent);
+                        madeChanges = true;
+                        continue;
+                    }
+                }
             }
 
             return madeChanges;
         }
-        
+
+        private bool HasPredecessorPathToRightSideVariableAssignment(AssignmentExpression originalAssignment, VariableDeclaration rightSideVariable, IEnumerable<IExpression> reads)
+        {
+            var originalAssignmentStatement = (ExpressionStatement)originalAssignment.Parent;
+            var seenStatements = new HashSet<IStatement>();
+            var queue = new Queue<IStatement>();
+            foreach (var predecessor in reads.SelectMany(read => predecessors[read.NearestAncestorOfType<IStatement>()]))
+            {
+                queue.Enqueue(predecessor);
+            }
+
+            while (queue.Count > 0)
+            {
+                var statement = queue.Dequeue();
+                if (seenStatements.Contains(statement))
+                    continue;
+                seenStatements.Add(statement);
+                if (statement == originalAssignmentStatement)
+                    continue;
+                if (statement is ExpressionStatement expressionStatement
+                    && expressionStatement.Expression is AssignmentExpression predecessorAssignment
+                    && predecessorAssignment.Left is INameExpression predecessorAssignmentTarget
+                    && predecessorAssignmentTarget.Declaration == rightSideVariable)
+                    return true;
+                foreach (var predecessor in predecessors[statement])
+                {
+                    queue.Enqueue(predecessor);
+                }
+            }
+
+            return false;
+        }
+
         private void ProcessAddedLambdaStatements(INode node)
         {
             foreach (var lambdaExpression in node.FirstDescendantsOfType<LambdaExpression>())
@@ -570,7 +605,6 @@ namespace Omnium.Core.compiler
                     queue.Enqueue((successor, new HashSet<IStatement>(predecessors.Concat(statement))));
                 }
             }
-            Debug.CheckForErrorsInParentChildRelationShips(assignment.NearestAncestorOfType<Root>());
             if (readsForStatement.Any(x => readsForStatement.Any(y => x.Key != y.Key && x.Value.Any(z => y.Value.Select(h => h.Item1).Contains(z.Item1)))))
                 throw new Exception();
             if (readsForStatement.Any(x => x.Value.Count != x.Value.DistinctBy(y => y.Item1).Count()))
@@ -1001,8 +1035,12 @@ namespace Omnium.Core.compiler
 
         private void RemoveLocalVariables(Root root)
         {
-            var globalVarsForLocalVars = new List<VariableDeclaration>();
-            var globalPlayerVarsForLocalVars = new List<VariableDeclaration>();
+            //Is player, is array
+            var globalVars = new Dictionary<(bool, bool), List<VariableDeclaration>>();
+            globalVars.Add((false, false), new List<VariableDeclaration>());
+            globalVars.Add((false, true), new List<VariableDeclaration>());
+            globalVars.Add((true, false), new List<VariableDeclaration>());
+            globalVars.Add((true, true), new List<VariableDeclaration>());
             foreach (var rule in GetRules(root))
             {
                 var assignmentsToLocals = rule.Action.Block
@@ -1010,8 +1048,12 @@ namespace Omnium.Core.compiler
                     .OfType<AssignmentExpression>()
                     .Where(x => GetAssignmentTarget(x).Parent is VariableDeclarationStatement)
                     .ToList();
-                var usedVariablesWithoutWait = new List<(VariableDeclaration, HashSet<INode>)>();
-                var usedVariablesWithWaits = new List<(VariableDeclaration, HashSet<INode>)>();
+                //Is array, is used across wait
+                var locallyUsedVariables = new Dictionary<(bool, bool), List<(VariableDeclaration, HashSet<INode>)>>();
+                locallyUsedVariables.Add((false, false), new List<(VariableDeclaration, HashSet<INode>)>());
+                locallyUsedVariables.Add((false, true), new List<(VariableDeclaration, HashSet<INode>)>());
+                locallyUsedVariables.Add((true, false), new List<(VariableDeclaration, HashSet<INode>)>());
+                locallyUsedVariables.Add((true, true), new List<(VariableDeclaration, HashSet<INode>)>());
 
                 var connectedComponents = new List<(List<AssignmentExpression>, List<IExpression>)>();
                 foreach (var assignment in assignmentsToLocals)
@@ -1021,7 +1063,7 @@ namespace Omnium.Core.compiler
                     var existingComponents = reads.SelectMany(read => connectedComponents.Where(x => x.Item2.Contains(read))).Distinct().ToList();
                     if (existingComponents.Count == 0)
                     {
-                        connectedComponents.Add((new List<AssignmentExpression>{assignment}, reads));
+                        connectedComponents.Add((new List<AssignmentExpression> { assignment }, reads));
                     }
                     else if (existingComponents.Count == 1)
                     {
@@ -1044,6 +1086,11 @@ namespace Omnium.Core.compiler
                 foreach (var connectedComponent in connectedComponents)
                 {
                     var (assignments, reads) = connectedComponent;
+                    var types = assignments.Select(x => ((VariableDeclaration)((INameExpression)x.Left).Declaration).Type);
+                    var isArray = types.Any(x => x.IsList(root));
+                    var type = isArray
+                        ? types.First(x => x.IsList(root))
+                        : types.First();
                     var localVar = GetAssignmentTarget(assignments[0]);
                     var sourceFile = assignments[0].NearestAncestorOfType<SourceFile>();
                     var readsAndPredecessors = assignments.SelectMany(assignment => FindReadsAndStatementsTowardsRead(localVar, assignment))
@@ -1063,13 +1110,13 @@ namespace Omnium.Core.compiler
                                 .SelectMany(y => y.AllDescendantsAndSelf())
                                 .Concat(expressionsBeforeUsage);
                         }));
-                    
+
 
 
                     VariableDeclaration newDeclaration;
                     if (nodesBetweenAssignmentAndAllReads.Any(IsWait))
                     {
-                        var (globalVariableDeclaration, list) = usedVariablesWithWaits.FirstOrDefault(x =>
+                        var (globalVariableDeclaration, list) = locallyUsedVariables[(isArray, true)].FirstOrDefault(x =>
                         {
                             var set = new HashSet<INode>(x.Item2);
                             set.IntersectWith(nodesBetweenAssignmentAndAllReads);
@@ -1085,19 +1132,19 @@ namespace Omnium.Core.compiler
                         }
                         else
                         {
-                            newDeclaration = new VariableDeclaration(localVar.Context, localVar.Name, new INode[0]);
+                            newDeclaration = new VariableDeclaration(localVar.Context, localVar.Name, new INode[] { AstCloner.Clone(type) });
                             if (IsPlayerRule(rule))
                                 root.AddChild(newDeclaration);
                             else
                                 sourceFile.AddChild(newDeclaration);
                             variableReads.Add(newDeclaration, new List<IExpression>());
                             variableWrites.Add(newDeclaration, new List<IExpression>());
-                            usedVariablesWithWaits.Add((newDeclaration, nodesBetweenAssignmentAndAllReads));
+                            locallyUsedVariables[(isArray, true)].Add((newDeclaration, nodesBetweenAssignmentAndAllReads));
                         }
                     }
                     else
                     {
-                        var (globalVariableDeclaration, list) = usedVariablesWithoutWait.Concat(usedVariablesWithWaits).FirstOrDefault(x =>
+                        var (globalVariableDeclaration, list) = locallyUsedVariables[(isArray, false)].Concat(locallyUsedVariables[(isArray, true)]).FirstOrDefault(x =>
                         {
                             var set = new HashSet<INode>(x.Item2);
                             set.IntersectWith(nodesBetweenAssignmentAndAllReads);
@@ -1113,20 +1160,18 @@ namespace Omnium.Core.compiler
                         }
                         else
                         {
-                            if (IsPlayerRule(rule))
-                                newDeclaration = globalPlayerVarsForLocalVars.FirstOrDefault(x => !usedVariablesWithoutWait.Exists(y => x == y.Item1));
-                            else
-                                newDeclaration = globalVarsForLocalVars.FirstOrDefault(x => !usedVariablesWithoutWait.Exists(y => x == y.Item1));
+                            newDeclaration = globalVars[(isArray, IsPlayerRule(rule))].FirstOrDefault(x => !locallyUsedVariables[(isArray, false)].Exists(y => x == y.Item1));
+
                             if (newDeclaration == null)
                             {
-                                newDeclaration = new VariableDeclaration(localVar.Context, localVar.Name, new INode[0]);
+                                newDeclaration = new VariableDeclaration(localVar.Context, localVar.Name, new INode[] { AstCloner.Clone(type) });
                                 if (IsPlayerRule(rule))
                                     root.AddChild(newDeclaration);
                                 else
                                     sourceFile.AddChild(newDeclaration);
                                 variableReads.Add(newDeclaration, new List<IExpression>());
                                 variableWrites.Add(newDeclaration, new List<IExpression>());
-                                usedVariablesWithoutWait.Add((newDeclaration, nodesBetweenAssignmentAndAllReads));
+                                locallyUsedVariables[(isArray, false)].Add((newDeclaration, nodesBetweenAssignmentAndAllReads));
                             }
                         }
                     }
@@ -1142,10 +1187,8 @@ namespace Omnium.Core.compiler
                         variableReads[newDeclaration].Add(read);
                     }
                 }
-                if (IsPlayerRule(rule))
-                    globalPlayerVarsForLocalVars.AddRange(usedVariablesWithoutWait.Select(x => x.Item1));
-                else
-                    globalVarsForLocalVars.AddRange(usedVariablesWithoutWait.Select(x => x.Item1));
+                globalVars[(false, IsPlayerRule(rule))].AddRange(locallyUsedVariables[(false, false)].Select(x => x.Item1));
+                globalVars[(true, IsPlayerRule(rule))].AddRange(locallyUsedVariables[(true, false)].Select(x => x.Item1));
 
                 foreach (var statement in rule.Action.AllDescendantsAndSelf().OfType<VariableDeclarationStatement>().ToList())
                 {

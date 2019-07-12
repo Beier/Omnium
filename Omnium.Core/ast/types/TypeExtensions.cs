@@ -17,6 +17,8 @@ namespace Omnium.Core.ast.types
 
         public static bool IsList(this IType type, Root root)
         {
+            if (type == null)
+                throw new NullReferenceException();
             if (!(type is GenericType genericType))
                 return false;
             return genericType.Base is ReferenceType referenceType && referenceType.Declaration == root.ListDeclaration;

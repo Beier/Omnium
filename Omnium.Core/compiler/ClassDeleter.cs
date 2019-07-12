@@ -226,7 +226,7 @@ namespace Omnium.Core.compiler
             {
                 var thisParameter = new VariableDeclaration(
                     methodDeclaration.Context,
-                    "this" + new Random().Next(),
+                    "this" + NumberWheel.Next(),
                     new ReferenceType(methodDeclaration.Context, methodDeclaration.Parent).Yield()
                     );
                 methodDeclaration.AddChildBefore(methodDeclaration.Variables.FirstOrDefault() ?? (INode)methodDeclaration.Body, thisParameter);

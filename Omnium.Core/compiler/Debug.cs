@@ -9,7 +9,7 @@ namespace Omnium.Core.compiler
 {
     public class Debug
     {
-        public static void CheckForInvalidExpressionParents(INode node)
+        public static void CheckForInvalidExpressionParentsa(INode node)
         {
             foreach (var child in node.Children)
             {
@@ -17,7 +17,7 @@ namespace Omnium.Core.compiler
                                              || child.Parent is IExpression || child.Parent is VariableDeclaration || child.Parent is IfStatement || child.Parent is RuleDeclaration)
                     )
                     throw new Exception(child.Parent.GetType().ToString());
-                CheckForInvalidExpressionParents(child);
+                CheckForInvalidExpressionParentsa(child);
             }
         }
 
@@ -31,22 +31,32 @@ namespace Omnium.Core.compiler
             }
         }
 
-        public static void CheckForErrorsInParentChildRelationShips(INode node)
+        public static void CheckForVariablesWithoutTypesa(INode node)
+        {
+            foreach (var child in node.Children)
+            {
+                if (child is VariableDeclaration vd && vd.Type == null && !(child.Parent is ForeachStatement))
+                    throw new Exception();
+                CheckForVariablesWithoutTypesa(child);
+            }
+        }
+
+        public static void CheckForErrorsInParentChildRelationShipsa(INode node)
         {
             foreach (var child in node.Children)
             {
                 if (child.Parent != node)
                     throw new Exception();
-                CheckForErrorsInParentChildRelationShips(child);
+                CheckForErrorsInParentChildRelationShipsa(child);
             }
         }
 
-        public static void CheckChildIsRightType(INode node)
+        public static void CheckChildIsRightTypea(INode node)
         {
 
             foreach (var child in node.Children)
             {
-                CheckChildIsRightType(child);
+                CheckChildIsRightTypea(child);
             }
         }
 

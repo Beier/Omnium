@@ -32,11 +32,9 @@ namespace Omnium.Core.compiler
 
         public override void EnterForeachStatement(ForeachStatement foreachStatement)
         {
-            Debug.CheckForErrorsInParentChildRelationShips(root);
-            var random = new Random();
             var listVariable = new VariableDeclaration(
                 foreachStatement.Context,
-                "list" + random.Next(),
+                "list" + NumberWheel.Next(),
                 new INode[]
                 {
                     AstCloner.Clone((GenericType)foreachStatement.List.Type),
@@ -44,7 +42,7 @@ namespace Omnium.Core.compiler
                 });
             var indexVariable = new VariableDeclaration(
                 foreachStatement.Context,
-                "index" + random.Next(),
+                "index" + NumberWheel.Next(),
                 new INode[]
                 {
                     new NumberType(foreachStatement.Context),
@@ -120,7 +118,6 @@ namespace Omnium.Core.compiler
                 );
             forStatement.Body.AddChildFirst(new VariableDeclarationStatement(foreachStatement.Context, elmVariable));
             foreachStatement.ReplaceWith(forStatement);
-            Debug.CheckForErrorsInParentChildRelationShips(root);
             Visit(forStatement);
             skipChildren = true;
         }
@@ -216,7 +213,6 @@ namespace Omnium.Core.compiler
                         body
                     });
                 forStatement.ReplaceWith(whileStatement);
-                Debug.CheckForErrorsInParentChildRelationShips(root);
                 addedStatements.Add(whileStatement);
             }
 
@@ -225,7 +221,6 @@ namespace Omnium.Core.compiler
                 Visit(addedStatement);
             }
             BlockFlattener.FlattenAllSubBlocks(block);
-            Debug.CheckForErrorsInParentChildRelationShips(root);
             skipChildren = true;
         }
 
@@ -299,7 +294,6 @@ namespace Omnium.Core.compiler
         public override void ExitWhileStatement(WhileStatement whileStatement)
         {
             var rule = whileStatement.NearestAncestorOfType<RuleDeclaration>();
-            Debug.CheckForErrorsInParentChildRelationShips(rule);
             var stateVariable = GetOrCreateStateVariable(rule);
             var stateIndex = ++rule.NumberOfStates;
             var block = (BlockStatement)whileStatement.Parent;
@@ -381,8 +375,7 @@ namespace Omnium.Core.compiler
                             }),
                         new GotoStatement(whileStatement.Context, beforeWhileGotoTarget)
                     }));
-
-            Debug.CheckForErrorsInParentChildRelationShips(rule);
+            
             skipChildren = true;
         }
 
@@ -393,7 +386,7 @@ namespace Omnium.Core.compiler
                 rule.AddChild(
                     new VariableDeclaration(
                         rule.Context, 
-                        "state" + new Random().Next(), 
+                        "state" + NumberWheel.Next(), 
                         new INode[]
                         {
                             new NumberType(rule.Context), new NumberLiteral(rule.Context, "0"),

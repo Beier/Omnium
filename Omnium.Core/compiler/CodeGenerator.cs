@@ -7,29 +7,66 @@ using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
 using Omnium.Core.ast.expressions.literals;
 using Omnium.Core.ast.statements;
+using Omnium.Core.ast.types;
 
 namespace Omnium.Core.compiler
 {
     public class CodeGenerator : TreeValueWalker<StringBuilder>
     {
-        public Dictionary<VariableDeclaration, string> variableAssignments = new Dictionary<VariableDeclaration, string>();
+        public Dictionary<VariableDeclaration, (string, int?)> variableAssignments = new Dictionary<VariableDeclaration, (string, int?)>();
 
         public override StringBuilder VisitRoot(Root root)
         {
             var letters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(x => ((char)x).ToString()).ToList();
             var playerVariables = root.PlayerVariableDeclarations.ToList();
             var globalVariables = root.SourceFiles.SelectMany(x => x.AllDescendantsAndSelf()).OfType<VariableDeclaration>().ToList();
-            if (playerVariables.Count > letters.Count)
+            if (playerVariables.Count(x => x.Type.IsList(root)) + playerVariables.Count(x => !x.Type.IsList(root))/1000 > letters.Count)
                 throw new CompilationError(null, "Number of player variables exceeds supported number.");
-            if (globalVariables.Count > letters.Count)
+            if (globalVariables.Count(x => x.Type.IsList(root)) + globalVariables.Count(x => !x.Type.IsList(root)) / 1000 > letters.Count)
                 throw new CompilationError(null, "Number of global variables exceeds supported number.");
-            for (int i = 0; i < playerVariables.Count; i++)
+            int usedVariables = 1;
+            int variableUsedForSingleValues = 0;
+            int numberOfVariablesInArray = 0;
+            foreach (var playerVariable in playerVariables)
             {
-                variableAssignments.Add(playerVariables[i], letters[i]);
+                if (playerVariable.Type.IsList(root))
+                {
+                    variableAssignments.Add(playerVariable, (letters[usedVariables], null));
+                    usedVariables++;
+                }
+                else
+                {
+                    variableAssignments.Add(playerVariable, (letters[variableUsedForSingleValues], numberOfVariablesInArray));
+                    numberOfVariablesInArray++;
+                    if (numberOfVariablesInArray >= 1000)
+                    {
+                        variableUsedForSingleValues = usedVariables;
+                        numberOfVariablesInArray = 0;
+                        usedVariables++;
+                    }
+                }
             }
-            for (int i = 0; i < globalVariables.Count; i++)
+            usedVariables = 1;
+            variableUsedForSingleValues = 0;
+            numberOfVariablesInArray = 0;
+            foreach (var globalVariable in globalVariables)
             {
-                variableAssignments.Add(globalVariables[i], letters[i]);
+                if (globalVariable.Type.IsList(root))
+                {
+                    variableAssignments.Add(globalVariable, (letters[usedVariables], null));
+                    usedVariables++;
+                }
+                else
+                {
+                    variableAssignments.Add(globalVariable, (letters[variableUsedForSingleValues], numberOfVariablesInArray));
+                    numberOfVariablesInArray++;
+                    if (numberOfVariablesInArray >= 1000)
+                    {
+                        variableUsedForSingleValues = usedVariables;
+                        numberOfVariablesInArray = 0;
+                        usedVariables++;
+                    }
+                }
             }
 
             return base.VisitRoot(root);
@@ -217,12 +254,22 @@ namespace Omnium.Core.compiler
                 case VariableDeclaration variableDeclaration:
                     {
                         var builder = new StringBuilder();
+                        var (letter, index) = variableAssignments[variableDeclaration];
+                        if (index != null)
+                            builder.Append("Value in Array(");
+
                         if (IsPlayerVariable(variableDeclaration))
                             builder.Append("Player Variable(Event Player, ");
                         else
                             builder.Append("Global Variable(");
-                        builder.Append(variableAssignments[variableDeclaration]);
+                        builder.Append(letter);
                         builder.Append(")");
+                        if (index != null)
+                        {
+                            builder.Append(", ");
+                            builder.Append(index.Value);
+                            builder.Append(")");
+                        }
                         return builder;
                     }
                 default:
@@ -334,12 +381,20 @@ namespace Omnium.Core.compiler
                 builder.Append("Set Global Variable");
             }
 
-            arguments.Add(new StringBuilder(variableAssignments[target]));
+            var (letter, variableIndex) = variableAssignments[target];
+            if (variableIndex != null)
+            {
+                if (index != null)
+                    throw new Exception("Array variable should not be stored in an array.");
+                index = new NumberLiteral(assignmentExpression.Context, variableIndex.Value);
+            }
+
+            arguments.Add(new StringBuilder(letter));
 
             if (index != null)
             {
                 builder.Append(" At Index");
-                arguments.Insert(arguments.Count - 1, Visit(index));
+                arguments.Add(Visit(index));
             }
 
             arguments.Add(Visit(assignmentExpression.Right));
