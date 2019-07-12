@@ -5,7 +5,7 @@ import { Player, Players } from "Player"
 
 export module Message {
 
-    export function send(players: Player | List<Player>, message: string, size: Size = Size.Big): void {
+    export function send(players: Player | List<Player>, message: string, size: Size = Size.Big) {
         if (size == Size.Big) {
             Native.callNativeArg2Action<Player | List<Player>, string>("Big Message", false, false, players, message);
         } else {
@@ -22,7 +22,7 @@ export module Message {
     export module Hud {
         export module Objective {
 
-            export function setDescription(description: string, players : Player | List<Player> = Players.all, reevaluation : Reevaluation = Reevaluation.String): void {
+            export function setDescription(description: string, players : Player | List<Player> = Players.all, reevaluation : Reevaluation = Reevaluation.String) {
                 Native.callNativeArg3Action
                     <Player | List<Player>, string, Reevaluation>(
                         "Set Objective description", false, true, players, description, reevaluation);
@@ -36,7 +36,7 @@ export module Message {
 
         export module Text {
             export class HudText {
-                public destroy(): void {
+                public destroy() {
                     Native.callNativeArg1Action<HudText>("Destroy hud text", false, true, this);
                 }
             }
@@ -51,7 +51,7 @@ export module Message {
                 headerColor: TextColor = TextColor.White,
                 subHeaderColor: TextColor = TextColor.White,
                 textColor: TextColor = TextColor.White,
-                reevaluation: Reevaluation = Reevaluation.VisibleToAndString): HudText {
+                reevaluation: Reevaluation = Reevaluation.VisibleToAndString) {
                 Native.callNativeArg10Action<
                     Player | List<Player>,
                     string,
@@ -80,11 +80,11 @@ export module Message {
                 return getLastCreated();
             }
             
-            export function getLastCreated(): HudText {
+            export function getLastCreated() {
                 return Native.callNativeArg0Function<HudText>("Last text id", true, false);
             }
 
-            export function destroyAll(): void {
+            export function destroyAll() {
                 Native.callNativeArg0Action("Destroy all hud text", false, true);
             }
 
@@ -103,7 +103,7 @@ export module Message {
 
     export module InWorld {
         export class InWorldText {
-            public destroy(): void {
+            public destroy() {
                 Native.callNativeArg1Action<InWorldText>("Destroy in-world text", false, true, this);
             }
         }
@@ -114,7 +114,7 @@ export module Message {
             position: Vector,
             scale: number = 1,
             clipping: Clipping = Clipping.BlockedByWalls,
-            reevaluation: Reevaluation = Reevaluation.VisibleToPositionAndString): InWorldText {
+            reevaluation: Reevaluation = Reevaluation.VisibleToPositionAndString) {
             Native.callNativeArg6Action
                 <Player | List<Player>, string, Vector, number, Clipping, Reevaluation>(
                 "Create in-world text", false, true, visibleTo, header, position, scale, clipping, reevaluation);
@@ -122,11 +122,11 @@ export module Message {
             return getLastCreated();
         }
 
-        export function getLastCreated(): InWorldText {
+        export function getLastCreated() {
             return Native.callNativeArg0Function<InWorldText>("Last text id", true, false);
         }
 
-        export function destroyAll(): void {
+        export function destroyAll() {
             Native.callNativeArg0Action("Destroy all in-world text", false, true);
         }
         

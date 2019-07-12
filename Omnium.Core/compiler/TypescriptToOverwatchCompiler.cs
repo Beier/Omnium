@@ -66,10 +66,10 @@ namespace Omnium.Core.compiler
              *  Todo:
              *  - Chase: Single global variable
              *  - Reevaluate: Do not merge with assignments after
-             *  - Constant native methods
              *  - Refactor: Split into folders
              *  - Optional types
-             *
+             *      - Variable types
+             *      - Lambda function arguments
              *
              */
 

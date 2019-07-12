@@ -6,34 +6,34 @@ import { Vector } from "./vector"
 export module Effect {
     export module Static {
         export class Effect {
-            public destroy(): void {
+            public destroy() {
                 Native.callNativeArg1Action<Effect>("Destroy effect", false, true, this);
             }
 
-            public get exists(): boolean {
+            public get exists() {
                 return Native.callNativeArg1Function<Effect, boolean>("Entity exists", false, false, this);
             }
         }
 
-        export function create(visibleTo: Player | List<Player>, type: Type, color: Color, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None): Effect {
+        export function create(visibleTo: Player | List<Player>, type: Type, color: Color, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None) {
             Native.callNativeArg6Action
                 <Player | List<Player>, Type, Color, Vector, number, Reevaluation>(
                     "Create effect", false, true, visibleTo, type, color, position, radius, reevaluation);
             return getLastCreatedEffect();
         }
 
-        export function createSound(visibleTo: Player | List<Player>, sound: Sound, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None): Effect {
+        export function createSound(visibleTo: Player | List<Player>, sound: Sound, position: Vector, radius: number, reevaluation: Reevaluation = Reevaluation.None) {
             Native.callNativeArg6Action
                 <Player | List<Player>, Sound, Color, Vector, number, Reevaluation>(
                     "Create effect", false, true, visibleTo, sound, Color.White, position, radius, reevaluation);
             return getLastCreatedEffect();
         }
 
-        export function getLastCreatedEffect(): Effect {
+        export function getLastCreatedEffect() {
             return Native.callNativeArg0Function<Effect>("Last created entity", true, false);
         }
 
-        export function destroyAll(): void {
+        export function destroyAll() {
             Native.callNativeArg0Action("Destroy all effects", false, true);
         }
 
@@ -69,13 +69,13 @@ export module Effect {
     }
 
     export module Animated {
-        export function create(type: Type, color: Color, position: Vector, radius: number = 1, visibleTo: Player | List<Player> = Players.all): void {
+        export function create(type: Type, color: Color, position: Vector, radius: number = 1, visibleTo: Player | List<Player> = Players.all) {
             Native.callNativeArg5Action
                 <Player | List<Player>, Type, Color, Vector, number>(
                     "Play effect", false, false, visibleTo, type, color, position, radius);
         }
 
-        export function createSound(sound: Sound, position: Vector, radius: number = 1, visibleTo: Player | List<Player> = Players.all): void {
+        export function createSound(sound: Sound, position: Vector, radius: number = 1, visibleTo: Player | List<Player> = Players.all) {
             Native.callNativeArg5Action
                 <Player | List<Player>, Sound, Color, Vector, number>(
                     "Play effect", false, false, visibleTo, sound, Color.White, position, radius);

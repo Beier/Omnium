@@ -6,19 +6,19 @@ import { Team, Teams } from "Team"
 export class Hero {
     private constructor() { }
 
-    public static ofType(type: HeroType): Hero {
+    public static ofType(type: HeroType) {
         return Native.callNativeArg1Function<HeroType, Hero>("Hero", false, false, type);
     }
 
-    public preloadFor(player: Player | List<Player>): void {
+    public preloadFor(player: Player | List<Player>) {
         Native.callNativeArg2Action<Hero, Player | List<Player>>("Preload hero", false, false, this, player);
     }
 
-    public get iconString(): string {
+    public get iconString() {
         return Native.callNativeArg1Function<Hero, string>("Hero icon string", false, false, this);
     }
     
-    public isBeingPlayed(team: Team | List<Team> = Teams.all): boolean {
+    public isBeingPlayed(team: Team | List<Team> = Teams.all) {
         return Native.callNativeArg2Function<Hero, Team | List<Team>, boolean>("Is hero being played", false, false, this, team);
     }
 
@@ -26,7 +26,7 @@ export class Hero {
         return this.countOn(Teams.all);
     }
 
-    public countOn(team: Team | List<Team>): number {
+    public countOn(team: Team | List<Team>) {
         return Native.callNativeArg2Function<Hero, Team | List<Team>, number>("Number of heroes", true, false, this, team);
     }
 }
@@ -34,11 +34,11 @@ export class Hero {
 export class Heroes {
     private constructor() { }
 
-    public static get all(): List<Hero> {
+    public static get all() {
         return Native.callNativeArg0Function<List<Hero>>("All Heroes", true, false);
     }
 
-    public static resetAvalibleHeroesFor(player: Player | List<Player>): void {
+    public static resetAvalibleHeroesFor(player: Player | List<Player>) {
         Native.callNativeArg1Action<Player | List<Player>>("Reset player hero availability", false, true, player);
     }
 }

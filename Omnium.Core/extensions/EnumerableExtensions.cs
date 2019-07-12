@@ -15,6 +15,17 @@ namespace Omnium.Core.extensions
         {
             return list.Concat(item.Yield());
         }
+
+        public static IEnumerable<T> RemoveDuplicates<T>(this IEnumerable<T> enumerable, Func<T, T, bool> isDuplicateFunc)
+        {
+            var list = enumerable.ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list.Take(i).Any(x => isDuplicateFunc(x, list[i])))
+                    continue;
+                yield return list[i];
+            }
+        }
         
         public static IEnumerable<IEnumerable<T>> GetAllPermutations<T>(this IEnumerable<T> enumerable)
         {
@@ -44,6 +55,20 @@ namespace Omnium.Core.extensions
                     return f1(t1);
                 if (item is T2 t2)
                     return f2(t2);
+                throw new Exception("Unexpected alternative: " + item?.GetType().FullName);
+            });
+        }
+
+        public static IEnumerable<TRet> Select<TIn, TRet, T1, T2, T3>(this IEnumerable<TIn> items, Func<T1, TRet> f1, Func<T2, TRet> f2, Func<T3, TRet> f3) where T1 : TIn where T2 : TIn where T3 : TIn
+        {
+            return items.Select(item =>
+            {
+                if (item is T1 t1)
+                    return f1(t1);
+                if (item is T2 t2)
+                    return f2(t2);
+                if (item is T3 t3)
+                    return f3(t3);
                 throw new Exception("Unexpected alternative: " + item?.GetType().FullName);
             });
         }

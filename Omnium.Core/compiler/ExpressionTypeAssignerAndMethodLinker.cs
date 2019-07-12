@@ -124,7 +124,7 @@ namespace Omnium.Core.compiler
             }
         }
 
-        private static IType GetType(List<INamedDeclaration> declarations)
+        private IType GetType(List<INamedDeclaration> declarations)
         {
             if (declarations.All(x => x is ITypeDeclaration))
                 return new StaticReference(declarations.Cast<INode>().ToList());
@@ -136,6 +136,8 @@ namespace Omnium.Core.compiler
                     type = variableDeclaration.Type;
                     break;
                 case GetterSetterDeclaration getterSetterDeclaration:
+                    if (getterSetterDeclaration.Getter != null && getterSetterDeclaration.Getter.ReturnType == null)
+                        Visit(getterSetterDeclaration.Getter);
                     type = getterSetterDeclaration.Type;
                     break;
                 case MethodDeclaration methodDeclaration:
@@ -409,6 +411,141 @@ namespace Omnium.Core.compiler
             skipChildren = true;
         }
 
+        private Stack<INamedDeclaration> currentMethodStack = new Stack<INamedDeclaration>();
+        private Dictionary<INamedDeclaration, List<ITypeNode>> inferredMethodTypes = new Dictionary<INamedDeclaration, List<ITypeNode>>();
+        private HashSet<INamedDeclaration> visitedMethods = new HashSet<INamedDeclaration>();
+        public override void EnterMethodDeclaration(MethodDeclaration methodDeclaration)
+        {
+            EnterMethodOrGetterOrSetter(methodDeclaration);
+        }
+
+        public override void EnterGetterDeclaration(GetterDeclaration getterDeclaration)
+        {
+            EnterMethodOrGetterOrSetter(getterDeclaration);
+        }
+
+        public override void EnterSetterDeclaration(SetterDeclaration setterDeclaration)
+        {
+            EnterMethodOrGetterOrSetter(setterDeclaration);
+        }
+
+        private void EnterMethodOrGetterOrSetter(INamedDeclaration namedDeclaration)
+        {
+            if (visitedMethods.Contains(namedDeclaration))
+            {
+                skipChildren = true;
+                return;
+            }
+
+            if (currentMethodStack.Contains(namedDeclaration))
+            {
+                var path = currentMethodStack.SkipWhile(x => x != namedDeclaration).Concat(namedDeclaration.Yield())
+                    .Select(
+                        (MethodDeclaration methodDeclaration) => $"\tmethod {methodDeclaration.Name} ({methodDeclaration.Context.GetPositionString()})",
+                        (GetterDeclaration getterDeclaration) => $"\tgetter {getterDeclaration.Name} ({getterDeclaration.Context.GetPositionString()})",
+                        (SetterDeclaration setterDeclaration) => $"\tsetter {setterDeclaration.Name} ({setterDeclaration.Context.GetPositionString()})"
+                    ).MkString("\n");
+
+                throw new CompilationError(namedDeclaration.Context, "Recursive methods are not allowed\n" + path);
+            }
+            currentMethodStack.Push(namedDeclaration);
+            switch (namedDeclaration)
+            {
+                case MethodDeclaration methodDeclaration:
+                    if (methodDeclaration.ReturnType == null)
+                        inferredMethodTypes.Add(methodDeclaration, new List<ITypeNode>());
+                    break;
+                case GetterDeclaration getterDeclaration:
+                    if (getterDeclaration.ReturnType == null)
+                        inferredMethodTypes.Add(getterDeclaration, new List<ITypeNode>());
+                    break;
+            }
+        }
+
+
+        public override void ExitReturnStatement(ReturnStatement returnStatement)
+        {
+            var ancestor = returnStatement.NearestAncestorOfAnyType(typeof(MethodDeclaration), typeof(LambdaExpression), typeof(GetterDeclaration));
+            if (ancestor is INamedDeclaration namedDeclaration)
+            {
+                ITypeNode returnType = null;
+                switch (namedDeclaration)
+                {
+                    case MethodDeclaration methodDeclaration:
+                        returnType = methodDeclaration.ReturnType;
+                        break;
+                    case GetterDeclaration getterDeclaration:
+                        returnType = getterDeclaration.ReturnType;
+                        break;
+                }
+                var returnStatementType = returnStatement?.Value.Type ?? new VoidType(returnStatement.Context);
+                if (returnType != null)
+                {
+                    if (!returnStatementType.IsAssignableTo(returnType))
+                        Errors.Add(new CompilationError(returnStatement.Context, $"{returnStatementType} is not assignable to the return type of the method: {returnType}."));
+                }
+                else if (!(returnStatementType is ITypeNode returnStatementTypeNode))
+                {
+                    Errors.Add(new CompilationError(returnStatement.Context, $"Invalid return value: {returnStatementType}"));
+                }
+                else 
+                {
+                    var typeList = inferredMethodTypes[namedDeclaration];
+                    if (!typeList.Any(x => x.IsEquivalentTo(returnStatementType)))
+                        typeList.Add(returnStatementTypeNode);
+                }
+            }
+        }
+
+        public override void ExitMethodDeclaration(MethodDeclaration methodDeclaration)
+        {
+            ExitMethodOrGetterOrSetter(methodDeclaration);
+        }
+
+        public override void ExitGetterDeclaration(GetterDeclaration getterDeclaration)
+        {
+            ExitMethodOrGetterOrSetter(getterDeclaration);
+        }
+
+        public override void ExitSetterDeclaration(SetterDeclaration setterDeclaration)
+        {
+            ExitMethodOrGetterOrSetter(setterDeclaration);
+        }
+
+        private void ExitMethodOrGetterOrSetter(INamedDeclaration namedDeclaration)
+        {
+            if (currentMethodStack.Count == 0 || currentMethodStack.Peek() != namedDeclaration)
+                return;
+            currentMethodStack.Pop();
+            visitedMethods.Add(namedDeclaration);
+            if (inferredMethodTypes.TryGetValue(namedDeclaration, out var types))
+            {
+                ITypeNode returnType;
+                if (types.All(x => x is VoidType))
+                    returnType = new VoidType(namedDeclaration.Context);
+                else if (types.Any(x => x is VoidType))
+                    throw new CompilationError(namedDeclaration.Context, "Not all return statements return a value");
+                else
+                    returnType = types.Aggregate((left, right) =>
+                    {
+                        var aggregateTypes = Unwrap(left).Concat(Unwrap(right))
+                            .RemoveDuplicates((x, y) => x.IsEquivalentTo(y)).ToList();
+                        if (aggregateTypes.Count == 1)
+                            return aggregateTypes[0];
+                        return new TypeList(namedDeclaration.Context, aggregateTypes.Select(AstCloner.Clone));
+
+                        IEnumerable<ITypeNode> Unwrap(ITypeNode t)
+                        {
+                            if (t is TypeList typeList)
+                                return typeList.SubTypes;
+                            return t.Yield();
+                        }
+                    });
+
+                namedDeclaration.AddChild(AstCloner.Clone(returnType));
+            }
+        }
+
         public override void EnterMethodInvocationExpression(MethodInvocationExpression methodInvocationExpression)
         {
             if (methodInvocationExpression.Base is MemberExpression memberExpression)
@@ -462,6 +599,11 @@ namespace Omnium.Core.compiler
                             if (!fromType.IsAssignableTo(toType))
                                 Errors.Add(new CompilationError(arguments[i].Context, $"Can not assign {fromType} to {toType}"));
                         }
+                    }
+
+                    if (methodReference.Declaration.ReturnType == null)
+                    {
+                        Visit(methodReference.Declaration);
                     }
 
                     methodInvocationExpression.Type = ReplaceGenerics(methodInvocationExpression, methodReference.Declaration.ReturnType);
@@ -587,17 +729,6 @@ namespace Omnium.Core.compiler
                 if (!(baseType is NumberType))
                     Errors.Add(new CompilationError(unaryExpression.Context, $"{op} can only be applied to a number. Found {baseType}."));
                 unaryExpression.Type = new NumberType(unaryExpression.Context);
-            }
-        }
-
-        public override void ExitReturnStatement(ReturnStatement returnStatement)
-        {
-            var method = returnStatement.NearestAncestorOfAnyType(typeof(MethodDeclaration), typeof(LambdaExpression));
-            if (method is MethodDeclaration methodDeclaration)
-            {
-                var returnStatementType = returnStatement?.Value.Type ?? new VoidType(returnStatement.Context);
-                if (!returnStatementType.IsAssignableTo(methodDeclaration.ReturnType))
-                    Errors.Add(new CompilationError(returnStatement.Context, $"{returnStatementType} is not assignable to the return type of the method: {methodDeclaration.ReturnType}."));
             }
         }
 

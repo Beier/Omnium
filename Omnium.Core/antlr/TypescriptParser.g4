@@ -474,7 +474,7 @@ constructorDeclaration
 	;
 
 methodDeclaration
-	: identifier typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS (':' returnTypeList) methodBody
+	: identifier typeParameterList? OPEN_PARENS formalParameterList? CLOSE_PARENS (':' returnTypeList)? methodBody
 	;
 
 getterDeclaration
@@ -482,7 +482,7 @@ getterDeclaration
 	;
 
 setterDeclaration
-	: SET identifier OPEN_PARENS formalParameterList CLOSE_PARENS (':' returnTypeList)? methodBody
+	: SET identifier OPEN_PARENS formalParameterList CLOSE_PARENS methodBody
 	;
 
 argDeclaration

@@ -8,7 +8,7 @@ export module Motion {
         direction: Vector,
         speed: number,
         relative: Relative = Relative.ToWorld,
-        contraryMotion: ContraryMotion = ContraryMotion.Cancel): void {
+        contraryMotion: ContraryMotion = ContraryMotion.Cancel) {
 
         Native.callNativeArg5Action
             <Player | List<Player>, Vector, number, Relative, ContraryMotion>(
@@ -21,14 +21,14 @@ export module Motion {
         rate: number,
         maxSpeed: number,
         relative: Relative = Relative.ToWorld,
-        reevaluation: Reevaluation = Reevaluation.None): void {
+        reevaluation: Reevaluation = Reevaluation.None) {
 
         Native.callNativeArg6Action
             <Player | List<Player>, Vector, number, number, Relative, Reevaluation>(
                 "Start accelerating", false, true, player, direction, rate, maxSpeed, relative, reevaluation);
     }
 
-    export function stopAccelerating(player: Player | List<Player>): void {
+    export function stopAccelerating(player: Player | List<Player>) {
         Native.callNativeArg1Action<Player | List<Player>>("Stop accelerating", false, true, player);
     }
 

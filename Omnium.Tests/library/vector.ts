@@ -3,56 +3,56 @@ import { List } from "List"
 import { Rule } from "Rule"
 import { Player, Players } from "Player"
 
-export function vector(x: number, y: number, z: number): Vector {
+export function vector(x: number, y: number, z: number) {
     return Native.callNativeArg3Function<number, number, number, Vector>("Vector", false, false, x, y, z);
 }
 
 export class Vector {
-    public get x(): number {
+    public get x() {
         return Native.callNativeArg1Function<Vector, number>("X component of", false, false, this);
     }
 
-    public get y(): number {
+    public get y() {
         return Native.callNativeArg1Function<Vector, number>("Y component of", false, false, this);
     }
 
-    public get z(): number {
+    public get z() {
         return Native.callNativeArg1Function<Vector, number>("Z component of", false, false, this);
     }
 
-    public get horizontalAngle(): number {
+    public get horizontalAngle() {
         return Native.callNativeArg1Function<Vector, number>("Horizontal angle from direction", false, false, this);
     }
 
-    public get verticalAngle(): number {
+    public get verticalAngle() {
         return Native.callNativeArg1Function<Vector, number>("Vertical angle from direction", false, false, this);
     }
 
-    public static get zero(): Vector {
+    public static get zero() {
         return vector(0, 0, 0);
     }
 
-    public static get up(): Vector {
+    public static get up() {
         return Native.callNativeArg0Function<Vector>("Up", false, false);
     }
 
-    public static get down(): Vector {
+    public static get down() {
         return Native.callNativeArg0Function<Vector>("Down", false, false);
     }
 
-    public static get forward(): Vector {
+    public static get forward() {
         return Native.callNativeArg0Function<Vector>("Forward", false, false);
     }
 
-    public static get backward(): Vector {
+    public static get backward() {
         return Native.callNativeArg0Function<Vector>("Backward", false, false);
     }
 
-    public static get left(): Vector {
+    public static get left() {
         return Native.callNativeArg0Function<Vector>("Left", false, false);
     }
 
-    public static get right(): Vector {
+    public static get right() {
         return Native.callNativeArg0Function<Vector>("Right", false, false);
     }
 
@@ -60,7 +60,7 @@ export class Vector {
         end: Vector,
         playersToInclude: Player | List<Player> = Players.all,
         playersToExclude: Player | List<Player> = Rule.Event.player,
-        includePlayerOwnedObjects: boolean = true): Vector {
+        includePlayerOwnedObjects: boolean = true) {
         return Native.callNativeArg5Function<Vector, Vector, Player | List<Player>, Player | List<Player>, boolean, Vector>(
             "Ray cast hit position",
             true,
@@ -72,55 +72,55 @@ export class Vector {
             includePlayerOwnedObjects);
     }
 
-    public cross(vector2: Vector): Vector {
+    public cross(vector2: Vector) {
         return Vector.crossProduct(this, vector2);
     }
 
-    public static crossProduct(vector1: Vector, vector2: Vector): Vector {
+    public static crossProduct(vector1: Vector, vector2: Vector) {
         return Native.callNativeArg2Function<Vector, Vector, Vector>("Cross product", false, false, vector1, vector2);
     }
 
-    public dot(vector2: Vector): number {
+    public dot(vector2: Vector) {
         return Vector.doProduct(this, vector2);
     }
 
-    public static doProduct(vector1: Vector, vector2: Vector): number {
+    public static doProduct(vector1: Vector, vector2: Vector) {
         return Native.callNativeArg2Function<Vector, Vector, number>("Dot product", false, false, vector1, vector2);
     }
 
-    public static fromAngles(horizontalAngle: number, verticalAngle: number): Vector {
+    public static fromAngles(horizontalAngle: number, verticalAngle: number) {
         return Native.callNativeArg2Function<number, number, Vector>("Direction from angles", false, false, horizontalAngle, verticalAngle);
     }
 
-    public static towards(startPosition: Vector, endPosition: Vector): Vector {
+    public static towards(startPosition: Vector, endPosition: Vector) {
         return Native.callNativeArg2Function<Vector, Vector, Vector>("Direction towards", false, false, startPosition, endPosition);
     }
 
-    public distanceTo(other: Vector): number {
+    public distanceTo(other: Vector) {
         return Native.callNativeArg2Function<Vector, Vector, number>("Distance between", false, false, this, other);
     }
 
-    public hasClearLineOfSightTo(target: Vector, barriers: LineOfSight.Barriers = LineOfSight.Barriers.DoesNotBlockLineOfSight): boolean {
+    public hasClearLineOfSightTo(target: Vector, barriers: LineOfSight.Barriers = LineOfSight.Barriers.DoesNotBlockLineOfSight) {
         return LineOfSight.isClearBetween(this, target, barriers);
     }
 
-    public toLocalVectorRelativeTo(player: Player, transformation: VectorTransformation = VectorTransformation.RotationAndTranslation): Vector {
+    public toLocalVectorRelativeTo(player: Player, transformation: VectorTransformation = VectorTransformation.RotationAndTranslation) {
         return Native.callNativeArg3Function<Vector, Player, VectorTransformation, Vector>("Local vector of", false, false, this, player, transformation);
     }
 
-    public static fromLocalVectorRelativeTo(vector: Vector, player: Player, transformation: VectorTransformation = VectorTransformation.RotationAndTranslation): Vector {
+    public static fromLocalVectorRelativeTo(vector: Vector, player: Player, transformation: VectorTransformation = VectorTransformation.RotationAndTranslation) {
         return Native.callNativeArg3Function<Vector, Player, VectorTransformation, Vector>("World vector of", false, false, vector, player, transformation);
     }
 
-    public get nearestWalkablePosition(): Vector {
+    public get nearestWalkablePosition() {
         return Native.callNativeArg1Function<Vector, Vector>("Nearest walkable position", false, false, this);
     }
 
-    public get normalized(): Vector {
+    public get normalized() {
         return Native.callNativeArg1Function<Vector, Vector>("Normalize", false, false, this);
     }
 
-    public get unitVector(): Vector {
+    public get unitVector() {
         return this.normalized;
     }
 }
@@ -132,7 +132,7 @@ export enum VectorTransformation {
 
 export module LineOfSight {
 
-    export function isClearBetween(v1: Vector, v2: Vector, barriers: Barriers = Barriers.DoesNotBlockLineOfSight): boolean {
+    export function isClearBetween(v1: Vector, v2: Vector, barriers: Barriers = Barriers.DoesNotBlockLineOfSight) {
         return Native.callNativeArg3Function<Vector, Vector, Barriers, boolean>("Is in line of sight", true, false, v1, v2, barriers);
     }
 
@@ -144,59 +144,59 @@ export module LineOfSight {
 }
 
 export module Angle {
-    export function between(vector1: Vector, vector2: Vector): number {
+    export function between(vector1: Vector, vector2: Vector) {
         return Native.callNativeArg2Function<Vector, Vector, number>("Angle between vectors", false, false, vector1, vector2);
     }
 
-    export function difference(angle1: number, angle2: number): number {
+    export function difference(angle1: number, angle2: number) {
         return Native.callNativeArg2Function<number, number, number>("Angle difference", false, false, angle1, angle2);
     }
 
-    export function acosRad(number: number): number {
+    export function acosRad(number: number) {
         return Native.callNativeArg1Function<number, number>("Arccosine in radians", false, false, number);
     }
 
-    export function acosDeg(number: number): number {
+    export function acosDeg(number: number) {
         return Native.callNativeArg1Function<number, number>("Arccosine in degrees", false, false, number);
     }
 
-    export function asinRad(number: number): number {
+    export function asinRad(number: number) {
         return Native.callNativeArg1Function<number, number>("Arcsine in radians", false, false, number);
     }
 
-    export function asinDeg(number: number): number {
+    export function asinDeg(number: number) {
         return Native.callNativeArg1Function<number, number>("Arcsine in degrees", false, false, number);
     }
 
-    export function atan2Deg(numerator: number, denominator: number): number {
+    export function atan2Deg(numerator: number, denominator: number) {
         return Native.callNativeArg2Function<number, number, number>("Arctangent in degrees", false, false, numerator, denominator);
     }
 
-    export function atan2Rad(numerator: number, denominator: number): number {
+    export function atan2Rad(numerator: number, denominator: number) {
         return Native.callNativeArg2Function<number, number, number>("Arctangent in radians", false, false, numerator, denominator);
     }
 
-    export function cosDeg(number: number): number {
+    export function cosDeg(number: number) {
         return Native.callNativeArg1Function<number, number>("Cosine from degrees", false, false, number);
     }
 
-    export function cosRad(number: number): number {
+    export function cosRad(number: number) {
         return Native.callNativeArg1Function<number, number>("Cosine from radians", false, false, number);
     }
 
-    export function sinDeg(number: number): number {
+    export function sinDeg(number: number) {
         return Native.callNativeArg1Function<number, number>("Sine from degrees", false, false, number);
     }
 
-    export function sinRad(number: number): number {
+    export function sinRad(number: number) {
         return Native.callNativeArg1Function<number, number>("Sine from radians", false, false, number);
     }
 
-    export function tanDeg(number: number): number {
+    export function tanDeg(number: number) {
         return Native.callNativeArg1Function<number, number>("Tangent from degrees", false, false, number);
     }
 
-    export function tanRad(number: number): number {
+    export function tanRad(number: number) {
         return Native.callNativeArg1Function<number, number>("Tangent from radians", false, false, number);
     }
 }
@@ -206,7 +206,7 @@ export module RayCast {
         end: Vector,
         includedPlayers: Player | List<Player> = Players.all,
         excludedPlayers: Player | List<Player> = Rule.Event.player,
-        includePlayerObjects: boolean = true): Vector {
+        includePlayerObjects: boolean = true) {
 
         return Native.callNativeArg5Function
             <Vector, Vector, Player | List<Player>, Player | List<Player>, boolean, Vector>(
@@ -217,7 +217,7 @@ export module RayCast {
         end: Vector,
         includedPlayers: Player | List<Player> = Players.all,
         excludedPlayers: Player | List<Player> = Rule.Event.player,
-        includePlayerObjects: boolean = true): Vector {
+        includePlayerObjects: boolean = true) {
 
         return Native.callNativeArg5Function
             <Vector, Vector, Player | List<Player>, Player | List<Player>, boolean, Vector>(
@@ -228,7 +228,7 @@ export module RayCast {
         end: Vector,
         includedPlayers: Player | List<Player> = Players.all,
         excludedPlayers: Player | List<Player> = Rule.Event.player,
-        includePlayerObjects: boolean = true): Player {
+        includePlayerObjects: boolean = true) {
 
         return Native.callNativeArg5Function
             <Vector, Vector, Player | List<Player>, Player | List<Player>, boolean, Player>(

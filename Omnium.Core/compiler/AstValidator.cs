@@ -33,7 +33,7 @@ namespace Omnium.Core.compiler
                 }
             }
 
-            if (!(methodDeclaration.ReturnType is VoidType) && !DoAllPathsReturnAValue(methodDeclaration.Body))
+            if (!(methodDeclaration.ReturnType is VoidType || methodDeclaration.ReturnType == null && methodDeclaration.AllDescendantsAndSelf().OfType<ReturnStatement>().All(x => x.Value == null)) && !DoAllPathsReturnAValue(methodDeclaration.Body))
                 Errors.Add(new CompilationError(methodDeclaration.Context, "Not all paths return a value"));
         }
 

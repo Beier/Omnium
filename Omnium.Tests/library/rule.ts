@@ -4,56 +4,56 @@ import { HeroType } from "hero"
 
 export module Rule {
     export class Event {
-        public static get player(): Player {
+        public static get player() {
             return Native.callNativeArg0Function<Player>("Event Player", false, false);
         }
 
-        public static get attacker(): Player {
+        public static get attacker() {
             return Native.callNativeArg0Function<Player>("Attacker", false, false);
         }
 
-        public static get damage(): number {
+        public static get damage() {
             return Native.callNativeArg0Function<number>("Event damage", false, false);
         }
 
-        public static get wasCriticalHit(): boolean {
+        public static get wasCriticalHit() {
             return Native.callNativeArg0Function<boolean>("Event was critical hit", false, false);
         }
 
-        public static get victim(): Player {
+        public static get victim() {
             return Native.callNativeArg0Function<Player>("Victim", false, false);
         }
     }
 
     export module Events {
         export class Ongoing {
-            public static get global(): Event {
+            public static get global() {
                 return Native.trigger("Ongoing - Global");
             }
 
-            public static eachPlayer(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+            public static eachPlayer(team: Team = Team.All, players: Players | Slot | HeroType = Players.All) {
                 return Native.playerTrigger("Ongoing - Each Player", team, players);
             }
         }
 
         export class Player {
-            public static earnedElimination(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+            public static earnedElimination(team: Team = Team.All, players: Players | Slot | HeroType = Players.All) {
                 return Native.playerTrigger("Player earned elimination", team, players);
             }
 
-            public static dealtFinalBlow(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+            public static dealtFinalBlow(team: Team = Team.All, players: Players | Slot | HeroType = Players.All) {
                 return Native.playerTrigger("Player dealt final blow", team, players);
             }
 
-            public static dealtDamage(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+            public static dealtDamage(team: Team = Team.All, players: Players | Slot | HeroType = Players.All) {
                 return Native.playerTrigger("Player dealt damage", team, players);
             }
 
-            public static tookDamage(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+            public static tookDamage(team: Team = Team.All, players: Players | Slot | HeroType = Players.All) {
                 return Native.playerTrigger("Player took damage", team, players);
             }
 
-            public static died(team: Team = Team.All, players: Players | Slot | HeroType = Players.All): Event {
+            public static died(team: Team = Team.All, players: Players | Slot | HeroType = Players.All) {
                 return Native.playerTrigger("Player died", team, players);
             }
         }
