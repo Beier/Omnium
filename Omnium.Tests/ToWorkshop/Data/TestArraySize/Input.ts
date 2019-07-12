@@ -9,7 +9,7 @@ Native.rule("Hello World",
     Rule.Events.Ongoing.global,
     () => {
         wait(5);
-        var list: List<number> = List.empty<number>();
+        var list = List.empty<number>();
         list = list.append(1).append(2);
         Message.send(Players.all, list[1].toString());
         wait(5);

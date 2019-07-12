@@ -68,7 +68,6 @@ namespace Omnium.Core.compiler
              *  - Reevaluate: Do not merge with assignments after
              *  - Refactor: Split into folders
              *  - Optional types
-             *      - Variable types
              *      - Lambda function arguments
              *
              */

@@ -121,17 +121,5 @@ namespace Omnium.Core.compiler
 
             return declarations;
         }
-
-        //Todo: Validate later
-        //public override void ExitClassDeclaration(ClassDeclaration classDeclaration)
-        //{
-        //    foreach (var getterSetterDeclaration in classDeclaration.GettersAndSetters)
-        //    {
-        //        if (getterSetterDeclaration.Getter != null
-        //            && getterSetterDeclaration.Setter != null
-        //            && !getterSetterDeclaration.Getter.ReturnType.IsEquivalentTo(getterSetterDeclaration.Setter.Parameter.Type))
-        //            Errors.Add(new CompilationError(getterSetterDeclaration.Getter.Context, "Getters and setters of the same name must have the same type."));
-        //    }
-        //}
     }
 }

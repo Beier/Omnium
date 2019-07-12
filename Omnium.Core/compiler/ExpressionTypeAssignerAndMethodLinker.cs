@@ -757,7 +757,7 @@ namespace Omnium.Core.compiler
             else if (variableDeclaration.InitExpression != null && variableDeclaration.Type != null && !variableDeclaration.InitExpression.Type.IsAssignableTo(variableDeclaration.Type))
                 Errors.Add(new CompilationError(variableDeclaration.Context, $"{variableDeclaration.InitExpression.Type} is not assignable to {variableDeclaration.Type}."));
             else if (variableDeclaration.InitExpression != null && variableDeclaration.Type == null)
-                variableDeclaration.AddChild(variableDeclaration.InitExpression.Type.Wrap(variableDeclaration.Context));
+                variableDeclaration.AddChild(AstCloner.Clone((ITypeNode)variableDeclaration.InitExpression.Type));
         }
 
         public override void ExitNativeMethodInvocationExpression(NativeMethodInvocationExpression nativeMethodInvocationExpression)
@@ -804,6 +804,17 @@ namespace Omnium.Core.compiler
                 .SelectMany(x => x.ClassDeclarations)
                 .Single(x => x.Name == "Event");
             nativeTrigger.Type = new ReferenceType(nativeTrigger.Context, eventDeclaration);
+        }
+
+        public override void ExitClassDeclaration(ClassDeclaration classDeclaration)
+        {
+            foreach (var getterSetterDeclaration in classDeclaration.GettersAndSetters)
+            {
+                if (getterSetterDeclaration.Getter != null
+                    && getterSetterDeclaration.Setter != null
+                    && !getterSetterDeclaration.Getter.ReturnType.IsEquivalentTo(getterSetterDeclaration.Setter.Parameter.Type))
+                    Errors.Add(new CompilationError(getterSetterDeclaration.Getter.Context, "Getters and setters of the same name must have the same type."));
+            }
         }
     }
 }

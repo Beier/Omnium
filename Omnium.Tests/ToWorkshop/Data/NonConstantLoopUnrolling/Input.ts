@@ -15,7 +15,7 @@ Native.rule("Hello World",
             Message.send(player, "Hello " + player, Message.Size.Small);
             wait(0.3);
         }
-        var isTick: boolean = true;
+        var isTick = true;
         
         while (true) {
             wait(1);

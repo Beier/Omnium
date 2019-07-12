@@ -5,7 +5,7 @@ import { Message } from "../../../library/Message";
 import { Players, Button } from "../../../library/Player";
 
 var textPosition: Vector;
-var totalShots: number = 0;
+var totalShots = 0;
 
 Native.rule("Initialize text",
     Rule.Events.Ongoing.global,
