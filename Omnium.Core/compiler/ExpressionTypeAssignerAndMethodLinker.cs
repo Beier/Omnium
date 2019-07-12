@@ -41,7 +41,7 @@ namespace Omnium.Core.compiler
                         if (getterSetterDeclaration.Setter == null)
                             Errors.Add(new CompilationError(simpleNameExpression.Context, $"{getterSetterDeclaration.Name} has no setter."));
                         else
-                            simpleNameExpression.Declarations = new List<INamedDeclaration>{getterSetterDeclaration.Setter};
+                            simpleNameExpression.Declarations = new List<INamedDeclaration> { getterSetterDeclaration.Setter };
                         if (assignmentExpression.Operator.Value != "=" && getterSetterDeclaration.Getter == null)
                             Errors.Add(new CompilationError(simpleNameExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                     }
@@ -291,6 +291,72 @@ namespace Omnium.Core.compiler
             castExpression.Type = castExpression.TargetType;
         }
 
+        public override void EnterLambdaExpression(LambdaExpression lambdaExpression)
+        {
+            if (lambdaExpression.Variables.All(x => x.Type != null))
+                return;
+            switch (lambdaExpression.Parent)
+            {
+                case MethodInvocationExpression methodInvocationExpression:
+                    {
+                        var methodReferenceType = methodInvocationExpression.Base.Type.Unwrap() as MethodReferenceType;
+                        var argumentIndex = methodInvocationExpression.Arguments.IndexOf(lambdaExpression);
+                        if (methodReferenceType == null || argumentIndex == -1)
+                            break;
+                        var targetParameter = methodReferenceType.Declaration.Variables.Skip(argumentIndex).FirstOrDefault();
+                        if (!(targetParameter?.Type is FunctionType functionType) || functionType.Parameters.Count() != lambdaExpression.Variables.Count())
+                            break;
+                        for (int i = 0; i < lambdaExpression.Variables.Count(); i++)
+                        {
+                            var typeNode = ReplaceGenerics(methodInvocationExpression, functionType.Parameters.ElementAt(i).Type);
+                            lambdaExpression.Variables.ElementAt(i).AddChild(typeNode);
+                        }
+                        return;
+                    }
+                case VariableDeclaration variableDeclaration:
+                    {
+                        if (variableDeclaration.Type == null || !(variableDeclaration.Type is FunctionType functionType) || functionType.Parameters.Count() != lambdaExpression.Variables.Count())
+                            break;
+                        for (int i = 0; i < lambdaExpression.Variables.Count(); i++)
+                        {
+                            lambdaExpression.Variables.ElementAt(i).AddChild(AstCloner.Clone(functionType.Parameters.ElementAt(i).Type));
+                        }
+                        return;
+                    }
+                case AssignmentExpression assignmentExpression:
+                {
+                    if (!(assignmentExpression.Left is INameExpression nameExpression))
+                        break;
+                    switch (nameExpression.Declaration)
+                    {
+                        case VariableDeclaration variableDeclaration:
+                        {
+                            if (variableDeclaration.Type == null || !(variableDeclaration.Type is FunctionType functionType) || functionType.Parameters.Count() != lambdaExpression.Variables.Count())
+                                break;
+                            for (int i = 0; i < lambdaExpression.Variables.Count(); i++)
+                            {
+                                lambdaExpression.Variables.ElementAt(i).AddChild(AstCloner.Clone(functionType.Parameters.ElementAt(i).Type));
+                            }
+                            return;
+                                }
+                        case GetterSetterDeclaration getterSetterDeclaration:
+                        {
+                            if (!(getterSetterDeclaration.Type is FunctionType functionType) || functionType.Parameters.Count() != lambdaExpression.Variables.Count())
+                                break;
+                            for (int i = 0; i < lambdaExpression.Variables.Count(); i++)
+                            {
+                                lambdaExpression.Variables.ElementAt(i).AddChild(AstCloner.Clone(functionType.Parameters.ElementAt(i).Type));
+                            }
+                            return;
+                        }
+                    }
+
+                    break;
+                }
+            }
+            throw new CompilationError(lambdaExpression.Context, "Unable to infer parameter types");
+        }
+
         public override void ExitLambdaExpression(LambdaExpression lambdaExpression)
         {
             var returnTypes = lambdaExpression.Block
@@ -338,12 +404,12 @@ namespace Omnium.Core.compiler
                     if (matchingDeclarations.Count > 1 &&
                         matchingDeclarations.NotOfType(typeof(ITypeDeclaration)).Any())
                         Errors.Add(new CompilationError(memberExpression.Context, $"Found multiple declarations on {memberExpression.Base.Type} matching {memberExpression.Name}"));
-                    
+
 
                     if (matchingDeclarations.Count == 1 && matchingDeclarations[0] is EnumValue enumValue)
                     {
                         var enumDeclaration = enumValue.Parent;
-                        memberExpression.Declarations = new List<INamedDeclaration>{enumValue};
+                        memberExpression.Declarations = new List<INamedDeclaration> { enumValue };
                         memberExpression.Type = new ReferenceType(memberExpression.Context, enumDeclaration);
                         return;
                     }
@@ -380,7 +446,7 @@ namespace Omnium.Core.compiler
                     if (getterSetterDeclaration.Setter == null)
                         Errors.Add(new CompilationError(memberExpression.Context, $"{getterSetterDeclaration.Name} has no setter."));
                     else
-                        memberExpression.Declarations = new List<INamedDeclaration>{getterSetterDeclaration.Setter};
+                        memberExpression.Declarations = new List<INamedDeclaration> { getterSetterDeclaration.Setter };
                     if (assignmentExpression.Operator.Value != "=" && getterSetterDeclaration.Getter == null)
                         Errors.Add(new CompilationError(memberExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                 }
@@ -389,11 +455,11 @@ namespace Omnium.Core.compiler
                     if (getterSetterDeclaration.Getter == null)
                         Errors.Add(new CompilationError(memberExpression.Context, $"{getterSetterDeclaration.Name} has no getter."));
                     else
-                        memberExpression.Declarations = new List<INamedDeclaration>{getterSetterDeclaration.Getter};
+                        memberExpression.Declarations = new List<INamedDeclaration> { getterSetterDeclaration.Getter };
                 }
             }
         }
-        
+
         public override void EnterForeachStatement(ForeachStatement foreachStatement)
         {
             Visit(foreachStatement.List);
@@ -488,7 +554,7 @@ namespace Omnium.Core.compiler
                 {
                     Errors.Add(new CompilationError(returnStatement.Context, $"Invalid return value: {returnStatementType}"));
                 }
-                else 
+                else
                 {
                     var typeList = inferredMethodTypes[namedDeclaration];
                     if (!typeList.Any(x => x.IsEquivalentTo(returnStatementType)))
@@ -645,8 +711,8 @@ namespace Omnium.Core.compiler
                     case ClassDeclaration classDeclaration:
                         genericList = classDeclaration.GenericTypeDeclarations.ToList();
                         var baseMember = methodInvocationOrMemberExpression is MethodInvocationExpression
-                            ? (((MethodInvocationExpression) methodInvocationOrMemberExpression).Base as MemberExpression)?.Base
-                            : ((MemberExpression) methodInvocationOrMemberExpression).Base;
+                            ? (((MethodInvocationExpression)methodInvocationOrMemberExpression).Base as MemberExpression)?.Base
+                            : ((MemberExpression)methodInvocationOrMemberExpression).Base;
                         if (baseMember == null || !(baseMember.Type is GenericType genericType))
                             throw new CompilationError(methodInvocationOrMemberExpression.Context, "Expected generic type parameters");
                         typeList = genericType.GenericTypes.ToList();

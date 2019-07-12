@@ -200,8 +200,8 @@ lambdaExpression
 anonymousFunctionSignature
 	: OPEN_PARENS CLOSE_PARENS
 	| OPEN_PARENS explicitAnonymousFunctionParameterList CLOSE_PARENS
-	//| OPEN_PARENS implicitAnonymousFunctionParameterList CLOSE_PARENS
-	//| identifier
+	| OPEN_PARENS implicitAnonymousFunctionParameterList CLOSE_PARENS
+	| identifier
 	;
 
 explicitAnonymousFunctionParameterList

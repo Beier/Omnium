@@ -6,9 +6,9 @@ import { Message } from "../../../library/Message";
 
 Native.rule("No fly zone",
     Rule.Events.Ongoing.global,
-    Players.all.any((player : Player) => player.isInAir),
+    Players.all.any(player => player.isInAir),
     () => {
-        var flyingPlayers = Players.all.filter((player: Player) => player.isInAir);
+        var flyingPlayers = Players.all.filter(player => player.isInAir);
         Players.killAll(flyingPlayers);
     }
 );
@@ -26,7 +26,7 @@ Native.rule("Sort",
         list = list.shuffled;
         print(list);
         wait(3);
-        list = list.sortedBy<number>((x : number) => ((x % 2) * 2 - 1) * x);
+        list = list.sortedBy<number>(x => ((x % 2) * 2 - 1) * x);
         print(list);
         wait(3);
         list = list.sorted;

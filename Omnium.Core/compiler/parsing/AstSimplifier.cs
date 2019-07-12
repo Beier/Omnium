@@ -480,6 +480,13 @@ namespace Omnium.Core.compiler.parsing
             yield return new LambdaExpression(context, variables.Concat<INode>(blockBody.Yield()));
         }
 
+        public override IEnumerable<INode> VisitAnonymousFunctionSignature(TypescriptParser.AnonymousFunctionSignatureContext context)
+        {
+            if (context.identifier() != null)
+                return new VariableDeclaration(context.identifier(), context.identifier().GetText(), new INode[0]).Yield();
+            return base.VisitAnonymousFunctionSignature(context);
+        }
+
         public override IEnumerable<INode> VisitExplicitAnonymousFunctionParameter(TypescriptParser.ExplicitAnonymousFunctionParameterContext context)
         {
             yield return new VariableDeclaration(context, context.identifier().GetText(), Visit(context.type()));
