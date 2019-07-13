@@ -18,5 +18,22 @@ namespace Omnium.Core.ast.declarations
         public ModuleDeclaration NativeModule { get; set; }
         public ClassDeclaration ListDeclaration { get; set; }
         public readonly List<string> NativeStrings = new List<string>();
+        public readonly List<ReevaluationRegistration> ReevaluationRegistrations = new List<ReevaluationRegistration>();
+    }
+
+    public class ReevaluationRegistration
+    {
+        public string NativeMethodName { get; }
+        public int ReevaluationEnumParameter { get; }
+        public EnumValue EnumValue { get; }
+        public int ReevaluatedParameter { get; }
+
+        public ReevaluationRegistration(string nativeMethodName, int reevaluationEnumParameter, EnumValue enumValue, int reevaluatedParameter)
+        {
+            NativeMethodName = nativeMethodName;
+            ReevaluationEnumParameter = reevaluationEnumParameter;
+            EnumValue = enumValue;
+            ReevaluatedParameter = reevaluatedParameter;
+        }
     }
 }

@@ -792,6 +792,11 @@ export module DamageModification {
         Players = "Receivers and damagers",
         None = "None"
     }
+    Native.registerReevaluation<Reevaluation>("Start damage modification", 3, Reevaluation.All, 0);
+    Native.registerReevaluation<Reevaluation>("Start damage modification", 3, Reevaluation.All, 1);
+    Native.registerReevaluation<Reevaluation>("Start damage modification", 3, Reevaluation.All, 2);
+    Native.registerReevaluation<Reevaluation>("Start damage modification", 3, Reevaluation.Players, 0);
+    Native.registerReevaluation<Reevaluation>("Start damage modification", 3, Reevaluation.Players, 1);
 }
 
 export module DamageOverTime {
@@ -866,4 +871,6 @@ export module Facing {
         DirectionAndTurnRate = "Direction and turn rate",
         None = "None"
     }
+    Native.registerReevaluation<Reevaluation>("Start facing", 4, Reevaluation.DirectionAndTurnRate, 1);
+    Native.registerReevaluation<Reevaluation>("Start facing", 4, Reevaluation.DirectionAndTurnRate, 2);
 }

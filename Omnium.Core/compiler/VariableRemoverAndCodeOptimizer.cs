@@ -50,6 +50,7 @@ namespace Omnium.Core.compiler
             SimplifyLambdaMethods(root);
             SimplifyRuleTriggers(root);
             SimplifyRuleCondition(root);
+            MoveReevaluatedVariablesToGlobalVariables(root);
             MoveStateVariablesToInitializationRules(root);
             RemoveAssertions(root);
 
@@ -441,6 +442,62 @@ namespace Omnium.Core.compiler
                 variableDeclaration.IsChased = true;
             }
         }
+
+        public void MoveReevaluatedVariablesToGlobalVariables(Root root)
+        {
+            var methodInvocationsWithPotentialReevaluations = root.AllDescendantsAndSelf().OfAnyType(typeof(NativeMethodInvocationExpression), typeof(ChaseExpression)).ToList();
+            foreach (var methodOrChase in methodInvocationsWithPotentialReevaluations)
+            {
+                switch (methodOrChase)
+                {
+                    case NativeMethodInvocationExpression nativeMethodInvocation:
+                        var matchingRules = root.ReevaluationRegistrations.Where(x => x.NativeMethodName.ToLower() == nativeMethodInvocation.NativeMethodName.ToLower()).ToList();
+                        if (matchingRules.Count == 0)
+                            continue;
+                        var enumParameterNumber = matchingRules.Select(x => x.ReevaluationEnumParameter).Distinct().Single();
+                        var enumArgument = nativeMethodInvocation.Arguments.ElementAt(enumParameterNumber);
+                        var endExpression = FollowVariables(enumArgument);
+                        if (endExpression is INameExpression namedExpression && namedExpression.Declaration is EnumValue enumValue)
+                            matchingRules = matchingRules.Where(x => x.EnumValue == enumValue).ToList();
+                        if (matchingRules.Count == 0)
+                            continue;
+
+                        var reevaluatedParameters = matchingRules.Select(x => x.ReevaluatedParameter).Distinct().Select(x => nativeMethodInvocation.Arguments.ElementAt(x));
+                        var localVariablesReadInReevaluatedParameters =
+                            reevaluatedParameters
+                                .SelectMany(x => x.AllDescendantsAndSelf())
+                                .OfType<INameExpression>()
+                                .Select(x => x.Declaration)
+                                .OfType<VariableDeclaration>()
+                                .Where(x => x.Parent is VariableDeclarationStatement)
+                                .Distinct();
+
+                        foreach (var variableDeclaration in localVariablesReadInReevaluatedParameters)
+                        {
+                            var rule = variableDeclaration.NearestAncestorOfType<RuleDeclaration>();
+                            RemoveStatement((IStatement) variableDeclaration.Parent);
+                            variableDeclaration.Remove();
+                            rule.AddChild(variableDeclaration);
+                        }
+                        break;
+                }
+            }
+        }
+
+        private IExpression FollowVariables(IExpression expression)
+        {
+            if (expression is INameExpression nameExpression && nameExpression.Declaration is VariableDeclaration variableDeclaration && variableDeclaration.Parent is VariableDeclarationStatement)
+            {
+                var assignments = variableWrites[variableDeclaration].Select(x => (AssignmentExpression)x.Parent);
+                var assignmentsHittingThisRead = assignments.Where(x => FindReadsAndStatementsTowardsRead(variableDeclaration, x).Any(y => y.Item1 == expression))
+                    .ToList();
+                if (assignmentsHittingThisRead.Count == 1)
+                    return FollowVariables(assignmentsHittingThisRead[0].Right);
+            }
+
+            return expression;
+        }
+
 
         private bool MoveLocalAssignments(Root root)
         {

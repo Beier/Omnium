@@ -66,6 +66,12 @@ export module Effect {
             VisibleTo = "Visible to",
             None = "None",
         }
+        Native.registerReevaluation<Reevaluation>("Create effect", 5, Reevaluation.VisibleToPositionAndRadius, 0);
+        Native.registerReevaluation<Reevaluation>("Create effect", 5, Reevaluation.VisibleToPositionAndRadius, 3);
+        Native.registerReevaluation<Reevaluation>("Create effect", 5, Reevaluation.VisibleToPositionAndRadius, 4);
+        Native.registerReevaluation<Reevaluation>("Create effect", 5, Reevaluation.PositionAndRadius, 3);
+        Native.registerReevaluation<Reevaluation>("Create effect", 5, Reevaluation.PositionAndRadius, 4);
+        Native.registerReevaluation<Reevaluation>("Create effect", 5, Reevaluation.VisibleTo, 0);
     }
 
     export module Animated {

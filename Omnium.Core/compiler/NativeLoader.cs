@@ -63,6 +63,9 @@ namespace Omnium.Core.compiler
                 case "playerVars":
                     ConvertToPlayerVarsExpression(methodInvocationExpression);
                     break;
+                case "registerReevaluation":
+                    RegisterReevaluation(methodInvocationExpression);
+                    break;
             }
         }
 
@@ -428,6 +431,33 @@ namespace Omnium.Core.compiler
             }
 
             methodInvocationExpression.ReplaceWith(new PlayerVarsExpression(context, genericType.Yield().Concat<INode>(methodInvocationExpression.Arguments)));
+        }
+
+        private void RegisterReevaluation(MethodInvocationExpression methodInvocationExpression)
+        {
+            var context = methodInvocationExpression.Context;
+            if (!ValidateSignature<SourceFile, ModuleDeclaration>(methodInvocationExpression, 1, 4))
+                return;
+
+
+            if (!(methodInvocationExpression.Arguments.ElementAt(0) is StringLiteral))
+            {
+                Errors.Add(new CompilationError(context, "The first argument must be a string literal."));
+                return;
+            }
+            if (!(methodInvocationExpression.Arguments.ElementAt(1) is NumberLiteral))
+            {
+                Errors.Add(new CompilationError(context, "The second argument must be a number literal."));
+                return;
+            }
+            if (!(methodInvocationExpression.Arguments.ElementAt(3) is NumberLiteral))
+            {
+                Errors.Add(new CompilationError(context, "The third argument must be a number literal."));
+                return;
+            }
+
+            methodInvocationExpression.isNativeRegisterReevaluation = true;
+            //Do nothing - get type of enum first
         }
 
         private bool ValidateSignature<T1>(MethodInvocationExpression methodInvocationExpression, int numberOfGenerics, int numberOfArguments)

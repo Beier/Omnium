@@ -46,4 +46,7 @@ export module Motion {
         DirectionRateAndMaxSpeed = "Direction, rate, and max speed",
         None = "None"
     }
+    Native.registerReevaluation<Reevaluation>("Start accelerating", 5, Reevaluation.DirectionRateAndMaxSpeed, 1);
+    Native.registerReevaluation<Reevaluation>("Start accelerating", 5, Reevaluation.DirectionRateAndMaxSpeed, 2);
+    Native.registerReevaluation<Reevaluation>("Start accelerating", 5, Reevaluation.DirectionRateAndMaxSpeed, 3);
 }

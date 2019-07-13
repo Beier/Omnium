@@ -16,6 +16,8 @@ namespace Omnium.Core.ast.expressions
             : Base is MemberExpression memberExpression ? memberExpression.Declaration as MethodDeclaration
             : null;
 
+        public bool isNativeRegisterReevaluation = false;
+
         public MethodInvocationExpression(IParseTree context, IEnumerable<INode> children) : base(context, children)
         {
         }

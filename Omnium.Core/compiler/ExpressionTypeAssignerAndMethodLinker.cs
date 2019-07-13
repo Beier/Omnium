@@ -640,6 +640,28 @@ namespace Omnium.Core.compiler
                         }
                 }
             }
+
+            if (methodInvocationExpression.isNativeRegisterReevaluation)
+            {
+                var nativeMethodName = ((StringLiteral) methodInvocationExpression.Arguments.ElementAt(0)).UnquotedText;
+                var reevaluationEnumParameter = (int)((NumberLiteral) methodInvocationExpression.Arguments.ElementAt(1)).Value;
+                Visit(methodInvocationExpression.Arguments.ElementAt(2));
+                var enumValue = (methodInvocationExpression.Arguments.ElementAt(2) as INameExpression)?.Declaration as EnumValue;
+                var reevaluatedParameter = (int)((NumberLiteral)methodInvocationExpression.Arguments.ElementAt(3)).Value;
+
+                if (enumValue == null)
+                    Errors.Add(new CompilationError(methodInvocationExpression.Context, "The thrid argument must be an enum value"));
+                else
+                {
+                    var root = methodInvocationExpression.NearestAncestorOfType<Root>();
+                    root.ReevaluationRegistrations.Add(new ReevaluationRegistration(nativeMethodName, reevaluationEnumParameter, enumValue, reevaluatedParameter));
+                }
+                
+                methodInvocationExpression.Remove();
+
+                skipChildren = true;
+                return;
+            }
         }
 
         public override void ExitMethodInvocationExpression(MethodInvocationExpression methodInvocationExpression)

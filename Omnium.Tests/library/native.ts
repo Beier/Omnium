@@ -171,8 +171,16 @@ export module Native {
             return null;
         }
     }
+
+    export function registerReevaluation<T>(nativeMethodName: string,
+        reevaluationEnumParameter: number,
+        reevaluationEnumValue: T,
+        reevaluatedParameter: number) {
+
+    }
 }
 
+//Todo: Handle specially
 export enum ChaseTimeReevaluation {
     DestinationAndDuration = "Destination and Duration",
     None = "None"
@@ -223,3 +231,6 @@ export enum RoundType {
     Down = "Down",
     ToNearest = "To nearest"
 }
+
+
+

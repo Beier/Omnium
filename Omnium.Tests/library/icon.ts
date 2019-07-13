@@ -74,6 +74,10 @@ export module Icon {
         VisibleTo = "Visible to",
         None = "None",
     }
+    Native.registerReevaluation<Reevaluation>("Create icon", 3, Reevaluation.VisibleToAndPosition, 0);
+    Native.registerReevaluation<Reevaluation>("Create icon", 3, Reevaluation.VisibleToAndPosition, 1);
+    Native.registerReevaluation<Reevaluation>("Create icon", 3, Reevaluation.VisibleTo, 0);
+    Native.registerReevaluation<Reevaluation>("Create icon", 3, Reevaluation.Position, 1);
 }
 
 export enum Color {

@@ -23,6 +23,7 @@ namespace Omnium.Core.ast.declarations
 
         public IExpression InitExpression => Children.OfType<IExpression>().SingleOrDefault();
 
+
         public VariableDeclaration(IParseTree context, string name, IEnumerable<INode> children) : base(context, children)
         {
             Name = name;

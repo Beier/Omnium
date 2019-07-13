@@ -1,0 +1,38 @@
+﻿rule("Initialize player variables")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	actions
+	{
+		Set Player Variable(Event player, A, 0);
+	}
+}
+
+rule("Show stats")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+	
+	actions
+	{
+		Skip If(Compare(Player Variable(Event Player, A), ==, 1), 4);
+		Set Player Variable(Event player, C, Position of(Event Player));
+		Set Player Variable(Event player, B, 0);
+		Create HUD Text(Event Player, String("Status", Null, Null, Null), String("{0}: {1}", String("Time", Null, Null, Null), String("{0} sec", Total time elapsed, Null, Null), Null), String("{0}: {1}", String("Distance", Null, Null, Null), String("{0} m", Player Variable(Event Player, B), Null, Null), Null), Left, 0, White, White, White, String);
+		Set Player Variable(Event player, A, 1);
+		Wait(0.25, Ignore condition);
+		Set Player Variable(Event player, B, Add(Player Variable(Event Player, B), Distance between(Position of(Event Player), Player Variable(Event Player, C))));
+		Set Player Variable(Event player, C, Position of(Event Player));
+		Loop;
+	}
+}
+

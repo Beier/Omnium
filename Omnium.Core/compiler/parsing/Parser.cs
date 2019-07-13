@@ -9,15 +9,18 @@ namespace Omnium.Core.compiler.parsing
 {
     public interface IParser
     {
-        Root LoadFileAndImports(string originalFilename);
+        Root LoadFileAndImports(string[] originalFilenames);
     }
 
     public class Parser : IParser
     {
-        public Root LoadFileAndImports(string originalFilename)
+        public Root LoadFileAndImports(string[] originalFilenames)
         {
             var queue = new Queue<string>();
-            queue.Enqueue(Path.GetFullPath(originalFilename));
+            foreach (var originalFilename in originalFilenames)
+            {
+                queue.Enqueue(Path.GetFullPath(originalFilename));
+            }
             var errors = new List<string>();
             var loadedFiles = new Dictionary<string, TypescriptParser.SourceFileContext>();
 

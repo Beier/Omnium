@@ -9,6 +9,11 @@ namespace Omnium.Core.compiler
         private readonly IParser parser;
 
 
+        public TypescriptToOverwatchCompiler()
+        {
+            parser = new Parser();
+        }
+
         public TypescriptToOverwatchCompiler(IParser parser)
         {
             this.parser = parser;
@@ -16,7 +21,12 @@ namespace Omnium.Core.compiler
 
         public string Compile(string filename)
         {
-            var root = parser.LoadFileAndImports(filename);
+            return Compile(new[] {filename});
+        }
+
+        public string Compile(string[] filenames)
+        {
+            var root = parser.LoadFileAndImports(filenames);
             
             var astTraversalSteps = new TreeVoidWalker[]
             {
@@ -57,7 +67,7 @@ namespace Omnium.Core.compiler
                 }
                 if (step.Errors.Any())
                 {
-                    throw new Exception("Compilation failed.");
+                    return null;
                 }
             }
 

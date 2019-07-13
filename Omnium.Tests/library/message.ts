@@ -32,6 +32,9 @@ export module Message {
                 VisibleToAndString = "Visible to and string",
                 String = "String"
             }
+            Native.registerReevaluation<Reevaluation>("Set Objective description", 2, Reevaluation.VisibleToAndString, 0);
+            Native.registerReevaluation<Reevaluation>("Set Objective description", 2, Reevaluation.VisibleToAndString, 1);
+            Native.registerReevaluation<Reevaluation>("Set Objective description", 2, Reevaluation.String, 1);
         }
 
         export module Text {
@@ -88,16 +91,23 @@ export module Message {
                 Native.callNativeArg0Action("Destroy all hud text", false, true);
             }
 
-            enum Location {
+            export enum Location {
                 Left = "Left",
                 Top = "Top",
                 Right = "Right"
             }
 
-            enum Reevaluation {
+            export enum Reevaluation {
                 String = "String",
                 VisibleToAndString = "Visible To and String"
             }
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.VisibleToAndString, 0);
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.VisibleToAndString, 1);
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.VisibleToAndString, 2);
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.VisibleToAndString, 3);
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.String, 1);
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.String, 2);
+            Native.registerReevaluation<Reevaluation>("Create HUD Text", 9, Reevaluation.String, 3);
         }
     }
 
@@ -140,12 +150,18 @@ export module Message {
             VisibleToAndString = "Visible to and string",
             String = "String"
         }
+        Native.registerReevaluation<Reevaluation>("Create in-world text", 5, Reevaluation.VisibleToPositionAndString, 0);
+        Native.registerReevaluation<Reevaluation>("Create in-world text", 5, Reevaluation.VisibleToPositionAndString, 1);
+        Native.registerReevaluation<Reevaluation>("Create in-world text", 5, Reevaluation.VisibleToPositionAndString, 2);
+        Native.registerReevaluation<Reevaluation>("Create in-world text", 5, Reevaluation.VisibleToAndString, 0);
+        Native.registerReevaluation<Reevaluation>("Create in-world text", 5, Reevaluation.VisibleToAndString, 1);
+        Native.registerReevaluation<Reevaluation>("Create in-world text", 5, Reevaluation.String, 1);
     }
 }
 
 
 
-enum TextColor {
+export enum TextColor {
     White = "White",
     Yellow = "Yellow",
     Green = "Green",
