@@ -7,7 +7,7 @@
 	
 	actions
 	{
-		Set Global Variable At Index(A, 0, 0);
+		Set Global Variable(A, 0);
 	}
 }
 
@@ -20,27 +20,27 @@ rule("Hello World")
 	
 	actions
 	{
-		Skip If(Compare(Value in Array(Global Variable(A), 0), ==, 2), 14);
-		Skip If(Compare(Value in Array(Global Variable(A), 0), ==, 1), 4);
+		Skip If(Compare(Global Variable(A), ==, 2), 14);
+		Skip If(Compare(Global Variable(A), ==, 1), 4);
 		Big Message(All Players(Team(All)), String("Starting", Null, Null, Null));
-		Set Global Variable At Index(A, 1, 0);
-		Set Global Variable(B, All Players(Team(All)));
-		Set Global Variable At Index(A, 0, 1);
-		Skip If(Compare(Value in Array(Global Variable(A), 1), >=, Count Of(Global Variable(B))), 5);
-		Set Global Variable At Index(A, 2, Value In Array(Global Variable(B), Value in Array(Global Variable(A), 1)));
-		Small Message(Value in Array(Global Variable(A), 2), String("{0} {1}", String("Hello", Null, Null, Null), Value in Array(Global Variable(A), 2), Null));
+		Set Global Variable(B, 0);
+		Set Global Variable(C, All Players(Team(All)));
+		Set Global Variable(A, 1);
+		Skip If(Compare(Global Variable(B), >=, Count Of(Global Variable(C))), 5);
+		Set Global Variable(D, Value In Array(Global Variable(C), Global Variable(B)));
+		Small Message(Global Variable(D), String("{0} {1}", String("Hello", Null, Null, Null), Global Variable(D), Null));
 		Wait(0.3, Ignore condition);
-		Set Global Variable At Index(A, 1, Add(Value in Array(Global Variable(A), 1), 1));
+		Set Global Variable(B, Add(Global Variable(B), 1));
 		Loop;
-		Set Global Variable At Index(A, 0, 0);
-		Set Global Variable At Index(A, 3, true);
-		Set Global Variable At Index(A, 0, 2);
+		Set Global Variable(A, 0);
+		Set Global Variable(E, true);
+		Set Global Variable(A, 2);
 		Wait(1, Ignore condition);
-		Skip If(Value in Array(Global Variable(A), 3), 2);
+		Skip If(Global Variable(E), 2);
 		Small Message(All Players(Team(All)), String("Tock", Null, Null, Null));
 		Skip(1);
 		Small Message(All Players(Team(All)), String("Tick", Null, Null, Null));
-		Set Global Variable At Index(A, 3, Not(Value in Array(Global Variable(A), 3)));
+		Set Global Variable(E, Not(Global Variable(E)));
 		Loop;
 	}
 }

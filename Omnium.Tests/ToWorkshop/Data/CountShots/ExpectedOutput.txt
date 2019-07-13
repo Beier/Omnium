@@ -7,7 +7,7 @@
 	
 	actions
 	{
-		Set Global Variable At Index(A, 1, 0);
+		Set Global Variable(B, 0);
 	}
 }
 
@@ -20,8 +20,8 @@ rule("Initialize text")
 	
 	actions
 	{
-		Set Global Variable At Index(A, 0, Vector(0, 0, 0));
-		Create in-world text(All Players(Team(All)), Value in Array(Global Variable(A), 1), Value in Array(Global Variable(A), 0), 3, Do not clip, Visible to position and string);
+		Set Global Variable(A, Vector(0, 0, 0));
+		Create in-world text(All Players(Team(All)), Global Variable(B), Global Variable(A), 3, Do not clip, Visible to position and string);
 	}
 }
 
@@ -41,8 +41,8 @@ rule("Move text to shot target")
 	
 	actions
 	{
-		Set Global Variable At Index(A, 1, Add(Value in Array(Global Variable(A), 1), 1));
-		Set Global Variable At Index(A, 0, Ray cast hit position(Add(Position of(Event Player), Up), Add(Add(Position of(Event Player), Multiply(100, Facing direction of(Event Player))), Up), All Players(Team(All)), Event Player, true));
+		Set Global Variable(B, Add(Global Variable(B), 1));
+		Set Global Variable(A, Ray cast hit position(Add(Position of(Event Player), Up), Add(Add(Position of(Event Player), Multiply(100, Facing direction of(Event Player))), Up), All Players(Team(All)), Event Player, true));
 	}
 }
 

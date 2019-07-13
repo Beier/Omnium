@@ -63,7 +63,6 @@ namespace Omnium.Core.compiler
 
             /*
              *  Todo:
-             *  - Chase: Single global variable
              *  - Reevaluate: Do not merge with assignments after
              *  - Refactor: Split into folders
              *  - Optional types
