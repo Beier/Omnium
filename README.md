@@ -126,7 +126,7 @@ Variables related to the rule, such as Event Player are found under `Rule.Event`
 All functions in the Native module have special meaning to the compiler.
 
 #### callNative
-The native module has functions like `callNativeArg1Function` or `callNativeArg10Action`, which is how an action for function in the native overwatch code is invoked. You should not need to call this directly, as all the actions are already part of the library. 
+The native module has functions like `callNativeArg1Function` or `callNativeArg10Action`, which is how an action or function in the native overwatch code is invoked. You should not need to call this directly, as all the actions are already part of the library. 
 For instance, the Team class in the library contain the code
 ```
 export class Team {
@@ -155,9 +155,13 @@ However, if the Overwatch team adds a new action to the Workshop, it will not be
 
 ### Strings
 You can make strings, like you would normally in typescript. 
-`Message.send(Players.all, Rule.Event.player + " failed!");`
+```
+Message.send(Players.all, Rule.Event.player + " failed!");
+```
 The compiler will check that the string can be constructed based on the strings registered in library/strings.ts, and convert this into
-`String("{0}!", String("{0} {1}", Event Player, String("failed", Null, Null, Null), Null), Null, Null)`
+```
+String("{0}!", String("{0} {1}", Event Player, String("failed", Null, Null, Null), Null), Null, Null)
+```
 If you try to make a string that can not be constructed, like `Message.send(Players.all, Rule.Event.player + " died!");`, the compilation will fail.
 
 If the compiler is missing a string that exists in overwatch, you can register it with `Native.registerString("...");`. Please also notify me, or make a pull request on the library code here on GitHub.
