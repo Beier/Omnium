@@ -132,8 +132,6 @@ namespace Omnium.Core.compiler.parsing
 
         public override IEnumerable<INode> VisitVariableDeclarator(TypescriptParser.VariableDeclaratorContext context)
         {
-            if (context.identifier().GetText() == "header")
-                Console.WriteLine();
             yield return new VariableDeclaration(
                 context,
                 context.identifier().GetText(),
@@ -236,8 +234,6 @@ namespace Omnium.Core.compiler.parsing
 
         public override IEnumerable<INode> VisitMethodDeclaration(TypescriptParser.MethodDeclarationContext context)
         {
-            if (context.identifier().GetText() == "createHudText")
-                Console.WriteLine();
             yield return new MethodDeclaration(
                 context,
                 context.identifier().GetText(),
@@ -263,8 +259,6 @@ namespace Omnium.Core.compiler.parsing
 
         public override IEnumerable<INode> VisitArgDeclaration(TypescriptParser.ArgDeclarationContext context)
         {
-            if (context.identifier().GetText() == "header")
-                Console.WriteLine();
             yield return new VariableDeclaration(
                 context,
                 context.identifier().GetText(),

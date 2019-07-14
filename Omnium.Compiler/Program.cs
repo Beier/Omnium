@@ -15,7 +15,7 @@ namespace Omnium
         public class Options
         {
             [Option('i', "inputFiles", Required = true, HelpText = "Path to one or more input files. Imported files will automatically be included.")]
-            public string[] InputFiles { get; set; }
+            public IEnumerable<string> InputFiles { get; set; }
             [Option('o', "outputFile", Required = true, HelpText = "Path to output file")]
             public string OutputFile { get; set; }
         }
@@ -28,10 +28,10 @@ namespace Omnium
                     var compiler = new TypescriptToOverwatchCompiler();
                     try
                     {
-                        var result = compiler.Compile(options.InputFiles);
+                        var result = compiler.Compile(options.InputFiles.ToArray());
                         if (result == null)
                         {
-                            Console.WriteLine("Failed!");
+                            Console.WriteLine("Build failed!");
                             return;
                         }
 
@@ -39,6 +39,7 @@ namespace Omnium
                         {
                             outputStream.Write(result);
                         }
+                        Console.WriteLine("Build succeeded");
                     }
                     catch (Exception e)
                     {
