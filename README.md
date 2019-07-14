@@ -88,7 +88,8 @@ rule("Move text to shot target")
 ```
 which can then be copy-pasted into Overwatch.
 ## Download
-Todo
+
+https://github.com/Beier/Omnium/releases
 
 ## Examples
 
