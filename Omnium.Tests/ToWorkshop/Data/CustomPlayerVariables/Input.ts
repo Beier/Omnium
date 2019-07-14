@@ -18,7 +18,6 @@ class PlayerVars extends Native.PlayerVars {
 
     public reset() {
         if (this.firstShotPosition != null) {
-            //Todo: use hero icon
             Icon.create(Icon.Type.X, Color.White, this.player, this.firstShotPosition);
         }
         this.firstShotPosition = null;
