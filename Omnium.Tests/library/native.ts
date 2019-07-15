@@ -1,8 +1,8 @@
-﻿import { Rule } from "rule"
-import { HeroType } from "hero"
-import { Player } from "player"
-import { List } from "list"
-import { } from "strings"
+﻿import { Rule } from "./rule"
+import { HeroType } from "./hero"
+import { Player } from "./player"
+import { List } from "./list"
+import { } from "./strings"
 
 //This serves as a definition of the methods and properties avalible in Overwatch, and how to map to them.
 //For instance, in TypeScript, there is a class called Player, which has a getter "altitude", which defines a mapping to "Altitude Of(this)"

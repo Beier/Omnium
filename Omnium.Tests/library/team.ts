@@ -1,6 +1,6 @@
-﻿import { Native } from "Native"
-import { List } from "List"
-import { Player, Players } from "Player"
+﻿import { Native } from "./Native"
+import { List } from "./List"
+import { Player, Players } from "./Player"
 
 export class Team {
     private constructor() { }

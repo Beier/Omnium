@@ -1,6 +1,6 @@
-﻿import { Native } from "native"
-import { Player } from "player"
-import { HeroType } from "hero"
+﻿import { Native } from "./native"
+import { Player } from "./player"
+import { HeroType } from "./hero"
 
 export module Rule {
     export class Event {

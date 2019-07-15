@@ -1,7 +1,7 @@
-﻿import { Native } from "Native"
-import { List } from "List"
-import { Rule } from "Rule"
-import { Player, Players } from "Player"
+﻿import { Native } from "./Native"
+import { List } from "./List"
+import { Rule } from "./Rule"
+import { Player, Players } from "./Player"
 
 export function vector(x: number, y: number, z: number) {
     return Native.callNativeArg3Function<number, number, number, Vector>("Vector", false, false, x, y, z);

@@ -1,4 +1,4 @@
-﻿import { Native } from "Native"
+﻿import { Native } from "./Native"
 
 Native.registerString("");
 Native.registerString("----------");

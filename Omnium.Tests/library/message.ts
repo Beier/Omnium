@@ -1,7 +1,7 @@
-﻿import { Native } from "Native"
-import { List } from "List"
-import { Vector } from "Vector"
-import { Player, Players } from "Player"
+﻿import { Native } from "./Native"
+import { List } from "./List"
+import { Vector } from "./Vector"
+import { Player, Players } from "./Player"
 
 export module Message {
 

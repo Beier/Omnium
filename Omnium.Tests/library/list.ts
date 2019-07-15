@@ -1,5 +1,5 @@
 ﻿
-import { Native } from "Native"
+import { Native } from "./Native"
 
 export class List<T> extends Array<T> {
     public static empty<T>() {
