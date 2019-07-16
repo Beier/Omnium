@@ -122,6 +122,23 @@ Native.rule(
 All event types are found under `Rule.Events`.
 Variables related to the rule, such as Event Player are found under `Rule.Event`.
 
+### Variables
+
+Variables are declared as one typically would do it in TypeScript. Global variables (declared outside methods) will just be translated into a overwatch global variable.
+If you declare a local variables or parameters, the compilier will attempt to merge them if their usages does not overlap, and then transform them into global variables. Local variables not spanning wait statements might be used by multiple rules.
+
+Player variables are declared by enheriting from `Native.PlayerVars`.
+```
+class PlayerVars extends Native.PlayerVars {
+    public firstShotPosition: Vector = null;
+    public shots = 0;
+    public totalDistance = 0;
+    public icon : Icon.Icon = null;
+}
+```
+And accessed through ex. `Rule.Event.player.vars<PlayerVars>().firstShotPosition`.
+Note that I am not super happy with this implementation, and might change it to something like `public firstShotPosition : PlayerVar<number>`, `firstShotPosition.getFor(Rule.Event.player)`. That would work better with state in classes, which I would like to add in the future. 
+
 ### Native
 All functions in the Native module have special meaning to the compiler.
 
