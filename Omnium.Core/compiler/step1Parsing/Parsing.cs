@@ -1,5 +1,6 @@
 ﻿using Omnium.Core.ast.declarations;
 using Omnium.Core.compiler.step1Parsing.antlr;
+using Omnium.Core.compiler.step1Parsing.astSimplifier;
 
 namespace Omnium.Core.compiler.step1Parsing
 {

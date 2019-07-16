@@ -1,4 +1,5 @@
 ﻿using Omnium.Core.ast.declarations;
+using Omnium.Core.compiler.step2TypeAssignment.expressionTypeAssignerAndMethodLinker;
 
 namespace Omnium.Core.compiler.step2TypeAssignment
 {

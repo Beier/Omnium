@@ -129,7 +129,15 @@
     <Compile Include="ast\types\TypeNodeWrapper.cs" />
     <Compile Include="ast\types\VoidType.cs" />
     <Compile Include="compiler\CompilationStep.cs" />
+    <Compile Include="compiler\step1Parsing\astSimplifier\Types.cs" />
+    <Compile Include="compiler\step1Parsing\astSimplifier\Expressions.cs" />
+    <Compile Include="compiler\step1Parsing\astSimplifier\Statements.cs" />
+    <Compile Include="compiler\step1Parsing\astSimplifier\Declarations.cs" />
     <Compile Include="compiler\step1Parsing\Parsing.cs" />
+    <Compile Include="compiler\step2TypeAssignment\expressionTypeAssignerAndMethodLinker\Declarations.cs" />
+    <Compile Include="compiler\step2TypeAssignment\expressionTypeAssignerAndMethodLinker\MethodExpressions.cs" />
+    <Compile Include="compiler\step2TypeAssignment\expressionTypeAssignerAndMethodLinker\NameExpressions.cs" />
+    <Compile Include="compiler\step2TypeAssignment\expressionTypeAssignerAndMethodLinker\Statements.cs" />
     <Compile Include="compiler\step2TypeAssignment\TypeAssignment.cs" />
     <Compile Include="compiler\step3FeatureSimplification\AssignmentSimplifier.cs" />
     <Compile Include="compiler\step3FeatureSimplification\FeatureSimplification.cs" />
@@ -143,7 +151,7 @@
     <Compile Include="compiler\CompilationError.cs" />
     <Compile Include="compiler\step4CodeOptimization\ConstantEvaluator.cs" />
     <Compile Include="compiler\utilities\Debug.cs" />
-    <Compile Include="compiler\step2TypeAssignment\ExpressionTypeAssignerAndMethodLinker.cs" />
+    <Compile Include="compiler\step2TypeAssignment\expressionTypeAssignerAndMethodLinker\OtherExpressions.cs" />
     <Compile Include="compiler\step3FeatureSimplification\GlobalVariableInitializer.cs" />
     <Compile Include="compiler\step3FeatureSimplification\IfDeleter.cs" />
     <Compile Include="compiler\step1Parsing\ImportLinker.cs" />
@@ -151,7 +159,7 @@
     <Compile Include="compiler\step3FeatureSimplification\MethodFlattener.cs" />
     <Compile Include="compiler\step2TypeAssignment\NativeLoader.cs" />
     <Compile Include="compiler\utilities\NativeMethods.cs" />
-    <Compile Include="compiler\step1Parsing\AstSimplifier.cs" />
+    <Compile Include="compiler\step1Parsing\astSimplifier\AstSimplifier.cs" />
     <Compile Include="compiler\step1Parsing\antlr\ErrorListener.cs" />
     <Compile Include="compiler\step1Parsing\antlr\AntlrParser.cs" />
     <Compile Include="compiler\step1Parsing\antlr\ParserValidation.cs" />
