@@ -1,6 +1,6 @@
 ﻿using Omnium.Core.extensions;
 
-namespace Omnium.Core.compiler.parsing
+namespace Omnium.Core.compiler.step1Parsing.antlr
 {
     public class ParserValidation : TypescriptParserBaseListener
     {

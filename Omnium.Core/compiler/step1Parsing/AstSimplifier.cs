@@ -10,10 +10,16 @@ using Omnium.Core.ast.statements;
 using Omnium.Core.ast.types;
 using Omnium.Core.extensions;
 
-namespace Omnium.Core.compiler.parsing
+namespace Omnium.Core.compiler.step1Parsing
 {
     public class AstSimplifier : TypescriptParserBaseVisitor<IEnumerable<INode>>
     {
+        public static Root Simplify(TypescriptParser.SourceFilesContext rootContext)
+        {
+            var simplifier = new AstSimplifier();
+            return simplifier.Visit(rootContext).OfType<Root>().SingleOrDefault();
+        }
+
         protected override IEnumerable<INode> DefaultResult => Enumerable.Empty<INode>();
 
         protected override IEnumerable<INode> AggregateResult(IEnumerable<INode> first, IEnumerable<INode> second)

@@ -8,9 +8,10 @@ using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
 using Omnium.Core.ast.expressions.literals;
 using Omnium.Core.ast.types;
+using Omnium.Core.compiler.utilities;
 using Omnium.Core.extensions;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step5CodeGeneration
 {
     public class StringProcessor : TreeVoidWalker
     {

@@ -4,8 +4,9 @@ using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.expressions;
 using Omnium.Core.ast.expressions.literals;
 using Omnium.Core.ast.statements;
+using Omnium.Core.compiler.utilities;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step3FeatureSimplification
 {
     public class GlobalVariableInitializer : TreeVoidWalker
     {

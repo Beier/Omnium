@@ -6,7 +6,7 @@ using Omnium.Core.ast.declarations;
 using Omnium.Core.ast.types;
 using Omnium.Core.extensions;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step2TypeAssignment
 {
     public class TypeLinker : TreeVoidWalker
     {

@@ -6,7 +6,7 @@ using Omnium.Core.ast.statements;
 using Omnium.Core.ast.types;
 using Omnium.Core.extensions;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step1Parsing
 {
     public class AstValidator : TreeVoidWalker
     {

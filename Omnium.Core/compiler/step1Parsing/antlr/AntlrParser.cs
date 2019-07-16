@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Antlr4.Runtime;
-using Omnium.Core.ast.declarations;
 
-namespace Omnium.Core.compiler.parsing
+namespace Omnium.Core.compiler.step1Parsing.antlr
 {
-    public interface IParser
+    public class AntlrParser
     {
-        Root LoadFileAndImports(string[] originalFilenames);
-    }
-
-    public class Parser : IParser
-    {
-        public Root LoadFileAndImports(string[] originalFilenames)
+        public static TypescriptParser.SourceFilesContext ParseAntlrAst(string[] originalFilenames)
         {
             var queue = new Queue<string>();
             foreach (var originalFilename in originalFilenames)
@@ -51,7 +45,7 @@ namespace Omnium.Core.compiler.parsing
             }
             if (errors.Any())
             {
-                throw new Exception("Compilation failed.");
+                return null;
             }
 
             var sourceFiles = new TypescriptParser.SourceFilesContext(null, 0);
@@ -68,12 +62,11 @@ namespace Omnium.Core.compiler.parsing
                 sourceFile.Parent = sourceFiles;
                 sourceFiles.AddChild(sourceFile);
             }
-            
-            var simplifier = new AstSimplifier();
-            return (Root) simplifier.Visit(sourceFiles).Single();
+
+            return sourceFiles;
         }
 
-        private TypescriptParser.SourceFileContext LoadFile(string filename, ref List<string> errors)
+        private static TypescriptParser.SourceFileContext LoadFile(string filename, ref List<string> errors)
         {
             if (!File.Exists(filename))
             {

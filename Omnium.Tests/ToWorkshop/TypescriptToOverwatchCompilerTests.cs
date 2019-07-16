@@ -2,7 +2,8 @@
 using System.IO;
 using NUnit.Framework;
 using Omnium.Core.compiler;
-using Omnium.Core.compiler.parsing;
+using Omnium.Core.compiler.step1Parsing;
+using Omnium.Core.compiler.step1Parsing.antlr;
 
 namespace Omnium.Tests.ToWorkshop
 {
@@ -22,7 +23,7 @@ namespace Omnium.Tests.ToWorkshop
         [TestCase("Reevaluation")]
         public void RunTest(string testName)
         {
-            var compiler = new TypescriptToOverwatchCompiler(new Parser());
+            var compiler = new TypescriptToOverwatchCompiler();
 
             var exeLocation = AppDomain.CurrentDomain.BaseDirectory;
             var code = compiler.Compile($"{exeLocation}/ToWorkshop/Data/{testName}/Input.ts");

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Omnium.Core.ast.declarations;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step1Parsing
 {
     public class ImportLinker : TreeVoidWalker
     {

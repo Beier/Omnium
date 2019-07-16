@@ -15,6 +15,7 @@ namespace Omnium.Core.compiler
         public readonly List<CompilationError> Errors = new List<CompilationError>();
         public readonly List<CompilationError> Warnings = new List<CompilationError>();
 
+        
         public virtual void Visit(INode node)
         {
             if (node == null)

@@ -1,24 +1,14 @@
-﻿using System;
-using System.Linq;
-using Omnium.Core.compiler.parsing;
+﻿using Omnium.Core.ast.declarations;
+using Omnium.Core.compiler.step1Parsing;
+using Omnium.Core.compiler.step2TypeAssignment;
+using Omnium.Core.compiler.step3FeatureSimplification;
+using Omnium.Core.compiler.step4CodeOptimization;
+using Omnium.Core.compiler.step5CodeGeneration;
 
 namespace Omnium.Core.compiler
 {
     public class TypescriptToOverwatchCompiler
     {
-        private readonly IParser parser;
-
-
-        public TypescriptToOverwatchCompiler()
-        {
-            parser = new Parser();
-        }
-
-        public TypescriptToOverwatchCompiler(IParser parser)
-        {
-            this.parser = parser;
-        }
-
         public string Compile(string filename)
         {
             return Compile(new[] {filename});
@@ -26,63 +16,24 @@ namespace Omnium.Core.compiler
 
         public string Compile(string[] filenames)
         {
-            var root = parser.LoadFileAndImports(filenames);
-            
-            var astTraversalSteps = new TreeVoidWalker[]
-            {
-                new ImportLinker(),
-                new VariableAssigner(),
-                new AstValidator(),
-                new TypeLinker(),
-                new NativeLoader(), 
-                new ExpressionTypeAssignerAndMethodLinker(),
-                new ReplacePlayerVars(),
-                new AssignmentSimplifier(), 
-                new ClassDeleter(), 
-                new GlobalVariableInitializer(), 
-                new MethodFlattener(),
-                new LoopUnroller(),
-                new IfDeleter(), 
-                new VariableRemoverAndCodeOptimizer(),
-                new StringProcessor()
-            };
+            var ast = Run<Parsing, string[], Root>(filenames);
+            Run<TypeAssignment>(ref ast);
+            Run<FeatureSimplification>(ref ast);
+            Run<CodeOptimization>(ref ast);
+            var overwatchCode = Run<CodeGeneration, Root, string>(ast);
 
-            foreach (var step in astTraversalSteps)
-            {
-                try
-                {
-                    step.Visit(root);
-                }
-                catch (CompilationError e)
-                {
-                    step.Errors.Add(e);
-                }
-                foreach (var error in step.Errors)
-                {
-                    Console.WriteLine("ERROR " + error.Message);
-                }
-                foreach (var warning in step.Warnings)
-                {
-                    Console.WriteLine("WARNING " + warning.Message);
-                }
-                if (step.Errors.Any())
-                {
-                    return null;
-                }
-            }
+            return overwatchCode;
+        }
 
-            /*
-             *  Todo:
-             *  - Reevaluate: Do not merge with assignments after
-             *  - Refactor: Split into folders
-             *  - Optional types
-             *      - Generics. Eg. list.sortedBy<number>(x => x)
-             *
-             */
+        private void Run<TStep>(ref Root ast) where TStep : CompilationStep<Root, Root>, new()
+        {
+            ast = Run<TStep, Root, Root>(ast);
+        }
 
-
-            var result = new CodeGenerator().Visit(root).ToString();
-            return result;
+        private TOut Run<TStep, TIn, TOut>(TIn input) where TStep : CompilationStep<TIn, TOut>, new()
+        {
+            var step = new TStep();
+            return step.Run(input);
         }
     }
 }

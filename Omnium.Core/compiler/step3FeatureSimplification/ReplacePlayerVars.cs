@@ -1,6 +1,6 @@
 ﻿using Omnium.Core.ast.expressions;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step3FeatureSimplification
 {
     public class ReplacePlayerVars : TreeVoidWalker
     {

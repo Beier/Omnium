@@ -1,6 +1,6 @@
 ﻿using Omnium.Core.ast.statements;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step1Parsing
 {
     public class VariableAssigner : TreeVoidWalker
     {

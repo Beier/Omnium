@@ -2,7 +2,7 @@
 using System.IO;
 using Antlr4.Runtime;
 
-namespace Omnium.Core.compiler.parsing
+namespace Omnium.Core.compiler.step1Parsing.antlr
 {
     public class ErrorListener : BaseErrorListener
     {

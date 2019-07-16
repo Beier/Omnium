@@ -8,7 +8,7 @@ using Omnium.Core.ast.expressions.literals;
 using Omnium.Core.ast.statements;
 using Omnium.Core.ast.types;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.utilities
 {
     public class AstCloner : TreeValueWalker<INode>
     {

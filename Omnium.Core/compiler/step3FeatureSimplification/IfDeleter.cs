@@ -2,7 +2,7 @@
 using Omnium.Core.ast.expressions;
 using Omnium.Core.ast.statements;
 
-namespace Omnium.Core.compiler
+namespace Omnium.Core.compiler.step3FeatureSimplification
 {
     public class IfDeleter : TreeVoidWalker
     {
